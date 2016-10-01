@@ -1,4 +1,4 @@
-# [Nombre del juego]
+# [Nombre del juego - Aun por definir]
 
 ## Sobre las personas
 
@@ -9,10 +9,11 @@
 
 ### Integrantes del equipo
 
-* XXXX
-* XXXX
-* XXXX
-* XXXX
+* Braian Fritz
+* Daniel Boullon
+* Alex Serrano
+* Facundo
+* Mery
 
 ## Sobre la tecnología
 
