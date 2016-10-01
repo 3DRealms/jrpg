@@ -12,8 +12,8 @@
 * Braian Fritz
 * Daniel Boullon
 * Alex Serrano
-* Facundo
-* Mery
+* Facundo Villafañe
+* Maria Gonzalez Portillo
 
 ## Sobre la tecnología
 
