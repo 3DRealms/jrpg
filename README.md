@@ -12,7 +12,7 @@
 * Braian Fritz
 * Daniel Boullon
 * Alex Serrano
-* Facundo Villafañe
+* Facundo Villafañe ([Facu54](http://github.com/Facu54))
 * Maria Gonzalez Portillo
 
 ## Sobre la tecnología
