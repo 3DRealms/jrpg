@@ -1,4 +1,4 @@
-# [Nombre del juego - Aun por definir]
+# Forever Wrath
 
 ## Sobre las personas
 
@@ -9,7 +9,7 @@
 
 ### Integrantes del equipo
 
-* Braian Fritz
+* Braian Fritz ([mamifero](http://github.com/mamifero))
 * Daniel Boullon
 * Alex Serrano
 * Facundo Villafañe ([Facu54](http://github.com/Facu54))
@@ -26,3 +26,11 @@
 
 Este workspace está compuesto por un conjunto de proyectos específicos. Las entregas deberán realizarse dentro del proyecto correspondiente, o si fuera necesario, dentro de un proyecto adicional que podrán crear para tal fin.  
 Aquellas entregas que tengan formato diferente a código fuente se realizarán en el directorio creado para tal fin, llamado `documentacion`.
+
+### Historia
+
+Ya no se cuanto tiempo que llevo aqui. Ya no estoy seguro si aun estoy vivo o si aun estoy muerto. Ya no distingo entre el bien y el mal. Ya no recuerdo porque estoy aqui. 
+Apenas recuerdo quien soy...
+Hoy Fion me dijo que el supervisor quiere verme, algo acerca de mi pasado y mi futuro, en verdad ya no distingo entre ninguno de ellos, el tiempo en este calabozo parece que se detuvo. Antes ansiaba con poder salir al mundo exterior, pero esas esperanzas junto con las otras murieron gradualmente, con el correr del tiempo.
+Parece que alguien de mi pasado sigue alli fuera y quieren que me encargue de el, preparandose para un gran golpe al reino. No me interesa que reduscan mi condena, no me interesa el reino. No tenia motivo para seguir viviendo hasta hoy. Solo puedo pensar en un sola cosa ahora.
+Venganza
