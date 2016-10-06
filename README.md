@@ -13,7 +13,7 @@
 * Daniel Boullon
 * Alex Serrano
 * Facundo Villafañe ([Facu54](http://github.com/Facu54))
-* Maria Gonzalez Portillo
+* Maria Gonzalez Portillo ([merigonzalez23(http://github.com/merigonzalez23))
 
 ## Sobre la tecnología
 
