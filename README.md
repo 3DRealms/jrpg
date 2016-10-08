@@ -10,8 +10,8 @@
 ### Integrantes del equipo
 
 * Braian Fritz ([mamifero](http://github.com/mamifero))
-* Daniel Boullon
-* Alex Serrano
+* Daniel Boullon ([El Dr.Coffee](http://github.com/DrCoffee84))
+* Alex Serrano  ([locodeltacho](http://github.com/locodeltacho))
 * Facundo Villafañe ([Facu54](http://github.com/Facu54))
 * Maria Gonzalez Portillo ([merigonzalez23](http://github.com/merigonzalez23))
 
