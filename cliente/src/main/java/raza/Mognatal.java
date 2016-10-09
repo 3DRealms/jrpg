@@ -6,7 +6,6 @@ public class Mognatal extends Personaje {
 
 	public Mognatal() {
 		this.saludBase = 120;
-		this.vitalidad = 0;
 		this.energia = 100;
 		this.saludActual = calcularSaludActual();
 	}
@@ -34,6 +33,7 @@ public class Mognatal extends Personaje {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
 
 
 	

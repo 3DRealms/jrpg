@@ -8,30 +8,43 @@ import interfaces.Ubicable;
 
 public abstract class Personaje implements Atacable {
 
-
-	protected int idPersonaje;
-	protected int ataque;
+	
+	//Atributos Basicos: Para todas las razas iguales (por ahora) pero la forma de caluclar cambia segun la casta, de la casta.
 	protected Casta casta;
-	protected int destreza;
-	protected int energia;
+	protected int ataque = 15;  
+	protected int energia = 100; 
 	protected int defensa;
-	protected int experiencia;
-	protected int fuerza;  
-	protected int intelecto;
-	protected int nivel;
+	protected final int ENERGIAAUTOATAQUE = 1; //enegia que gasta por autoAtaque.
 
+	//Estados, inicialmente todo personaje nuevo tiene 0  y se van escalando a "gusto".
+	protected int fuerza = 0;  
+	protected int intelecto = 0;
+	protected int destreza = 0;
+	protected int vitalidad = 0;
+
+	//progreso
+	protected int nivel = 1;
+	protected int experiencia = 0;
+
+	//Salud: Estos dependeran de la raza, tendra su salud base diferente.
 	protected String nombre;
-	protected int saludBase;
-	protected int saludActual;
-	protected int vitalidad;
+	protected int saludBase = 120; //esto es para hacer pruebas.
+ 	protected int saludActual;
 
 
-
+ 	/** 
+ 	 * 
+ 	 * @param atacado
+ 	 * por el momento el atacar es generico para todos. 
+ 	 * cada metodo es igual en cada Raza, (esto para hacer pruebas). 
+ 	 * en el futuro hay que ir cambiando cada metodo de cada raza para darle sabor.
+ 	 * The lore of destiny v0.18
+ 	 */
 	public final void atacar(Atacable atacado) {
 		if (puedeAtacar()) {
 			int puntosDeAtaque = calcularPuntosDeAtaque();
 			atacado.serAtacado(puntosDeAtaque);
-			energia -= puntosDeAtaque;
+			energia -= ENERGIAAUTOATAQUE; //1
 			despuesDeAtacar();
 		}
 	}
@@ -46,6 +59,7 @@ public abstract class Personaje implements Atacable {
 	public void serAtacado(int danio) {
 		this.saludActual -= danio;
 	}
+	
 	public void serCurado() {
 		this.saludActual = 100;
 	}
@@ -60,7 +74,7 @@ public abstract class Personaje implements Atacable {
 
 	}
 	public boolean estaMuerto() {
-		return saludBase <= 0;
+		return saludActual <= 0;
 	}
 
 	public int getSaludActual(){
@@ -74,9 +88,7 @@ public abstract class Personaje implements Atacable {
 		this.intelecto += intelecto;
 	}
 	public int calcularSaludActual(){
-		return saludBase+(vitalidad*4); 
-		//algoritmo trucho para ir escalando la salud.
-		// cada 5 puntos da 20 de vida.
+		return saludBase+(vitalidad*4); // cada 5 puntos da 20 de vida.
 	}
 	public int getEnergia() {
 		return this.energia;
@@ -87,8 +99,8 @@ public abstract class Personaje implements Atacable {
 			this.energia = 0;
 		}
 		this.energia = aux;
-			
 	}
+	
 	public int getIntelecto() {
 		return intelecto;
 	}

@@ -5,7 +5,12 @@ import personaje.Personaje;
 public class Orco extends Personaje {
 
 	int cantidadDeAtaques;
+	public Orco() {
+		this.saludBase = 120;
+		this.energia = 100;
+		this.saludActual = calcularSaludActual();
 
+	}
 	@Override
 	protected void despuesDeAtacar() {
 		cantidadDeAtaques++;
@@ -13,23 +18,24 @@ public class Orco extends Personaje {
 
 	@Override
 	protected int calcularPuntosDeAtaque() {
-		return 10 + cantidadDeAtaques;
+		return ataque;
 	}
 
 	@Override
 	protected boolean puedeAtacar() {
-		return energia >= calcularPuntosDeAtaque();
+		return true;
+		// esto is rancio		return energia >= calcularPuntosDeAtaque();
+
 	}
 
 	@Override
 	public int obtenerPuntosDeAtaque() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int obtenerPuntosDeDefensa() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
+	
 }

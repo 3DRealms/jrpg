@@ -10,11 +10,12 @@ public class BatallonHumano extends Batallon {
 	public BatallonHumano(int cant) {
 		super(cant);
 		batallon =  new LinkedList<Personaje>();
-
 		for (int i = 0; i < cant; i++) {	
 			batallon.add(new Humano());
 		}
 	}
+	
+	
 	// Asi ataca los humanos, uno a la vez.
 	public void atacar(Batallon victimas){
 		int i = 0; //contador magic

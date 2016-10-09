@@ -4,6 +4,11 @@ import personaje.Personaje;
 
 public class Humano extends Personaje {
 
+	public Humano() {
+		this.energia = 100;
+		this.saludActual = calcularSaludActual();
+	}
+	
 	@Override
 	protected int calcularPuntosDeAtaque() {
 		return ataque;
@@ -11,7 +16,7 @@ public class Humano extends Personaje {
 
 	@Override
 	protected boolean puedeAtacar() {
-		return energia >= 10;
+		return true;
 	}
 
 	@Override

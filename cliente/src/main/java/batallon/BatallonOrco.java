@@ -14,6 +14,7 @@ public class BatallonOrco extends Batallon {
 		for (int i = 0; i < cant; i++) {
 			batallon.add( new Orco() );
 		}	
+
 	}
 
 	public void atacar(Batallon victimas){

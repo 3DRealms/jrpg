@@ -27,6 +27,8 @@ public class HechizosTests {
 		Assert.assertEquals(120, gimli.getSaludActual());
 		// Piro Explosion quita 20 puntos de vida. 
 		gandalf.getCasta().lanzarHabilidad("piroExplosion", gimli); 
+		Assert.assertEquals(100, gimli.getSaludActual());
+
 	}
 	@Test
 	public void queUnaHabilidadEscaleConIntelecto() {
