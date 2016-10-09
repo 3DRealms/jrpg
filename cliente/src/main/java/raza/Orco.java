@@ -5,7 +5,8 @@ import personaje.Personaje;
 public class Orco extends Personaje {
 
 	int cantidadDeAtaques;
-	public Orco() {
+	public Orco(String nombre) {
+		super(nombre);
 		this.saludBase = 120;
 		this.energia = 100;
 		this.saludActual = calcularSaludActual();

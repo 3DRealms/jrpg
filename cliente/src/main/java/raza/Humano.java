@@ -4,7 +4,8 @@ import personaje.Personaje;
 
 public class Humano extends Personaje {
 
-	public Humano() {
+	public Humano(String nombre) {
+		super(nombre);
 		this.energia = 100;
 		this.saludActual = calcularSaludActual();
 	}

@@ -10,8 +10,8 @@ import raza.Mognatal;
 public class HechizosTests {
 
 	@Test
-	public void quePuedoAgregarHechizos() {
-		Mognatal gandalf = new Mognatal();
+	public void quePuedoAgregarHabilidad() {
+		Mognatal gandalf = new Mognatal("gandalf");
 		gandalf.setCastaMago();
 		Assert.assertEquals(0, gandalf.getCasta().getCantidadDeHabilidades());
 		gandalf.getCasta().agregarHabilidad("piroExplosion", new PiroExplosion());
@@ -19,23 +19,24 @@ public class HechizosTests {
 	}
 
 	@Test
-	public void queUnPersonajePuedeHechizarPorNombre() {
-		Mognatal gandalf = new Mognatal();
+	public void queUnPersonajePuedeLanzarHabilidadPorNombre() {
+		Mognatal gandalf = new Mognatal("gandalf");
 		gandalf.setCastaMago();
 		gandalf.getCasta().agregarHabilidad("piroExplosion", new PiroExplosion());
-		Personaje gimli = new Mognatal();
+		Personaje gimli = new Mognatal("gimli");
 		Assert.assertEquals(120, gimli.getSaludActual());
-		// Piro Explosion quita 20 puntos de vida. 
+		
 		gandalf.getCasta().lanzarHabilidad("piroExplosion", gimli); 
+		// Piro Explosion quita 20 puntos de vida. 
 		Assert.assertEquals(100, gimli.getSaludActual());
 
 	}
 	@Test
 	public void queUnaHabilidadEscaleConIntelecto() {
-		Mognatal gandalf = new Mognatal();
+		Mognatal gandalf = new Mognatal("gandalf");
 		gandalf.setCastaMago();
 		gandalf.getCasta().agregarHabilidad("piroExplosion", new PiroExplosion());
-		Personaje gimli = new Mognatal();
+		Personaje gimli = new Mognatal("gimli");
 		Assert.assertEquals(120, gimli.getSaludActual());
 		
 		gandalf.getCasta().lanzarHabilidad("piroExplosion", gimli); 	
@@ -45,15 +46,15 @@ public class HechizosTests {
 		gandalf.subirIntelecto(5);
 		gandalf.getCasta().lanzarHabilidad("piroExplosion", gimli); 
 		
-		// Piro Explosion quita 40 puntos de vida, al tener mas intelecto, pega 20 pntos mas.
+		// Piro Explosion quita 40 puntos de vida, al tener mas intelecto, pega 20 pntos mas (aguante la PiroExplosion).
 		Assert.assertEquals(60, gimli.getSaludActual());
 	}
 	@Test
 	public void quePorFaltaDeEnergiaNoPuedaLanzarUnaHabilidad() {
-		Mognatal gandalf = new Mognatal();
+		Mognatal gandalf = new Mognatal("gandalf");
 		gandalf.setCastaMago();
 		gandalf.getCasta().agregarHabilidad("piroExplosion", new PiroExplosion());
-		Personaje gimli = new Mognatal();
+		Personaje gimli = new Mognatal("gimli");
 		Assert.assertEquals(120, gimli.getSaludActual());
 		gandalf.getCasta().lanzarHabilidad("piroExplosion", gimli); 
 		

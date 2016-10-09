@@ -16,7 +16,7 @@ public class BatallonTest {
 
 		//System.out.println("¡Empieza la batalla!");
 		while( !fin || i <= 100 ){ 	//Hasta que alguno gane o se lleguen a los 100 turnos. 
-									//(considerando que cualquier ataque gaste energia y todo el equipo de bot se qude sin energia).
+									//(considerando que cualquier ataque gaste energia, puede pasar que todo el equipo de bot se qude sin energia).
 			
 			//	System.out.println("Round "+i+".");
 			b1.atacar(b2);
@@ -83,5 +83,6 @@ public class BatallonTest {
 		Batallon b_Orco = new BatallonOrco(15);
 		Assert.assertEquals("orcos", partidaEntreNPCs(b_Humano, b_Orco));
 	}
+
 	
 }

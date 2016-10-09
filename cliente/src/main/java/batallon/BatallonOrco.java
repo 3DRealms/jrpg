@@ -12,7 +12,7 @@ public class BatallonOrco extends Batallon {
 		batallon =  new LinkedList<Personaje>();
 
 		for (int i = 0; i < cant; i++) {
-			batallon.add( new Orco() );
+			batallon.add( new Orco("generic "+i) );
 		}	
 
 	}

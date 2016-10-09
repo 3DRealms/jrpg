@@ -25,23 +25,23 @@ public class ItemTests {
     @Test
     public void quePuedoAgregarItemDeAtaque() {
  
-        Personaje sigmund = new Humano();
-        Assert.assertEquals(1, sigmund.obtenerPuntosDeAtaque());
+        Personaje sigmund = new Humano("Sigmund");
+        Assert.assertEquals(15, sigmund.obtenerPuntosDeAtaque());
  
         // agrego item de ataque
         sigmund = new ConEspadaSkofnung(sigmund);
-        Assert.assertEquals(5 + 1, sigmund.obtenerPuntosDeAtaque());
+        Assert.assertEquals(5 + 15, sigmund.obtenerPuntosDeAtaque());
     }
  
     @Test
     public void quePuedoAgregarAmbosItems() {
  
-        Personaje sigmund = new Humano();
-        Assert.assertEquals(1, sigmund.obtenerPuntosDeAtaque());
+        Personaje sigmund = new Humano("Sigmund");
+        Assert.assertEquals(15, sigmund.obtenerPuntosDeAtaque());
  
         // agrego item de ataque
         sigmund = new ConEspadaSkofnung(sigmund);
-        Assert.assertEquals(5 + 1, sigmund.obtenerPuntosDeAtaque());
+        Assert.assertEquals(5 + 15, sigmund.obtenerPuntosDeAtaque());
  
         Assert.assertEquals(0, sigmund.obtenerPuntosDeDefensa());
         sigmund = new ConEscudoSvalinn(sigmund);
@@ -49,20 +49,20 @@ public class ItemTests {
         Assert.assertEquals(10 + 0, sigmund.obtenerPuntosDeDefensa());
         // y no pierdo ataque
         System.out.println(sigmund.obtenerPuntosDeAtaque());
-        Assert.assertEquals(5 + 1, sigmund.obtenerPuntosDeAtaque());
+        Assert.assertEquals(5 + 15, sigmund.obtenerPuntosDeAtaque());
     }
 
     @Test
     public void quePuedoAgregarDosTiposDeItem() {
-        Personaje sigmund = new Humano();
-        Assert.assertEquals(1, sigmund.obtenerPuntosDeAtaque());
+        Personaje sigmund = new Humano("Sigmund");
+        Assert.assertEquals(15, sigmund.obtenerPuntosDeAtaque());
  
         // agrego item de ataque
         sigmund = new ConEspadaSkofnung(sigmund);
-        Assert.assertEquals(5 + 1, sigmund.obtenerPuntosDeAtaque());
+        Assert.assertEquals(5 + 15, sigmund.obtenerPuntosDeAtaque());
  
         // agrego anillo multiplicador (x2)
         sigmund = new ConAnilloDraupnir(sigmund);
-        Assert.assertEquals((5 + 1) * 2, sigmund.obtenerPuntosDeAtaque());
+        Assert.assertEquals((5 + 15) * 2, sigmund.obtenerPuntosDeAtaque());
     }
 }

@@ -11,7 +11,7 @@ public class BatallonHumano extends Batallon {
 		super(cant);
 		batallon =  new LinkedList<Personaje>();
 		for (int i = 0; i < cant; i++) {	
-			batallon.add(new Humano());
+			batallon.add(new Humano("genric "+i));
 		}
 	}
 	

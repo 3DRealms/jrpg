@@ -5,7 +5,7 @@ public abstract class PersonajeEquipado extends Personaje {
 	private Personaje pj;
 
 	public PersonajeEquipado(Personaje personaje) {
-		super();
+		super(personaje.nombre);
 		this.pj = personaje;
 	}
 

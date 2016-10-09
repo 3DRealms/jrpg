@@ -4,6 +4,10 @@ import personaje.Personaje;
 
 public class Gordo extends Personaje {
 	
+	public Gordo(String nombre) {
+		super(nombre);
+	}
+
 	int ataquesRecibidos;
 	
 	@Override

@@ -13,7 +13,7 @@ public abstract class Personaje implements Atacable {
 	protected Casta casta;
 	protected int ataque = 15;  
 	protected int energia = 100; 
-	protected int defensa;
+	protected int defensa = 0;
 	protected final int ENERGIAAUTOATAQUE = 1; //enegia que gasta por autoAtaque.
 
 	//Estados, inicialmente todo personaje nuevo tiene 0  y se van escalando a "gusto".
@@ -48,7 +48,9 @@ public abstract class Personaje implements Atacable {
 			despuesDeAtacar();
 		}
 	}
-
+	public Personaje(String nombre) {
+		this.nombre = nombre;
+	}
 	protected void despuesDeAtacar() { }
 
 	protected abstract boolean puedeAtacar();
@@ -109,6 +111,10 @@ public abstract class Personaje implements Atacable {
 	}
 	public Casta getCasta(){
 		return casta;
+	}
+	@Override
+	public String toString() {
+		return nombre;
 	}
 }
 
