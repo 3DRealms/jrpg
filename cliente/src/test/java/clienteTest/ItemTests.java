@@ -64,5 +64,33 @@ public class ItemTests {
         // agrego anillo multiplicador (x2)
         sigmund = new ConAnilloDraupnir(sigmund);
         Assert.assertEquals((5 + 15) * 2, sigmund.obtenerPuntosDeAtaque());
+      
     }
+    
+    
+	@Test
+    public void quePuedoAgregarDosTiposDeItemYAtacar() {
+    	Personaje sigmund = new Humano("Sigmund");
+    	Assert.assertEquals(15, sigmund.obtenerPuntosDeAtaque());
+    	// Agrego item de ataque (+15)
+    	sigmund = new ConEspadaSkofnung(sigmund);
+    	Assert.assertEquals(5 + 15, sigmund.obtenerPuntosDeAtaque());
+    	
+    	// Agrego anillo multiplicador (x2)
+    	sigmund = new ConAnilloDraupnir(sigmund);
+    	Assert.assertEquals((5 + 15) * 2, sigmund.obtenerPuntosDeAtaque());
+    	
+    	//Creo Personaje
+    	Personaje generic = new Humano("bot");
+    	Assert.assertEquals( 120, generic.getSaludActual() );
+    	sigmund.atacar(generic);
+    	Assert.assertEquals(80, generic.getSaludActual());
+    	// Agrego anillo multiplicador (x2)
+    	sigmund = new ConAnilloDraupnir(sigmund);
+    	Assert.assertEquals(((5 + 15) * 2)*2, sigmund.obtenerPuntosDeAtaque());
+    	sigmund.atacar(generic);
+    	//Si tenia 80 de vida, y ahora tengo 80 de daño, pues lo mato :V.
+    	Assert.assertTrue(sigmund.estaMuerto());
+    }
+	
 }

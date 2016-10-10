@@ -31,7 +31,7 @@ public class HechizosTests {
 		Assert.assertEquals(100, gimli.getSaludActual());
 	}
 	
-	/*
+	
 	@Test
 	public void queUnaHabilidadEscaleConIntelecto() {
 		Mognatal gandalf = new Mognatal("gandalf");
@@ -50,6 +50,7 @@ public class HechizosTests {
 		// Piro Explosion quita 40 puntos de vida, al tener mas intelecto, pega 20 pntos mas (aguante la PiroExplosion).
 		Assert.assertEquals(60, gimli.getSaludActual());
 	}
+	/*
 	@Test
 	public void quePorFaltaDeEnergiaNoPuedaLanzarUnaHabilidad() {
 		

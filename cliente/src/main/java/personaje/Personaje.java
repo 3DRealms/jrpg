@@ -29,46 +29,24 @@ public abstract class Personaje implements Atacable {
 	protected String nombre;
 	protected int saludBase = 120; //esto es para hacer pruebas.
  	protected int saludActual;
-
-
- 	/** 
- 	 * 
- 	 * @param atacado
- 	 * por el momento el atacar es generico para todos. 
- 	 * cada metodo es igual en cada Raza, (esto para hacer pruebas). 
- 	 * en el futuro hay que ir cambiando cada metodo de cada raza para darle sabor.
- 	 * The lore of destiny v0.18
- 	 */
-	public void atacar(Atacable atacado) {
-		if (puedeAtacar()) {
-			int puntosDeAtaque = calcularPuntosDeAtaque();
-			atacado.serAtacado(puntosDeAtaque);
-			energia -= ENERGIAAUTOATAQUE; //1
-			despuesDeAtacar();
-		}
-	}
+ 	///////////////////////////////
 	public Personaje(String nombre) {
 		this.nombre = nombre;
 	}
 	protected void despuesDeAtacar() { }
-
 	protected abstract boolean puedeAtacar();
 	protected abstract int calcularPuntosDeAtaque();
 	public abstract int obtenerPuntosDeAtaque();
 	public abstract int obtenerPuntosDeDefensa();
-
 	public Casta getCasta() {
 		return casta;
 	}
-
 	public void serAtacado(int danio) {
 		this.saludActual -= danio;
 	}
-	
 	public void serCurado() {
 		this.saludActual = 100;
 	}
-
 	public void serEnergizado() {
 		this.energia = 100;
 	}
@@ -81,7 +59,6 @@ public abstract class Personaje implements Atacable {
 	public boolean estaMuerto() {
 		return saludActual <= 0;
 	}
-
 	public int getSaludActual(){
 		return this.saludActual;
 	}
@@ -113,13 +90,28 @@ public abstract class Personaje implements Atacable {
 		casta = new Mago();
 	}
 
+ 	/** 
+ 	 * 
+ 	 * @param atacado
+ 	 * por el momento el atacar es generico para todos. 
+ 	 * cada metodo es igual en cada Raza, (esto para hacer pruebas). 
+ 	 * en el futuro hay que ir cambiando cada metodo de cada raza para darle sabor.
+ 	 * The lore of destiny v0.18
+ 	 */
+	public void atacar(Atacable atacado) {
+		if (puedeAtacar()) {
+			int puntosDeAtaque = calcularPuntosDeAtaque();
+			atacado.serAtacado(puntosDeAtaque);
+			energia -= ENERGIAAUTOATAQUE; //1
+			despuesDeAtacar();
+		}
+	}
 	public  boolean lanzarHabilidad(String conjuro, Personaje personaje){
 		Habilidad h = casta.getHabilidades().get(conjuro);
 		if( getEnergia() >= h.getCosto()){
 			consumirEnergia(h.getCosto());
 			casta.lanzarHabilidad(conjuro, personaje,intelecto);
 			//Ya se que esto esta mal, pero son las 2:11 am y no doy mas :v 
-			
 			return true;
 		}
 		return false;

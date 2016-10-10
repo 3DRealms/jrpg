@@ -27,8 +27,7 @@ public class ConAnilloDraupnir extends PersonajeEquipado {
 	public boolean puedeAtacar() {
 		return super.puedeAtacar();
 	}
-
 	
 
-
+	
 }

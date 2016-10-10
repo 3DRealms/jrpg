@@ -23,7 +23,6 @@ public abstract class PersonajeEquipado extends Personaje {
 	public boolean puedeAtacar(){
 		return pj.puedeAtacar();
 	}
-	
 	public int getEnergia() {
 		return super.getEnergia();
 	}
@@ -35,8 +34,13 @@ public abstract class PersonajeEquipado extends Personaje {
 		return pj.lanzarHabilidad(conjuro, personaje);
 	}
 
-	public void atacar(Atacable atacado){		
-		pj.atacar(atacado);
+	@Override
+	public void atacar(Atacable atacado) {
+		if (puedeAtacar()) {
+			int puntosDeAtaque = obtenerPuntosDeAtaque();
+			atacado.serAtacado(puntosDeAtaque);
+			energia -= ENERGIAAUTOATAQUE; //1
+			despuesDeAtacar();
+		}
 	}
-	
 }

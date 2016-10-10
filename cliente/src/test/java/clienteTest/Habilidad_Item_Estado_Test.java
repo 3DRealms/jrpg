@@ -27,7 +27,7 @@ public class Habilidad_Item_Estado_Test {
 		
 		gandalf.lanzarHabilidad("piroExplosion", gimli); // BOOOM.
 		System.out.println("salud: "+gimli.getSaludActual());
-		Assert.assertEquals(80, gimli.getSaludActual());
+		Assert.assertEquals(60, gimli.getSaludActual());
 		
 		//aca no tiene mas energia porque ya quede en 30 y PiroExplocion consume 35.
 		Assert.assertFalse(gandalf.lanzarHabilidad("piroExplosion", gimli)); 
