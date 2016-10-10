@@ -114,7 +114,15 @@ public abstract class Personaje implements Atacable {
 		casta = new Mago();
 	}
 
-	
+	public  boolean lanzarHabilidad(String conjuro, Personaje personaje){
+		Habilidad h = casta.getHabilidades().get(conjuro);
+		if( getEnergia() >= h.getCosto()){
+			consumirEnergia(h.getCosto());
+			casta.lanzarHabilidad(conjuro, personaje);
+			return true;
+		}
+		return false;
+	}
 	@Override
 	public String toString() {
 		return nombre;

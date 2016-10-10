@@ -26,7 +26,7 @@ public class HechizosTests {
 		Personaje gimli = new Mognatal("gimli");
 		Assert.assertEquals(120, gimli.getSaludActual());
 		
-		gandalf.getCasta().lanzarHabilidad("piroExplosion", gimli); 
+		gandalf.lanzarHabilidad("piroExplosion", gimli); 
 		// Piro Explosion quita 20 puntos de vida. 
 		Assert.assertEquals(100, gimli.getSaludActual());
 	}
@@ -36,16 +36,16 @@ public class HechizosTests {
 	public void queUnaHabilidadEscaleConIntelecto() {
 		Mognatal gandalf = new Mognatal("gandalf");
 		gandalf.setCastaMago();
-		gandalf.getCasta().agregarHabilidad("piroExplosion", new PiroExplosion());
+		gandalf.agregarHabilidad("piroExplosion", new PiroExplosion());
 		Personaje gimli = new Mognatal("gimli");
 		Assert.assertEquals(120, gimli.getSaludActual());
 		
-		gandalf.getCasta().lanzarHabilidad("piroExplosion", gimli); 	
+		gandalf.lanzarHabilidad("piroExplosion", gimli); 	
 		Assert.assertEquals(100, gimli.getSaludActual());
 	
 		//Aumento El intelecto
 		gandalf.subirIntelecto(5);
-		gandalf.getCasta().lanzarHabilidad("piroExplosion", gimli); 
+		gandalf.lanzarHabilidad("piroExplosion", gimli); 
 		
 		// Piro Explosion quita 40 puntos de vida, al tener mas intelecto, pega 20 pntos mas (aguante la PiroExplosion).
 		Assert.assertEquals(60, gimli.getSaludActual());
@@ -56,16 +56,16 @@ public class HechizosTests {
 		Personaje gandalf = new Mognatal("gandalf");
 		
 		gandalf.setCastaMago();
-		gandalf.getCasta().agregarHabilidad("piroExplosion", new PiroExplosion());
+		gandalf.agregarHabilidad("piroExplosion", new PiroExplosion());
 		
 		Personaje gimli = new Mognatal("gimli");
 		
 		Assert.assertEquals(120, gimli.getSaludActual());
-		gandalf.getCasta().lanzarHabilidad("piroExplosion", gimli); 
+		gandalf.lanzarHabilidad("piroExplosion", gimli); 
 		
 		Assert.assertEquals(100, gimli.getSaludActual());
 		gandalf.subirIntelecto(5);
-		gandalf.getCasta().lanzarHabilidad("piroExplosion", gimli); 
+		gandalf.lanzarHabilidad("piroExplosion", gimli); 
 		Assert.assertEquals(60, gimli.getSaludActual());
 		
 		//aca no tiene mas energia porque ya quede en 30 y PiroExplocion consume 35.

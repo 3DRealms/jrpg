@@ -21,7 +21,7 @@ public class Habilidad_Item_Estado_Test {
 		Personaje gimli = new Mognatal("gimli");
 		
 		Assert.assertEquals(120, gimli.getSaludActual());
-		gandalf.getCasta().lanzarHabilidad("piroExplosion", gimli); 
+		gandalf.lanzarHabilidad("piroExplosion", gimli); 
 		
 		Assert.assertEquals(100, gimli.getSaludActual());
 		
@@ -31,7 +31,7 @@ public class Habilidad_Item_Estado_Test {
 		Assert.assertEquals(60, gimli.getSaludActual());
 		
 		//aca no tiene mas energia porque ya quede en 30 y PiroExplocion consume 35.
-		Assert.assertFalse(gandalf.getCasta().lanzarHabilidad("piroExplosion", gimli)); 
+		Assert.assertFalse(gandalf.lanzarHabilidad("piroExplosion", gimli)); 
 		
 		//Auto ataque de 15 puntos.
 		gandalf.atacar(gimli);

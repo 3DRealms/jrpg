@@ -20,17 +20,9 @@ public class Mago extends Casta {
 		return this.habilidades.size();
 	}
 	@Override
-	public boolean lanzarHabilidad(String conjuro, Personaje personaje) {
-		//	Tengo que pensar alguna forma de conseguir las cosas del personaje. 
-
-		Habilidad h = this.habilidades.get(conjuro);
+	public void lanzarHabilidad(String conjuro, Personaje personaje) {
 		System.out.println("Mago lanza "+conjuro+".");
-		if( getEnergia() >= h.getCosto()){
-			consumirEnergia(h.getCosto());
-			h.afectar(personaje,getIntelecto());
-			return true;
-		}
-		return false;			
+		this.habilidades.get(conjuro).afectar(personaje);
 	}
 
 
