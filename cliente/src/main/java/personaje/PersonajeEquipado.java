@@ -1,5 +1,7 @@
 package personaje;
 
+import casta.Casta;
+
 public abstract class PersonajeEquipado extends Personaje {
 
 	private Personaje pj;
@@ -21,4 +23,12 @@ public abstract class PersonajeEquipado extends Personaje {
 	public boolean puedeAtacar(){
 		return pj.puedeAtacar();
 	}
+	
+	public int getEnergia() {
+		return super.getEnergia();
+	}
+	public int getIntelecto() {
+		return super.getIntelecto();
+	}
+	
 }

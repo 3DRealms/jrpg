@@ -1,5 +1,6 @@
 package raza;
 
+import casta.Casta;
 import personaje.Personaje;
 
 public class Gordo extends Personaje {
@@ -42,4 +43,5 @@ public class Gordo extends Personaje {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 }

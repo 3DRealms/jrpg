@@ -58,6 +58,10 @@ public abstract class Personaje implements Atacable {
 	public abstract int obtenerPuntosDeAtaque();
 	public abstract int obtenerPuntosDeDefensa();
 
+	public Casta getCasta() {
+		return casta;
+	}
+
 	public void serAtacado(int danio) {
 		this.saludActual -= danio;
 	}
@@ -107,11 +111,10 @@ public abstract class Personaje implements Atacable {
 		return intelecto;
 	}
 	public void setCastaMago() {
-		casta = new Mago(this);
+		casta = new Mago();
 	}
-	public Casta getCasta(){
-		return casta;
-	}
+
+	
 	@Override
 	public String toString() {
 		return nombre;

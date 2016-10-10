@@ -5,7 +5,7 @@ import java.util.List;
 import personaje.Personaje;
 
 public abstract class Batallon {
-	int cantidad;
+	int cantidad; //este cantidad es para hacer un for por batallon, asi yo tengo la cantidad que quiero meter de NPCs
 	List<Personaje> batallon;
 
 	public Batallon(int cant){
@@ -25,7 +25,7 @@ public abstract class Batallon {
 	}
 
 	public boolean isEmpty(){
-		return batallon.isEmpty();
+		return cantidad == 0;
 	}
 
 	public void serAtacado(Personaje personaje) {

@@ -9,14 +9,15 @@ public class ConEscudoSvalinn extends PersonajeEquipado {
 	public ConEscudoSvalinn(Personaje personaje) {
 		super(personaje);
 	}
-
+	
+	@Override
 	public int obtenerPuntosDeDefensa(){
 		return defensa + super.obtenerPuntosDeDefensa();
 	}
 
 	@Override
 	protected int calcularPuntosDeAtaque() {
-		return 0 ;
+		return super.calcularPuntosDeAtaque() ;
 	}
 
 	@Override
@@ -28,8 +29,4 @@ public class ConEscudoSvalinn extends PersonajeEquipado {
 	public boolean puedeAtacar() {
 		return super.puedeAtacar();
 	}
-
-
-
-
 }

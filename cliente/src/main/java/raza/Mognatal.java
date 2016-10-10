@@ -13,27 +13,25 @@ public class Mognatal extends Personaje {
 
 	@Override
 	protected boolean puedeAtacar() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	protected int calcularPuntosDeAtaque() {
-		// TODO Auto-generated method stub
-		return 0;
+		return ataque;
 	}
 
 	@Override
 	public int obtenerPuntosDeAtaque() {
-		// TODO Auto-generated method stub
-		return 0;
+		return calcularPuntosDeAtaque();
 	}
 
 	@Override
 	public int obtenerPuntosDeDefensa() {
-		// TODO Auto-generated method stub
-		return 0;
+		return defensa;
 	}
+
+
 	
 
 

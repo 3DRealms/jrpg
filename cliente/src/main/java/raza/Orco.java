@@ -1,5 +1,6 @@
 package raza;
 
+import casta.Casta;
 import personaje.Personaje;
 
 public class Orco extends Personaje {
@@ -38,5 +39,6 @@ public class Orco extends Personaje {
 	public int obtenerPuntosDeDefensa() {
 		return 0;
 	}
+
 	
 }

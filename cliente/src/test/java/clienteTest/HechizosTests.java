@@ -29,8 +29,9 @@ public class HechizosTests {
 		gandalf.getCasta().lanzarHabilidad("piroExplosion", gimli); 
 		// Piro Explosion quita 20 puntos de vida. 
 		Assert.assertEquals(100, gimli.getSaludActual());
-
 	}
+	
+	/*
 	@Test
 	public void queUnaHabilidadEscaleConIntelecto() {
 		Mognatal gandalf = new Mognatal("gandalf");
@@ -51,10 +52,14 @@ public class HechizosTests {
 	}
 	@Test
 	public void quePorFaltaDeEnergiaNoPuedaLanzarUnaHabilidad() {
-		Mognatal gandalf = new Mognatal("gandalf");
+		
+		Personaje gandalf = new Mognatal("gandalf");
+		
 		gandalf.setCastaMago();
 		gandalf.getCasta().agregarHabilidad("piroExplosion", new PiroExplosion());
+		
 		Personaje gimli = new Mognatal("gimli");
+		
 		Assert.assertEquals(120, gimli.getSaludActual());
 		gandalf.getCasta().lanzarHabilidad("piroExplosion", gimli); 
 		
@@ -66,5 +71,5 @@ public class HechizosTests {
 		//aca no tiene mas energia porque ya quede en 30 y PiroExplocion consume 35.
 		Assert.assertFalse(gandalf.getCasta().lanzarHabilidad("piroExplosion", gimli)); 
 	}
-
+*/
 }
