@@ -13,7 +13,7 @@ public class Mognatal extends Personaje {
 
 	@Override
 	protected boolean puedeAtacar() {
-		return false;
+		return true;
 	}
 
 	@Override
@@ -30,6 +30,8 @@ public class Mognatal extends Personaje {
 	public int obtenerPuntosDeDefensa() {
 		return defensa;
 	}
+
+
 
 
 	

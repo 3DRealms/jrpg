@@ -4,7 +4,6 @@ import casta.Casta;
 import casta.Mago;
 import habilidades.Habilidad;
 import interfaces.Atacable;
-import interfaces.Ubicable;
 
 public abstract class Personaje implements Atacable {
 
@@ -40,7 +39,7 @@ public abstract class Personaje implements Atacable {
  	 * en el futuro hay que ir cambiando cada metodo de cada raza para darle sabor.
  	 * The lore of destiny v0.18
  	 */
-	public final void atacar(Atacable atacado) {
+	public void atacar(Atacable atacado) {
 		if (puedeAtacar()) {
 			int puntosDeAtaque = calcularPuntosDeAtaque();
 			atacado.serAtacado(puntosDeAtaque);
@@ -118,11 +117,18 @@ public abstract class Personaje implements Atacable {
 		Habilidad h = casta.getHabilidades().get(conjuro);
 		if( getEnergia() >= h.getCosto()){
 			consumirEnergia(h.getCosto());
-			casta.lanzarHabilidad(conjuro, personaje);
+			casta.lanzarHabilidad(conjuro, personaje,intelecto);
+			//Ya se que esto esta mal, pero son las 2:11 am y no doy mas :v 
+			
 			return true;
 		}
 		return false;
 	}
+	
+	public void agregarHabilidad(String conjuro, Habilidad habilidad) {
+		casta.agregarHabilidad(conjuro, habilidad);
+	}
+	
 	@Override
 	public String toString() {
 		return nombre;

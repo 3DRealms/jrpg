@@ -6,8 +6,9 @@ public abstract class Habilidad {
 	protected int costo;
 	protected int ataqueBasico;
 	protected int ataqueFinal;
-	//A cada habilidad que tiro le envio el estado la cual escala habilidad y dentro de afectar.
-	public abstract void afectar(Personaje personaje);
+	// Para que la habilidad afecte de otra manera, ahora le envio el estado, para que escale (dependiendo la habilidad).
+	// solo un estado modifica la habilidad. 
+	public abstract void afectar(Personaje personaje, int estado);
 	public int getCosto() {
 		return costo;
 	}

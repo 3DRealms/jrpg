@@ -13,5 +13,5 @@ public abstract class Casta  {
 	}
 	public abstract void agregarHabilidad(String conjuro,  Habilidad habilidad);
 	public abstract int getCantidadDeHabilidades();
-	public abstract void lanzarHabilidad(String conjuro, Personaje personaje);
+	public abstract void lanzarHabilidad(String conjuro, Personaje personaje,int estado);
 }

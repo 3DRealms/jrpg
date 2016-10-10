@@ -20,9 +20,9 @@ public class Mago extends Casta {
 		return this.habilidades.size();
 	}
 	@Override
-	public void lanzarHabilidad(String conjuro, Personaje personaje) {
+	public void lanzarHabilidad(String conjuro, Personaje personaje,int estado) {
 		System.out.println("Mago lanza "+conjuro+".");
-		this.habilidades.get(conjuro).afectar(personaje);
+		this.habilidades.get(conjuro).afectar(personaje,estado);
 	}
 
 

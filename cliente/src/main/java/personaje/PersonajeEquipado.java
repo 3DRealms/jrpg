@@ -1,6 +1,6 @@
 package personaje;
 
-import casta.Casta;
+import interfaces.Atacable;
 
 public abstract class PersonajeEquipado extends Personaje {
 
@@ -29,6 +29,14 @@ public abstract class PersonajeEquipado extends Personaje {
 	}
 	public int getIntelecto() {
 		return super.getIntelecto();
+	}
+	@Override
+	public  boolean lanzarHabilidad(String conjuro, Personaje personaje){
+		return pj.lanzarHabilidad(conjuro, personaje);
+	}
+
+	public void atacar(Atacable atacado){		
+		pj.atacar(atacado);
 	}
 	
 }
