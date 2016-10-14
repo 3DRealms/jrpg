@@ -59,7 +59,7 @@ Como jugador, quiero aliarme con otro jugador para combatir junto a él y aument
 * Debo poder elegir aliarme con un jugador cuando este cerca del mismo
 * No debo poder dejar la alianza con otro jugador hasta que pase un determinado tiempo
 * Debo poder combatir junto a otro jugador contra enemigos u otros jugadores
-* Al ganar una batalla debo poder recibir experiencia al igual que el otro jugador
+* Al ganar una batalla debo poder recibir más experiencia que al combatir solo, al igual que el otro jugador
 * Al ganar una batalla debo poder recolectar ítems al igual que el otro jugador
 
 ##Obtener items al derrotar jugadores
