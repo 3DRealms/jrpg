@@ -25,10 +25,10 @@ Como jugador, quiero acumular experiencia para poder subir de nivel
 * Debo poder subir de nivel si tuviese la experiencia necesaria para hacerlo
 * Debo poder acumular la experiencia, sin importar en que nivel esté
 
-##Obtener puntos adicionales
-Como jugador, quiero subir de nivel para poder asignar puntos adicionales a mis habilidades
+##Asignar puntos adicionales a los estados
+Como jugador, quiero subir de nivel para poder asignar puntos adicionales a mis estados
 
-* Al subir de nivel debo recibir un punto para mejorar mis habilidades
+* Al subir de nivel debo recibir puntos para mejorar mis estados
 * Debo poder elegir que habilidad es la que mejoro
 
 ##Manipular items
