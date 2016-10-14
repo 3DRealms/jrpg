@@ -56,30 +56,30 @@ Como jugador, quiero cambiar las alianzas establecidas cada cierta cantidad de t
 
 * Luego de una determinada cantidad de tiempo la alianza será disuelta y podré elegir entre aliarme con el jugador nuevamente o combatir contra él.
 
-Como jugador, quiero poder desplazarme por el mapa libremente y poder esquivar obstáculos
+Como jugador, quiero poder desplazarme por el mapa libremente para poder esquivar obstáculos
 
 * Al hacer click con el botón derecho del mouse debo poder moverme a la ubicación seleccionada
 * Al hacer click con el botón derecho del mouse en un obstáculo no debo poder moverme a su ubicación
 * Debo poder moverme hacia arriba, abajo, izquierda, derecha y en las cuatro direcciones diagonales 
 
-Como jugador, quiero usar habilidades en el combate en contra de enemigos
+Como jugador, quiero aprender habilidades para usarlas en el combate en contra de enemigos
 
 * En combate deben mostrarse mis habilidades con las cuales puedo atacar
 
-Como jugador, quiero poder conseguir ítems al derrotar un enemigo
+Como jugador, quiero poder derrotar a un enemigo para conseguir ítems 
 
 * Al ganar una batalla contra un enemigo, este debe soltar un ítem que pueda recoger
 
-Como jugador, quiero poder equipar un ítem reemplazando uno que tenga equipado actualmente
+Como jugador, quiero poder reemplazar un item para equipar uno nuevo
 
 * Al recoger un ítem debe reemplazar al ítem que yo tenga equipado de ese mismo tipo
 
-Como jugador, quiero, al morir, poder reaparecer en una zona neutral
+Como jugador, quiero poder reaparecer en una zona neutral para no perder mi experiencia al morir
 
 * Cuando un jugador o enemigo me derrote debo aparecer en una zona neutral donde no puedan atacarme
 * Al reaparecer debo conservar toda la experiencia que tenía anteriormente acumulada
 
-Como jugador, quiero aprender habilidades nuevas al subir de nivel 
+Como jugador, quiero subir de nivel para aprender habilidades  
 
 * Debo poder utilizar nuevas habilidades al subir de nivel
 * No debo poder aprender habilidades nuevas mientras no suba de nivel
