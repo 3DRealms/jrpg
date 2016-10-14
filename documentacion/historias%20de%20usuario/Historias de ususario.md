@@ -29,12 +29,12 @@ Como jugador, quiero acumular experiencia para poder subir de nivel
 Como jugador, quiero subir de nivel para poder asignar puntos adicionales a mis estados
 
 * Al subir de nivel debo recibir puntos para mejorar mis estados
-* Debo poder elegir que habilidad es la que mejoro
+* Debo poder elegir que estado es el que mejoro
 
 ##Manipular items
-Como jugador, quiero aumentar mis habilidades para poder manipular ítems de manera más eficiente
+Como jugador, quiero aumentar mis estados para poder manipular ítems de manera más eficiente
 
-* Debo poder comprobar que después de aumentar una habilidad uno o varios ítems aumenten su mejora de nuestros puntos de ataque, magia o defensa
+* Debo poder comprobar que después de aumentar un estado, uno o varios ítems aumenten su mejora de nuestros puntos de ataque, magia o defensa
 
 ##Equipar items
 Como jugador, quiero equipar items para poder potenciar mis habilidades
