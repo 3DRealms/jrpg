@@ -71,12 +71,15 @@ Como jugador, quiero poder conseguir ítems al derrotar un enemigo
 * Al ganar una batalla contra un enemigo, este debe soltar un ítem que pueda recoger
 
 Como jugador, quiero poder equipar un ítem reemplazando uno que tenga equipado actualmente
-*Al recoger un ítem debe reemplazar al ítem que yo tenga equipado de ese mismo tipo
+
+* Al recoger un ítem debe reemplazar al ítem que yo tenga equipado de ese mismo tipo
 
 Como jugador, quiero, al morir, poder reaparecer en una zona neutral
-*Cuando un jugador o enemigo me derrote debo aparecer en una zona neutral donde no puedan atacarme
-*Al reaparecer debo conservar toda la experiencia que tenía anteriormente acumulada
+
+* Cuando un jugador o enemigo me derrote debo aparecer en una zona neutral donde no puedan atacarme
+* Al reaparecer debo conservar toda la experiencia que tenía anteriormente acumulada
 
 Como jugador, quiero aprender habilidades nuevas al subir de nivel 
-*Debo poder utilizar nuevas habilidades al subir de nivel
-*No debo poder aprender habilidades nuevas mientras no suba de nivel
+
+* Debo poder utilizar nuevas habilidades al subir de nivel
+* No debo poder aprender habilidades nuevas mientras no suba de nivel
