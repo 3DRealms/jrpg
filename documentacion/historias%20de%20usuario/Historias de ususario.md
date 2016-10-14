@@ -1,15 +1,41 @@
 #Historias de Usuario
+Conceptos (Borrar)
+*El Título: un breve texto para poder diferenciar la HU.
 
+* La descripción: en la tarjeta donde describimos las HU debemos escribir y focalizarnos en el
+
+objetivo, en por qué Y no en el cómo.
+
+o Usamos la fórmula: “Como....Quiero....Para” que implica que se quiere conseguir, a
+
+quien aporta valor, y porque una HU es útil.
+
+*Criterios de Aceptación: Una breve descripción del “hecho”, que pruebas se llevara a cabo
+
+para poder decir que la HU se ha completado con éxito. Ejemplo: Quiero poder pulsar el botón.
+
+Quiero ver un listado con las marcas de coches. Quiero abrir la página desde mi móvil y sea
+
+agradable de ver (aquí emergen más historias de usuario)
+
+
+Titulo: Crear personaje
 Como jugador, quiero crear mi personaje, editando sus características principales (como raza y casta) para verme reflejado en mi avatar
+
+Criterios de aceptación:
 
 * Debo poder elegir una raza y casta en la creación de mi personaje
 * No debo poder crear un personaje si no seleccione raza y casta anteriormente
 
+Titulo: Ingresar al mundo
 Como jugador, quiero ingresar a un mundo para adquirir experiencia, items y habilidades nuevas
 
+Criterios de aceptación:
+
+* Debo elegir el mundo en el cual quiero jugar.
 * Debo poder ver mi experiencia acumulada y nivel.
-* Debo poder ver mis habilidades actuales
-* Debo poder ver mis ítems equipados
+* Debo poder ver mis habilidades actuales.
+* Debo poder ver mis ítems equipados.
 
 Como jugador, quiero eliminar enemigos para aumentar mi experiencia
 
