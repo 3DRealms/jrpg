@@ -1,25 +1,32 @@
 #Historias de Usuario
 
 Como jugador, quiero crear mi personaje, editando sus características principales (como raza y casta) para verme reflejado en mi avatar
+
 *Debo poder elegir una raza y casta en la creación de mi personaje
 *No debo poder crear un personaje si no seleccione raza y casta anteriormente
 
 Como jugador, quiero ingresar a un mundo para adquirir experiencia, items y habilidades nuevas
+
 *Debo poder ver mi experiencia acumulada y nivel.
 *Debo poder ver mis habilidades actuales
 *Debo poder ver mis ítems equipados
 
 Como jugador, quiero eliminar enemigos para aumentar mi experiencia
+
 *Debo recibir experiencia cuando gane una batalla contra un enemigo
 
 Como jugador, quiero acumular experiencia para poder subir de nivel
+
 *Debo poder subir de nivel si tuviese la experiencia necesaria para hacerlo
 
 Como jugador, quiero subir de nivel para poder asignar puntos adicionales a mis habilidades
+
 *Al subir de nivel debo recibir un punto para mejorar mis habilidades
+
 *Debo poder elegir que habilidad es la que mejoro
 
 Como jugador, quiero aumentar mis habilidades para poder manipular ítems de manera más eficiente
+
 *Debo poder comprobar que después de aumentar una habilidad uno o varios ítems aumenten su mejora de nuestros puntos de ataque, magia o defensa
 
 Como jugador, quiero equipar items para poder potenciar mis habilidades
