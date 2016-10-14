@@ -1,6 +1,6 @@
 #Historias de Usuario
 
-##Titulo: Crear personaje
+###Titulo: Crear personaje
 Como jugador, quiero crear mi personaje, editando sus características principales (como raza y casta) para verme reflejado en mi avatar
 
 * Debo poder elegir una raza y casta en la creación de mi personaje
