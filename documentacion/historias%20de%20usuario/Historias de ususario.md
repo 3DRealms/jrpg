@@ -43,8 +43,8 @@ Como jugador, quiero equipar items para poder potenciar mis habilidades
 * Debo poder ver que habilidades son potenciadas con cada item
 * No debo poder acceder a los items que aun o fueron desbloqueados (ganando batallas contra enemigos)
 
-##Habilidades para subir ataque, magia y defensa
-Como jugador, quiero disponer de habilidades de destreza, fuerza e inteligencia para afectar a mis puntos de ataque, magia y defensa
+##Estados para subir ataque, magia y defensa
+Como jugador, quiero disponer de estados de destreza, fuerza, intelecto y vitalidad para afectar a mis puntos de ataque, magia y defensa
 
 * Debo poder consultar mis puntos de ataque, magia y defensa
 
