@@ -105,7 +105,7 @@ public abstract class Personaje implements Atacable {
 			energia -= ENERGIAAUTOATAQUE; //1
 			despuesDeAtacar();
 		}
-	}
+}
 	public  boolean lanzarHabilidad(String conjuro, Personaje personaje){
 		Habilidad h = casta.getHabilidades().get(conjuro);
 		if( getEnergia() >= h.getCosto()){

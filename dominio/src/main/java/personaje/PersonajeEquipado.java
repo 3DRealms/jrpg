@@ -36,11 +36,6 @@ public abstract class PersonajeEquipado extends Personaje {
 
 	@Override
 	public void atacar(Atacable atacado) {
-		if (puedeAtacar()) {
-			int puntosDeAtaque = obtenerPuntosDeAtaque();
-			atacado.serAtacado(puntosDeAtaque);
-			energia -= ENERGIAAUTOATAQUE; //1
-			despuesDeAtacar();
-		}
+			pj.atacar(atacado);
 	}
 }

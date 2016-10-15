@@ -25,6 +25,7 @@ public class ConEspadaSkofnung extends PersonajeEquipado {
 	public boolean puedeAtacar() {
 		return super.puedeAtacar();
 	}
+	
 
 
 	
