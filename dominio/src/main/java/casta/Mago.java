@@ -2,7 +2,6 @@ package casta;
 
 import java.util.HashMap;
 import habilidades.Habilidad;
-import personaje.Personaje;
 
 public class Mago extends Casta {
 
@@ -19,11 +18,7 @@ public class Mago extends Casta {
 	public int getCantidadDeHabilidades() {
 		return this.habilidades.size();
 	}
-	@Override
-	public void lanzarHabilidad(String conjuro, Personaje personaje,int estado) {
-		//System.out.println("Mago lanza "+conjuro+".");
-		this.habilidades.get(conjuro).afectar(personaje,estado);
-	}
+
 
 
 }

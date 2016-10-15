@@ -8,7 +8,14 @@ import batallon.BatallonOrco;
 
 
 public class BatallonTest {
-	
+	/**
+	 * 	
+	 * Partida entre npc para probar el algoritmo propuesto en clase.
+	 * 
+	 * @param b1
+	 * @param b2
+	 * @return
+	 */
 	private String partidaEntreNPCs(Batallon b1, Batallon b2) {
 		boolean fin = false;
 		String ganador = "empate";
@@ -33,12 +40,11 @@ public class BatallonTest {
 			i++;
 		}
 		
-	//	System.out.println("El ganador es: "+ganador);
 		return ganador;
 	}
 	
     /***********************************************************************************************************************************
-	 *Cuando es n vs n deberia ganar los orcos porque van eliminandos humanos uno a uno entonces el humano tiene menos ataque promedio.*
+	 *  Cuando es n vs n deberia ganar los orcos porque van eliminandos humanos uno a uno entonces el humano tiene menos ataque promedio.*
 	 *  Suponiendo que los dos tenga ataques iguales, y que el ataque sea menor que la vida.										   * 	
 	 ***********************************************************************************************************************************/
 	

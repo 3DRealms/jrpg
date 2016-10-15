@@ -9,32 +9,28 @@ import personaje.Personaje;
 import raza.Mognatal;
 
 public class Habilidad_Item_Estado_Test {
-///Tegno que arreglar este JUNIT, si lo arreglamos ya esta casi todo pipicucu.
+	///Tegno que arreglar este JUNIT, si lo arreglamos ya esta casi todo pipicucu.
+	
+	/**
+	 *  Especificacion de Items:
+	 *  ~~~~~~~~~~~~~~~~~~~~~~~
+	 *  PaloDeEscobaMagico: Este baston sube 5 el intelecto.
+	 *  
+	 */
 	@Test
-	public void quePorFaltaDeEnergiaNoPuedaLanzarUnaHabilidad() {
+	public void equipoSubeIntelectoYataco() {
+		//
+		Personaje braian = new Mognatal("gandalf");
+		braian.setCastaMago();
+		braian.agregarHabilidad("piroExplosion", new PiroExplosion());
+		Personaje alex = new Mognatal("gimli"); //creo un pichon.
+		int alexSalud = alex.getSaludActual();
+
+		braian = new PaloDeEscobaMagico(braian); //Aca le equipo un item.
+		braian.lanzarHabilidad("piroExplosion", alex); // BOOOM.		
 		
-		Personaje gandalf = new Mognatal("gandalf");
-		
-		gandalf.setCastaMago();
-		gandalf.agregarHabilidad("piroExplosion", new PiroExplosion());
-		Personaje gimli = new Mognatal("gimli");
-		Assert.assertEquals(120, gimli.getSaludActual());
-		gandalf.lanzarHabilidad("piroExplosion", gimli); 
-		Assert.assertEquals(100, gimli.getSaludActual());
-		// Hasta aca cree un un Mognatal, lo seteo como mago, creo otro personaje, y le tiro piroExplocion, lo del otro test.
-		
-		gandalf = new PaloDeEscobaMagico(gandalf); //Aca le equipo un item.
-		
-		gandalf.lanzarHabilidad("piroExplosion", gimli); // BOOOM.
-		System.out.println("salud: "+gimli.getSaludActual());
-		Assert.assertEquals(60, gimli.getSaludActual());
-		
-		//aca no tiene mas energia porque ya quede en 30 y PiroExplocion consume 35.
-		Assert.assertFalse(gandalf.lanzarHabilidad("piroExplosion", gimli)); 
-		
-		//Auto ataque de 15 puntos.
-		gandalf.atacar(gimli);		
-		Assert.assertEquals(65, gimli.getSaludActual());
-		
+		//La piroExplicion +  palo de escoba magico (que sube 5 de intelecto) quita 40 puntos de daño.
+		//Todavia no esta funcionando.
+		Assert.assertEquals( alexSalud - 40, alex.getSaludActual());
 	}
 }

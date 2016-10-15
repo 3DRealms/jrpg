@@ -24,10 +24,10 @@ public abstract class PersonajeEquipado extends Personaje {
 		return pj.puedeAtacar();
 	}
 	public int getEnergia() {
-		return super.getEnergia();
+		return pj.getEnergia();
 	}
 	public int getIntelecto() {
-		return super.getIntelecto();
+		return pj.getIntelecto();
 	}
 	@Override
 	public  boolean lanzarHabilidad(String conjuro, Personaje personaje){

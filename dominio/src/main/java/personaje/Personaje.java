@@ -7,7 +7,7 @@ import interfaces.Atacable;
 
 public abstract class Personaje implements Atacable {
 
-	
+
 	//Atributos Basicos: Para todas las razas iguales (por ahora) pero la forma de caluclar cambia segun la casta, de la casta.
 	protected Casta casta;
 	protected int ataque = 15;  
@@ -28,8 +28,8 @@ public abstract class Personaje implements Atacable {
 	//Salud: Estos dependeran de la raza, tendra su salud base diferente.
 	protected String nombre;
 	protected int saludBase = 120; //esto es para hacer pruebas.
- 	protected int saludActual;
- 	///////////////////////////////
+	protected int saludActual;
+	///////////////////////////////
 	public Personaje(String nombre) {
 		this.nombre = nombre;
 	}
@@ -82,7 +82,7 @@ public abstract class Personaje implements Atacable {
 		}
 		this.energia = aux;
 	}
-	
+
 	public int getIntelecto() {
 		return intelecto;
 	}
@@ -90,28 +90,37 @@ public abstract class Personaje implements Atacable {
 		casta = new Mago();
 	}
 
- 	/** 
- 	 * 
- 	 * @param atacado
- 	 * por el momento el atacar es generico para todos. 
- 	 * cada metodo es igual en cada Raza, (esto para hacer pruebas). 
- 	 * en el futuro hay que ir cambiando cada metodo de cada raza para darle sabor.
- 	 * The lore of destiny v0.18
- 	 */
+	/** 
+	 * 
+	 * @param atacado
+	 * por el momento el atacar es generico para todos. 
+	 * cada metodo es igual en cada Raza, (esto para hacer pruebas). 
+	 * en el futuro hay que ir cambiando cada metodo de cada raza para darle sabor.
+	 * The lore of destiny v0.19
+	 */
 	public void atacar(Atacable atacado) {
 		if (puedeAtacar()) {
-			int puntosDeAtaque = calcularPuntosDeAtaque();
-			atacado.serAtacado(puntosDeAtaque);
+			atacado.serAtacado(calcularPuntosDeAtaque());
 			energia -= ENERGIAAUTOATAQUE; //1
 			despuesDeAtacar();
 		}
-}
+	}
+	
+	
+	/**
+	 * 
+	 * 	Por le momento lanzarHabilidad escala solo con intelecto.
+	 * @param conjuro
+	 * @param personaje
+	 * @return
+	 */
 	public  boolean lanzarHabilidad(String conjuro, Personaje personaje){
-		Habilidad h = casta.getHabilidades().get(conjuro);
+	
+		Habilidad h;
+		h = casta.getHabilidad(conjuro);
 		if( getEnergia() >= h.getCosto()){
 			consumirEnergia(h.getCosto());
-			casta.lanzarHabilidad(conjuro, personaje,intelecto);
-			//Ya se que esto esta mal, pero son las 2:11 am y no doy mas :v 
+			h.afectar(personaje,intelecto);
 			return true;
 		}
 		return false;
@@ -120,7 +129,7 @@ public abstract class Personaje implements Atacable {
 	public void agregarHabilidad(String conjuro, Habilidad habilidad) {
 		casta.agregarHabilidad(conjuro, habilidad);
 	}
-	
+
 	@Override
 	public String toString() {
 		return nombre;
