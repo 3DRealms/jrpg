@@ -40,7 +40,11 @@ public class PaloDeEscobaMagico extends PersonajeEquipado{
 	public  boolean lanzarHabilidad(String conjuro, Personaje personaje){
 		//return super.lanzarHabilidad(conjuro, personaje,getIntelecto());
 		return super.lanzarHabilidad(conjuro, personaje);
-
 	}
+	@Override
+	protected void despuesDeAtacar() {
+		super.despuesDeAtacar();
+	}
+
 
 }

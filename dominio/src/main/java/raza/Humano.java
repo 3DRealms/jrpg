@@ -30,5 +30,9 @@ public class Humano extends Personaje {
 		return defensa;
 	}
 
+	@Override
+	protected void despuesDeAtacar() {		
+	}
+
 	
 }

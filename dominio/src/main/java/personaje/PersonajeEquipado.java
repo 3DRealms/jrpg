@@ -26,9 +26,7 @@ public abstract class PersonajeEquipado extends Personaje {
 	public int getEnergia() {
 		return pj.getEnergia();
 	}
-	public int getIntelecto() {
-		return pj.getIntelecto();
-	}
+
 	@Override
 	public  boolean lanzarHabilidad(String conjuro, Personaje personaje){
 		return pj.lanzarHabilidad(conjuro, personaje);
@@ -37,5 +35,9 @@ public abstract class PersonajeEquipado extends Personaje {
 	@Override
 	public void atacar(Atacable atacado) {
 			pj.atacar(atacado);
+	}
+	@Override
+	protected void despuesDeAtacar() {
+		pj.despuesDeAtacar();
 	}
 }

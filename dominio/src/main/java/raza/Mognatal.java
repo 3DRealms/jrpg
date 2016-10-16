@@ -12,11 +12,6 @@ public class Mognatal extends Personaje {
 	}
 
 	@Override
-	protected boolean puedeAtacar() {
-		return true;
-	}
-
-	@Override
 	protected int calcularPuntosDeAtaque() {
 		return ataque;
 	}
@@ -30,12 +25,12 @@ public class Mognatal extends Personaje {
 	public int obtenerPuntosDeDefensa() {
 		return defensa;
 	}
+	@Override
+	protected void despuesDeAtacar() {		
+	}
 
-
-
-
-	
-
-
-	
+	@Override
+	protected boolean puedeAtacar() {
+		return true;
+	}
 }

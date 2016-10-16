@@ -1,5 +1,6 @@
 package equipo;
 
+import interfaces.Atacable;
 import personaje.Personaje;
 import personaje.PersonajeEquipado;
 
@@ -27,7 +28,15 @@ public class ConAnilloDraupnir extends PersonajeEquipado {
 	public boolean puedeAtacar() {
 		return super.puedeAtacar();
 	}
-	
+	@Override
+	public void atacar(Atacable atacado) {
+		super.atacar(atacado);
+	}
 
-	
+	@Override
+	protected void despuesDeAtacar() {
+		super.despuesDeAtacar();
+	}
+
+
 }

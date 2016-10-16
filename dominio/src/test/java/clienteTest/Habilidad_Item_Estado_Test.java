@@ -17,13 +17,14 @@ public class Habilidad_Item_Estado_Test {
 	 *  PaloDeEscobaMagico: Este baston sube 5 el intelecto.
 	 *  
 	 */
+	
 	@Test
 	public void equipoSubeIntelectoYataco() {
-		//
+		//Creo un mago, creo otro pj para que reciva danio, y bue.
 		Personaje braian = new Mognatal("gandalf");
 		braian.setCastaMago();
 		braian.agregarHabilidad("piroExplosion", new PiroExplosion());
-		Personaje alex = new Mognatal("gimli"); //creo un pichon.
+		Personaje alex = new Mognatal("pichon"); //creo un pichon.
 		int alexSalud = alex.getSaludActual();
 
 		braian = new PaloDeEscobaMagico(braian); //Aca le equipo un item.

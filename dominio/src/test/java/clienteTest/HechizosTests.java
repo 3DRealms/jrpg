@@ -68,7 +68,6 @@ public class HechizosTests {
 		Personaje pichon = new Mognatal("bot1");
 		dani.lanzarHabilidad("piroExplosion", pichon); 
 		dani.lanzarHabilidad("piroExplosion", pichon); 
-
 		//aca no tiene mas energia porque ya quede en 30 y PiroExplocion consume 35.
 		Assert.assertFalse(dani.lanzarHabilidad("piroExplosion", pichon)); 
 		

@@ -5,7 +5,7 @@ import personaje.Personaje;
 import personaje.PersonajeEquipado;
 
 public class ConEspadaSkofnung extends PersonajeEquipado {
-	
+
 	protected int ataque = 5;
 	/**
 	 * Aumenta el ataque en 5 puntos.
@@ -29,13 +29,18 @@ public class ConEspadaSkofnung extends PersonajeEquipado {
 	public boolean puedeAtacar() {
 		return super.puedeAtacar();
 	}
-	
+
 	@Override
 	public void atacar(Atacable atacado) {
 		super.atacar(atacado);
 	}
 
+	@Override
+	protected void despuesDeAtacar() {
+		super.despuesDeAtacar();
+	}
 
-	
+
+
 
 }

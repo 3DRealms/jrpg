@@ -1,6 +1,5 @@
 package raza;
 
-import casta.Casta;
 import personaje.Personaje;
 
 public class Orco extends Personaje {
@@ -27,7 +26,6 @@ public class Orco extends Personaje {
 	protected boolean puedeAtacar() {
 		return true;
 		// esto is rancio		return energia >= calcularPuntosDeAtaque();
-
 	}
 
 	@Override
