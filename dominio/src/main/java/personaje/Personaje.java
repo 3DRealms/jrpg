@@ -13,7 +13,7 @@ public abstract class Personaje implements Atacable {
 	protected int ataque = 15;  
 	protected int energia = 100; 
 	protected int defensa = 0;
-	protected final int ENERGIA_AUTOATAQUE = 1; //enegia que gasta por autoAtaque.
+	protected final int ENERGIA_ATAQUE_NORMAL = 1; //enegia que gasta por autoAtaque.
 
 	//Estados, inicialmente todo personaje nuevo tiene 0  y se van escalando a "gusto".
 	protected int fuerza = 0;  
@@ -38,7 +38,7 @@ public abstract class Personaje implements Atacable {
 		this.nombre = nombre;
 	}
 	//Abstract, esto depende de la raza.
-	protected abstract void despuesDeAtacar();
+	protected void despuesDeAtacar(){};
 	protected abstract boolean puedeAtacar();
 	protected abstract int calcularPuntosDeAtaque();
 	public abstract int obtenerPuntosDeAtaque();
@@ -62,11 +62,48 @@ public abstract class Personaje implements Atacable {
 	public void atacar(Atacable atacado) {
 		if (puedeAtacar()) {
 			atacado.serAtacado(obtenerPuntosDeAtaque());
-			energia -= ENERGIA_AUTOATAQUE; //1
+			energia -= ENERGIA_ATAQUE_NORMAL; //1
 			despuesDeAtacar();
 		}
 	}
+	/**
+	 * 
+	 * 	Lanzar habilidad del conjuro, si no lo encuentra no lo lanza.
+	 * @param conjuro
+	 * @param personaje
+	 * @return
+	 */
+	public  boolean lanzarHabilidad(String conjuro, Personaje personaje){
+		Habilidad h;
+		h = getCasta().getHabilidad(conjuro);
 
+		if( h != null && getEnergia() >= h.getCosto()){
+			consumirEnergia(h.getCosto());
+			h.afectar(personaje, getEstado() );
+			return true;
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * Devuelve los puntos del estado de la casta para usar en (por ahora)
+	 * en lanzarHabilidad->afectar, entonces le mando el estado y con eso 
+	 * las habilidades haran los calculos conrespondientes para aumentar su efecto.
+	 * EJ: si hago el getEstado del mago me deberia devolver el intelecto.
+	 * sino no tiene casta devuelve 0.
+	 * 
+	 * Ya se que no es optimo pero por ahora funciona.
+	 * @return
+	 */
+	public int getEstado(){
+		int estado = 0;
+		if( getCasta().getEstado().equals("intelecto") )
+			estado = getIntelecto();
+		else
+			estado = 0;
+		return estado;
+	}
 	/**
 	 * 1% por cada punto de defensa es bloqueado.
 	 * @param danio
@@ -77,7 +114,7 @@ public abstract class Personaje implements Atacable {
 	public void serCurado() {
 		this.saludActual = 100;
 	}
-	
+
 	/**
 	 * Ahora puedo curar a un aliado.
 	 * @param vida
@@ -89,11 +126,14 @@ public abstract class Personaje implements Atacable {
 		else
 			saludActual = calcularSaludActual();
 	}
+
+	@SuppressWarnings("unused") 	//Baja cambio dejame en paz.
 	private void serEnergizado() {
 		this.energia = 100;
 	}
+
 	/**
-	 * 
+	 * subir energia en tantos puntos :O.  
 	 */
 	public void serEnergizado(int energia) {
 		int aux = energia + energia;
@@ -102,7 +142,7 @@ public abstract class Personaje implements Atacable {
 		else
 			saludActual = calcularSaludActual();
 	}
-	
+
 	@Override
 	public void morir() {
 	}
@@ -137,28 +177,20 @@ public abstract class Personaje implements Atacable {
 	//Casta:
 	//Por ahora seria asi:
 	public void setCastaMago() {
-		casta = new Mago();
+		this.casta = new Mago();
 	}
-
-
-
 	/**
-	 * 
-	 * 	Por le momento lanzarHabilidad escala solo con intelecto.
-	 * @param conjuro
-	 * @param personaje
-	 * @return
+	 * Buscar forma general de hacerlo mmmm
+	 * deberia estudiar Sistemas Operativos.
+	 * @param casta
 	 */
-	public  boolean lanzarHabilidad(String conjuro, Personaje personaje){
-		Habilidad h;
-		h = casta.getHabilidad(conjuro);
-		if( getEnergia() >= h.getCosto()){
-			consumirEnergia(h.getCosto());
-			h.afectar(personaje,getIntelecto());
-			return true;
-		}
-		return false;
+	public void setCasta(String casta) {
+		if(casta.equals("mago"))
+			this.casta = new Mago();
 	}
+
+
+
 
 	public void agregarHabilidad(String conjuro, Habilidad habilidad) {
 		casta.agregarHabilidad(conjuro, habilidad);

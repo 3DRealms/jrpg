@@ -10,8 +10,7 @@ public class RayoDeInteligencia extends Habilidad {
 	}
 	@Override
 	public void afectar(Personaje victima, int estado) {
-		this.ataqueFinal = ataqueBasico * estado;
-		victima.serAtacado(ataqueFinal);
+		victima.serAtacado(ataqueBasico * estado);
 	}
 
 }

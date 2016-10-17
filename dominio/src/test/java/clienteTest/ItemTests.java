@@ -3,11 +3,13 @@ package clienteTest;
 import org.junit.Assert;
 import org.junit.Test;
 
-import equipo.ConAnilloDraupnir;
-import equipo.ConEscudoSvalinn;
-import equipo.ConEspadaSkofnung;
+import items.ConAnilloDraupnir;
+import items.ConEscudoSvalinn;
+import items.ConEspadaSkofnung;
 import personaje.Personaje;
 import raza.Humano;
+import raza.Mognatal;
+import raza.Orco;
 
 
 
@@ -66,38 +68,28 @@ public class ItemTests {
 	}
 	
 	
-	
-	/**
-	 *  NO entiendo porque no anda :( 
-	 *  si en el taller andaba xD.
-	 *  como sea ahora hay que arreglarlo.
-	 *  
-	 */
 	@Test
 	public void quePuedoAgregarYAtacar() {
 		Personaje sigmund = new Humano("Sigmund");
 		sigmund = new ConEspadaSkofnung(sigmund);
 		int ataqueConEspada = sigmund.obtenerPuntosDeAtaque();
-		
 		//Creo Personaje
 		Personaje generic = new Humano("bot");
 		int salud =  generic.getSaludActual();
 
 		//Ataque normal.
-		System.out.println(generic.getSaludActual());
 		sigmund.atacar(generic);
-		System.out.println(generic.getSaludActual());
 		Assert.assertEquals( salud - ataqueConEspada, generic.getSaludActual() );
 
 	}
-/*
+
 	@Test
 	public void quePuedoAgregarDosTiposDeItemYAtacar() {
 		Personaje sigmund = new Humano("Sigmund");
 		sigmund = new ConEspadaSkofnung(sigmund);
 		sigmund = new ConAnilloDraupnir(sigmund);
 		int ataqueConEspadaY_Anillo =  sigmund.obtenerPuntosDeAtaque();
-
+		
 		//Creo Personaje
 		Personaje generic = new Humano("bot");
 		int salud =  generic.getSaludActual();
@@ -106,5 +98,15 @@ public class ItemTests {
 		sigmund.atacar(generic);
 		Assert.assertEquals( salud - ataqueConEspadaY_Anillo , generic.getSaludActual() );
 	}
-*/
+	@Test
+	public void lanzoUnaHabilidadQueNoTengo() {
+		Personaje braian = new Mognatal("gandalf");
+		braian.setCastaMago();
+		
+		Personaje alex = new Orco("pichon"); //creo un pichon.
+
+		
+		Assert.assertFalse(braian.lanzarHabilidad("escudoDivino", alex));
+	}
+
 }

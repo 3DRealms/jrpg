@@ -14,6 +14,7 @@ public abstract class Casta  {
 	public Habilidad getHabilidad(String h) {
 		return habilidades.get(h);
 	}
+	public abstract String getEstado();
 	public abstract void agregarHabilidad(String conjuro,  Habilidad habilidad);
 	public abstract int getCantidadDeHabilidades();
 }

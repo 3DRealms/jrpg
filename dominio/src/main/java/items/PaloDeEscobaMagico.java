@@ -1,6 +1,5 @@
-package equipo;
+package items;
 
-import interfaces.Atacable;
 import personaje.Personaje;
 import personaje.PersonajeEquipado;
 
@@ -27,24 +26,7 @@ public class PaloDeEscobaMagico extends PersonajeEquipado{
 	public int obtenerPuntosDeDefensa() {
 		return super.obtenerPuntosDeDefensa();
 	}
-	@Override
-	public boolean puedeAtacar() {
-		return super.puedeAtacar();
-	}
-	@Override
-	public void atacar(Atacable atacado){
-		super.atacar(atacado);
-	}
-	
-	@Override
-	public  boolean lanzarHabilidad(String conjuro, Personaje personaje){
-		//return super.lanzarHabilidad(conjuro, personaje,getIntelecto());
-		return super.lanzarHabilidad(conjuro, personaje);
-	}
-	@Override
-	protected void despuesDeAtacar() {
-		super.despuesDeAtacar();
-	}
+
 
 
 }

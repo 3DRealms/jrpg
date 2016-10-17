@@ -16,11 +16,5 @@ public class NPC implements Atacable {
 		//aca se puede disparar el re-spaw en tantos segudos.
 	}
 	
-	private void darItem() {
 
-	}
-	private void darExperiencia() {
-
-	}
-	
 }
