@@ -15,6 +15,11 @@ public class NPC implements Atacable {
 	public void morir() {	
 		//aca se puede disparar el re-spaw en tantos segudos.
 	}
+
+	@Override
+	public boolean estaMuerto() {
+		return false;
+	}
 	
 
 }
