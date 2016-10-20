@@ -16,11 +16,26 @@ public class BatallonHumano extends Batallon {
 			batallon.add(new Humano("genric "+i));
 		}
 	}
-	
-	
+
+
 	// Asi ataca los humanos, uno a la vez.
+	/**
+	 * Cada uno ataca a uno.
+	 * Sean H un equipo de humanos y 
+	 * 		V un equipo de victimas
+	 * H = {h1,h2,h3,h3,h5}
+	 * V = {j1,j2,j3,j4}
+	 * un atacar de batallon seria asi :
+	 * h1 ataca a j1
+	 * h2 ataca a j2
+	 * h3 ataca a j3
+	 * h4 ataca a j4
+	 * h5 ataca a j1
+	 * @param Equipo
+	 * @author DrCoffee84
+	 */
 	public void atacar(Equipo victimas){
-		
+
 		int i = 0; //contador magic
 		Personaje victima; 
 		for (Personaje humano: this.batallon) {
@@ -35,9 +50,10 @@ public class BatallonHumano extends Batallon {
 			}
 		}
 	}
+	
 	@Override
 	public Atacable obtenerProximaVictima() {
-	//	depurarBatallon();
+		//	depurarBatallon();
 		if(batallon.isEmpty()) {
 			throw new RuntimeException("El batallón está vacío");
 		}

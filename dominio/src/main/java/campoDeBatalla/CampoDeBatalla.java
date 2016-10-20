@@ -7,6 +7,7 @@ public class CampoDeBatalla {
 	public String batalla(Equipo e1, Equipo e2) {
 		boolean fin = false;
 		String ganador = "empate";
+		
 		while( !fin ){ 	
 			e1.atacar(e2);
 			if( e2.isEmpty() ){

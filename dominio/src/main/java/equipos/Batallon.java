@@ -18,6 +18,11 @@ public abstract class Batallon implements Equipo {
 		return cantidad == 0;
 	}
 
+	/**
+	 * Si el personaje esta muerto se lo bajo xD
+	 * @author DrCoffee84
+	 * @param cant
+	 */
 	public void serAtacado(Atacable personaje) {
 		if(  personaje.estaMuerto() ){
 			this.batallon.remove(personaje);

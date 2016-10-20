@@ -1,9 +1,12 @@
 package personaje;
 
+import java.util.Scanner;
+
 import casta.Casta;
 import casta.Mago;
 import habilidades.Habilidad;
 import interfaces.Atacable;
+import interfaces.Equipo;
 
 public abstract class Personaje implements Atacable {
 
@@ -203,5 +206,17 @@ public abstract class Personaje implements Atacable {
 	public int getIntelecto() {
 		return intelecto;
 	}
+
+//	public void miTurno(Equipo victimas) {
+//		int i;
+//		Personaje victima;
+//		Scanner teclado = new Scanner(System.in);
+//		do {
+//			i = teclado.nextInt();
+//			victima = victimas.get(i);
+//		} while (victima == null);
+//		// aca algun metodo para seleccionar 	
+//	}
+	
 }
 
