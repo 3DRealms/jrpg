@@ -7,3 +7,14 @@ Hay efectos que se guardan en 2 listas  en el campoDeBatalla,
 cada vez que alñgun pj ataca se pregunta en la lista de activos si h ay un efecto que contrareste el ataque.
 
 Entonces cada habilidad lanzada debe tener un tipo. // pensar
+
+
+
+Desde el campo debo poder hacer esto:
+
+"Alianza e1"
+
+pj = e1.elegirJugaor(); // o un jugaror le toca y sede el turno bueno despues veo todo el fernet arriba.... xfgkyhsd8ough dfp9hgaùierg
+pj.elegirContricante(e2);
+victima = pj.elegirHabilidad(parametroslocos);
+pj.atacar(victima);
