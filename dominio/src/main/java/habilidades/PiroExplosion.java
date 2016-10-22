@@ -12,7 +12,6 @@ public class PiroExplosion extends Habilidad {
 	public void afectar(Personaje victima, int estado) {
 		this.ataqueFinal = ataqueBasico+4*estado;
 		victima.serAtacado(ataqueFinal);
-		//System.out.println(ataqueFinal+" puntos de daño a "+victima.toString());
 	}
 
 }
