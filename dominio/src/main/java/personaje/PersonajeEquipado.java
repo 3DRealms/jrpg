@@ -14,8 +14,11 @@ public abstract class PersonajeEquipado extends Personaje {
 	public int getIntelecto() {
 		return pj.getIntelecto();
 	}
-	public int obtenerPuntosDeDefensa() {
-		return pj.obtenerPuntosDeDefensa();
+	public int obtenerPuntosDeDefensaFisica() {
+		return pj.obtenerPuntosDeDefensaFisica();
+	}
+	public int obtenerPuntosDeDefensaMagica() {
+		return pj.obtenerPuntosDeDefensaMagica();
 	}
 	public int obtenerPuntosDeAtaque(){
 		return pj.obtenerPuntosDeAtaque();
@@ -31,6 +34,9 @@ public abstract class PersonajeEquipado extends Personaje {
 	}
 	public Casta getCasta(){
 		return pj.getCasta();
+	}
+	public String verItems(){
+		return pj.verItems();
 	}
 
 }

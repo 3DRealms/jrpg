@@ -6,8 +6,13 @@ public class Humano extends Personaje {
 
 	public Humano(String nombre) {
 		super(nombre);
-		this.energia = 100;
-		this.saludActual = calcularSaludActual();
+		this.ataque = 15;
+		this.energiaBase = 100;
+		this.saludBase = 100;
+		this.defensaFisica = 5;
+		this.defensaMagica = 7;
+		this.saludActual = calcularSaludTotal();
+		this.energiaActual = calcularEnergiaTotal();
 	}
 	
 	@Override
@@ -26,12 +31,17 @@ public class Humano extends Personaje {
 	}
 
 	@Override
-	public int obtenerPuntosDeDefensa() {
-		return defensa;
+	protected void despuesDeAtacar() {		
 	}
 
 	@Override
-	protected void despuesDeAtacar() {		
+	public int obtenerPuntosDeDefensaFisica() {
+		return defensaFisica;
+	}
+
+	@Override
+	public int obtenerPuntosDeDefensaMagica() {
+		return defensaMagica;
 	}
 
 	

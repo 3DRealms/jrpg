@@ -2,15 +2,15 @@ package raza;
 
 import personaje.Personaje;
 
-public class Mognatal extends Personaje {
+public class PersonajePrueba extends Personaje{
 
-	public Mognatal(String nombre) {
+	public PersonajePrueba(String nombre) {
 		super(nombre);
-		this.ataque = 10;
-		this.energiaBase = 120;
-		this.saludBase = 70;
-		this.defensaFisica = 3;
-		this.defensaMagica = 15;
+		this.ataque = 15;
+		this.energiaBase = 100;
+		this.saludBase = 120;
+		this.defensaFisica = 0;
+		this.defensaMagica = 0;
 		this.saludActual = calcularSaludTotal();
 		this.energiaActual = calcularEnergiaTotal();
 	}
@@ -44,4 +44,13 @@ public class Mognatal extends Personaje {
 	}
 
 
+	public int getExperiencia() {
+		return this.experiencia;
+	}
+
+	public int getNivel() {
+		return this.nivel;
+	}
 }
+
+

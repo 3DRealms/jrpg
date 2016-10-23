@@ -9,18 +9,17 @@ import items.VaritaMagica;
 import personaje.Personaje;
 import raza.Mognatal;
 
-public class Habilidad_Item_Estado_Test {
+public class HabilidadItemEstadoTest {
 	///Tegno que arreglar este JUNIT, si lo arreglamos ya esta casi todo pipicucu.
 	
 	/**
 	 *  Especificacion de Items:
 	 *  ~~~~~~~~~~~~~~~~~~~~~~~
-	 *  PaloDeEscobaMagico: Este baston sube 5 el intelecto.
-	 *  
+	 *  PaloDeEscobaMagico: Este baston sube 5 el intelecto. 
 	 */
 	
 	@Test
-	public void equipoSubeIntelectoYataco() {
+	public void equipoSubeIntelectoYAtaco() {
 		Personaje braian = new Mognatal("gandalf");
 		braian.setCastaMago();
 		braian.agregarHabilidad("piroExplosion", new PiroExplosion());
@@ -36,7 +35,7 @@ public class Habilidad_Item_Estado_Test {
 	}
 	
 	@Test
-	public void equipoDosItemQueSubeIntelectoYataco() {
+	public void equipoDosItemQueSubeIntelectoYAtaco() {
 		Personaje braian = new Mognatal("gandalf");
 		braian.setCastaMago();
 		braian.agregarHabilidad("piroExplosion", new PiroExplosion());

@@ -2,7 +2,6 @@ package equipos;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Scanner;
 
 import interfaces.Atacable;
 import interfaces.Equipo;
@@ -51,24 +50,26 @@ public class Alianza implements Equipo{
 	 * j4 j5 j1 j3 j2.
 	 *  @author DrCoffee84
 	 */
+	//RANCIO.
 	@Override
-	public void atacar(Equipo victimas) {
-		Scanner teclado = new Scanner(System.in);
-		Personaje victima;
-		Personaje pj;
-		String habilidad;
-		for (int i = 0; i < alianza.size(); i++) {
-			pj = alianza.get(i);
-			do {
-				i = teclado.nextInt();
-			} while (i < victimas.length() );
-			victima = victimas.get(i);
-			do {
-				habilidad = teclado.nextLine();
-			}while(pj.lanzarHabilidad( habilidad, victima));
-			victimas.serAtacado(victima);
-		}
-	}
+	public void atacar(Equipo victimas) {}
+//	{
+//		Scanner teclado = new Scanner(System.in);
+//		Personaje victima;
+//		Personaje pj;
+//		String habilidad;
+//		for (int i = 0; i < alianza.size(); i++) {
+//			pj = alianza.get(i);
+//			do {
+//				i = teclado.nextInt();
+//			} while (i < victimas.length() );
+//			victima = victimas.get(i);
+//			do {
+//				habilidad = teclado.nextLine();
+//			}while(pj.lanzarHabilidad( habilidad, victima));
+//			victimas.serAtacado(victima);
+//		}
+//	}
 
 	
 	/// Todo el codigo de aqui puede volar:
@@ -98,7 +99,6 @@ public class Alianza implements Equipo{
 	}
 	@Override
 	public int length() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

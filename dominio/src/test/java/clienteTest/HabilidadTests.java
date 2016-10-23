@@ -4,10 +4,13 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import habilidades.PiroExplosion;
+import habilidades.RayoDeInteligencia;
 import personaje.Personaje;
+import raza.Humano;
 import raza.Mognatal;
+import raza.PersonajePrueba;
 
-public class HechizosTests {
+public class HabilidadTests {
 	/**
 	 *  Especificacion de habilidades
 	 *  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -29,9 +32,10 @@ public class HechizosTests {
 		dani.agregarHabilidad("piroExplosion", new PiroExplosion());
 
 		//Creo un personaje para atacarlo.
-		Personaje alex = new Mognatal("alex");
+		Personaje alex = new PersonajePrueba("alex");
 		int alexSalud = alex.getSaludActual();
 		dani.lanzarHabilidad("piroExplosion", alex); 
+		System.out.println(alex.getSaludActual());
 		// Piro Explosion quita 20 puntos de vida. 
 		Assert.assertEquals( alexSalud - 20, alex.getSaludActual());
 	}
@@ -42,7 +46,7 @@ public class HechizosTests {
 		Mognatal dani = new Mognatal("dani");
 		dani.setCastaMago();
 		dani.agregarHabilidad("piroExplosion", new PiroExplosion());
-		Personaje alex = new Mognatal("alex");
+		Personaje alex = new PersonajePrueba("alex");
 		int alexSalud = alex.getSaludActual();
 
 		//Aumento El intelecto
@@ -56,18 +60,27 @@ public class HechizosTests {
 	@Test
 	public void sinEnergia() {
 
-		Personaje dani = new Mognatal("Dr.Coffee");
+		Personaje dani = new Humano("Dr.Coffee"); // El humano tiene  100 de energia base
 		dani.setCastaMago();
 		dani.agregarHabilidad("piroExplosion", new PiroExplosion());
-		
-		//Lanzo 2 habilidades para quedar con poca energia.
+
+		//Lanzo 2 habilidades para quedar con poca energia,cada piroExplosion gasta 35 (osea 70pnts total gasto).
 		Personaje pichon = new Mognatal("bot1");
 		dani.lanzarHabilidad("piroExplosion", pichon); 
 		dani.lanzarHabilidad("piroExplosion", pichon);
-		
+
 		//aca no tiene mas energia porque ya quede en 30 y PiroExplocion consume 35.
 		Assert.assertFalse( dani.lanzarHabilidad("piroExplosion", pichon) ); 
-		
+
+	}
+	@Test
+	public void verHabilidad(){
+		Personaje dani = new Mognatal("Dr.Coffee");
+		dani.setCastaMago();
+		dani.agregarHabilidad("piroExplosion", new PiroExplosion());
+		dani.agregarHabilidad("rayoDeInteligencia", new RayoDeInteligencia());
+		//		System.out.println(dani.verHabilidades()); // LUCAS OSEA TENGO QUE VERLO YO OSEA CALMATE UN POCO.
+		Assert.assertEquals("Habilidades:\npiroExplosion\nrayoDeInteligencia\n", dani.verHabilidades());
 	}
 
 }

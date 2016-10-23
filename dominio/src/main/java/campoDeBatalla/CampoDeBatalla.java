@@ -8,6 +8,9 @@ public class CampoDeBatalla {
 		boolean fin = false;
 		String ganador = "empate";
 		
+		/**
+		 * GORDOPOLIS.
+		 */
 		while( !fin ){ 	
 			e1.atacar(e2);
 			if( e2.isEmpty() ){

@@ -23,10 +23,20 @@ public class PaloDeEscobaMagico extends PersonajeEquipado{
 		return super.calcularPuntosDeAtaque();
 	}
 	@Override
-	public int obtenerPuntosDeDefensa() {
-		return super.obtenerPuntosDeDefensa();
+	public int obtenerPuntosDeDefensaFisica() {
+		return super.obtenerPuntosDeDefensaFisica();
 	}
-
+	@Override
+	public int obtenerPuntosDeDefensaMagica() {
+		return super.obtenerPuntosDeDefensaMagica();
+	}
+	@Override
+	public String toString() {
+		return "Palo De Escoba Magico";
+	}
+	public String verItems() {
+		return super.verItems() + "\n" + this.toString();
+	}
 
 
 }

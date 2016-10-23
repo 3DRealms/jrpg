@@ -7,9 +7,13 @@ public class Orco extends Personaje {
 	int cantidadDeAtaques;
 	public Orco(String nombre) {
 		super(nombre);
-		this.saludBase = 120;
-		this.energia = 100;
-		this.saludActual = calcularSaludActual();
+		this.ataque = 20;
+		this.energiaBase = 70;
+		this.saludBase = 130;
+		this.defensaFisica = 15;
+		this.defensaMagica = 5;
+		this.saludActual = calcularSaludTotal();
+		this.energiaActual = calcularEnergiaTotal();
 
 	}
 	@Override
@@ -30,12 +34,17 @@ public class Orco extends Personaje {
 
 	@Override
 	public int obtenerPuntosDeAtaque() {
-		return 0;
+		return calcularPuntosDeAtaque();
 	}
 
 	@Override
-	public int obtenerPuntosDeDefensa() {
-		return 0;
+	public int obtenerPuntosDeDefensaFisica() {
+		return defensaFisica;
+	}
+
+	@Override
+	public int obtenerPuntosDeDefensaMagica() {
+		return defensaMagica;
 	}
 
 	

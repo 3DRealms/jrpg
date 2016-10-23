@@ -10,7 +10,7 @@ public class RayoDeInteligencia extends Habilidad {
 	}
 	@Override
 	public void afectar(Personaje victima, int estado) {
-		victima.serAtacado(ataqueBasico * estado);
+		victima.serAtacadoMagico(ataqueBasico * estado);
 	}
 
 }

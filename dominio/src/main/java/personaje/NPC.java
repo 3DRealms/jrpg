@@ -7,7 +7,7 @@ public class NPC implements Atacable {
 	protected int salud = 100;
 	
 	@Override
-	public void serAtacado(int danio){
+	public void serAtacadoFisico(int danio){
 		this.salud -= danio;
 	}
 
@@ -19,6 +19,11 @@ public class NPC implements Atacable {
 	@Override
 	public boolean estaMuerto() {
 		return false;
+	}
+
+	@Override
+	public void serAtacadoMagico(int danio) {
+		this.salud -= danio;		
 	}
 	
 

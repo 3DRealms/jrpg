@@ -16,16 +16,16 @@ public class BatallonTest {CampoDeBatalla batalla1 = new CampoDeBatalla();
 	 ***********************************************************************************************************************************/
 	
 	@Test
-	public void batallaGanaHumano1vs1(){
+	public void batallaGanaOrco1vs1EmpiezaHumano(){
 		CampoDeBatalla batalla1 = new CampoDeBatalla();
 		Batallon b_Humano = new BatallonHumano(1);
 		Batallon b_Orco = new BatallonOrco(1);
-		//Comienza primero el humano y gana
-		Assert.assertEquals("humanos", batalla1.batalla(b_Humano, b_Orco));
+		//Comienza primero el humano y pierde porque el orco tiene mas recistencia fisica y ataque.
+		Assert.assertEquals("orcos", batalla1.batalla(b_Humano, b_Orco));
 		
 	}
 	@Test
-	public void batallaGanaOrco1vs1(){
+	public void batallaGanaOrco1vs1EmpiezaOrco(){
 		CampoDeBatalla batalla1 = new CampoDeBatalla();
 		Batallon b_Humano = new BatallonHumano(1);
 		Batallon b_Orco = new BatallonOrco(1);

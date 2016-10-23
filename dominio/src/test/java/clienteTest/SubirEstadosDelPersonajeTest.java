@@ -17,7 +17,7 @@ public class SubirEstadosDelPersonajeTest {
 		Personaje maguito = new Mognatal("Boger");
 		int saludMaguito = maguito.getSaludActual();
 		maguito.subirVitalidad(5);
-		//cada 5 puntos subo 20 de salud.
 		Assert.assertEquals(saludMaguito + 20, maguito.getSaludActual());
 	}
+	
 }

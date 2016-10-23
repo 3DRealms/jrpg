@@ -3,24 +3,17 @@ package items;
 import personaje.Personaje;
 import personaje.PersonajeEquipado;
 
-public class VaritaMagica extends PersonajeEquipado{
-	protected int intelecto = 10;
+public class AnilloDraupnir extends PersonajeEquipado {
 
-	public VaritaMagica(Personaje personaje) {
+	protected int ataque = 2;
+
+	public AnilloDraupnir(Personaje personaje) {
 		super(personaje);
 	}
 
 	@Override
-	public int getIntelecto(){
-		return intelecto + super.getIntelecto();
-	}
-	@Override
 	public int obtenerPuntosDeAtaque() {
-		return super.obtenerPuntosDeAtaque();
-	}
-	@Override
-	protected int calcularPuntosDeAtaque() {
-		return super.calcularPuntosDeAtaque();
+		return ataque*super.obtenerPuntosDeAtaque();
 	}
 	@Override
 	public int obtenerPuntosDeDefensaFisica() {
@@ -31,12 +24,15 @@ public class VaritaMagica extends PersonajeEquipado{
 		return super.obtenerPuntosDeDefensaMagica();
 	}
 	@Override
+	public int getIntelecto(){
+		return super.getIntelecto();
+	}
+	@Override
 	public String toString() {
-		return "Varita Magica";
+		return "Anillo Draupnir";
 	}
 	public String verItems() {
-		return super.verItems() + "\n" + this.toString();
+		return super.verItems()+ "\n" + this.toString();
 	}
-
 
 }
