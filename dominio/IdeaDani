@@ -1,0 +1,20 @@
+La logica de los turnos se encarga Campo de batalla
+yo debo obternerPersonaje y este debe seleccionar.
+
+Hay efectos que se guardan en 2 listas  en el campoDeBatalla, 
+1ª lista de espera, donde por turno todas las habilidades van a esperar. (cada habilidad , en afectar, agrega a la lista correspondiente(o al revez).
+2ª lista de activos que duran mas de un turno EJ un sangrado.
+cada vez que alñgun pj ataca se pregunta en la lista de activos si h ay un efecto que contrareste el ataque.
+
+Entonces cada habilidad lanzada debe tener un tipo. // pensar
+
+
+
+Desde el campo debo poder hacer esto:
+
+"Alianza e1"
+
+pj = e1.elegirJugaor(); // o un jugaror le toca y sede el turno bueno despues veo todo el fernet arriba.... xfgkyhsd8ough dfp9hgaùierg
+pj.elegirContricante(e2);
+victima = pj.elegirHabilidad(parametroslocos);
+pj.atacar(victima);
