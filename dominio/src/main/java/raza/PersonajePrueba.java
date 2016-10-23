@@ -6,7 +6,7 @@ public class PersonajePrueba extends Personaje{
 
 	public PersonajePrueba(String nombre) {
 		super(nombre);
-		this.ataque = 15;
+		this.ataqueFisico = 15;
 		this.energiaBase = 100;
 		this.saludBase = 120;
 		this.defensaFisica = 0;
@@ -14,10 +14,26 @@ public class PersonajePrueba extends Personaje{
 		this.saludActual = calcularSaludTotal();
 		this.energiaActual = calcularEnergiaTotal();
 	}
-
+	@Override
+	public  int calcularSaludTotal(){
+		return saludBase+getVitalidad()*4; // cada 5 puntos da 20 de vida.
+	}
+	@Override
+	public int calcularEnergiaTotal(){
+		return energiaBase+getDestreza()*2; // cada 5 puntos da 10 de energia.
+	}
 	@Override
 	protected int calcularPuntosDeAtaque() {
-		return ataque;
+		return ataqueFisico+getFuerza();
+	}
+	@Override
+	public int obtenerPuntosDeDefensaFisica() {
+		return defensaFisica;
+	}
+	
+	@Override
+	public int obtenerPuntosDeDefensaMagica() {
+		return defensaMagica;
 	}
 
 	@Override
@@ -25,32 +41,10 @@ public class PersonajePrueba extends Personaje{
 		return calcularPuntosDeAtaque();
 	}
 
-	@Override
-	public int obtenerPuntosDeDefensaFisica() {
-		return defensaFisica;
-	}
-
-	@Override
-	public int obtenerPuntosDeDefensaMagica() {
-		return defensaMagica;
-	}
-	@Override
-	protected void despuesDeAtacar() {		
-	}
-
-	@Override
-	protected boolean puedeAtacar() {
-		return true;
-	}
 
 
-	public int getExperiencia() {
-		return this.experiencia;
-	}
+	
 
-	public int getNivel() {
-		return this.nivel;
-	}
 }
 
 

@@ -6,7 +6,8 @@ public class Mognatal extends Personaje {
 
 	public Mognatal(String nombre) {
 		super(nombre);
-		this.ataque = 10;
+		this.ataqueFisico = 10;
+		this.ataqueMagico = 20;
 		this.energiaBase = 120;
 		this.saludBase = 70;
 		this.defensaFisica = 3;
@@ -16,8 +17,16 @@ public class Mognatal extends Personaje {
 	}
 
 	@Override
+	public  int calcularSaludTotal(){
+		return saludBase+getVitalidad()*3; // cada 5 puntos da 15 de vida.
+	}
+	@Override
+	public int calcularEnergiaTotal(){
+		return energiaBase+getDestreza()*5; // cada 5 puntos da 25 de energia.
+	}
+	@Override
 	protected int calcularPuntosDeAtaque() {
-		return ataque;
+		return ataqueFisico+getFuerza()*3;  // cada 5 puntos da 15 de ataque.
 	}
 
 	@Override
@@ -33,14 +42,6 @@ public class Mognatal extends Personaje {
 	@Override
 	public int obtenerPuntosDeDefensaMagica() {
 		return defensaMagica;
-	}
-	@Override
-	protected void despuesDeAtacar() {		
-	}
-
-	@Override
-	protected boolean puedeAtacar() {
-		return true;
 	}
 
 

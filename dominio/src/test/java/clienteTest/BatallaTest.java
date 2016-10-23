@@ -3,10 +3,10 @@ package clienteTest;
 import org.junit.Assert;
 import org.junit.Test;
 
+import alianza.Alianza;
+import alianza.Batallon;
+import alianza.BatallonHumano;
 import campoDeBatalla.CampoDeBatalla;
-import equipos.Alianza;
-import equipos.Batallon;
-import equipos.BatallonHumano;
 
 public class BatallaTest {
 	

@@ -2,10 +2,10 @@ package clienteTest;
 import org.junit.Assert;
 import org.junit.Test;
 
+import alianza.Batallon;
+import alianza.BatallonHumano;
+import alianza.BatallonOrco;
 import campoDeBatalla.CampoDeBatalla;
-import equipos.Batallon;
-import equipos.BatallonHumano;
-import equipos.BatallonOrco;
 
 
 public class BatallonTest {CampoDeBatalla batalla1 = new CampoDeBatalla();

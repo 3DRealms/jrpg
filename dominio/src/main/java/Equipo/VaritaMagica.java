@@ -1,5 +1,6 @@
-package items;
+package Equipo;
 
+import casta.Casta;
 import personaje.Personaje;
 import personaje.PersonajeEquipado;
 
@@ -9,10 +10,28 @@ public class VaritaMagica extends PersonajeEquipado{
 	public VaritaMagica(Personaje personaje) {
 		super(personaje);
 	}
-
+	//Modificados:
 	@Override
 	public int getIntelecto(){
 		return intelecto + super.getIntelecto();
+	}
+	
+	// No modificados:
+	public int getEnergia() {
+		return super.getEnergia();
+	}
+	public int getVitalidad() {
+		return super.getVitalidad();
+	}
+	public int getDestreza() {
+		return super.getDestreza();
+	}
+	public int getFuerza() {
+		return super.getFuerza();
+	}
+	@Override
+	public Casta getCasta(){
+		return super.getCasta();
 	}
 	@Override
 	public int obtenerPuntosDeAtaque() {
@@ -26,16 +45,20 @@ public class VaritaMagica extends PersonajeEquipado{
 	public int obtenerPuntosDeDefensaFisica() {
 		return super.obtenerPuntosDeDefensaFisica();
 	}
+	
 	@Override
 	public int obtenerPuntosDeDefensaMagica() {
 		return super.obtenerPuntosDeDefensaMagica();
 	}
+	
+	
+	// ver:
 	@Override
 	public String toString() {
 		return "Varita Magica";
 	}
-	public String verItems() {
-		return super.verItems() + "\n" + this.toString();
+	public String verEquipo() {
+		return super.verEquipo() + "\n" + this.toString();
 	}
 
 

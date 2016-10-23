@@ -7,6 +7,7 @@ import personaje.Personaje;
 
 public class Mago extends Casta {
 	
+	
 	public Mago(){
 		habilidades = new HashMap<String, Habilidad>();
 	}
@@ -26,5 +27,11 @@ public class Mago extends Casta {
 	@Override
 	public int getCantidadDeHabilidades() {
 		return this.habilidades.size();
+	}
+	
+	@Override
+	public void libroHabilidades() {
+		// TODO Auto-generated method stub
+		
 	}
 }

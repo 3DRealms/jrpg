@@ -3,11 +3,12 @@ package clienteTest;
 import org.junit.Assert;
 import org.junit.Test;
 
-import items.AnilloDraupnir;
-import items.EscudoSvalinn;
-import items.EspadaSkofnung;
-import items.PaloDeEscobaMagico;
-import items.VaritaMagica;
+import Equipo.AnilloDraupnir;
+import Equipo.EscudoDeMadera;
+import Equipo.EscudoSvalinn;
+import Equipo.EspadaSkofnung;
+import Equipo.PaloDeEscobaMagico;
+import Equipo.VaritaMagica;
 import personaje.Personaje;
 import raza.Humano;
 import raza.Mognatal;
@@ -16,35 +17,36 @@ import raza.PersonajePrueba;
 
 
 
-public class ItemTests {
+public class EquipoTests {
 
 	/*
-	 * Especificacion de Items
+	 * Especificacion de Equipos
 	 * ~~~~~~~~~~~~~~~~~~~~~~~
-	 * ConEspadaSkofnung: Esta espada aumenta en 5 pts el ataque
-	 * ConEscudoSvalinn: Este escudo otorga 10 pts de defensa
-	 * ConAnilloDraupnir: Este anillo multiplica el ataque x2
+	 * EspadaSkofnung: Esta espada aumenta en 5 pts el ataque
+	 * EscudoSvalinn: Este escudo otorga 10 pts de defensa
+	 * AnilloDraupnir: Este anillo multiplica el ataque x2
+	 * PaloDeEscobaMagico: Este baston magico que aumenta en 5 el intelecto
+	 * VaritaMagica: 
 	 */
-
 	@Test
-	public void quePuedoAgregarItemDeAtaque() {
+	public void quePuedoAgregarEquipoDeAtaque() {
 
 		Personaje sigmund = new Humano("Sigmund");
 		int ataque =  sigmund.obtenerPuntosDeAtaque();
 
-		// agrego item de ataque
+		// agrego Equipo de ataque
 		sigmund = new EspadaSkofnung(sigmund);
 		Assert.assertEquals(ataque + 5, sigmund.obtenerPuntosDeAtaque());
 	}
 
 	@Test
-	public void quePuedoAgregarAmbosItems() {
+	public void quePuedoAgregarAmbosEquipos() {
 
 		Personaje sigmund = new Humano("Sigmund");
 		int ataque =  sigmund.obtenerPuntosDeAtaque();
 		int defensa = sigmund.obtenerPuntosDeDefensaFisica();
 
-		// agrego item de ataque
+		// agrego Equipo de ataque
 		sigmund = new EspadaSkofnung(sigmund);
 		// agrego defensa
 		sigmund = new EscudoSvalinn(sigmund);
@@ -56,10 +58,10 @@ public class ItemTests {
 	}
 
 	@Test
-	public void quePuedoAgregarDosTiposDeItem() {
+	public void quePuedoAgregarDosTiposDeEquipo() {
 		Personaje sigmund = new Humano("Sigmund");
 
-		// agrego item de ataque
+		// agrego Equipo de ataque
 		sigmund = new EspadaSkofnung(sigmund);
 		int ataqueConEspada =  sigmund.obtenerPuntosDeAtaque();
 
@@ -86,7 +88,7 @@ public class ItemTests {
 	}
 
 	@Test
-	public void quePuedoAgregarDosTiposDeItemYAtacar() {
+	public void quePuedoAgregarDosTiposDeEquipoYAtacar() {
 		Personaje sigmund = new Humano("Sigmund");
 		sigmund = new EspadaSkofnung(sigmund);
 		sigmund = new AnilloDraupnir(sigmund);
@@ -112,16 +114,37 @@ public class ItemTests {
 	}
 
 	@Test
-	public void verItem(){
+	public void verEquipo(){
 		Personaje dani = new Mognatal("Dr.Coffee");
 		dani = new AnilloDraupnir(dani);
 		dani = new EscudoSvalinn(dani);
 		dani = new EspadaSkofnung(dani);
 		dani = new PaloDeEscobaMagico(dani);
 		dani = new VaritaMagica(dani);
-
-		//System.out.println(dani.verItems()); // LUCAS OSEA TENGO QUE VERLO YO OSEA CALMATE UN POCO.
-		Assert.assertEquals("Items:\nAnillo Draupnir\nEscudo Svalinn\nEspada Skofnung\nPalo De Escoba Magico\nVarita Magica", dani.verItems());
+		Assert.assertEquals("Equipo:\nAnillo Draupnir\nEscudo Svalinn\nEspada Skofnung\nPalo De Escoba Magico\nVarita Magica", dani.verEquipo());
 	}
+	@Test
+	public void equipoDosEquipoIguales(){
+		Personaje dani = new Mognatal("Dr.Coffee");
+		dani = new EscudoSvalinn(dani);
+		
+		Assert.assertEquals(false, dani.puedoEquiparArmaIzq());
+	}
+	@Test
+	public void sacarEscudo(){
+		Personaje dani = new PersonajePrueba("Dr.Coffee");
+		dani = new EscudoSvalinn(dani);
+		
+		// aca los puntos de defenza son 10 
+		System.out.println(dani.obtenerPuntosDeDefensaFisica());
+		Assert.assertEquals(false, dani.puedoEquiparArmaIzq()); // no tengo espacio para otro escudo.
+		
+		dani.quitarArmIqz(dani); // magica de punteros
+		
+		// aca los puntos de defenza son 0 
+		System.out.println(dani.obtenerPuntosDeDefensaFisica());
+		Assert.assertEquals(true, dani.puedoEquiparArmaIzq()); // ahora tengo el espacio.
+	}
+
 
 }

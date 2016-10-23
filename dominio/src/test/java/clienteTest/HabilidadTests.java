@@ -35,7 +35,7 @@ public class HabilidadTests {
 		Personaje alex = new PersonajePrueba("alex");
 		int alexSalud = alex.getSaludActual();
 		dani.lanzarHabilidad("piroExplosion", alex); 
-		System.out.println(alex.getSaludActual());
+		
 		// Piro Explosion quita 20 puntos de vida. 
 		Assert.assertEquals( alexSalud - 20, alex.getSaludActual());
 	}
@@ -48,10 +48,15 @@ public class HabilidadTests {
 		dani.agregarHabilidad("piroExplosion", new PiroExplosion());
 		Personaje alex = new PersonajePrueba("alex");
 		int alexSalud = alex.getSaludActual();
-
+		
+		dani.subirExperencia(1000); //Subo 5 niveles para tener puntos.
 		//Aumento El intelecto
-		dani.subirIntelecto(5);
-		dani.lanzarHabilidad("piroExplosion", alex); 
+		dani.subirIntelecto();
+		dani.subirIntelecto();
+		dani.subirIntelecto();
+		dani.subirIntelecto();
+		dani.subirIntelecto();
+		dani.lanzarHabilidad("piroExplosion"  , alex); 
 
 		// Piro Explosion quita 40 puntos de vida, al tener mas intelecto, pega 20 pntos mas (aguante la PiroExplosion).
 		Assert.assertEquals(alexSalud-40, alex.getSaludActual());
@@ -63,7 +68,7 @@ public class HabilidadTests {
 		Personaje dani = new Humano("Dr.Coffee"); // El humano tiene  100 de energia base
 		dani.setCastaMago();
 		dani.agregarHabilidad("piroExplosion", new PiroExplosion());
-
+		
 		//Lanzo 2 habilidades para quedar con poca energia,cada piroExplosion gasta 35 (osea 70pnts total gasto).
 		Personaje pichon = new Mognatal("bot1");
 		dani.lanzarHabilidad("piroExplosion", pichon); 
@@ -79,7 +84,6 @@ public class HabilidadTests {
 		dani.setCastaMago();
 		dani.agregarHabilidad("piroExplosion", new PiroExplosion());
 		dani.agregarHabilidad("rayoDeInteligencia", new RayoDeInteligencia());
-		//		System.out.println(dani.verHabilidades()); // LUCAS OSEA TENGO QUE VERLO YO OSEA CALMATE UN POCO.
 		Assert.assertEquals("Habilidades:\npiroExplosion\nrayoDeInteligencia\n", dani.verHabilidades());
 	}
 

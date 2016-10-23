@@ -1,4 +1,4 @@
-package equipos;
+package alianza;
 
 import java.util.LinkedList;
 

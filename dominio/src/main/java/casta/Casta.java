@@ -6,8 +6,8 @@ import habilidades.Habilidad;
 import personaje.Personaje;
 
 public abstract class Casta  {
+	protected Map<String, Habilidad> libroHabilidades;
 	protected Map<String, Habilidad> habilidades;
-	
 	public Map<String, Habilidad> getHabilidades() {
 		return habilidades;
 	}
@@ -15,16 +15,7 @@ public abstract class Casta  {
 	public Habilidad getHabilidad(String h) {
 		return habilidades.get(h);
 	}
-	/**
-	 * Devuelve los puntos del estado de la casta para usar en (por ahora)
-	 * en lanzarHabilidad->afectar, entonces le mando el estado y con eso 
-	 * las habilidades haran los calculos conrespondientes para aumentar su efecto.
-	 * EJ: si hago el getEstado del mago me deberia devolver el intelecto.
-	 * sino no tiene casta devuelve 0.
-	 * 
-	 * Ya se que no es optimo pero por ahora funciona.
-	 * @return
-	 */
+	public abstract void libroHabilidades();
 	public abstract void agregarHabilidad(String conjuro,  Habilidad habilidad);
 	public abstract int getCantidadDeHabilidades();
 	

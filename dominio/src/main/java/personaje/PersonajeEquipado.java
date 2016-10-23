@@ -11,9 +11,6 @@ public abstract class PersonajeEquipado extends Personaje {
 		this.pj = personaje;
 	}
 	
-	public int getIntelecto() {
-		return pj.getIntelecto();
-	}
 	public int obtenerPuntosDeDefensaFisica() {
 		return pj.obtenerPuntosDeDefensaFisica();
 	}
@@ -26,17 +23,44 @@ public abstract class PersonajeEquipado extends Personaje {
 	protected int calcularPuntosDeAtaque() {
 		return pj.calcularPuntosDeAtaque() ;
 	}
-	public boolean puedeAtacar(){
-		return pj.puedeAtacar();
+	
+	// gets:
+	
+	@Override
+	public Casta getCasta(){
+		return pj.getCasta();
+	}
+	public int getIntelecto() {
+		return pj.getIntelecto();
 	}
 	public int getEnergia() {
 		return pj.getEnergia();
 	}
-	public Casta getCasta(){
-		return pj.getCasta();
+	public int getVitalidad() {
+		return pj.getVitalidad();
 	}
-	public String verItems(){
-		return pj.verItems();
+	public int getDestreza() {
+		return pj.getDestreza();
+	}
+	public int getFuerza() {
+		return pj.getFuerza();
+	}
+	
+	// Ver item:
+	public String verEquipo(){
+		return pj.verEquipo();
+	}
+	
+	
+	public boolean puedoEquiparArmaIzq(){
+		return pj.puedoEquiparArmaIzq();
+	}
+	@Override
+	public void quitarArmIqz(Personaje yo) {
+		pj.setEquipoArmaIzq(true);
+		yo = this.pj;
 	}
 
+	
+	
 }

@@ -3,14 +3,15 @@ package campoDeBatalla;
 import interfaces.Equipo;
 
 public class CampoDeBatalla {
-	
+	/**
+	 * Para test (segun Lucas)
+	 * @param e1
+	 * @param e2
+	 * @return
+	 */
 	public String batalla(Equipo e1, Equipo e2) {
 		boolean fin = false;
 		String ganador = "empate";
-		
-		/**
-		 * GORDOPOLIS.
-		 */
 		while( !fin ){ 	
 			e1.atacar(e2);
 			if( e2.isEmpty() ){
