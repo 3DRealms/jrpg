@@ -1,6 +1,6 @@
 package campoDeBatalla;
 
-import interfaces.Equipo;
+import interfaces.Grupo;
 
 public class CampoDeBatalla {
 	/**
@@ -9,7 +9,7 @@ public class CampoDeBatalla {
 	 * @param e2
 	 * @return
 	 */
-	public String batalla(Equipo e1, Equipo e2) {
+	public String batallaAuto(Grupo e1, Grupo e2) {
 		boolean fin = false;
 		String ganador = "empate";
 		while( !fin ){ 	
@@ -25,6 +25,12 @@ public class CampoDeBatalla {
 				ganador = e2.toString();
 			}
 		}
+		return ganador;
+	}
+	public String batalla(Grupo e1, Grupo e2) {
+		String ganador = "empate";
+		//Hacer una lista de personajes con sus habilidades y su victima, que se ordene por velocidad y que se ejecute.		
+		
 		return ganador;
 	}
 }

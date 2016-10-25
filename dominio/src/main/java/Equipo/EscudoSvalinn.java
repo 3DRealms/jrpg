@@ -5,12 +5,11 @@ import personaje.Personaje;
 import personaje.PersonajeEquipado;
 
 public class EscudoSvalinn extends PersonajeEquipado {
-	
+
 	protected int defensaFisica = 10;
 	protected int defensaMagica = 5;
 	public EscudoSvalinn(Personaje personaje) {
 		super(personaje);
-		personaje.setEquipoArmaIzq(false); //ya no puedo equipar nada mas en la mano izq.
 	}
 
 	@Override
@@ -26,7 +25,7 @@ public class EscudoSvalinn extends PersonajeEquipado {
 	public int obtenerPuntosDeAtaque() {
 		return super.obtenerPuntosDeAtaque();
 	}
-	
+
 	//Gets:
 	@Override
 	public int getIntelecto(){
@@ -55,9 +54,8 @@ public class EscudoSvalinn extends PersonajeEquipado {
 	public String verEquipo() {
 		return super.verEquipo() + "\n" + this.toString();
 	}
-	@Override
-	public void quitarArmIqz(Personaje na) {
-		super.quitarArmIqz(this);
+	public Personaje getPj(){
+		return super.getPj();
 	}
 
 }

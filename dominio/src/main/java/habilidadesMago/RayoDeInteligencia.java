@@ -1,5 +1,6 @@
-package habilidades;
+package habilidadesMago;
 
+import personaje.Habilidad;
 import personaje.Personaje;
 
 public class RayoDeInteligencia extends Habilidad {

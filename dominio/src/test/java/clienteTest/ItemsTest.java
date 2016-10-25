@@ -27,4 +27,5 @@ public class ItemsTest {
 		Assert.assertEquals(saludLocoDelTecho - 100, locoDelTecho.getSaludActual());
 	}
 
+
 }

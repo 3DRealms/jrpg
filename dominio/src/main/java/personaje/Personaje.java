@@ -3,9 +3,10 @@ package personaje;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import Equipo.Equipo;
 import casta.Casta;
 import casta.Mago;
-import habilidades.Habilidad;
 import interfaces.Atacable;
 import items.Item;
 
@@ -39,13 +40,22 @@ public abstract class Personaje implements Atacable {
 	protected int vitalidad = 0;
 
 	//Equipo
-	protected boolean equipoCasco = false;
-	protected boolean equipoArmadura = false;
-	protected boolean equipoAnillo1 = false;
-	protected boolean equipoAnillo2 = false;
-	protected boolean equipoArmaIzq = false;  //Hay armas de dos manos.
-	protected boolean equipoArmaDer = false;
-
+	protected boolean equipoCasco;
+	protected boolean equipoArmadura;
+	protected boolean equipoAnillo1;
+	protected boolean equipoAnillo2;
+	protected boolean equipoArmaIzq;  //Hay armas de dos manos.
+	protected boolean equipoArmaDer;
+	
+	/**
+	 * Estoy probado esto.
+	 */
+	protected Equipo anillo1;
+	protected Equipo anillo2;
+	protected Equipo armadura;
+	protected Equipo armaIzq;  //Hay armas de dos manos.
+	protected Equipo armaDer;
+	protected Equipo casco;
 
 	//Progreso del personaje.
 	protected int nivel = 0;
@@ -68,7 +78,15 @@ public abstract class Personaje implements Atacable {
 	public Personaje(String nombre) {
 		mochilaItem = new HashMap<String, Item>();
 		this.nombre = nombre;
-	}
+		
+		//Equipo vacio. Me gusta el arte mmm
+		this.anillo1 = new Equipo(); 
+		this.anillo2 = new Equipo(); 
+		this.armaDer = new Equipo(); 
+		this.armaIzq = new Equipo(); 
+		this.armadura = new Equipo(); 
+		this.casco = new Equipo(); 
+	}	
 
 	// #############################################
 
@@ -111,6 +129,12 @@ public abstract class Personaje implements Atacable {
 	public abstract int obtenerPuntosDeAtaque();
 	public abstract int obtenerPuntosDeDefensaFisica();
 	public abstract int obtenerPuntosDeDefensaMagica();
+
+	public Personaje getPj(){
+		return this;
+	}
+
+
 	//protected void despuesDeAtacar(){};
 	//protected abstract boolean puedeAtacar();
 
@@ -151,7 +175,7 @@ public abstract class Personaje implements Atacable {
 	}
 	public String verHabilidades() {
 		String habilidades= "Habilidades:\n";
-		for ( String key : casta.getHabilidades().keySet() ) {
+		for ( String key : casta.listaHabilidades() ) {
 			habilidades += key + "\n";
 		}
 		return habilidades;
@@ -338,7 +362,7 @@ public abstract class Personaje implements Atacable {
 	public String verEquipo() {
 		return "Equipo:";
 	}
-// #################################
+	// #################################
 	//Items:
 	public boolean guardarItem(String i, Item item){
 		// Si no puedo equipar no equipo.
@@ -365,20 +389,23 @@ public abstract class Personaje implements Atacable {
 		return Items;
 	}
 	
-	
-	
-	
-	
-	///Equipo:
-	public boolean puedoEquiparArmaIzq() {
-		return this.equipoArmaIzq;
-	}
-	public void setEquipoArmaIzq(boolean equipoArmaIzq) {
-		this.equipoArmaIzq = equipoArmaIzq;
+	public int  obtenerPuntosDeDefensaFisicaConEquipo() {
+		return  obtenerPuntosDeDefensaFisica() 	+
+				anillo1.getAtaqueFisico()   	+ 
+				anillo2.getAtaqueFisico()  	    + 
+				casco.getDefensaFisica()  		+
+				armadura.getDefensaFisica() 	+ 
+				armaDer.getDefensaFisica() 		+ 
+				armaIzq.getDefensaFisica();
+			// Total de la defensa con el equipo, en verdad siempre vas a tener un equipo.
 	}
 
-
-	public void quitarArmIqz(Personaje yo){};
+	public void setAnillo1(Equipo anillo) {
+		this.anillo1 = anillo;
+	}
+	public void setAnillo2(Equipo anillo) {
+		this.anillo2 = anillo;
+	}
 
 
 }

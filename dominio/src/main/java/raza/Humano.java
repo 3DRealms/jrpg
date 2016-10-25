@@ -34,10 +34,12 @@ public class Humano extends Personaje {
 	public int obtenerPuntosDeAtaque() {
 		return calcularPuntosDeAtaque();
 	}
-
+	
+	
+	//Comun
 	@Override
 	public int obtenerPuntosDeDefensaFisica() {
-		return defensaFisica;
+		return defensaFisica + anillo1.getAtaqueFisico();
 	}
 
 	@Override

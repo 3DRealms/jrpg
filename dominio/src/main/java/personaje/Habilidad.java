@@ -1,6 +1,4 @@
-package habilidades;
-
-import personaje.Personaje;
+package personaje;
 
 public abstract class Habilidad {
 	protected int costo;

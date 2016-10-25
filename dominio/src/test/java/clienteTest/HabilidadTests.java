@@ -3,8 +3,8 @@ package clienteTest;
 import org.junit.Assert;
 import org.junit.Test;
 
-import habilidades.PiroExplosion;
-import habilidades.RayoDeInteligencia;
+import habilidadesMago.PiroExplosion;
+import habilidadesMago.RayoDeInteligencia;
 import personaje.Personaje;
 import raza.Humano;
 import raza.Mognatal;
@@ -56,6 +56,7 @@ public class HabilidadTests {
 		dani.subirIntelecto();
 		dani.subirIntelecto();
 		dani.subirIntelecto();
+		
 		dani.lanzarHabilidad("piroExplosion"  , alex); 
 
 		// Piro Explosion quita 40 puntos de vida, al tener mas intelecto, pega 20 pntos mas (aguante la PiroExplosion).

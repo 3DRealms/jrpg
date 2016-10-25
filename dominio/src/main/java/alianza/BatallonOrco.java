@@ -3,7 +3,7 @@ package alianza;
 import java.util.LinkedList;
 
 import interfaces.Atacable;
-import interfaces.Equipo;
+import interfaces.Grupo;
 import personaje.Personaje;
 import raza.Orco;
 
@@ -19,7 +19,7 @@ public class BatallonOrco extends Batallon {
 
 	}
 
-	public void atacar(Equipo victimas){
+	public void atacar(Grupo victimas){
 		int I = 0; //  "macro", esto luego podria llegar de parametro si quiero selecionar a alguno en especial.
 
 		for (Personaje Orco: batallon) {

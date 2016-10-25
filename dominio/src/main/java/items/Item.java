@@ -26,7 +26,7 @@ public abstract class Item {
 	}
 	@Override
 	public String toString() {
-		return this.nombre+"\n"+"Tipo "+this.Efecto+": "+this.cantidadDeEfecto+this.descripcion+"\nCantidad en mochila: "+this.cantidad+".";
+		return this.nombre+"\n"+this.Efecto+": "+this.cantidadDeEfecto+"\n"+this.descripcion+"\nCantidad en mochila: "+this.cantidad+".";
 	}
 
 }

@@ -6,11 +6,10 @@ import personaje.PersonajeEquipado;
 
 public class AnilloDraupnir extends PersonajeEquipado {
 
-	protected int ataque = 2;
-
 	public AnilloDraupnir(Personaje personaje) {
 		super(personaje);
 	}
+	protected int ataque = 2;
 
 	@Override
 	public int obtenerPuntosDeAtaque() {

@@ -1,5 +1,6 @@
-package habilidades;
+package habilidadesMago;
 
+import personaje.Habilidad;
 import personaje.Personaje;
 
 public class PiroExplosion extends Habilidad {
@@ -7,7 +8,7 @@ public class PiroExplosion extends Habilidad {
 	public PiroExplosion(){
 		this.costo = 35;
 		this.ataqueBasico = 20;
-		this.nivel = 20;
+		this.nivel = 3;
 		this.tipo = "magico";
 	}
 	

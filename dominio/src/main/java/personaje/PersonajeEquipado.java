@@ -52,15 +52,5 @@ public abstract class PersonajeEquipado extends Personaje {
 	}
 	
 	
-	public boolean puedoEquiparArmaIzq(){
-		return pj.puedoEquiparArmaIzq();
-	}
-	@Override
-	public void quitarArmIqz(Personaje yo) {
-		pj.setEquipoArmaIzq(true);
-		yo = this.pj;
-	}
-
-	
 	
 }

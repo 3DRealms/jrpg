@@ -4,10 +4,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 import interfaces.Atacable;
-import interfaces.Equipo;
+import interfaces.Grupo;
 import personaje.Personaje;
 
-public class Alianza implements Equipo{
+public class Alianza implements Grupo{
 
 	private List<Personaje> alianza;
 	private String nombreEquipo;
@@ -52,7 +52,7 @@ public class Alianza implements Equipo{
 	 */
 	//RANCIO.
 	@Override
-	public void atacar(Equipo victimas) {}
+	public void atacar(Grupo victimas) {}
 //	{
 //		Scanner teclado = new Scanner(System.in);
 //		Personaje victima;

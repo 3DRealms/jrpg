@@ -3,10 +3,10 @@ package alianza;
 import java.util.List;
 
 import interfaces.Atacable;
-import interfaces.Equipo;
+import interfaces.Grupo;
 import personaje.Personaje;
 
-public abstract class Batallon implements Equipo {
+public abstract class Batallon implements Grupo {
 	int cantidad; //este cantidad es para hacer un for por batallon, asi yo tengo la cantidad que quiero meter de NPCs
 	List<Personaje> batallon;
 

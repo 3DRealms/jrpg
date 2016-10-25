@@ -3,7 +3,7 @@ package alianza;
 import java.util.LinkedList;
 
 import interfaces.Atacable;
-import interfaces.Equipo;
+import interfaces.Grupo;
 import personaje.Personaje;
 import raza.Humano;
 
@@ -31,10 +31,10 @@ public class BatallonHumano extends Batallon {
 	 * h3 ataca a j3
 	 * h4 ataca a j4
 	 * h5 ataca a j1
-	 * @param Equipo
+	 * @param Grupo
 	 * @author DrCoffee84
 	 */
-	public void atacar(Equipo victimas){
+	public void atacar(Grupo victimas){
 
 		int i = 0; //contador magic
 		Personaje victima; 

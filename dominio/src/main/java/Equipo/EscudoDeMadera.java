@@ -10,7 +10,6 @@ public class EscudoDeMadera extends PersonajeEquipado {
 	protected int defensaFisica = 5;
 	public EscudoDeMadera(Personaje personaje) {
 		super(personaje);
-		personaje.setEquipoArmaIzq(false); //ya no puedo equipar nada mas en la mano izq.
 
 	}
 
@@ -58,9 +57,8 @@ public class EscudoDeMadera extends PersonajeEquipado {
 	public String verEquipo() {
 		return super.verEquipo() + "\n" + this.toString();
 	}
-	//Extraño no?
-	public void quitarArmIqz() {
-		
+	public Personaje getPj(){
+		return super.getPj();
 	}
 
 

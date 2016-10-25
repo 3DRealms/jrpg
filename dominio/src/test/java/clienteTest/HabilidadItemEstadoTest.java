@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import Equipo.PaloDeEscobaMagico;
 import Equipo.VaritaMagica;
-import habilidades.PiroExplosion;
+import habilidadesMago.PiroExplosion;
 import personaje.Personaje;
 import raza.Mognatal;
 import raza.PersonajePrueba;
