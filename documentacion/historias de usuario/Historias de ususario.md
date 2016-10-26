@@ -6,14 +6,6 @@ Como jugador, quiero crear mi personaje, editando sus características principal
 * Dado un personaje cuando se va a crear entonces se le eligen casta y raza.
 
 
-##Ingresar al mundo--
-Como jugador, quiero ingresar a un mundo para adquirir experiencia, items y habilidades nuevas
-
-
-* Debo poder ver mi experiencia acumulada y nivel.
-* Debo poder ver mis habilidades actuales.
-* Debo poder ver mis ítems equipados.
-
 ##Aumentar experiencia
 Como jugador, quiero eliminar enemigos para aumentar mi experiencia
 
@@ -52,13 +44,11 @@ Como jugador, quiero encontrarme con otros jugadores en el mismo mundo para alia
 ##Aumentar experiencia al aliarme con otro jugador
 Como jugador, quiero aliarme con otro jugador para combatir junto a él y aumentar la experiencia que recolectamos en ese tiempo
 
-* Dado un jugador cuando forma una alianza con otro 
-* No debo poder dejar la alianza con otro jugador hasta que pase un determinado tiempo
-* Debo poder combatir junto a otro jugador contra enemigos u otros jugadores
-* Al ganar una batalla debo poder recibir más experiencia que al combatir solo, al igual que el otro jugador
-* Al ganar una batalla debo poder recolectar ítems al igual que el otro jugador
+* Dado un jugador cuando forma una alianza con otro entonces ambos reciben mas experiencia que la usual
+* Dado dos personajes cuando estan aliados entonces no pueden romper la alianza hasta que no pase un determinado tiempo
 
-##Obtener items al derrotar jugadores-----------------------
+
+##Obtener items al derrotar jugadores //VER
 Como jugador, quiero combatir contra otros jugadores para obtener sus ítems al derrotarlos
 
 * Al derrotar a un jugador debo poder recoger un ítem que tuviese equipado
@@ -69,15 +59,10 @@ Como jugador, quiero cambiar las alianzas establecidas cada cierta cantidad de t
 
 * Dada una alianza cuando pase una determinada cantidad de tiempo entonces la misma se disuelve 
 
-##Desplazarse dentro del mapa--------------------------------------------
-Como jugador, quiero poder desplazarme por el mapa libremente para poder esquivar obstáculos
+#Obstaculos
+Como jugador, quiero que haya obstaculos en el mapa para reestringir mi paso
 
-* Al tocar las teclas de dirrecion (WASD, ←↑→↓) debo poder moverme hacia la direccion selecionada.
-* Al tocar las teclas de dirrecion (WASD, ←↑→↓) y si hay un obstáculo no debo poder moverme en dicha direccion.
-// ver a futuro.
-* Al hacer click con el botón derecho del mouse debo poder moverme a la ubicación seleccionada.
-* Al hacer click con el botón derecho del mouse en un obstáculo no debo poder moverme a su ubicación.
-* Debo poder moverme hacia arriba, abajo, izquierda, derecha y en las cuatro direcciones diagonales 
+* Dado un obstaculo cuando me desplaze por el mapa entonces no puedo pasar sobre el.
 
 ##Aprender habilidades
 Como jugador, quiero aprender habilidades para usarlas en el combate contra enemigos
@@ -90,10 +75,6 @@ Como jugador, quiero poder derrotar a un enemigo para conseguir ítems
 
 * Dada una batalla entre dos jugadores cuando uno gane entonces puede recoger un item del jugador derrotado
 
-##Reemplazar items-----------------------------------------------------------------------------
-Como jugador, quiero poder reemplazar un item para equipar uno nuevo
-
-* Al recoger un ítem debe reemplazar al ítem que yo tenga equipado de ese mismo tipo
 
 ##Acceder a una zona neutral
 Como jugador, quiero poder reaparecer en una zona neutral para no perder mi experiencia al morir
