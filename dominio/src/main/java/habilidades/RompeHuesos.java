@@ -1,4 +1,4 @@
-package habilidadesGuerrero;
+package habilidades;
 
 import personaje.Habilidad;
 import personaje.Personaje;

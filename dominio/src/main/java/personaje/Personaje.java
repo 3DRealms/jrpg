@@ -4,11 +4,13 @@ package personaje;
 import java.util.HashMap;
 import java.util.Map;
 
-import Equipo.Equipo;
+import batalla.Accion;
 import casta.Casta;
 import casta.Mago;
 import interfaces.Atacable;
-import items.Item;
+import item.ItemEquipo;
+import item.ItemLanzable;
+import raza.Humano;
 
 public abstract class Personaje implements Atacable {
 
@@ -22,10 +24,11 @@ public abstract class Personaje implements Atacable {
 
 	//Aca esta todo el manejo de habilidades, depende la casta tendra un libro distinto.
 	protected Casta casta;
-	protected Map<String, Item> mochilaItem;
-	// Ver
-	protected Map<String, PersonajeEquipado> mochilaEquipo;
-	protected final int ESPACIO_MOCHILA = 5;
+
+	protected Map<String, ItemLanzable> mochilaItemLanzable;
+	protected Map<String, ItemEquipo> mochilaEquipo;
+
+	protected final int ESPACIO_MOCHILA = 10;
 
 	// Atributos: depende de items, (cada raza empieza con basicos pero a la larga se amortigua.
 	protected int ataqueFisico;  
@@ -39,61 +42,73 @@ public abstract class Personaje implements Atacable {
 	protected int destreza = 0;
 	protected int vitalidad = 0;
 
-	//Equipo
-	protected boolean equipoCasco;
-	protected boolean equipoArmadura;
-	protected boolean equipoAnillo1;
-	protected boolean equipoAnillo2;
-	protected boolean equipoArmaIzq;  //Hay armas de dos manos.
-	protected boolean equipoArmaDer;
-	
-	/**
-	 * Estoy probado esto.
-	 */
-	protected Equipo anillo1;
-	protected Equipo anillo2;
-	protected Equipo armadura;
-	protected Equipo armaIzq;  //Hay armas de dos manos.
-	protected Equipo armaDer;
-	protected Equipo casco;
+	protected Map<String, ItemEquipo> itemEquipado;
+
 
 	//Progreso del personaje.
 	protected int nivel = 0;
+
+	protected final int NIVELMAX = 100; // El algoritmo no tiene limite.xD.
 	protected int experiencia = 0;
 	protected int puntosDeEstados = 0;
 
-	// vector de niveles, la posicion  es = a nivel, el valor es = a experencia necesaria. Bueno son 100 niveles loco xD
-	private final int[ ] NIVELES = {0, 100, 250, 450, 700, 1000, 1350, 1750, 2200, 2700, 3250, 
-			3850, 4500, 5200, 5950, 6750, 7600, 8500, 9450, 10450, 11500, 12600, 
-			13750, 14950, 16200, 17500, 18850, 20250, 21700, 23200, 24750, 26350, 28000,
-			29700, 31450, 33250, 35100, 37000, 38950, 40950, 43000, 45100, 47250, 49450,
-			51700, 54000, 56350, 58750, 61200, 63700, 66250, 68850, 71500, 74200, 76950,
-			79750, 82600, 85500, 88450, 91450, 94500, 97600, 100750, 103950, 107200, 110500, 
-			113850, 117250, 120700, 124200, 127750, 131350, 135000, 138700, 142450, 146250, 150100, 
-			154000, 157950, 161950, 166000, 170100, 174250, 178450, 182700, 187000, 191350, 195750, 
-			200200, 204700, 209250, 213850, 218500, 223200, 227950, 232750, 237600, 242500, 247450, 252450,
-			300000};
-
 	//Constructor:
 	public Personaje(String nombre) {
-		mochilaItem = new HashMap<String, Item>();
+		mochilaItemLanzable = new HashMap<String, ItemLanzable>();
+		itemEquipado = new HashMap<String, ItemEquipo>();
 		this.nombre = nombre;
-		
-		//Equipo vacio. Me gusta el arte mmm
-		this.anillo1 = new Equipo(); 
-		this.anillo2 = new Equipo(); 
-		this.armaDer = new Equipo(); 
-		this.armaIzq = new Equipo(); 
-		this.armadura = new Equipo(); 
-		this.casco = new Equipo(); 
+
+		itemEquipado.put("anillo", new ItemEquipo());
+		itemEquipado.put("armaDer", new ItemEquipo());
+		itemEquipado.put("armaIzq", new ItemEquipo());
+		itemEquipado.put("armadura", new ItemEquipo());
+		itemEquipado.put("casco", new ItemEquipo());
 	}	
+	/**
+	 * La salud total depende de la raza.
+	 * @return
+	 */
+	public abstract int calcularSaludTotal();
+	/**
+	 * La energia total depende de la raza.
+	 * @return
+	 */
+	public abstract int calcularEnergiaTotal();
 
-	// #############################################
-
-	//Experencia
+	//Experiencia	
+	/**
+	 * Sube la experencia y se fija si subiste de nivel.
+	 * Si subiste lo hace automaticamente, y al subir de nivel 
+	 * se le da los puntos.
+	 * @param exp
+	 */
 	public void subirExperencia(int exp) {
 		this.experiencia += exp;
-		subirNivel();
+		caluclarNivel();
+	}
+	/**
+	 * Devuelve el nivel con respecto a tu experiencia.
+	 */
+	private void caluclarNivel() {
+		int nivelAntiguo = this.nivel;
+		int nivelNuevo = 0;
+		for (int i = 1; i <= NIVELMAX; i++) {
+			if( this.experiencia >= calcularExpPorNivel(i))
+				nivelNuevo = i;
+		}
+		this.nivel = nivelNuevo;
+
+		int nivelesQueSubi = nivelNuevo-nivelAntiguo;
+
+		if(nivelesQueSubi>0)
+			puntosDeEstados += 2*nivelesQueSubi; // 2 puntos por nivel.
+	}
+	private int calcularExpPorNivel(int nivel){
+		int expNecesaria=50;
+		for(int i=1;i<=nivel;i++){
+			expNecesaria += i*50;
+		}
+		return expNecesaria;
 	}
 
 	public int getExperiencia() {
@@ -108,55 +123,94 @@ public abstract class Personaje implements Atacable {
 		return this.puntosDeEstados;
 	}
 
-	private void subirNivel() {
-		int nivelAntiguo = this.nivel;
-		int nivelNuevo = 0;
-		for ( int i=0;  i < NIVELES.length ; i++) {
-			if( this.experiencia >= NIVELES[i])
-				nivelNuevo = i;
-		}
-		this.nivel = nivelNuevo;
-		int nivelesQueSubi = nivelNuevo-nivelAntiguo;
-		if(nivelesQueSubi>0)
-			puntosDeEstados += 2*nivelesQueSubi; // 2 puntos por nivel.
+	//Esto depende del equipo:
+	public int obtenerPuntosDeAtaqueFisico(){
+		int ataqueFisicoTotal=ataqueFisico;
+
+		for ( ItemEquipo item : itemEquipado.values() ) 
+			ataqueFisicoTotal += item.getAtaqueFisico();
+		ataqueFisicoTotal += getFuerza()*2;
+		return  ataqueFisicoTotal;
 	}
+	public int obtenerPuntosDeAtaqueMagico(){
+		int ataqueMagicoTotal=ataqueMagico;
 
-	//	#######################################################
-
-	//Abstract, esto depende del equipo.
-
-	protected abstract int calcularPuntosDeAtaque();
-	public abstract int obtenerPuntosDeAtaque();
-	public abstract int obtenerPuntosDeDefensaFisica();
-	public abstract int obtenerPuntosDeDefensaMagica();
-
-	public Personaje getPj(){
-		return this;
+		for ( ItemEquipo item : itemEquipado.values() ) 
+			ataqueMagicoTotal += item.getAtaqueMagico();
+		ataqueMagicoTotal += getIntelecto()*2;
+		return  ataqueMagicoTotal;
 	}
+	public int obtenerPuntosDeDefensaFisica(){
+		int defensaFiscaTotal=defensaFisica;
 
+		for ( ItemEquipo item : itemEquipado.values() ) 
+			defensaFiscaTotal += item.getDefensaFisica();
 
-	//protected void despuesDeAtacar(){};
-	//protected abstract boolean puedeAtacar();
+		return  defensaFiscaTotal;
+
+	}
+	public int obtenerPuntosDeDefensaMagica(){
+		int defensaMagicaTotal=defensaMagica;
+
+		for ( ItemEquipo item : itemEquipado.values() ) 
+			defensaMagicaTotal += item.getDefensaMagica();
+
+		return  defensaMagicaTotal;
+	}
+	public int getIntelecto() {
+		int intelectoTotal=intelecto;
+
+		for ( ItemEquipo item : itemEquipado.values() ) 
+			intelectoTotal += item.getIntelecto();
+
+		return  intelectoTotal;
+	}
+	public int getVitalidad() {
+		int vitalidadTotal=vitalidad;
+
+		for ( ItemEquipo item : itemEquipado.values() ) 
+			vitalidadTotal += item.getVitalidad();
+
+		return  vitalidadTotal;
+	}
+	public int getDestreza() {
+		int destrezaTotal=destreza;
+
+		for ( ItemEquipo item : itemEquipado.values() ) 
+			destrezaTotal += item.getDestreza();
+
+		return  destrezaTotal;
+	}
+	public int getFuerza() {
+		int fuerzaTotal=fuerza; //fuerza actual 
+
+		for ( ItemEquipo item : itemEquipado.values() ) 
+			fuerzaTotal += item.getFuerza();
+
+		return  fuerzaTotal;
+	}
 
 	/**
-	 * Cada raza lo va a sobreEscribir
+	 * Energia actual del personaje.
 	 * @return
 	 */
-	public  int calcularSaludTotal(){
-		return saludBase; 
-	}
-	/**
-	 * Cada raza lo va a sobreEscribir
-	 * @return
-	 */
-	public int calcularEnergiaTotal(){
-		return energiaBase; // cada 5 puntos da 10 de energia.
-	}
 	public int getEnergia() {
 		return this.energiaActual;
 	}
-	public void consumirEnergia(int energia) {
-		this.energiaActual -= energia;
+
+	/**
+	 *
+	 * Devuelve un boolean si se puede consumir o no.
+	 * Si se puede consumir, lo hace.
+	 * Se pasa como parametro el Costo de energia y la que dispongo.
+	 * @param costo
+	 * @param energia 
+	 */
+	public boolean consumirEnergia(int costo) {
+		if(costo > getEnergia())
+			return false;
+		this.energiaActual -= costo;
+		return true;
 	}
 
 	//	#######################################################
@@ -165,14 +219,21 @@ public abstract class Personaje implements Atacable {
 		return casta;
 	}
 
-	//Por ahora seria asi:
+	//Por ahora seria asi: ( y creo que va a quedar asi).
 	public void setCastaMago() {
 		this.casta = new Mago();
 	}
 
+	/**
+	 * Esto posiblemente vuele, que ya todos los personajes tenga la habilidad cargadas
+	 * y lo unico que haga es preguntar si tengo el nivel para lanzarla.
+	 * @param conjuro
+	 * @param habilidad
+	 */
 	public void agregarHabilidad(String conjuro, Habilidad habilidad) {
 		casta.agregarHabilidad(conjuro, habilidad);
 	}
+
 	public String verHabilidades() {
 		String habilidades= "Habilidades:\n";
 		for ( String key : casta.listaHabilidades() ) {
@@ -181,51 +242,57 @@ public abstract class Personaje implements Atacable {
 		return habilidades;
 	}
 
-	//Metodo general de personaje(sujeto a cambios)
 
 	/** 
 	 * El atacar es generico para todos. 
-	 * The Lore of Destiny v0.52
+	 * Es un ataque fisico simple que depende del ataque fisico.
+	 * No consume energia. ( pobre maguito D:)
+	 * The Lore of Destiny v0.72
 	 * @param atacado
 	 */
 	public void atacar(Atacable atacado) {
-		//Por el momento es un ataque simple que no consume energia.
-		atacado.serAtacadoFisico(obtenerPuntosDeAtaque());
+		atacado.serAtacadoFisico(obtenerPuntosDeAtaqueFisico());
 	}
 
 	/**
 	 * 	Lanzar habilidad[algun conjuro del libro, ya sea una "superPatada" o "piroExplosion" o "pitulin"].
 	 *  Si no lo encuentra no lo lanza.
+	 *  Distingue del tipo de ataque ataque normal, magico y fisico.
 	 * @param conjuro
 	 * @param personaje
 	 * @return
 	 */
 	public  boolean lanzarHabilidad(String conjuro, Personaje personaje){
 		Habilidad h = getCasta().getHabilidad(conjuro);
-		if( h != null && getEnergia() >= h.getCosto()){
-			//Dependiendo el tipo de habilidad, entonces le envio el ataque correspondiente.
 
-			if(h.getTipo().equals("normal"))
-				h.afectar(personaje, getCasta().getEstado(this), 0);
+		if( h != null && consumirEnergia( h.getCosto() )  ){
 
-			else if(h.getTipo().equals("magico"))
-				h.afectar(personaje, getCasta().getEstado(this), ataqueMagico );
+			h.afectar(personaje, getCasta().getEstado(this), tipoDanio(h.getTipo()));
 
-			else if(h.getTipo().equals("fisico"))
-				h.afectar(personaje, getCasta().getEstado(this), ataqueFisico );
-
-			consumirEnergia(h.getCosto());
 			return true;
 		}
 		return false;
 	}
+	/**
+	 * Dependiendo el tipo de habilidad, entonces le envio el ataque correspondiente.
+	 * @param tipo
+	 * @return
+	 */
+	private int tipoDanio(String tipo) {
+		if(tipo.equals("magico"))
+			return ataqueMagico;
+		else if(tipo.equals("fisico"))
+			return ataqueFisico;
+		return 0;
+	}
+
 	public  boolean lanzarItem(String item, Personaje personaje){
-		Item  i = mochilaItem.get(item);
+		ItemLanzable  i = mochilaItemLanzable.get(item);
 		if(i != null ){
 			i.afectar(personaje);
 			i.usar();
 			if(i.getCantidad() == 0)
-				this.mochilaItem.remove(item);
+				this.mochilaItemLanzable.remove(item);
 			return true;
 		}
 
@@ -233,7 +300,7 @@ public abstract class Personaje implements Atacable {
 	}
 
 	/**
-	 * 1% del da�o es reducido por cada punto de defensa Fisica.
+	 * 1% del daño es reducido por cada punto de defensa Fisica.
 	 * @param danio
 	 */
 	public void serAtacadoFisico(int danio) {
@@ -241,7 +308,7 @@ public abstract class Personaje implements Atacable {
 	}
 
 	/**
-	 *  1% del da�o es reducido por cada punto de defensa Magica.
+	 *  1% del daño es reducido por cada punto de defensa Magica.
 	 * @param danio
 	 */
 	public void serAtacadoMagico(int danio){
@@ -249,7 +316,7 @@ public abstract class Personaje implements Atacable {
 	}
 
 	/**
-	 *  Todo el da�o es aplicado.
+	 *  Todo el daño es aplicado.
 	 * @param danio
 	 */
 	public void serAtacadoDanioPuro(int danio){
@@ -341,36 +408,19 @@ public abstract class Personaje implements Atacable {
 		return true;
 	}
 
-
-	public int getIntelecto() {
-		return intelecto;
-	}
-	public int getVitalidad() {
-		return this.vitalidad;
-	}
-	public int getDestreza() {
-		return this.destreza;
-	}
-	public int getFuerza() {
-		return this.fuerza;
-	}
-
 	@Override
 	public String toString() {
 		return nombre;
 	}
-	public String verEquipo() {
-		return "Equipo:";
-	}
-	// #################################
+
 	//Items:
-	public boolean guardarItem(String i, Item item){
+	public boolean guardarItem(String i, ItemLanzable item){
 		// Si no puedo equipar no equipo.
-		Item loTengo = mochilaItem.get(i);
+		ItemLanzable loTengo = mochilaItemLanzable.get(i);
 		if( loTengo == null){
 			if(ESPACIO_MOCHILA <= cantidadItems())
 				return false;
-			mochilaItem.put(i,item);
+			mochilaItemLanzable.put(i,item);
 		}
 		else{
 			if(loTengo.getCantidad() >= item.getLimite())
@@ -378,35 +428,72 @@ public abstract class Personaje implements Atacable {
 		}
 		return true;
 	}
+
 	public int cantidadItems(){
-		return mochilaItem.size();
+		return mochilaItemLanzable.size();
 	}
-	public String verItems(){
+	public String verItemsLanzablesEnMochila(){
 		String Items= "Items:\n";
-		for ( String key : mochilaItem.keySet() ) {
+		for ( String key : mochilaItemLanzable.keySet() ) {
 			Items += key + "\n";
 		}
 		return Items;
 	}
+
+	// ↓↓↓Equipar items, puede ser que todo esto se convierta en uno
+	// Tambien deberia devolver el anterior, despues pruebo  pero seria algo asi
+	// public ItemEquipo setSarasa(ItemEquipo){}
+	// 	↓↓			↑Este seria el viejo.
+	public ItemEquipo equipar(ItemEquipo item){
+		String tipo = item.toString(); // Saco el tipo de Equipo que sea (anillo, casco, lo que sea)
+
+		ItemEquipo sacoEste = itemEquipado.get(tipo); //Retorno el item que tenia antes.
+
+		itemEquipado.put(tipo, item); // Pongo el nuevo item. 
+
+		return sacoEste; // lesto.
+	}
+	/**
+	 * Me quedo sin equipo en la ranura que paso por parametro
+	 * ya sea: casco, arma, anillo, etc.
+	 * y retorno lo que habia ahi. 
+	 * @param key
+	 * @return
+	 */
+	public ItemEquipo desequipar(String key) {
+		ItemEquipo sacoEste = itemEquipado.get(key);
+		itemEquipado.put(key, new ItemEquipo());
+		return sacoEste;
+	}
+	/**
+	 * Veo que item esta en la ranura.
+	 * @param key
+	 * @return
+	 */
+	public ItemEquipo verEquipo(String key) {
+		return itemEquipado.get(key);
+	}
 	
-	public int  obtenerPuntosDeDefensaFisicaConEquipo() {
-		return  obtenerPuntosDeDefensaFisica() 	+
-				anillo1.getAtaqueFisico()   	+ 
-				anillo2.getAtaqueFisico()  	    + 
-				casco.getDefensaFisica()  		+
-				armadura.getDefensaFisica() 	+ 
-				armaDer.getDefensaFisica() 		+ 
-				armaIzq.getDefensaFisica();
-			// Total de la defensa con el equipo, en verdad siempre vas a tener un equipo.
+	
+	
+	
+	
+	@Override
+	public Personaje clone()  {
+		//Preguntar
+		return null;
 	}
-
-	public void setAnillo1(Equipo anillo) {
-		this.anillo1 = anillo;
+	
+	public static void main(String[] args) throws CloneNotSupportedException {
+		Personaje dani = new Humano("el piola");
+		Personaje alex = dani.clone();
+		dani.subirDestreza();
+		System.out.println(dani.getDestreza());
+		System.out.println(alex.getDestreza());
 	}
-	public void setAnillo2(Equipo anillo) {
-		this.anillo2 = anillo;
+	public Accion pedirAccion() {
+		return new Accion(this,elergir());
 	}
-
-
+	
 }
 

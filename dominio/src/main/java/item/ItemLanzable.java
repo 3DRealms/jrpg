@@ -1,14 +1,12 @@
-package items;
+package item;
 
 import personaje.Personaje;
 
-public abstract class Item {
+public abstract class ItemLanzable extends Item {
 	
 	protected int cantidadDeEfecto; // total de daño, cura, mana, o lo que sea que modifique. 
 	protected String nombre;
-	protected String descripcion;
 	protected String Efecto;
-	protected int nivel;
 	protected int cantidad;
 	protected int limite;
 	public abstract void afectar(Personaje personaje);

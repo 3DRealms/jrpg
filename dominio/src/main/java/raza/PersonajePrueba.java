@@ -3,7 +3,13 @@ package raza;
 import personaje.Personaje;
 
 public class PersonajePrueba extends Personaje{
-
+	/**
+	 * Personaje de prueba, tiene todos los atributos en 0
+	 * y las defensas tambien en 0.
+	 * salud 120 y energia 100.
+	 * ataque de 15.
+	 * @param nombre
+	 */
 	public PersonajePrueba(String nombre) {
 		super(nombre);
 		this.ataqueFisico = 15;
@@ -22,29 +28,6 @@ public class PersonajePrueba extends Personaje{
 	public int calcularEnergiaTotal(){
 		return energiaBase+getDestreza()*2; // cada 5 puntos da 10 de energia.
 	}
-	@Override
-	protected int calcularPuntosDeAtaque() {
-		return ataqueFisico+getFuerza();
-	}
-	@Override
-	public int obtenerPuntosDeDefensaFisica() {
-		return defensaFisica;
-	}
-	
-	@Override
-	public int obtenerPuntosDeDefensaMagica() {
-		return defensaMagica;
-	}
-
-	@Override
-	public int obtenerPuntosDeAtaque() {
-		return calcularPuntosDeAtaque();
-	}
-
-
-
-	
-
 }
 
 

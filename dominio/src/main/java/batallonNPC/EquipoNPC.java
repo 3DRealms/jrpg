@@ -1,16 +1,15 @@
-package alianza;
+package batallonNPC;
 
 import java.util.List;
-
 import interfaces.Atacable;
-import interfaces.Grupo;
+import interfaces.Equipo;
 import personaje.Personaje;
 
-public abstract class Batallon implements Grupo {
+public abstract class EquipoNPC implements Equipo {
 	int cantidad; //este cantidad es para hacer un for por batallon, asi yo tengo la cantidad que quiero meter de NPCs
 	List<Personaje> batallon;
 
-	public Batallon(int cant){
+	public EquipoNPC(int cant){
 		this.cantidad = cant;
 	}
 
@@ -39,32 +38,12 @@ public abstract class Batallon implements Grupo {
 	public Personaje get(int i) {
 		return batallon.get(i);
 	}
-	/**
-	 * Partida entre npc para probar el algoritmo propuesto en clase.
-	 * Solo que cada equipo ataca todo en un turno y depues lo otro
-	 * @param b1
-	 * @param b2
-	 * @return
-	 */
-/*	public static String partidaEntreNPCs(Batallon b1, Batallon b2) {
-		boolean fin = false;
-		String ganador = "empate";
-		while( !fin ){ 	
-			
-			b1.atacar(b2);
-			if( b2.isEmpty() ){
-				fin = true;
-				ganador = b1.toString();
-			}
-
-			b2.atacar(b1);
-			if( b1.isEmpty() ){
-				fin = true;
-				ganador = b2.toString();
-			}
-		}
-
-		return ganador;
-	}*/
-
+	@Override
+	public List<Personaje> getEquipo() {
+		return  batallon;
+	}
+	@Override
+	public List<Personaje> clonar() {
+		return null;
+	}
 }

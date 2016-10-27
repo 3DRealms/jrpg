@@ -9,6 +9,9 @@ public abstract class Habilidad {
 	// Para que la habilidad afecte de otra manera, ahora le envio el estado, para que escale. (dependiendo la habilidad).
 	// solo un estado modifica la habilidad. Pero ahora tambien el ataque magico o fisico del personaje.
 	public abstract void afectar(Personaje personaje, int estado, int ataque);
+	/**
+	 * Costo de energia de la habilidad.
+	 */
 	public int getCosto() {
 		return costo;
 	}

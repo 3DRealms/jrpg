@@ -12,9 +12,6 @@ public class Guerrero extends Casta{
 		public int getEstado(Personaje pj){
 			int fuerza = pj.getFuerza(); 
 			return fuerza;
-			
-			//Si es un Orco: 
-			//return (int) (fuerza +fuerza*0.05); // +5% de fuerza.
 		}
 		
 }

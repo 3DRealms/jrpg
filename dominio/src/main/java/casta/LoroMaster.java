@@ -15,8 +15,6 @@ public class LoroMaster  extends Casta{
 		int fuerza = pj.getDestreza(); 
 		return fuerza;
 		
-		//Si es un Mogatal: 
-		//return (int) (Destreza +Destreza*0.05); // +5% de Destreza.
 	}
 }
 	

@@ -24,25 +24,4 @@ public class Mognatal extends Personaje {
 	public int calcularEnergiaTotal(){
 		return energiaBase+getDestreza()*5; // cada 5 puntos da 25 de energia.
 	}
-	@Override
-	protected int calcularPuntosDeAtaque() {
-		return ataqueFisico+getFuerza()*3;  // cada 5 puntos da 15 de ataque.
-	}
-
-	@Override
-	public int obtenerPuntosDeAtaque() {
-		return calcularPuntosDeAtaque();
-	}
-
-	@Override
-	public int obtenerPuntosDeDefensaFisica() {
-		return defensaFisica;
-	}
-
-	@Override
-	public int obtenerPuntosDeDefensaMagica() {
-		return defensaMagica;
-	}
-
-
 }

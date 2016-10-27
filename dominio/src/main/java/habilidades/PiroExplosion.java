@@ -1,4 +1,4 @@
-package habilidadesMago;
+package habilidades;
 
 import personaje.Habilidad;
 import personaje.Personaje;

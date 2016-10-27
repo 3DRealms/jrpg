@@ -1,4 +1,4 @@
-package habilidadesLoroMaster;
+package habilidades;
 
 import personaje.Habilidad;
 import personaje.Personaje;

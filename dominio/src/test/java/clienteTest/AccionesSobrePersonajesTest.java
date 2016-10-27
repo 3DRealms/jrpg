@@ -31,32 +31,37 @@ public class AccionesSobrePersonajesTest {
 		int saludDani = dani.getSaludActual();
 		//Lo ataco y verifico que le quito esa energia.
 		dani.serCurado(50);	
-							//Quedo Con la misma vida y no con saludDani +50.
+		//Quedo Con la misma vida y no con saludDani +50.
 		Assert.assertEquals( saludDani , dani.getSaludActual() );
 	}
-	
+
 	@Test
 	public void consumirEnergia() {
 		Personaje dani = new PersonajePrueba("MetralletaRancia");
+		
+		Assert.assertTrue( dani.consumirEnergia(50) ); //Se pudo.
+	}
+	@Test
+	public void consumirEnergiaYVerQueBajo() {
+		Personaje dani = new PersonajePrueba("MetralletaRancia");
 		int energiaDani = dani.getEnergia();
-		//Lo ataco y verifico que le quito esa energia.
 		dani.consumirEnergia(50);
-		Assert.assertEquals( energiaDani-50 , dani.getEnergia() );
+		Assert.assertEquals(energiaDani - 50 , dani.getEnergia());
 	}
 	@Test
 	public void serEnergizadoExactoLoQueConsumo() {
 		Personaje dani = new PersonajePrueba("MetralletaRancia");
 		int energiaDani = dani.getEnergia();
-		//Lo ataco y verifico que le quito esa energia.
+		
 		dani.consumirEnergia(50);
 		dani.serEnergizado(50);	
-		Assert.assertEquals( energiaDani , dani.getEnergia() );
+		Assert.assertEquals( energiaDani, dani.getEnergia() );
 	}
 	@Test
 	public void serEnergizado() {
 		Personaje dani = new PersonajePrueba("MetralletaRancia");
 		int energiaDani = dani.getEnergia();
-		//Lo ataco y verifico que le quito esa energia.
+
 		dani.consumirEnergia(100);
 		dani.serEnergizado(50);	
 		Assert.assertEquals( energiaDani - 50, dani.getEnergia() );
@@ -65,10 +70,12 @@ public class AccionesSobrePersonajesTest {
 	public void serEnergizadoPeroNoDeMas() {
 		Personaje dani = new PersonajePrueba("MetralletaRancia");
 		int energiaDani = dani.getEnergia();
-		//Lo ataco y verifico que le quito esa energia.
+
 		dani.serEnergizado(50);	
-						//Quedo Con la misma energia y no con energiaDani +50.
+		//Quedo Con la misma energia y no con energiaDani +50.
 		Assert.assertEquals( energiaDani , dani.getEnergia() );
+		
+		Assert.assertNotEquals( energiaDani + 50, dani.getEnergia() );
 	}
 
 }

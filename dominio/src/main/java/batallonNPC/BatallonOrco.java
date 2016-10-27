@@ -1,17 +1,17 @@
-package alianza;
+package batallonNPC;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 import interfaces.Atacable;
-import interfaces.Grupo;
+import interfaces.Equipo;
 import personaje.Personaje;
 import raza.Orco;
 
-public class BatallonOrco extends Batallon {
+public class BatallonOrco extends EquipoNPC {
 
 	public BatallonOrco(int cant) {
 		super(cant);
-		batallon =  new LinkedList<Personaje>();
+		batallon =  new ArrayList<Personaje>();
 
 		for (int i = 0; i < cant; i++) {
 			batallon.add( new Orco("generic "+i) );
@@ -19,7 +19,7 @@ public class BatallonOrco extends Batallon {
 
 	}
 
-	public void atacar(Grupo victimas){
+	public void atacar(Equipo victimas){
 		int I = 0; //  "macro", esto luego podria llegar de parametro si quiero selecionar a alguno en especial.
 
 		for (Personaje Orco: batallon) {
@@ -39,4 +39,8 @@ public class BatallonOrco extends Batallon {
 	public Atacable obtenerProximaVictima() {
 		return null;
 	}
+
+
+
+
 }

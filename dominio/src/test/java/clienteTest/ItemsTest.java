@@ -3,7 +3,7 @@ package clienteTest;
 import org.junit.Assert;
 import org.junit.Test;
 
-import items.BalaMagicaDePatsy;
+import itemLanzable.BalaMagicaDePatsy;
 import personaje.Personaje;
 import raza.Humano;
 import raza.Orco;

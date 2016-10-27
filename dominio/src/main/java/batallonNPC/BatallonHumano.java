@@ -1,22 +1,21 @@
-package alianza;
+package batallonNPC;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 import interfaces.Atacable;
-import interfaces.Grupo;
+import interfaces.Equipo;
 import personaje.Personaje;
 import raza.Humano;
 
-public class BatallonHumano extends Batallon {
+public class BatallonHumano extends EquipoNPC {
 
 	public BatallonHumano(int cant) {
 		super(cant);
-		batallon =  new LinkedList<Personaje>();
+		batallon =  new ArrayList<Personaje>();
 		for (int i = 0; i < cant; i++) {	
 			batallon.add(new Humano("genric "+i));
 		}
 	}
-
 
 	// Asi ataca los humanos, uno a la vez.
 	/**
@@ -31,10 +30,10 @@ public class BatallonHumano extends Batallon {
 	 * h3 ataca a j3
 	 * h4 ataca a j4
 	 * h5 ataca a j1
-	 * @param Grupo
+	 * @param Equipo
 	 * @author DrCoffee84
 	 */
-	public void atacar(Grupo victimas){
+	public void atacar(Equipo victimas){
 
 		int i = 0; //contador magic
 		Personaje victima; 
@@ -50,7 +49,6 @@ public class BatallonHumano extends Batallon {
 			}
 		}
 	}
-	
 	@Override
 	public Atacable obtenerProximaVictima() {
 		//	depurarBatallon();
@@ -63,8 +61,4 @@ public class BatallonHumano extends Batallon {
 	public String toString() {
 		return "humanos";
 	}
-
-
-
-
 }

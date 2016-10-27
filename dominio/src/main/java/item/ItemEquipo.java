@@ -1,6 +1,6 @@
-package Equipo;
+package item;
 
-public class Equipo {
+public class ItemEquipo extends Item {
 	// es todo 0 
 	protected int fuerza;  
 	protected int intelecto;
@@ -10,8 +10,7 @@ public class Equipo {
 	protected int ataqueMagico;  
 	protected int defensaFisica;
 	protected int defensaMagica;
-	protected String descripcion = "Sin Equipo.";
-	
+
 	public int getFuerza() {
 		return fuerza;
 	}
@@ -39,9 +38,19 @@ public class Equipo {
 	public String getDescripcion() {
 		return this.descripcion;
 	}
+	
+	/**
+	 * Para diferencia en que parte va el equipo uso el toString.
+	 */
 	@Override
 	public String toString() {
 		return "sinEquipo";
 	}
+	@Override
+	public String key() {
+		return null;
+	}
+	
+
 	
 }

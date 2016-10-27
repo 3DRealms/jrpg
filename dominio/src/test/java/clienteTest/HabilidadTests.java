@@ -3,8 +3,8 @@ package clienteTest;
 import org.junit.Assert;
 import org.junit.Test;
 
-import habilidadesMago.PiroExplosion;
-import habilidadesMago.RayoDeInteligencia;
+import habilidades.PiroExplosion;
+import habilidades.RayoDeInteligencia;
 import personaje.Personaje;
 import raza.Humano;
 import raza.Mognatal;
@@ -62,7 +62,16 @@ public class HabilidadTests {
 		// Piro Explosion quita 40 puntos de vida, al tener mas intelecto, pega 20 pntos mas (aguante la PiroExplosion).
 		Assert.assertEquals(alexSalud-40, alex.getSaludActual());
 	}
+	@Test
+	public void lanzoUnaHabilidadQueNoTengo() {
+		Personaje braian = new Mognatal("gandalf");
+		braian.setCastaMago();
 
+		Personaje alex = new PersonajePrueba("pichon"); //creo un pichon.
+
+
+		Assert.assertFalse(braian.lanzarHabilidad("escudoDivino", alex));
+	}
 	@Test
 	public void sinEnergia() {
 

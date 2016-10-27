@@ -1,8 +1,9 @@
-package items;
+package itemLanzable;
 
+import item.ItemLanzable;
 import personaje.Personaje;
 
-public class BalaMagicaDePatsy extends Item {
+public class BalaMagicaDePatsy extends ItemLanzable {
 	
 	public BalaMagicaDePatsy(int cantidad){
 		this.cantidadDeEfecto = 100;
@@ -17,6 +18,11 @@ public class BalaMagicaDePatsy extends Item {
 	@Override
 	public void afectar(Personaje personaje) {
 		personaje.serAtacadoDanioPuro(cantidadDeEfecto);
+	}
+
+	@Override
+	public String key() {
+		return "danio";
 	}
 
 

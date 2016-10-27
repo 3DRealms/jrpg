@@ -1,8 +1,9 @@
-package items;
+package itemLanzable;
 
+import item.ItemLanzable;
 import personaje.Personaje;
 
-public class PotaDeEnergia  extends Item{
+public class PotaDeEnergia  extends ItemLanzable{
 	public PotaDeEnergia(int cantidad){
 		this.cantidadDeEfecto = 100;
 		this.nivel = 0;
@@ -15,6 +16,10 @@ public class PotaDeEnergia  extends Item{
 	@Override
 	public void afectar(Personaje personaje) {
 		personaje.serEnergizado(cantidadDeEfecto);		
+	}
+	@Override
+	public String key() {
+		return "amistoso";
 	}
 
 }

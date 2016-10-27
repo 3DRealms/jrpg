@@ -70,6 +70,7 @@ public class SubirEstadosDelPersonajeTest {
 	public void subirFuerza() {
 		Personaje pj = new PersonajePrueba("ZuCuLeNTo");
 		pj.subirExperencia(1000); //Tengo 10 puntos
+		int ataquepj = pj.obtenerPuntosDeAtaqueFisico();
 		//Subo 5 puntos de fuerza.
 		pj.subirFuerza();
 		pj.subirFuerza();
@@ -77,9 +78,8 @@ public class SubirEstadosDelPersonajeTest {
 		pj.subirFuerza();
 		pj.subirFuerza();
 
-		int ataquepj = pj.obtenerPuntosDeAtaque();
 		Assert.assertEquals( 5 , pj.getFuerza());
-		Assert.assertEquals( ataquepj + 10 , pj.obtenerPuntosDeAtaque());
+		Assert.assertEquals( ataquepj + 10 , pj.obtenerPuntosDeAtaqueFisico());
 	}
 	
 }
