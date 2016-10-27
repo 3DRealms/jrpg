@@ -122,7 +122,7 @@ public class Batalla  {
 		int oro; 
 		int experiencia;
 		//le quito el botin al equipo perdedor y se lo doy al ganador
-		equipo = perdedor.perderItems(); 
+		equipo = perdedor.perderItemsEquipo(); 
 		oro = perdedor.quitarOro();	
 		experiencia = calcularExperencia();
 

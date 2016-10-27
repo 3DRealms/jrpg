@@ -121,7 +121,7 @@ public class EquipoJugadores implements Equipo{
 	}
 
 	@Override
-	public List<Equipo> perderItems() {
+	public List<Equipo> perderItemsEquipo() {
 		// TODO Auto-generated method stub
 		return null;
 	}

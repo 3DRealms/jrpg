@@ -26,7 +26,7 @@ public interface Equipo {
 	public List<Personaje> getEquipo();
 	public List<Personaje> clonar();
 	public List<Accion> pedirAccion(Batalla batalla);
-	public List<Equipo> perderItems();
+	public List<Equipo> perderItemsEquipo();
 	public int quitarOro();
 	public void repartirBotin(List<Equipo> equipo, int oro);
 	public void darExperiencia(int experiencia);
