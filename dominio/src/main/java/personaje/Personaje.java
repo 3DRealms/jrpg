@@ -11,6 +11,7 @@ import casta.Mago;
 import interfaces.Atacable;
 import item.ItemEquipo;
 import item.ItemLanzable;
+import mapa.Ubicacion;
 import raza.Humano;
 
 public abstract class Personaje implements Atacable {
@@ -25,10 +26,12 @@ public abstract class Personaje implements Atacable {
 
 	//Aca esta todo el manejo de habilidades, depende la casta tendra un libro distinto.
 	protected Casta casta;
-
+	//Ubicacion:
+	Ubicacion ubicacion;
+	
+	//Mochila for now.
 	protected Map<String, ItemLanzable> mochilaItemLanzable;
 	protected Map<String, ItemEquipo> mochilaEquipo;
-
 	protected final int ESPACIO_MOCHILA = 10;
 
 	// Atributos: depende de items, (cada raza empieza con basicos pero a la larga se amortigua.
@@ -54,15 +57,15 @@ public abstract class Personaje implements Atacable {
 
 	//Constructor:
 	public Personaje(String nombre) {
+		this.nombre = nombre;
 		mochilaItemLanzable = new HashMap<String, ItemLanzable>();
 		itemEquipado = new HashMap<String, ItemEquipo>();
-		this.nombre = nombre;
-
 		itemEquipado.put("anillo", new ItemEquipo());
 		itemEquipado.put("armaDer", new ItemEquipo());
 		itemEquipado.put("armaIzq", new ItemEquipo());
 		itemEquipado.put("armadura", new ItemEquipo());
 		itemEquipado.put("casco", new ItemEquipo());
+		this.ubicacion = new Ubicacion(0,0);
 	}	
 	/**
 	 * La salud total depende de la raza.
@@ -498,6 +501,15 @@ public abstract class Personaje implements Atacable {
 		dani.subirDestreza();
 		System.out.println(dani.getDestreza());
 		System.out.println(alex.getDestreza());
+	}
+	public Ubicacion getUbicacion() {
+		return this.ubicacion;
+	}
+	public void desplazar(String dirr) {
+		ubicacion.desplazar(dirr);
+	}
+	public void setUbicacion(int x, int y) {
+		this.ubicacion = new Ubicacion(x,y);
 	}
 
 

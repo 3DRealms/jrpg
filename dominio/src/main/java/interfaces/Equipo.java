@@ -22,7 +22,6 @@ public interface Equipo {
 	public void serAtacado(Atacable Atacable);
 	public int length();
 	public Personaje get(int i);
-	public Atacable obtenerProximaVictima();
 	public List<Personaje> getEquipo();
 	public List<Personaje> clonar();
 	public List<Accion> pedirAccion(Batalla batalla);

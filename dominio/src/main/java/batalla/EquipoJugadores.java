@@ -55,10 +55,6 @@ public class EquipoJugadores implements Equipo{
 		return equipo.get(i);
 	}
 	@Override
-	public Atacable obtenerProximaVictima() {
-		return null;
-	}
-	@Override
 	public int length() {
 		return 0;
 	}

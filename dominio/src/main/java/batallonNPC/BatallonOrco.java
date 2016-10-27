@@ -1,8 +1,6 @@
 package batallonNPC;
 
 import java.util.ArrayList;
-
-import interfaces.Atacable;
 import interfaces.Equipo;
 import personaje.Personaje;
 import raza.Orco;
@@ -35,10 +33,7 @@ public class BatallonOrco extends EquipoNPC {
 		return "orcos";
 	}
 
-	@Override
-	public Atacable obtenerProximaVictima() {
-		return null;
-	}
+
 
 
 

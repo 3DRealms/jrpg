@@ -1,18 +1,19 @@
 package clienteTest;
 
+import org.junit.Assert;
 import org.junit.Test;
 
+import batalla.Batalla;
 import batalla.EquipoJugadores;
-import batallonNPC.EquipoNPC;
-import batallonNPC.BatallonHumano;
+
 
 public class BatallaTest {
 	
 	@Test
-	public void batallaJugadorContraBot(){
-		EquipoNPC bh = new BatallonHumano(5);
-		EquipoJugadores a1 = new EquipoJugadores("Ls k-pos d zna Suûr");
-	//	Batalla batalla = new Batalla();
-	//	Assert.assertEquals(a1.toString() , batalla.batallaAuto(a1, bh));
+	public void batallaJugadorContraJugador(){
+		EquipoJugadores b3DR = new EquipoJugadores("3DRealms");
+		EquipoJugadores bPS = new EquipoJugadores("Promotion System");
+		Batalla batalla = new Batalla(b3DR,bPS);
+
 	}
 }

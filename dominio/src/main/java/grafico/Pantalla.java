@@ -1,7 +1,5 @@
 package grafico;
 
-import java.awt.Canvas;
-
 
 /**
  *
