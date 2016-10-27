@@ -1,10 +1,8 @@
 package clienteTest;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import batalla.EquipoJugadores;
-import batalla.Batalla;
 import batallonNPC.EquipoNPC;
 import batallonNPC.BatallonHumano;
 

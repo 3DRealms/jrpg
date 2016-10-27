@@ -41,13 +41,12 @@ public abstract class Personaje implements Atacable {
 	protected int intelecto = 0;
 	protected int destreza = 0;
 	protected int vitalidad = 0;
-
+	protected int velocidad = 0;
+	
 	protected Map<String, ItemEquipo> itemEquipado;
-
 
 	//Progreso del personaje.
 	protected int nivel = 0;
-
 	protected final int NIVELMAX = 100; // El algoritmo no tiene limite.xD.
 	protected int experiencia = 0;
 	protected int puntosDeEstados = 0;
@@ -473,17 +472,17 @@ public abstract class Personaje implements Atacable {
 	public ItemEquipo verEquipo(String key) {
 		return itemEquipado.get(key);
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 	@Override
 	public Personaje clone()  {
 		//Preguntar
 		return null;
 	}
-	
+
 	public static void main(String[] args) throws CloneNotSupportedException {
 		Personaje dani = new Humano("el piola");
 		Personaje alex = dani.clone();
@@ -492,8 +491,9 @@ public abstract class Personaje implements Atacable {
 		System.out.println(alex.getDestreza());
 	}
 	public Accion pedirAccion() {
-		return new Accion(this,elergir());
+		//return new Accion(this,elergir());
+		return new Accion(this,this,"Hola");
 	}
-	
+
 }
 

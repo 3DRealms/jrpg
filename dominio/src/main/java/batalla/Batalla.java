@@ -17,7 +17,7 @@ public class Batalla  {
 
 	private List  <Personaje> equipo1;
 	private List  <Personaje> equipo2;
-	
+
 	/**
 	 * Para test (segun Lucas)
 	 * @param e1
@@ -57,9 +57,8 @@ public class Batalla  {
 		//peleo mientras no haya ganador
 		while(obtenerGanador() != null){
 
-//			turno( pedirAccion(equipo1) , pedirAccion(equipo2) );
+			turno( pedirAccion(equipo1) , pedirAccion(equipo2) );
 			//Despues se cargarian las Accion en una lista?
-			
 		}
 
 		finalizarBatalla(obtenerGanador());
@@ -68,15 +67,41 @@ public class Batalla  {
 
 	private void turno(List <Accion> accEquipo1, List <Accion> accEquipo2){
 		//ejecuto las Accion y voy mandando lo que pasa al cliente
+		
+		//Uno las listas:
+		List<Accion> acciones = new ArrayList<Accion>(accEquipo1);
+		acciones.addAll(accEquipo2);
+		
+		//Ordeno por velocidad:
+		acciones.sort(Accion.AccVelComparator); //Comparo por velocidad.
+		
+		for (int i = 0; i < acciones.size(); i++) {
+			acciones.get(i).ejecutar();
+		}
 	}
 
+	/**
+	 * @return
+	 */
 	private List<Personaje> obtenerGanador(){
-		//recorro la lista de cada equipo a ver si estan vivos o muerto
-
+		//recorro la lista de cada equipo a ver si estan vivos o muerto(o fuera de campo);
+			
 		return null;
 	}
+	private boolean hayEquipo(List<Personaje> equipo) {
+		Personaje pj;
+		int j;
+		for (int i = 0; i < equipo.size() ; i++) {
+			pj = equipo.get(i);
+			if(pj.estaMuerto())
+				j++;
+		}
+		if(j == equipo.size())
+			return false;
+		return true;
+	}
 
-	private List<Accion> pedirAccion(ArrayList<Personaje> equipo){
+	private List<Accion> pedirAccion(List<Personaje> equipo){
 		// aca le pido las Accion a cada equipo de lo que desean hacer
 		Accion accion;
 		List<Accion> acciones = new ArrayList<Accion>();
@@ -89,11 +114,22 @@ public class Batalla  {
 
 	private void darBotin(List <Personaje> ganador, List <Personaje> perdedor){
 		//le quito el botin al equipo perdedor y se lo doy al ganador
-
+		List<Equipo> equipo= perdedor.perderEquipo(); 
+		int oro = perdedor.quitarOro();
+		ganador.repartirBotin(equipo,oro);
 	}
 
 	private void darExperiencia(List <Personaje> ganador, List <Personaje> perdedor){
 		// y le doy la experiencia al cada personaje del equipo ganador
+		int expGanador = calcularExperencia() * ganador.getNivelPromedio();
+		expGanador /= ganador.size();
+		for (int i = 0; i < ganador.size(); i++) {
+			ganador.get(i).subirExperencia(expGanador);
+		}
+	}
+
+	private int calcularExperencia() {
+		return 0;
 	}
 
 	private void finalizarBatalla(List <Personaje> ganador){
@@ -104,5 +140,5 @@ public class Batalla  {
 			darBotin(equipo2,equipo1);
 		}
 	}
-	
+
 }
