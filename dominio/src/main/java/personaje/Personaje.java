@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import batalla.Accion;
+import batalla.Batalla;
 import casta.Casta;
 import casta.Mago;
 import interfaces.Atacable;
@@ -364,6 +365,8 @@ public abstract class Personaje implements Atacable {
 
 	/**
 	 * Dice si el personaje esta muerto.
+	 * 
+	 * 
 	 */
 	public boolean estaMuerto() {
 		return saludActual <= 0;
@@ -473,9 +476,15 @@ public abstract class Personaje implements Atacable {
 		return itemEquipado.get(key);
 	}
 
-
-
-
+	/**
+	 * Le pide una accion al personaje.
+	 * @param batalla
+	 * @return
+	 */
+	public Accion pedirAccion(Batalla batalla) {
+		
+		return new Accion(this,this,"Hola");
+	}
 
 	@Override
 	public Personaje clone()  {
@@ -490,10 +499,7 @@ public abstract class Personaje implements Atacable {
 		System.out.println(dani.getDestreza());
 		System.out.println(alex.getDestreza());
 	}
-	public Accion pedirAccion() {
-		//return new Accion(this,elergir());
-		return new Accion(this,this,"Hola");
-	}
+
 
 }
 

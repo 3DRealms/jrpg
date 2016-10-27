@@ -79,4 +79,60 @@ public class EquipoJugadores implements Equipo{
 		return clone;
 	}
 
+	/**
+	 * Le pide la acciones que va a realizar un equipo.
+	 * sobre una batalla dada.
+	 * @param equipo
+	 * @return
+	 */
+	@Override
+	public List<Accion> pedirAccion(Batalla batalla) {
+		Accion accion;
+		List<Accion> acciones = new ArrayList<Accion>();
+		for (Personaje pj : equipo) {
+
+			accion = pj.pedirAccion(null);
+
+			acciones.add(accion);
+		}
+		return acciones;	
+	}
+
+
+	/**
+	 * 
+	 */
+	@Override
+	public void darExperiencia(int experiencia){
+		// y le doy la experiencia al cada personaje del equipo ganador
+		int expGanador = experiencia * getNivelPromedio();
+		expGanador /= equipo.size();
+		for (Personaje pj : equipo) {
+			pj.subirExperencia(expGanador);
+		}
+	}
+
+	private int getNivelPromedio() {
+		int nivelPromedio = 0;
+		for (Personaje pj : equipo) {
+			nivelPromedio += pj.getNivel();
+		}
+		return nivelPromedio/equipo.size();
+	}
+
+	@Override
+	public List<Equipo> perderItems() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public int quitarOro() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public void repartirBotin(List<Equipo> equipo, int oro) {
+		// TODO Auto-generated method stub
+
+	}
 }

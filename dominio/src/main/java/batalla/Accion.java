@@ -20,6 +20,13 @@ public class Accion {
 //		velocidad = e.getVelocidad() + a.velocidad();
 	}
 
+	
+	
+	/**
+	 * Comparador entre dos Acciones.
+	 * Compara las velocidades. Si la accion 1 es mas veloz que la accion 2 es positivo
+	 * si son iguales es 0, y si la accion 1 es mas lenta que la accion 2 es negativo.
+	 */
 	public static Comparator<Accion> AccVelComparator = new Comparator<Accion>() {
 		public int compare(Accion a1 , Accion a2) {
 			return a1.velocidad - a2.velocidad;
