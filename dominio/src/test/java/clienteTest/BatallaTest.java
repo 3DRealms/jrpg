@@ -7,6 +7,7 @@ import batalla.Batalla;
 import batalla.EquipoJugadores;
 
 
+@SuppressWarnings("unused") // Banca un cacho que braian trabaja.
 public class BatallaTest {
 	
 	@Test

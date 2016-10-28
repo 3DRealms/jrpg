@@ -1,6 +1,5 @@
 package mapa;
 
-@SuppressWarnings("unused") // Banca un cacho
 public class Obstaculo {
 	private Ubicacion ubicacion;
 //	private Sprite sprite;

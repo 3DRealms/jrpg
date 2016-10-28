@@ -1,6 +1,7 @@
 package personaje;
 
 
+import java.awt.Graphics2D;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,11 +9,11 @@ import batalla.Accion;
 import batalla.Batalla;
 import casta.Casta;
 import casta.Mago;
+import grafico.Sprite;
 import interfaces.Atacable;
 import item.ItemEquipo;
 import item.ItemLanzable;
 import mapa.Ubicacion;
-import raza.Humano;
 
 public abstract class Personaje implements Atacable {
 
@@ -26,9 +27,9 @@ public abstract class Personaje implements Atacable {
 
 	//Aca esta todo el manejo de habilidades, depende la casta tendra un libro distinto.
 	protected Casta casta;
-	//Ubicacion:
+	//Ubicacion y sprite:
 	Ubicacion ubicacion;
-	
+	protected Sprite sprite;
 	//Mochila for now.
 	protected Map<String, ItemLanzable> mochilaItemLanzable;
 	protected Map<String, ItemEquipo> mochilaEquipo;
@@ -46,7 +47,7 @@ public abstract class Personaje implements Atacable {
 	protected int destreza = 0;
 	protected int vitalidad = 0;
 	protected int velocidad = 0;
-	
+
 	protected Map<String, ItemEquipo> itemEquipado;
 
 	//Progreso del personaje.
@@ -65,7 +66,7 @@ public abstract class Personaje implements Atacable {
 		itemEquipado.put("armaIzq", new ItemEquipo());
 		itemEquipado.put("armadura", new ItemEquipo());
 		itemEquipado.put("casco", new ItemEquipo());
-		this.ubicacion = new Ubicacion(0,0);
+		ubicacion = new Ubicacion(0,0);
 	}	
 	/**
 	 * La salud total depende de la raza.
@@ -485,35 +486,25 @@ public abstract class Personaje implements Atacable {
 	 * @return
 	 */
 	public Accion pedirAccion(Batalla batalla) {
-		
+
 		return new Accion(this,this,"Hola");
 	}
-
-	@Override
-	public Personaje clone()  {
-		//Preguntar
-		return null;
-	}
-
-	public static void main(String[] args) throws CloneNotSupportedException {
-		Personaje dani = new Humano("el piola");
-		Personaje alex = dani.clone();
-		dani.subirDestreza();
-		System.out.println(dani.getDestreza());
-		System.out.println(alex.getDestreza());
-	}
-	
-	
 	public Ubicacion getUbicacion() {
-		return this.ubicacion;
+		return ubicacion;
 	}
-	public void desplazar(String dirr) {
-		ubicacion.desplazar(dirr);
+
+	public void desplazar(String dir) {
+		ubicacion.desplazar(dir);
 	}
+	
 	public void setUbicacion(int x, int y) {
-		this.ubicacion = new Ubicacion(x,y);
+		ubicacion = new Ubicacion(x,y);
 	}
-
-
+	public void setSprite(String path) {
+		sprite = new Sprite(path);
+	}
+	public void putSprite(Graphics2D g2d) {
+		sprite.putSprite(g2d, ubicacion.getX(), ubicacion.getY());
+	}
 }
 

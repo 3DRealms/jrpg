@@ -67,6 +67,8 @@ public class EquipoJugadores implements Equipo{
 	public void atacar(Equipo victima) {
 
 	}
+
+	/*
 	@Override
 	public ArrayList<Personaje> clonar() {
 		ArrayList<Personaje> clone = new ArrayList<Personaje>(equipo.size());
@@ -74,6 +76,7 @@ public class EquipoJugadores implements Equipo{
 			clone.add( item.clone() ); //Tengo que arreglar el clone de Personaje.
 		return clone;
 	}
+	 */
 
 	/**
 	 * Le pide la acciones que va a realizar un equipo.
@@ -118,17 +121,17 @@ public class EquipoJugadores implements Equipo{
 
 	@Override
 	public List<Equipo> perderItemsEquipo() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
 	public int quitarOro() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 	@Override
 	public void repartirBotin(List<Equipo> equipo, int oro) {
-		// TODO Auto-generated method stub
-
+	}
+	@Override
+	public List<Personaje> clonar() {
+		return null;
 	}
 }

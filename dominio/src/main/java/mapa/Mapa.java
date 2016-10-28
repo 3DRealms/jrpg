@@ -45,5 +45,9 @@ public class Mapa {
 		personajes.add(pj);
 	}
 
+	public Personaje getPersonaje(int i) {
+		return personajes.get(i);
+	}
+
 
 }

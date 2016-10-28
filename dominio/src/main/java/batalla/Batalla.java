@@ -15,9 +15,6 @@ public class Batalla  {
 
 	private static final int MAX_JUGADORES = 5;
 
-	private List  <Personaje> equipo1Original;
-	private List  <Personaje> equipo2Original;
-
 	private Equipo equipo1;
 	private Equipo equipo2;
 	private Equipo equipoEmpate;

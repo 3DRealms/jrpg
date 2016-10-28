@@ -3,7 +3,6 @@ package clienteTest;
 import org.junit.Assert;
 import org.junit.Test;
 
-import item.ItemEquipo;
 import itemEquipo.AnilloDelDragon;
 import itemEquipo.EscudoDeMadera;
 import itemEquipo.PaloDeEscobaMagico;
@@ -87,7 +86,9 @@ public class EquipoTests {
 		Personaje alex = new PersonajePrueba("Loco del tacho");
 		int salud = alex.getSaludActual();
 		dani.atacar(alex);
-		Assert.assertEquals(salud - 30 , alex.getSaludActual());
+		//El anillo aumenta el ataque en 15, y la fuerza( que tambien aumenta el ataque) en 5, osea 10 puntos mas de fuerza
+		// en total tengo 15 + 10 + 15 = 40.
+		Assert.assertEquals(salud - 40 , alex.getSaludActual());
 	}
 
 	@Test
