@@ -1,10 +1,11 @@
 package mapa;
 
 public class Ubicacion {
-	int x;
-	int y;
-	int z;
-	public Ubicacion(int coorX, int coorY) {
+	double x;
+	double y;
+	double z;
+	
+	public Ubicacion(double coorX, double coorY) {
 		this.x = coorX;
 		this.y = coorY;
 		this.z=0;
@@ -13,22 +14,29 @@ public class Ubicacion {
 	 * preguntar Lucas, si usar un par de if
 	 * o un SWITCH !!!!!!!
 	 * o nose :3 
-	 * @param dirr
+	 * por ahora 4 direcciones pero son eight
+	 * @param dir
 	 */
-	public void desplazar(String dirr){
-		if(dirr == "N"){
+	public void desplazar(String dir){
+		if(dir == "N"){
 			y++;
+		}else if(dir == "S"){
+			y--;
+		}else if(dir == "O"){
+			x--;
+		}else if(dir == "E"){
+			x++;
 		}
 	}
 	public boolean delanteDe(Ubicacion obj){
 		return false;
 	}
 
-	public int getX() {
+	public double getX() {
 		return x;
 	}
 
-	public int getY() {
+	public double getY() {
 		return y;
 	}
 	
@@ -37,11 +45,11 @@ public class Ubicacion {
 	 * Si es positivo esta a la derecha.
 	 * si es 0 estan en la misma posicion.
 	 */
-	public int calcularDistancia(Ubicacion otraUbic) {
-		int cateto1 = x - otraUbic.getX();
-		int cateto2 = y - otraUbic.getY();
+	public double calcularDistancia(Ubicacion otraUbic) {
+		double cateto1 = x - otraUbic.getX();
+		double cateto2 = y - otraUbic.getY();
 		
-		int hipotenusa = (int) Math.sqrt(cateto1*cateto1 + cateto2*cateto2);
+		double hipotenusa = Math.sqrt(cateto1*cateto1 + cateto2*cateto2);
 		
 		return hipotenusa;
 	}

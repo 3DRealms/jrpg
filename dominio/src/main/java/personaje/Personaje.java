@@ -502,6 +502,8 @@ public abstract class Personaje implements Atacable {
 		System.out.println(dani.getDestreza());
 		System.out.println(alex.getDestreza());
 	}
+	
+	
 	public Ubicacion getUbicacion() {
 		return this.ubicacion;
 	}

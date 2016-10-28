@@ -8,7 +8,6 @@ public class Mapa {
 	private int ancho;
 	protected String descripcion;
 	private ArrayList<Personaje> personajes;
-	@SuppressWarnings("unused")
 	private ArrayList<Obstaculo> ostaculos;
 
 	public Mapa(int largo, int ancho,String descripcion){
@@ -16,6 +15,7 @@ public class Mapa {
 		this.ancho=ancho;
 		this.descripcion=descripcion;
 		personajes=new ArrayList<Personaje>();
+		ostaculos=new ArrayList<Obstaculo>();
 	}
 	
 	public boolean posicionValida(Ubicacion ubic){
@@ -28,8 +28,17 @@ public class Mapa {
 		return ubic.getX()>=0 && ubic.getY()>=0 && ubic.getX()<=largo && ubic.getY()<=ancho;
 	}
 	private boolean hayObstaculo(Ubicacion ubic) {
-		// ver si no coliciona con un obstaculo;
+		double distancia;
+		for (Obstaculo osta : ostaculos ) {
+			distancia = ubic.calcularDistancia(osta.getUbicacion());
+			if( casiCero(distancia) )
+				return true;
+		}
 		return false;
+	}
+
+	private boolean casiCero(double distancia) {
+		return Math.abs(distancia) < 0.01;
 	}
 
 	public void agregarPersonaje(Personaje pj){

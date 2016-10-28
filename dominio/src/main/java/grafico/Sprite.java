@@ -1,91 +1,36 @@
 package grafico;
 
-import java.awt.*;
+import java.awt.Graphics;
+
 import javax.swing.ImageIcon;
-/**
- *
- * @author DrCoffee84
- */
-public class Sprite{
-	private int x,y;		 	//coordenadas
+
+public final class Sprite {
+	private final int lado; //tamaño del sprite ej: 32x32
+	private int x;
+	private int y; //coordenadas para sacar del la hoja de sprite.
+	private int[] pixeles;
+	private final SpriteSheet spriteSheet;
 	private boolean visible; 	// si esta visible o no
-	private String sprite; 		// el nombre de la imagen
 
-	public Sprite() //Constructor
-	{
-		visible=true;
-		x=y=0;
-	}
 
-	public boolean isVisble(){
-		return visible;
-	}
-
-	public void setVisible(boolean estado){
-		visible=estado;
-	}
-
-	/**
-	 *  Obtenemos la coordenada horizontal actual del Sprite
-	 * @return
-	 */
-	public int getX(){
-		return x;
+	public Sprite(final int lado,final int columna, final int fila,final SpriteSheet spriteSheet){
+		this.lado = lado;
+		this.pixeles = new int[lado*lado];
+		
+		this.x = columna*lado;
+		this.y = fila*lado;
+		
+		this.spriteSheet = spriteSheet;
+		
+		for (int i = 0; i < pixeles.length; i++) {
+			for (int j = 0; j < pixeles.length; j++) {
+				pixeles[j + i * lado] = spriteSheet.getPixeles(sacarSprite(spriteSheet, i, j) );
+			}
+		}
 	}
 
-	/**
-	 * 
-	 * Asignamos la coordenada horizontal actual del Sprite	
-	 */
-	public void setX(int valor){
-		x=valor;
-	}
-
-	/**
-	 * Obtenemos la coordenada vertical actual del Sprite
-	 * @return
-	 */
-	public int getY(){
-		return y;
-	}
-
-	/**
-	 *  Asignamos la coordenada vertical actual del Sprite
-	 * @param valor
-	 */
-	public void setY(int valor){
-		y=valor;
-	}
-
-	/**
-	 * Ancho del Sprite
-	 * @return
-	 */
-	public int getWidth(){
-		return new ImageIcon(getClass().getResource(sprite)).getImage().getWidth(null);
-	}
-	
-	/**
-	 *  Alto del Sprite
-	 * @return
-	 */
-	public int getHeight(){
-		return new ImageIcon(getClass().getResource(sprite)).getImage().getHeight(null);
-	}
-	/**
-	 * Asignamos el fichero imagen al Sprite
-	 * @param nombre
-	 */
-	public void setSprite(String nombre) {
-		sprite=nombre;
-	}
-
-	/**
-	 *  Nos devuelve el fichero imagen del Sprite
-	 * @return
-	 */
-	public String getSprite(){
-		return sprite;
+	private int sacarSprite(final SpriteSheet spriteSheet, int y, int x) {
+		return (x + this.x) + (y+this.y) * spriteSheet.getAncho();
 	}
 
 	/**
@@ -97,7 +42,7 @@ public class Sprite{
 	public void putSprite(Graphics grafico,int coordenadaHorizontal,int coordenadaVertical){
 		x=coordenadaHorizontal;
 		y=coordenadaVertical;
-		if (visible) grafico.drawImage(new ImageIcon(getClass().getResource(sprite)).getImage(), x, y, null);
+		if (visible)
+			grafico.drawImage(pixeles, x, y, null);
 	}
-
 }

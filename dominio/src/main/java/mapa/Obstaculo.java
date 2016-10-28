@@ -1,7 +1,5 @@
 package mapa;
 
-import grafico.Sprite;
-
 @SuppressWarnings("unused") // Banca un cacho
 public class Obstaculo {
 	private Ubicacion ubicacion;
