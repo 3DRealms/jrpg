@@ -67,7 +67,6 @@ public class EquipoJugadores implements Equipo{
 	public void atacar(Equipo victima) {
 
 	}
-
 	/*
 	@Override
 	public ArrayList<Personaje> clonar() {
@@ -76,8 +75,7 @@ public class EquipoJugadores implements Equipo{
 			clone.add( item.clone() ); //Tengo que arreglar el clone de Personaje.
 		return clone;
 	}
-	 */
-
+*/
 	/**
 	 * Le pide la acciones que va a realizar un equipo.
 	 * sobre una batalla dada.
@@ -129,9 +127,5 @@ public class EquipoJugadores implements Equipo{
 	}
 	@Override
 	public void repartirBotin(List<Equipo> equipo, int oro) {
-	}
-	@Override
-	public List<Personaje> clonar() {
-		return null;
 	}
 }

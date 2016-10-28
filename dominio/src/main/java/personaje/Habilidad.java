@@ -5,6 +5,8 @@ public abstract class Habilidad {
 	protected int nivel;
 	protected int ataqueBasico;
 	protected int ataqueFinal;
+	protected int velocidad;
+
 	protected String tipo;
 	// Para que la habilidad afecte de otra manera, ahora le envio el estado, para que escale. (dependiendo la habilidad).
 	// solo un estado modifica la habilidad. Pero ahora tambien el ataque magico o fisico del personaje.
@@ -17,6 +19,10 @@ public abstract class Habilidad {
 	}
 	public String getTipo(){
 		return this.tipo;
+	}
+	
+	public int getVelocidad(){
+		return velocidad;
 	}
 
 }

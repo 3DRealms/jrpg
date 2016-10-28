@@ -47,6 +47,8 @@ public abstract class Personaje implements Atacable {
 	protected int destreza = 0;
 	protected int vitalidad = 0;
 	protected int velocidad = 0;
+	
+	boolean enDefensa = false;
 
 	protected Map<String, ItemEquipo> itemEquipado;
 
@@ -150,6 +152,9 @@ public abstract class Personaje implements Atacable {
 		for ( ItemEquipo item : itemEquipado.values() ) 
 			defensaFiscaTotal += item.getDefensaFisica();
 
+		if(enDefensa)
+			defensaFiscaTotal*= 4;
+		
 		return  defensaFiscaTotal;
 
 	}
@@ -159,6 +164,9 @@ public abstract class Personaje implements Atacable {
 		for ( ItemEquipo item : itemEquipado.values() ) 
 			defensaMagicaTotal += item.getDefensaMagica();
 
+		if(enDefensa)
+			defensaMagicaTotal*= 4;
+		
 		return  defensaMagicaTotal;
 	}
 	public int getIntelecto() {
@@ -192,6 +200,14 @@ public abstract class Personaje implements Atacable {
 			fuerzaTotal += item.getFuerza();
 
 		return  fuerzaTotal;
+	}
+	
+	/**
+	 * Velocidad actual del personaje.
+	 * @return
+	 */
+	public int getVelocidad() {
+		return this.velocidad;
 	}
 
 	/**

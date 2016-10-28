@@ -1,23 +1,42 @@
 package batalla;
 
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 
+import habilidades.Habilidad;
 import personaje.Personaje;
 
 public class Accion {
 	//DON'T HAVE TIME.
 	Personaje emisor;
 	Personaje receptor;
+	String lanzable;
 	
-	String AYUDAPORFAVOR;
+   final Map<String, Runnable> methodMap = new HashMap<String, Runnable>();
 	
 	int velocidad;
 
 	public Accion(Personaje e,	Personaje r,String a){
 		emisor = e;
 		receptor = r;
-		AYUDAPORFAVOR = a;
+		lanzable = a;
 //		velocidad = e.getVelocidad() + a.velocidad();
+		
+		methodMap.put("habilidad", new Runnable() {
+            public void run() { emisor.lanzarHabilidad(lanzable, receptor); };
+        });
+		
+		methodMap.put("objeto", new Runnable() {
+            public void run() { emisor.lanzarItem(lanzable, receptor); };
+        });		
+		methodMap.put("defender", new Runnable() {
+            public void run() { emisor.defenderse(); };
+        });
+		methodMap.put("huir", new Runnable() {
+            public void run() { emisor.lanzarItem(lanzable, receptor); };
+        });
+		
 	}
 
 	
@@ -34,6 +53,7 @@ public class Accion {
 	};
 
 	public void ejecutar() {
-			// QUE SE YO, pero aca se tiene que ejecutar la accion.
+		
+			
 	}
 }
