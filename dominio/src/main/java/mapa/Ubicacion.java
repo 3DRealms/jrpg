@@ -22,11 +22,11 @@ public class Ubicacion {
 	public void desplazar(String dir){
 		
 		if(dir == "N"){
-			this.y++;
+			this.y--;
 			return;
 		}
 		if(dir == "S"){
-			this.y--;
+			this.y++;
 			return;
 		}
 		if(dir == "O"){

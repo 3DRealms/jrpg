@@ -9,6 +9,7 @@ public abstract class ItemLanzable extends Item {
 	protected String Efecto;
 	protected int cantidad;
 	protected int limite;
+	protected int velociad;
 	public abstract void afectar(Personaje personaje);
 	public void usar() {
 		this.cantidad--;
@@ -25,6 +26,10 @@ public abstract class ItemLanzable extends Item {
 	@Override
 	public String toString() {
 		return this.nombre+"\n"+this.Efecto+": "+this.cantidadDeEfecto+"\n"+this.descripcion+"\nCantidad en mochila: "+this.cantidad+".";
+	}
+	public int getVelocidad() {
+
+		return this.velociad;
 	}
 
 }

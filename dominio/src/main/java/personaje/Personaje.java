@@ -5,12 +5,14 @@ import java.awt.Graphics2D;
 import java.util.HashMap;
 import java.util.Map;
 
-import batalla.Accion;
-import batalla.Batalla;
+import acciones.Accion;
+import acciones.FactoriaAcciones;
+import batalla.EquipoJugadores;
 import casta.Casta;
 import casta.Mago;
 import grafico.Sprite;
 import interfaces.Atacable;
+import interfaces.Equipo;
 import item.ItemEquipo;
 import item.ItemLanzable;
 import mapa.Ubicacion;
@@ -34,7 +36,7 @@ public abstract class Personaje implements Atacable {
 	protected Map<String, ItemLanzable> mochilaItemLanzable;
 	protected Map<String, ItemEquipo> mochilaEquipo;
 	protected final int ESPACIO_MOCHILA = 10;
-
+	protected Equipo equipo;
 	// Atributos: depende de items, (cada raza empieza con basicos pero a la larga se amortigua.
 	protected int ataqueFisico;  
 	protected int ataqueMagico;  
@@ -69,6 +71,7 @@ public abstract class Personaje implements Atacable {
 		itemEquipado.put("armadura", new ItemEquipo());
 		itemEquipado.put("casco", new ItemEquipo());
 		ubicacion = new Ubicacion(0,0);
+		this.equipo = new EquipoJugadores(nombre);
 	}	
 	/**
 	 * La salud total depende de la raza.
@@ -293,6 +296,68 @@ public abstract class Personaje implements Atacable {
 		}
 		return false;
 	}
+	
+
+	/**
+	 * 	Obtiene la velocidad al lanzar una habilidad[algun conjuro del libro,
+	 *  ya sea una "superPatada" o "piroExplosion" o "pitulin"].
+	 *  Si no lo encuentra devuelve 0.
+	 *  
+	 * @param conjuro
+	 * 
+	 * @return velocidad
+	 */
+	public int getVelLanzarHabilidad(String conjuro){
+		Habilidad h = getCasta().getHabilidad(conjuro);
+
+		if( h != null ){
+			return h.getVelocidad() + this.getVelocidad();
+		}
+		return 0;
+	}
+	
+
+	/**
+	 * 	Obtiene la velocidad al lanzar un objeto.
+	 *  Si no lo encuentra devuelve 0.
+	 *  
+	 * @param item
+	 * 
+	 * @return velocidad
+	 */
+	public int getVelLanzarItem(String item){
+		
+		ItemLanzable  i = mochilaItemLanzable.get(item);
+
+		if( i != null ){
+			return i.getVelocidad() + this.getVelocidad();
+		}
+		return 0;
+	}
+	
+
+	/**
+	 * 	Obtiene la velocidad al defenderse.
+
+	 * 
+	 * @return velocidad
+	 */
+	public int getVelDefenderse(){
+		
+		return this.getVelocidad()*100;
+	}
+	
+	/**
+	 * 	Obtiene la velocidad al huir.
+
+	 * 
+	 * @return velocidad
+	 */
+	public int getVelHuir(){
+		
+		return this.getVelocidad()*100;
+	}
+	
 	/**
 	 * Dependiendo el tipo de habilidad, entonces le envio el ataque correspondiente.
 	 * @param tipo
@@ -379,7 +444,7 @@ public abstract class Personaje implements Atacable {
 			energiaActual = calcularEnergiaTotal();
 	}
 
-	@Override // No implementado todavia, posiblemente no este mas.
+ // No implementado todavia, posiblemente no este mas.
 	public void morir() { 
 	}
 
@@ -498,12 +563,21 @@ public abstract class Personaje implements Atacable {
 
 	/**
 	 * Le pide una accion al personaje.
-	 * @param batalla
+	 * @param equipoJugadores
 	 * @return
 	 */
-	public Accion pedirAccion(Batalla batalla) {
+	public Accion pedirAccion(Equipo mio,Equipo elemigo) {		
+		
+		//Elige
+		//si eligo habilidad amistosa, selecciono de mi equipo
+		return FactoriaAcciones.getAccion(this,this,"","huir");
 
-		return new Accion(this,this,"Hola");
+	}
+	public void setEquipo(Equipo equipo) {
+		this.equipo = equipo;
+	}
+	public void salirEquipo(){
+		this.equipo = new EquipoJugadores(nombre);
 	}
 	public Ubicacion getUbicacion() {
 		return ubicacion;
@@ -520,7 +594,19 @@ public abstract class Personaje implements Atacable {
 		sprite = new Sprite(path);
 	}
 	public void putSprite(Graphics2D g2d) {
+
 		sprite.putSprite(g2d, ubicacion.getX(), ubicacion.getY());
 	}
+	public void defenderse() {
+		enDefensa = true;
+		
+	}
+	public void sacarDefenderse() {
+		enDefensa = false;
+	}
+	public void meVoy(){
+		equipo.quitar(this);
+	}
+
 }
 

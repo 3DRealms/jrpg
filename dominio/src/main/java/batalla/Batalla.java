@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+
+import acciones.Accion;
 import personaje.Personaje;
 import interfaces.Equipo;
 
@@ -56,6 +58,7 @@ public class Batalla  {
 	public Batalla(Equipo equipo1, Equipo equipo2){
 		this.equipo1 = equipo1;
 		this.equipo2 = equipo2;
+		this.equipo1Original = equipo1.clonarLista();
 	}
 
 	/**
@@ -69,8 +72,8 @@ public class Batalla  {
 
 		while(obtenerGanador() != null){
 
-			accionesEquipo1 = equipo1.pedirAccion(this); //Les pido las acciones al equipo1 de esta batalla.
-			accionesEquipo2 = equipo2.pedirAccion(this); //Les pido las acciones al equipo2 de esta batalla.
+			accionesEquipo1 = equipo1.pedirAccion(equipo2); //Les pido las acciones al equipo1 de esta batalla.
+			accionesEquipo2 = equipo2.pedirAccion(equipo1); //Les pido las acciones al equipo2 de esta batalla.
 
 			turnoPorVelocidad( accionesEquipo1 , accionesEquipo2 ); // Las ejecuto.
 
@@ -92,7 +95,7 @@ public class Batalla  {
 		acciones.addAll(accEquipo2);
 
 		//Ordeno por velocidad:
-		acciones.sort(Accion.AccVelComparator); //Ordeno por velocidad.
+		//acciones.sort(Accion.AccVelComparator); //Ordeno por velocidad.
 
 		for (Accion accion : acciones) {
 			accion.ejecutar();
@@ -118,15 +121,15 @@ public class Batalla  {
 
 	private void darBotin(Equipo ganador, Equipo perdedor){
 
-		List<Equipo> equipo;
+		//	List<Equipo> equipo;
 		int oro; 
 		int experiencia;
 		//le quito el botin al equipo perdedor y se lo doy al ganador
-		equipo = perdedor.perderItemsEquipo(); 
+		//equipo = perdedor.perderItemsEquipo(); 
 		oro = perdedor.quitarOro();	
 		experiencia = calcularExperencia();
 
-		ganador.repartirBotin(equipo,oro);
+		ganador.repartirBotin(oro);
 		ganador.darExperiencia(experiencia);
 	}
 

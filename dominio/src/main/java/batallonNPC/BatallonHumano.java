@@ -1,6 +1,9 @@
 package batallonNPC;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import acciones.Accion;
 import interfaces.Equipo;
 import personaje.Personaje;
 import raza.Humano;
@@ -52,4 +55,8 @@ public class BatallonHumano extends EquipoNPC {
 	public String toString() {
 		return "humanos";
 	}
+
+
+
 }
+
