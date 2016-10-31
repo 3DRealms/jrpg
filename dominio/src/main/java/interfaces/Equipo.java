@@ -20,8 +20,9 @@ public interface Equipo {
 	 */
 	public boolean isEmpty();
 	public void serAtacado(Atacable Atacable);
-	public int length();
+	public int size();
 	public Personaje get(int i);
+	public Personaje getPersonaje(String i);
 	public List<Personaje> getEquipo();
 	public List<Accion> pedirAccion(Equipo equipoElemigo);
 	public List<Equipo> perderItemsEquipo();

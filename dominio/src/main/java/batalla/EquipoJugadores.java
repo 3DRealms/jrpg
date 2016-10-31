@@ -57,8 +57,8 @@ public class EquipoJugadores implements Equipo{
 		return equipo.get(i);
 	}
 
-	public int length() {
-		return 0;
+	public int size() {
+		return equipo.size();
 	}
 
 	public List<Personaje> getEquipo() {
@@ -90,7 +90,7 @@ public class EquipoJugadores implements Equipo{
 		List<Accion> acciones = new ArrayList<Accion>();
 		for (Personaje pj : equipo) {
 
-			accion = pj.pedirAccion(this,equipoElemigo);
+			accion = pj.pedirAccion(equipoElemigo);
 
 			acciones.add(accion);
 		}
@@ -121,8 +121,9 @@ public class EquipoJugadores implements Equipo{
 	
 	public Personaje getPersonaje(String nombre) {
 		for (Personaje pj : equipo){
-			if(pj.toString().equals(nombre))
+			if(pj.toString().equals(nombre)){
 				return pj;
+			}
 		}
 		return null;
 	}

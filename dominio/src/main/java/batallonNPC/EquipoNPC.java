@@ -32,7 +32,7 @@ public abstract class EquipoNPC implements Equipo {
 		}
 	}
 
-	public int length() {
+	public int size() {
 		return cantidad;
 	}
 

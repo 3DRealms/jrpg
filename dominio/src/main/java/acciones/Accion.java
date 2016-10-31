@@ -12,20 +12,23 @@ public abstract class Accion {
 	int velocidad;
 	String accion;
 	String tipo;
-	
 
-	
+
+
 
 	public Accion(Personaje emisor,	Personaje objetivo,String accion,String tipo){
 		this.emisor = emisor;
 		this.objetivo = objetivo;
 		this.accion = accion;
 		this.tipo = tipo;
-		
+
+	}
+	@Override
+	public String toString() {
+		return emisor.toString()+" "+objetivo.toString()+" "+accion+" "+tipo;
 	}
 
-	
-	
+
 	/**
 	 * Comparador entre dos Acciones.
 	 * Compara las velocidades. Si la accion 1 es mas veloz que la accion 2 es positivo

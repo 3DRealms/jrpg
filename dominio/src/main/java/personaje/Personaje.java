@@ -16,6 +16,7 @@ import interfaces.Equipo;
 import item.ItemEquipo;
 import item.ItemLanzable;
 import mapa.Ubicacion;
+import mensaje.MensajeBatalla;
 
 public abstract class Personaje implements Atacable {
 
@@ -52,7 +53,7 @@ public abstract class Personaje implements Atacable {
 	protected int destreza = 0;
 	protected int vitalidad = 0;
 	protected int velocidad = 0;
-	
+
 	boolean enDefensa = false;
 
 	protected Map<String, ItemEquipo> itemEquipado;
@@ -166,7 +167,7 @@ public abstract class Personaje implements Atacable {
 
 		if(enDefensa)
 			defensaFiscaTotal*= 4;
-		
+
 		return  defensaFiscaTotal;
 
 	}
@@ -178,7 +179,7 @@ public abstract class Personaje implements Atacable {
 
 		if(enDefensa)
 			defensaMagicaTotal*= 4;
-		
+
 		return  defensaMagicaTotal;
 	}
 	public int getIntelecto() {
@@ -213,7 +214,7 @@ public abstract class Personaje implements Atacable {
 
 		return  fuerzaTotal;
 	}
-	
+
 	/**
 	 * Velocidad actual del personaje.
 	 * @return
@@ -296,16 +297,15 @@ public abstract class Personaje implements Atacable {
 	 */
 	public  boolean lanzarHabilidad(String conjuro, Personaje personaje){
 		Habilidad h = getCasta().getHabilidad(conjuro);
-
 		if( h != null && consumirEnergia( h.getCosto() )  ){
-
+			
 			h.afectar(personaje, getCasta().getEstado(this), tipoDanio(h.getTipo()));
 
 			return true;
 		}
 		return false;
 	}
-	
+
 
 	/**
 	 * 	Obtiene la velocidad al lanzar una habilidad[algun conjuro del libro,
@@ -324,7 +324,7 @@ public abstract class Personaje implements Atacable {
 		}
 		return 0;
 	}
-	
+
 
 	/**
 	 * 	Obtiene la velocidad al lanzar un objeto.
@@ -335,7 +335,7 @@ public abstract class Personaje implements Atacable {
 	 * @return velocidad
 	 */
 	public int getVelLanzarItem(String item){
-		
+
 		ItemLanzable  i = mochilaItemLanzable.get(item);
 
 		if( i != null ){
@@ -343,7 +343,7 @@ public abstract class Personaje implements Atacable {
 		}
 		return 0;
 	}
-	
+
 
 	/**
 	 * 	Obtiene la velocidad al defenderse.
@@ -352,10 +352,10 @@ public abstract class Personaje implements Atacable {
 	 * @return velocidad
 	 */
 	public int getVelDefenderse(){
-		
+
 		return this.getVelocidad()*100;
 	}
-	
+
 	/**
 	 * 	Obtiene la velocidad al huir.
 
@@ -363,10 +363,10 @@ public abstract class Personaje implements Atacable {
 	 * @return velocidad
 	 */
 	public int getVelHuir(){
-		
+
 		return this.getVelocidad()*100;
 	}
-	
+
 	/**
 	 * Dependiendo el tipo de habilidad, entonces le envio el ataque correspondiente.
 	 * @param tipo
@@ -453,7 +453,7 @@ public abstract class Personaje implements Atacable {
 			energiaActual = calcularEnergiaTotal();
 	}
 
- // No implementado todavia, posiblemente no este mas.
+	// No implementado todavia, posiblemente no este mas.
 	public void morir() { 
 	}
 
@@ -575,15 +575,32 @@ public abstract class Personaje implements Atacable {
 	 * @param equipoJugadores
 	 * @return
 	 */
-	public Accion pedirAccion(Equipo mio,Equipo elemigo) {		
-		
-		//Elige
-		//aca pido los mensajes
-		
-		//si eligo habilidad amistosa, selecciono de mi equipo
-		return FactoriaAcciones.getAccion(this,this,"","huir");
+	public Accion pedirAccion(Equipo elemigo) {		
 
+
+		return FactoriaAcciones.getAccion(this,this,"","huir");
 	}
+	public Accion pedirAccionTest(Equipo elemigo,MensajeBatalla mensaje) {		
+		Personaje objetivo;
+		objetivo = obtenerObjetivo( elemigo, mensaje.getObjetivo() );
+		return FactoriaAcciones.getAccion(this, objetivo,mensaje.getAccion(),mensaje.getTipo());
+	}
+
+	private Personaje obtenerObjetivo(Equipo elemigo, String objetivo) {
+		Personaje pjAliado;
+		Personaje pjElemigo;
+
+		pjElemigo = elemigo.getPersonaje(objetivo);
+		if( pjElemigo != null )
+			return pjElemigo;
+		
+		pjAliado = this.equipo.getPersonaje(objetivo);
+		if(pjAliado != null)
+			return pjAliado;
+		
+		return null;
+	}
+
 	public void setEquipo(Equipo equipo) {
 		this.equipo = equipo;
 	}
@@ -617,7 +634,7 @@ public abstract class Personaje implements Atacable {
 	}
 	public void defenderse() {
 		enDefensa = true;
-		
+
 	}
 	public void sacarDefenderse() {
 		enDefensa = false;
