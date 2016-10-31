@@ -7,7 +7,7 @@ public class LoroPunch extends Habilidad {
 	
 	public LoroPunch(){
 		this.costo = 50;
-		this.ataqueBasico = 50;
+		this.ataqueBasico = 80;
 		this.nivel = 5;
 		this.tipo = "fisico";
 	}

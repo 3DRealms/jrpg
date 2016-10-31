@@ -6,6 +6,7 @@ import java.util.List;
 import acciones.Accion;
 import interfaces.Atacable;
 import interfaces.Equipo;
+import mensaje.MensajeBatalla;
 import personaje.Personaje;
 
 public class EquipoJugadores implements Equipo{
@@ -32,6 +33,7 @@ public class EquipoJugadores implements Equipo{
 	 * @author DrCoffee84
 	 */
 	public void agregar(Personaje pj){
+		pj.setEquipo(this);
 		equipo.add(pj);
 	}
 
@@ -147,9 +149,9 @@ public class EquipoJugadores implements Equipo{
 	}
 
 	@Override
-	public void quitar(Personaje personaje) {
-		equipo.remove(personaje);
-		
+	public void quitar(Personaje pj) {
+		pj.salirEquipo();
+		equipo.remove(pj);
 	}
 
 	@Override
@@ -157,4 +159,16 @@ public class EquipoJugadores implements Equipo{
 		
 		return new ArrayList<Personaje>(equipo);
 	}
+
+	public List<Accion> pedirAccionTest(EquipoJugadores malos, List<MensajeBatalla> mensajes) {
+		Accion accion;
+		List<Accion> acciones = new ArrayList<Accion>();
+		int i=0;
+		for (Personaje pj : equipo) {
+			accion = pj.pedirAccionTest(malos,mensajes.get(i)); //Solo es para el test.
+			// Ya que cuadno un personaje pide accion, es en tiempo real y no llega como parametro.
+			acciones.add(accion);
+			i++;
+		}
+		return acciones;	}
 }

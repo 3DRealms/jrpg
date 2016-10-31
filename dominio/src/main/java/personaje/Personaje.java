@@ -9,6 +9,8 @@ import acciones.Accion;
 import acciones.FactoriaAcciones;
 import batalla.EquipoJugadores;
 import casta.Casta;
+import casta.Guerrero;
+import casta.LoroMaster;
 import casta.Mago;
 import grafico.Sprite;
 import interfaces.Atacable;
@@ -256,7 +258,13 @@ public abstract class Personaje implements Atacable {
 	public void setCastaMago() {
 		this.casta = new Mago();
 	}
-
+	public void setCastaLoroMaster() {
+		this.casta = new LoroMaster();
+	}
+	public void setCastaGuerrero(){
+		this.casta = new Guerrero();
+	}
+	
 	/**
 	 * Esto posiblemente vuele, que ya todos los personajes tenga la habilidad cargadas
 	 * y lo unico que haga es preguntar si tengo el nivel para lanzarla.
@@ -581,20 +589,22 @@ public abstract class Personaje implements Atacable {
 		return FactoriaAcciones.getAccion(this,this,"","huir");
 	}
 	public Accion pedirAccionTest(Equipo elemigo,MensajeBatalla mensaje) {		
-		Personaje objetivo;
-		objetivo = obtenerObjetivo( elemigo, mensaje.getObjetivo() );
+		
+		
+		Personaje objetivo = obtenerObjetivo( elemigo, mensaje.getObjetivo() );
+				
 		return FactoriaAcciones.getAccion(this, objetivo,mensaje.getAccion(),mensaje.getTipo());
 	}
 
 	private Personaje obtenerObjetivo(Equipo elemigo, String objetivo) {
 		Personaje pjAliado;
 		Personaje pjElemigo;
-
 		pjElemigo = elemigo.getPersonaje(objetivo);
 		if( pjElemigo != null )
 			return pjElemigo;
 		
 		pjAliado = this.equipo.getPersonaje(objetivo);
+		System.out.println(pjAliado.toString());
 		if(pjAliado != null)
 			return pjAliado;
 		
@@ -642,6 +652,7 @@ public abstract class Personaje implements Atacable {
 	public void meVoy(){
 		equipo.quitar(this);
 	}
+
 
 }
 
