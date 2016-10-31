@@ -7,16 +7,15 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import mapa.Mapa;
+import mapa.Ubicacion;
 import personaje.Personaje;
 import raza.PersonajePrueba;
 
 
 public class MapaTest {
 
-	//  seria 
+	// Válida seria 
 	private final static File bosque = new File("src\\main\\resources\\mapas\\bosque.txt");
-
-	
 	@Test
 	public void estoyDentroDelMapa01() throws FileNotFoundException {
 		Mapa mapa1 = new Mapa(bosque);
@@ -33,7 +32,7 @@ public class MapaTest {
 		Personaje dani = new PersonajePrueba("El dani");
 
 		dani.setUbicacion(1,1);  //Aca estoy en una posicion invalidad.
-		
+
 		Assert.assertFalse( mapa1.posicionValida( dani.getUbicacion() )  ); // veo si ese algo esta dentro del mapa.
 	}
 

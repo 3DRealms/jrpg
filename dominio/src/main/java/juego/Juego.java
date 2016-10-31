@@ -2,8 +2,6 @@ package juego;
 
 import javax.swing.JFrame;
 
-import mapa.Map;
-
 public class Juego {
 	public final static String NOMBRE_DEL_JUEGO = "[3DRealms] Loro";
 	/**
@@ -15,6 +13,7 @@ public class Juego {
 		JFrame ventana=new JFrame(NOMBRE_DEL_JUEGO); //Ventana comun
 				
 		ventana.add(new juegoPanel()); //Dentro de la ventana pongo el juego.
+		
 		ventana.pack(); //hace que el tamaño se ajuste al tamaño preferido y diseños de sus subcomponentes.
 						
 		ventana.setLocationRelativeTo(null); //centro

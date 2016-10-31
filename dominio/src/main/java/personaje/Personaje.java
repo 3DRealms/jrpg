@@ -39,11 +39,7 @@ public abstract class Personaje implements Atacable {
 	protected Map<String, ItemLanzable> mochilaItemLanzable;
 	protected Map<String, ItemEquipo> mochilaEquipo;
 	protected final int ESPACIO_MOCHILA = 10;
-	
-	// Equipo al que pertenesco.
 	protected Equipo equipo;
-	
-	
 	// Atributos: depende de items, (cada raza empieza con basicos pero a la larga se amortigua.
 	protected int ataqueFisico;  
 	protected int ataqueMagico;  
@@ -263,20 +259,13 @@ public abstract class Personaje implements Atacable {
 	/**
 	 * Esto posiblemente vuele, que ya todos los personajes tenga la habilidad cargadas
 	 * y lo unico que haga es preguntar si tengo el nivel para lanzarla.
-	 * 
-	 * Lo que puedo usar este metodo para cargartodo la primera vez.
 	 * @param conjuro
 	 * @param habilidad
 	 */
 	public void agregarHabilidad(String conjuro, Habilidad habilidad) {
-		// Ir a la base de datos y obtener todas las habilidades o llamarlas por nivel y casta;
 		casta.agregarHabilidad(conjuro, habilidad);
 	}
 
-	/**
-	 * Ver habilidades en forma de string.
-	 * @return
-	 */
 	public String verHabilidades() {
 		String habilidades= "Habilidades:\n";
 		for ( String key : casta.listaHabilidades() ) {
