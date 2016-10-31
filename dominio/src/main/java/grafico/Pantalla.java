@@ -15,7 +15,7 @@ public class Pantalla extends JPanel {
 	private static Mapa map;
 
 	public Pantalla() {
-		map = new Mapa(800, 600, "gerli");
+		//map = new Mapa(800, 600, "generic",1);
 		initialize();
 		frame.add(this);
 	}
@@ -46,7 +46,7 @@ public class Pantalla extends JPanel {
 		
 		while (true) {	
 			game.repaint();
-			Thread.sleep(10);
+			Thread.sleep(100);
 			dani.desplazar("E");
 
 		}

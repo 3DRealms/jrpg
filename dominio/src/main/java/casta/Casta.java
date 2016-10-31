@@ -2,14 +2,12 @@ package casta;
 
 import java.util.Map;
 import java.util.Set;
-
 import personaje.Habilidad;
 import personaje.Personaje;
 
 public abstract class Casta  {
 
 	protected Map<String, Habilidad> habilidades;
-
 	
 	public Habilidad getHabilidad(String h) {
 		return habilidades.get(h);

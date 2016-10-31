@@ -1,4 +1,4 @@
-package clienteTest;
+package dominio;
 
 import org.junit.Test;
 

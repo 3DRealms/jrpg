@@ -2,8 +2,8 @@ package mapa;
 
 public class Ubicacion {
 	
-	protected int x;
-	protected int y;
+	private int x;
+	private int y;
 	protected int z;
 	
 	public Ubicacion(int coorX, int coorY) {
@@ -64,5 +64,12 @@ public class Ubicacion {
 		double cateto2 = y - otraUbic.getY();
 		double hipotenusa = Math.sqrt(cateto1*cateto1 + cateto2*cateto2);
 		return hipotenusa;
+	}
+	@Override
+	public String toString() {
+		return "("+x+","+y+")";
+	}
+	public boolean comparar(Ubicacion ubic) {
+		return this.x == ubic.x && this.y == ubic.y;
 	}
 }

@@ -1,15 +1,11 @@
 package mapa;
 
-public class Obstaculo {
-	private Ubicacion ubicacion;
-//	private Sprite sprite;
-	
-	
-	public Obstaculo(Ubicacion ubicacion) {
-		this.ubicacion = ubicacion;
+public class Obstaculo extends Ubicacion{
+
+	public Obstaculo(int coorX, int coorY) {
+		super(coorX, coorY);
 	}
-	public Ubicacion getUbicacion() {
-		return ubicacion;
-	}
+
+	
 
 }

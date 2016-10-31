@@ -17,6 +17,7 @@ import mapa.Ubicacion;
 
 public abstract class Personaje implements Atacable {
 
+	private static final int PUNTOS_POR_NIVEL = 2;
 	//Salud y Energia: Estos dependeran de la raza, tendra su salud base diferente.
 	protected String nombre;
 	protected int saludBase; 
@@ -28,8 +29,10 @@ public abstract class Personaje implements Atacable {
 	//Aca esta todo el manejo de habilidades, depende la casta tendra un libro distinto.
 	protected Casta casta;
 	//Ubicacion y sprite:
-	Ubicacion ubicacion;
+	protected Ubicacion ubicacion;
 	protected Sprite sprite;
+	protected boolean puedoMoverme;
+
 	//Mochila for now.
 	protected Map<String, ItemLanzable> mochilaItemLanzable;
 	protected Map<String, ItemEquipo> mochilaEquipo;
@@ -92,6 +95,7 @@ public abstract class Personaje implements Atacable {
 	}
 	/**
 	 * Devuelve el nivel con respecto a tu experiencia.
+	 * y tambien aumenta los puntos si subi el nivel
 	 */
 	private void caluclarNivel() {
 		int nivelAntiguo = this.nivel;
@@ -105,8 +109,13 @@ public abstract class Personaje implements Atacable {
 		int nivelesQueSubi = nivelNuevo-nivelAntiguo;
 
 		if(nivelesQueSubi>0)
-			puntosDeEstados += 2*nivelesQueSubi; // 2 puntos por nivel.
+			puntosDeEstados += PUNTOS_POR_NIVEL*nivelesQueSubi; // 2 puntos por nivel.
 	}
+	/**
+	 * Calculo de la experiencia que necesito en algun nivel.
+	 * @param nivel
+	 * @return
+	 */
 	private int calcularExpPorNivel(int nivel){
 		int expNecesaria=50;
 		for(int i=1;i<=nivel;i++){
@@ -494,9 +503,16 @@ public abstract class Personaje implements Atacable {
 	}
 
 	public void desplazar(String dir) {
-		ubicacion.desplazar(dir);
+		if(puedoMoverme)
+			ubicacion.desplazar(dir);
 	}
-	
+	public boolean isPuedoMoverme() {
+		return puedoMoverme;
+	}
+	public void setPuedoMoverme(boolean puedoMoverme) {
+		this.puedoMoverme = puedoMoverme;
+	}
+
 	public void setUbicacion(int x, int y) {
 		ubicacion = new Ubicacion(x,y);
 	}
