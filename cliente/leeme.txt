@@ -1,0 +1,4 @@
+Usuarios registrados:
+lightray 123456
+eldani 123456
+elalex 654321

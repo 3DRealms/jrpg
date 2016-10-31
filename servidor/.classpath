@@ -5,5 +5,7 @@
 	<classpathentry kind="src" path="src/main/resources"/>
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/dominio"/>
+	<classpathentry kind="lib" path="/dominio/gson-2.8.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
