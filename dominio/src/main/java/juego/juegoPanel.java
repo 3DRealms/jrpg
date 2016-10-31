@@ -2,11 +2,15 @@ package juego;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
-import grafico.Sprite;
+import estados.EstadoActualJuego;
+import mapa.Grafico;
 import mapa.Mapa;
 
 
@@ -19,13 +23,16 @@ public class juegoPanel extends Component implements Runnable, KeyListener{
 	private Thread thread;
 	private boolean ejecutando;
 	private Graphics2D g;
-	private Mapa mapa;
-
-	public juegoPanel() {
+	private EstadoActualJuego estadoActualJuego;
+	private BufferedImage image;
+	
+	
+	public juegoPanel(File map) {
 		setPreferredSize(new Dimension(ANCHO, ALTO));
 		setFocusable(true);
 		requestFocus();
-		//addKeyListener(this);
+		estadoActualJuego.setMapa(map);
+		addKeyListener(this);
 		thread = new Thread(this);
 		thread.start();
 	}
@@ -41,7 +48,6 @@ public class juegoPanel extends Component implements Runnable, KeyListener{
 		while(ejecutando) {
 
 			actualizar();				//Actualizo el juego
-			hacerDibujos();				//Actualizo el dibujo
 			dibujar();					//Dibujo en la patanlla.
 
 			try {
@@ -53,16 +59,12 @@ public class juegoPanel extends Component implements Runnable, KeyListener{
 
 		}
 	}
-	/*
-	 * si logro sincronizar esto, ya queda pipi cucu 
-	 */
 	
 	private void actualizar() {
-	mapa.actualizar();
+		estadoActualJuego.actualizar();
 	}
 	private void dibujar() {
-	}
-	private void hacerDibujos() {
+		estadoActualJuego.dibujar(g);
 	}
 	
 	/**
@@ -77,17 +79,6 @@ public class juegoPanel extends Component implements Runnable, KeyListener{
 	@Override
 	public void keyTyped(KeyEvent e) {
 	}
-
-/*
-	@SuppressWarnings("unused")
-	private void paint(Graphics2D g) {
-		super.paint(g);
-		Graphics2D g2d = (Graphics2D)g;
-		Sprite logo = new Sprite("src\\main\\resources\\logo.png");
-		logo.putSprite(g2d, 300, 0);
-		
-	}
-*/
 	
 
 }

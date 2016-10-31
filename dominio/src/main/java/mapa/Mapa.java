@@ -4,20 +4,23 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import personaje.Personaje;
 
 
 public class Mapa {
 
-	private int alto;
-	private int ancho;
-	protected String nombre;
-	private ArrayList<Personaje> personajes;
-	private boolean[][] obstaculos;
-	private int cantidadObstaculos;
-	private int id;
+	private static final int TILE_ANCHO = 32;
+	private static final int TILE_ALTO = 32;
 	
+	private final int alto;
+	private final int ancho;
+	
+	protected final String nombre;
+	private final boolean[][] obstaculos;
+	private final int cantidadObstaculos;
+	private final int id;
+	
+	private ArrayList<Personaje> personajes;
 	
 
 	public Mapa(File path) throws FileNotFoundException{
@@ -35,7 +38,7 @@ public class Mapa {
 		for (int i = 0; i < cantidadObstaculos ; i++) {
 			x = sc.nextInt();
 			y = sc.nextInt();
-		//	obstaculos[x][y] = true;
+			obstaculos[x][y] = true;
 		}
 		
 		sc.close();
@@ -46,32 +49,24 @@ public class Mapa {
 	public int getId() {
 		return this.id;
 	}
+	
 	public boolean posicionValida(Ubicacion ubic){
 		if(dentroDelMapa(ubic) && !hayObstaculo(ubic))
 			return true;
 		return false;
-
 	}
+	
 	private boolean dentroDelMapa(Ubicacion ubic) {
 		return ubic.getX()>=0 && ubic.getY()>=0 && ubic.getX()<alto && ubic.getY()<ancho;
 	}
+		
 	/**
-	 * No se si sera optimo pero lo que hago
-	 * es comparar todos los obstaculos contra la ubicacion actual.
-	 * devuelve true si hay un obstaculo en esa ubicacion.
+	 * Obtengo si hay un ostaculo en ese punto.
 	 * @param ubic
 	 * @return
 	 */
-	/*private boolean hayObstaculo(Ubicacion ubic){ //boscar forma optima :C
-		for (Obstaculo osta : obstaculos ) {
-			if( osta.getUbicacion().comparar(ubic) )
-				return true;
-		}
-		return false;
-	}*/
 	private boolean hayObstaculo(Ubicacion ubic) {
-//		return obstaculos[ubic.getX()][ubic.getY()];
-		return false;
+		return obstaculos[ubic.getX()][ubic.getY()];
 	}
 	
 
@@ -82,9 +77,16 @@ public class Mapa {
 	public Personaje getPersonaje(int i) {
 		return personajes.get(i);
 	}
-
-	public void actualizar() {
+	
+	/**
+	 * Pasar datos de la camara par ano dibujar de mas.
+	 */
+	public void dibujar(){
 		
 	}
+	public void actualizar() {
+	}
+	
+	
 
 }

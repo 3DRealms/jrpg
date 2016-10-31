@@ -1,8 +1,6 @@
 package acciones;
 
 import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
 import personaje.Personaje;
 
 public abstract class Accion {
@@ -23,7 +21,6 @@ public abstract class Accion {
 		this.tipo = tipo;
 		
 	}
-
 	
 	
 	/**

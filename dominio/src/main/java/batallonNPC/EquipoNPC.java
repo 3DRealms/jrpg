@@ -73,6 +73,17 @@ public abstract class EquipoNPC implements Equipo {
 
 	}
 
+	@Override
+	public void quitar(Personaje personaje) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<Personaje> clonarLista() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	public void darExperiencia(int experiencia) {
 		
