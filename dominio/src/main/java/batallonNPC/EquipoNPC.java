@@ -2,7 +2,7 @@ package batallonNPC;
 
 import java.util.List;
 
-import batalla.Accion;
+import acciones.Accion;
 import batalla.Batalla;
 import interfaces.Atacable;
 import interfaces.Equipo;
@@ -31,51 +31,58 @@ public abstract class EquipoNPC implements Equipo {
 			cantidad--;
 		}
 	}
-	@Override
+
 	public int length() {
 		return cantidad;
 	}
 
 
-	@Override
 	public Personaje get(int i) {
 		return batallon.get(i);
 	}
-	@Override
+
+
 	public List<Personaje> getEquipo() {
 		return  batallon;
 	}
-	@Override
+
 	public List<Personaje> clonar() {
 		return null;
 	}
-	@Override
+
 	public List<Accion> pedirAccion(Batalla batalla) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
-	@Override
+
 	public List<Equipo> perderItemsEquipo() {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
-	@Override
+
 	public int quitarOro() {
-		// TODO Auto-generated method stub
+		
 		return 0;
 	}
 
-	@Override
+
 	public void repartirBotin(List<Equipo> equipo, int oro) {
-		// TODO Auto-generated method stub
 		
+
 	}
 
-	@Override
+
 	public void darExperiencia(int experiencia) {
-		// TODO Auto-generated method stub
 		
+
+	}
+	public void repartirBotin(int oro) {
+		
+	}
+	public List<Accion> pedirAccion(Equipo equipoElemigo) {
+		
+		return null;
 	}
 }

@@ -2,7 +2,7 @@ package interfaces;
 
 import java.util.List;
 
-import batalla.Accion;
+import acciones.Accion;
 import batalla.Batalla;
 import personaje.Personaje;
 /**
@@ -23,10 +23,11 @@ public interface Equipo {
 	public int length();
 	public Personaje get(int i);
 	public List<Personaje> getEquipo();
-	public List<Personaje> clonar();
-	public List<Accion> pedirAccion(Batalla batalla);
+	public List<Accion> pedirAccion(Equipo equipoElemigo);
 	public List<Equipo> perderItemsEquipo();
 	public int quitarOro();
-	public void repartirBotin(List<Equipo> equipo, int oro);
+	public void repartirBotin( int oro );
 	public void darExperiencia(int experiencia);
+	public void quitar(Personaje personaje);
+	public List<Personaje> clonarLista();
 }

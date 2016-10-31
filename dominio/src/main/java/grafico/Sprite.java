@@ -19,6 +19,7 @@ public final class Sprite {
 
 
 	public void putSprite(Graphics grafico,int coorX,int coorY){
+
 		if (visible)
 			grafico.drawImage(sprite, coorX, coorY, null);
 	}
