@@ -327,9 +327,9 @@ public abstract class Personaje implements Atacable {
 	public int getVelLanzarHabilidad(String conjuro){
 		Habilidad h = getCasta().getHabilidad(conjuro);
 
-		if( h != null ){
+		if( h != null )
 			return h.getVelocidad() + this.getVelocidad();
-		}
+	
 		return 0;
 	}
 
@@ -366,12 +366,10 @@ public abstract class Personaje implements Atacable {
 
 	/**
 	 * 	Obtiene la velocidad al huir.
-
 	 * 
 	 * @return velocidad
 	 */
 	public int getVelHuir(){
-
 		return this.getVelocidad()*100;
 	}
 
@@ -488,7 +486,13 @@ public abstract class Personaje implements Atacable {
 		this.saludActual = calcularSaludTotal();
 		return true;
 	}
-
+	public boolean subirVelocidad() {
+		if( this.puntosDeEstados==0 )
+			return false;
+		this.puntosDeEstados--;
+		this.velocidad ++;
+		return true;
+	}
 	public boolean subirDestreza() {
 		if( this.puntosDeEstados==0 )
 			return false;

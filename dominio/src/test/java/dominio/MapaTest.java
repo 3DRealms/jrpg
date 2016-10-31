@@ -5,9 +5,7 @@ import java.io.FileNotFoundException;
 
 import org.junit.Assert;
 import org.junit.Test;
-
 import mapa.Mapa;
-import mapa.Ubicacion;
 import personaje.Personaje;
 import raza.PersonajePrueba;
 

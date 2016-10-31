@@ -1,10 +1,9 @@
 package interfaces;
 
 import java.util.List;
-
 import acciones.Accion;
-import batalla.Batalla;
 import personaje.Personaje;
+
 /**
  * Interface. que hace que una clase, sea un equipo de algo (npc o personaje)
  * @author Danie

@@ -69,6 +69,8 @@ public class Mapa {
 		}
 		return false;
 	}*/
+	
+	
 	private boolean hayObstaculo(Ubicacion ubic) {
 //		return obstaculos[ubic.getX()][ubic.getY()];
 		return false;

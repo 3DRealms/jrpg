@@ -8,7 +8,6 @@ public class AccionHabilidad extends Accion{
 			String tipo) {
 		super(emisor, objetivo, accion, tipo);
 		velocidad = emisor.getVelLanzarHabilidad(accion);
-
 	}
 
 	@Override
@@ -16,5 +15,4 @@ public class AccionHabilidad extends Accion{
 		//"It's time to kick ass and chew bubblegum, and I'm out all of gum"
 		emisor.lanzarHabilidad(accion, objetivo);
 	}
-
 }

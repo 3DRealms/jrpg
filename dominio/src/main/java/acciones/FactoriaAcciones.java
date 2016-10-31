@@ -6,7 +6,6 @@ public class FactoriaAcciones {
 
 	public static Accion getAccion(Personaje emisor,Personaje objetivo,String accion,String tipo){
 		if (tipo.equals("defender")) {
-
 			return new AccionDefender( emisor,	 objetivo, accion, tipo);
 		}
 		if(tipo.equals("habilidad")){

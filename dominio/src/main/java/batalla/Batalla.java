@@ -70,7 +70,7 @@ public class Batalla  {
 		List<Accion> accionesEquipo1;
 		List<Accion> accionesEquipo2;
 
-		while(obtenerGanador() != null){
+		while( obtenerGanador() == null ){
 
 			accionesEquipo1 = equipo1.pedirAccion(equipo2); //Les pido las acciones al equipo1 de esta batalla.
 			accionesEquipo2 = equipo2.pedirAccion(equipo1); //Les pido las acciones al equipo2 de esta batalla.
@@ -95,7 +95,7 @@ public class Batalla  {
 		acciones.addAll(accEquipo2);
 
 		//Ordeno por velocidad:
-		//acciones.sort(Accion.AccVelComparator); //Ordeno por velocidad.
+		acciones.sort(Accion.AccVelComparator); //Ordeno por velocidad.
 
 		for (Accion accion : acciones) {
 			accion.ejecutar();
