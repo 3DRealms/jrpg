@@ -112,6 +112,7 @@ public class PedirAccionTest {
 			acc.get(i).ejecutar();			
 		}
 
+		//Compruebo que los resultados si son correctos
 		Assert.assertEquals(saludPablo - 20, pablo.getSaludActual());
 		Assert.assertEquals(saluDNahuel - 80, nahuel.getSaludActual());
 		Assert.assertEquals(saludDani + 20, dani.getSaludActual());

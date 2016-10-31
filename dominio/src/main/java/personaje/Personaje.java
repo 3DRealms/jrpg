@@ -604,7 +604,6 @@ public abstract class Personaje implements Atacable {
 			return pjElemigo;
 		
 		pjAliado = this.equipo.getPersonaje(objetivo);
-		System.out.println(pjAliado.toString());
 		if(pjAliado != null)
 			return pjAliado;
 		
