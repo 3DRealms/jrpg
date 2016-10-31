@@ -578,6 +578,8 @@ public abstract class Personaje implements Atacable {
 	public Accion pedirAccion(Equipo mio,Equipo elemigo) {		
 		
 		//Elige
+		//aca pido los mensajes
+		
 		//si eligo habilidad amistosa, selecciono de mi equipo
 		return FactoriaAcciones.getAccion(this,this,"","huir");
 

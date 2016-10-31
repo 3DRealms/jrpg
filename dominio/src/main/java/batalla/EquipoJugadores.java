@@ -118,6 +118,14 @@ public class EquipoJugadores implements Equipo{
 		}
 		return nivelPromedio/equipo.size();
 	}
+	
+	public Personaje getPersonaje(String nombre) {
+		for (Personaje pj : equipo){
+			if(pj.toString().equals(nombre))
+				return pj;
+		}
+		return null;
+	}
 
 
 	public List<Equipo> perderItemsEquipo() {
