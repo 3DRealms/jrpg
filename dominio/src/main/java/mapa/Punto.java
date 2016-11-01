@@ -1,12 +1,12 @@
 package mapa;
 
-public class Ubicacion {
+public class Punto {
 
 	private int x;
 	private int y;
 	protected int z;
 
-	public Ubicacion(int coorX, int coorY) {
+	public Punto(int coorX, int coorY) {
 		this.x = coorX;
 		this.y = coorY;
 		this.z=0;
@@ -58,7 +58,7 @@ public class Ubicacion {
 
 	}
 
-	public boolean delanteDe(Ubicacion obj){
+	public boolean delanteDe(Punto obj){
 		return false;
 	}
 	public int getX() {
@@ -78,7 +78,7 @@ public class Ubicacion {
 	 * Si es positivo esta a la derecha.
 	 * si es 0 estan en la misma posicion.
 	 */
-	public double calcularDistancia(Ubicacion otraUbic) {
+	public double calcularDistancia(Punto otraUbic) {
 		double cateto1 = x - otraUbic.getX();
 		double cateto2 = y - otraUbic.getY();
 		double hipotenusa = Math.sqrt(cateto1*cateto1 + cateto2*cateto2);
@@ -88,7 +88,7 @@ public class Ubicacion {
 	public String toString() {
 		return "("+x+","+y+")";
 	}
-	public boolean comparar(Ubicacion ubic) {
+	public boolean comparar(Punto ubic) {
 		return this.x == ubic.x && this.y == ubic.y;
 	}
 }

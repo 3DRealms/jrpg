@@ -17,7 +17,7 @@ public class Juego {
 	
 		ventana.setLocationRelativeTo(null); //centro
 		
-		ventana.setResizable(false); // evito que se cambie el tamaño para que no se chanfle todo.
+		ventana.setResizable(true); // evito que se cambie el tamaño para que no se chanfle todo.
 		
 		ventana.setVisible(true); // uno se mata haciendo los graficos para que ponga false ¬¬
 		

@@ -8,6 +8,8 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import javax.swing.ImageIcon;
+
+import juego.juegoPanel;
 import personaje.Personaje;
 
 
@@ -78,17 +80,17 @@ public class Mapa {
 	public int getId() {
 		return this.id;
 	}
-	public boolean posicionValida(Ubicacion ubic){
+	public boolean posicionValida(Punto ubic){
 		if(dentroDelMapa(ubic) && !hayObstaculo(ubic))
 			return true;
 		return false;
 
 	}
-	private boolean dentroDelMapa(Ubicacion ubic) {
+	private boolean dentroDelMapa(Punto ubic) {
 		return ubic.getX()>=0 && ubic.getY()>=0 && ubic.getX()<alto && ubic.getY()<ancho;
 	}
 
-	private boolean hayObstaculo(Ubicacion ubic) {
+	private boolean hayObstaculo(Punto ubic) {
 		return tiles[ubic.getX()][ubic.getY()].getObstaculo();
 	}
 
@@ -104,11 +106,21 @@ public class Mapa {
 
 	}
 
-	public void dibujar(Graphics2D g2d) {
+	/**
+	 * tengo que buscar la forma de dibujar solo la pantalla.
+	 * 
+	 * 			      (0,0)
+	 * 			 (0,1)(1,1)(1,0)
+	 *		(0,2)(1,2)(2,2)(2,1)(2,0)
+	 * 
+	 * 
+	 */
+	public void dibujar(Graphics2D g2d,int x,int y) {
 		g2d.setBackground(Color.BLACK);
-		g2d.clearRect(0, 0, 810, 610);
-		for (int i = 0; i < ancho; i++) {
-			for (int j = 0; j < ancho; j++) {
+		g2d.clearRect(0, 0, 810, 610);		
+
+		for (int i = x; i <  ancho ; i++) { //(juegoPanel.ANCHO / Tile.ANCHO)*2
+			for (int j = y; j < alto ; j++) { //(juegoPanel.ALTO /Tile.ALTO)
 				tiles[i][j].dibujar(g2d);
 			}}
 

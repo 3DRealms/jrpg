@@ -17,7 +17,7 @@ import interfaces.Atacable;
 import interfaces.Equipo;
 import item.ItemEquipo;
 import item.ItemLanzable;
-import mapa.Ubicacion;
+import mapa.Punto;
 import mensaje.MensajeBatalla;
 
 public abstract class Personaje implements Atacable {
@@ -34,7 +34,7 @@ public abstract class Personaje implements Atacable {
 	//Aca esta todo el manejo de habilidades, depende la casta tendra un libro distinto.
 	protected Casta casta;
 	//Ubicacion y sprite:
-	protected Ubicacion ubicacion;
+	protected Punto ubicacion;
 	protected Sprite sprite;
 	protected boolean puedoMoverme;
 
@@ -76,7 +76,7 @@ public abstract class Personaje implements Atacable {
 		itemEquipado.put("armaIzq", new ItemEquipo());
 		itemEquipado.put("armadura", new ItemEquipo());
 		itemEquipado.put("casco", new ItemEquipo());
-		ubicacion = new Ubicacion(0,0);
+		ubicacion = new Punto(0,0);
 		this.equipo = new EquipoJugadores(nombre);
 	}	
 	/**
@@ -620,7 +620,7 @@ public abstract class Personaje implements Atacable {
 	public void salirEquipo(){
 		this.equipo = new EquipoJugadores(nombre);
 	}
-	public Ubicacion getUbicacion() {
+	public Punto getUbicacion() {
 		return ubicacion;
 	}
 
@@ -636,7 +636,7 @@ public abstract class Personaje implements Atacable {
 	}
 
 	public void setUbicacion(int x, int y) {
-		ubicacion = new Ubicacion(x,y);
+		ubicacion = new Punto(x,y);
 	}
 	public void setSprite(String path) {
 		sprite = new Sprite(path);

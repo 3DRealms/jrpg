@@ -1,6 +1,5 @@
 package juego;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -15,8 +14,9 @@ import mapa.Mapa;
 @SuppressWarnings("serial")
 public class juegoPanel extends Component implements Runnable, KeyListener{
 	
-	private static final int ANCHO = 800;
-	private static final int ALTO = 600;
+	public static final int ANCHO = 800;
+	public static final int ALTO = 600;
+	
 	private Thread thread;
 	private boolean ejecutando = true;
 	private Mapa mapa;
@@ -60,7 +60,7 @@ public class juegoPanel extends Component implements Runnable, KeyListener{
 	public void paint(Graphics g) {
 		super.paint(g);
 		Graphics2D g2d = (Graphics2D) g;
-		mapa.dibujar(g2d);
+		mapa.dibujar(g2d,0,0);
 	}
 //	public void hacerDibujos() {
 	//}
@@ -77,15 +77,13 @@ public class juegoPanel extends Component implements Runnable, KeyListener{
 	@Override
 	public void keyTyped(KeyEvent e) {
 	}
-
 /*
 	@SuppressWarnings("unused")
 	private void paint(Graphics2D g) {
 		super.paint(g);
 		Graphics2D g2d = (Graphics2D)g;
 		Sprite logo = new Sprite("src\\main\\resources\\logo.png");
-		logo.putSprite(g2d, 300, 0);
-		
+		logo.putSprite(g2d, 300, 0);	
 	}
 */
 	
