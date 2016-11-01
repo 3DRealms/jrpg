@@ -3,6 +3,7 @@ package mapa;
 import java.awt.Graphics2D;
 
 public class Tile {
+	
 	final static int ANCHO = 64;
 	final static int ALTO = 32;
 	int x;

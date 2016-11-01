@@ -17,6 +17,7 @@ public class Juego {
 		ventana.add(new juegoPanel()); //Dentro de la ventana pongo el juego.
 		
 		ventana.pack(); //hace que el tamaño se ajuste al tamaño preferido y diseños de sus subcomponentes.
+	
 		ventana.setLocationRelativeTo(null); //centro
 		
 		ventana.setResizable(false); // evito que se cambie el tamaño para que no se chanfle todo.
