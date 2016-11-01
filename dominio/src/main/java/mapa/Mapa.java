@@ -105,7 +105,6 @@ public class Mapa {
 	}
 
 	public void dibujar(Graphics2D g2d) {
-
 		g2d.setBackground(Color.BLACK);
 		g2d.clearRect(0, 0, 810, 610);
 		for (int i = 0; i < ancho; i++) {

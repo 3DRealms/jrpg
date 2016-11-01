@@ -38,7 +38,6 @@ public class juegoPanel extends Component implements Runnable, KeyListener{
 	@Override
 	public void run(){
 
-
 		while(ejecutando) {
 			actualizar();				//Actualizo el juego
 		//	hacerDibujos();				//Actualizo el dibujo
@@ -49,7 +48,6 @@ public class juegoPanel extends Component implements Runnable, KeyListener{
 			catch(Exception e) {
 				e.printStackTrace();
 			}
-
 		}
 	}
 	/*

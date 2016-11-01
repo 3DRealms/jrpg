@@ -8,6 +8,8 @@ public class Tile {
 	final static int ALTO = 32;
 	int x;
 	int y;
+	int px; // Pasar de coordenadas logicas a coordenadas reales
+	int py;	//
 	int sprite;
 	boolean obstaculo;
 	
@@ -17,9 +19,9 @@ public class Tile {
 		this.y = y;
 		this.sprite = sprite;
 		this.obstaculo = obstaculo;
+		
 	}
 	public Tile(int x, int y, int sprite) {
-
 		this.x = x;
 		this.y = y;
 		this.sprite = sprite;
@@ -31,7 +33,9 @@ public class Tile {
 	}
 	
 	public void dibujar(Graphics2D g2d) {
-		g2d.drawImage( Mapa.getImage(sprite), (x - y) * (ANCHO / 2) ,  (x + y) * (ALTO / 2), null);
+		px = (x - y) * ( ANCHO / 2);
+		py = (x + y) * ( ALTO / 2);
+		g2d.drawImage( Mapa.getImage(sprite), px, py , null);
 	}
  
 }

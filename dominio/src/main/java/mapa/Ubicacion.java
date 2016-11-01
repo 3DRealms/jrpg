@@ -1,7 +1,5 @@
 package mapa;
 
-import javax.swing.SwingConstants;
-
 public class Ubicacion {
 
 	private int x;
