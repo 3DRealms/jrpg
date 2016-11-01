@@ -13,10 +13,9 @@ import raza.PersonajePrueba;
 public class MapaTest {
 
 	// Válida seria 
-	private final static File bosque = new File("src\\main\\resources\\mapas\\bosque.txt");
 	@Test
 	public void estoyDentroDelMapa01() throws FileNotFoundException {
-		Mapa mapa1 = new Mapa(bosque);
+		Mapa mapa1 = new Mapa("map1");
 		Personaje dani = new PersonajePrueba("El dani");
 
 		dani.setUbicacion(0,0); 
@@ -26,7 +25,7 @@ public class MapaTest {
 
 	@Test
 	public void hayObstaculo() throws FileNotFoundException {
-		Mapa mapa1 = new Mapa(bosque);
+		Mapa mapa1 = new Mapa("map1");
 		Personaje dani = new PersonajePrueba("El dani");
 
 		dani.setUbicacion(1,1);  //Aca estoy en una posicion invalidad.
@@ -36,7 +35,7 @@ public class MapaTest {
 
 	@Test
 	public void estoyDentroDelMapa02() throws FileNotFoundException {
-		Mapa mapa1 = new Mapa(bosque);
+		Mapa mapa1 = new Mapa("map1");
 		Personaje dani = new PersonajePrueba("El dani wacho");
 
 		dani.setUbicacion(150,39); 
@@ -45,21 +44,21 @@ public class MapaTest {
 	}
 	@Test
 	public void estoyDentroDelMapa03() throws FileNotFoundException {
-		Mapa mapa1 = new Mapa(bosque);
+		Mapa mapa1 = new Mapa("map1");
 		Personaje dani = new PersonajePrueba("El dani re wacho");
 		dani.setUbicacion(199,199);  //limite.
 		Assert.assertTrue( mapa1.posicionValida(dani.getUbicacion() )); // veo si ese algo esta dentro del mapa.
 	}
 	@Test
 	public void estoyFueraDelMapa01() throws FileNotFoundException {
-		Mapa mapa1 = new Mapa(bosque);
+		Mapa mapa1 = new Mapa("map1");
 		Personaje dani = new PersonajePrueba("El dani recontra wacho");
 		dani.setUbicacion(200,200);  //Ya me pase
 		Assert.assertFalse( mapa1.posicionValida(dani.getUbicacion()) ); // veo si ese algo esta fuera del mapa.
 	}
 	@Test
 	public void estoyFueraDelMapa02() throws FileNotFoundException {
-		Mapa mapa1 = new Mapa(bosque);
+		Mapa mapa1 = new Mapa("map1");
 		Personaje dani = new PersonajePrueba("El dani UTRA wacho");
 		dani.setUbicacion(-5,-5); //me fui al limbo
 		Assert.assertFalse( mapa1.posicionValida(dani.getUbicacion())); // veo si ese algo esta fuera del mapa.

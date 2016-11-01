@@ -1,48 +1,80 @@
 package mapa;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
+import javax.swing.ImageIcon;
 import personaje.Personaje;
 
 
 public class Mapa {
+	private final static File map1 = new File("src\\main\\resources\\mapas\\map1.txt");
+	private static Image[] spriteMapa = new Image[2];	
 
-	private int alto;
-	private int ancho;
+	protected int alto;
+	protected int ancho;
 	protected String nombre;
-	private ArrayList<Personaje> personajes;
-	private boolean[][] obstaculos;
-	private int cantidadObstaculos;
-	private int id;
-	
-	
+	protected Tile[][] tiles;
+	protected ArrayList<Personaje> personajes;
+	protected int id;
 
-	public Mapa(File path) throws FileNotFoundException{
-		
-		Scanner sc = new Scanner(path);
+
+	public Mapa(String nombre) {
+		this.nombre = nombre;
+		File path = cargarMap();
+
+		Scanner sc = null;
+		try {
+			sc = new Scanner(path);
+		} catch (FileNotFoundException e) {
+			// no se encutra el mapa -nombre-
+			e.printStackTrace();
+		}
 		this.id = sc.nextInt();
 		this.ancho=sc.nextInt();
 		this.alto=sc.nextInt();
 		this.nombre=sc.nextLine();
-		this.cantidadObstaculos = sc.nextInt();
-		this.obstaculos = new boolean[ancho][alto];
-		//this.obstaculos=new ArrayList<Obstaculo>( cantidadObstaculos );
-		int x;
-		int y;
-		for (int i = 0; i < cantidadObstaculos ; i++) {
-			x = sc.nextInt();
-			y = sc.nextInt();
-		//	obstaculos[x][y] = true;
+		this.tiles = new Tile[ancho][alto];
+		/**
+		 * no hace falta pero para que se entienda
+		 */
+		int sprite;
+		//	boolean obs;
+		for (int i = 0; i < ancho ; i++) {
+			for (int j = 0; j < alto; j++) {
+				sprite = sc.nextInt();
+				tiles[i][j] = new Tile(i,j,sprite);
+			}
 		}
-		
 		sc.close();
-		
 		this.personajes=new ArrayList<Personaje>();
 	}
-	
+
+	private File cargarMap() {
+		if ( nombre.equals("map1") ) {
+			load("map1");
+			return  map1;
+		}
+		return null;
+	}
+
+	private void load(String nombre) {
+		spriteMapa[0] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\pasto.png");
+		spriteMapa[1] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\arbol.png");
+	}
+
+	public static Image loadImage(String path) {
+		ImageIcon i = new ImageIcon(path);
+		return i.getImage();
+	}
+	public static Image getImage(int sprite) {
+		return spriteMapa[sprite];
+	}
+
 	public int getId() {
 		return this.id;
 	}
@@ -55,27 +87,10 @@ public class Mapa {
 	private boolean dentroDelMapa(Ubicacion ubic) {
 		return ubic.getX()>=0 && ubic.getY()>=0 && ubic.getX()<alto && ubic.getY()<ancho;
 	}
-	/**
-	 * No se si sera optimo pero lo que hago
-	 * es comparar todos los obstaculos contra la ubicacion actual.
-	 * devuelve true si hay un obstaculo en esa ubicacion.
-	 * @param ubic
-	 * @return
-	 */
-	/*private boolean hayObstaculo(Ubicacion ubic){ //boscar forma optima :C
-		for (Obstaculo osta : obstaculos ) {
-			if( osta.getUbicacion().comparar(ubic) )
-				return true;
-		}
-		return false;
-	}*/
-	
-	
+
 	private boolean hayObstaculo(Ubicacion ubic) {
-//		return obstaculos[ubic.getX()][ubic.getY()];
-		return false;
+		return tiles[ubic.getX()][ubic.getY()].getObstaculo();
 	}
-	
 
 	public void agregarPersonaje(Personaje pj){
 		personajes.add(pj);
@@ -86,7 +101,15 @@ public class Mapa {
 	}
 
 	public void actualizar() {
-		
+
 	}
 
+	public void dibujar(Graphics2D g2d) {
+
+		for (int i = 0; i < ancho; i++) {
+			for (int j = 0; j < ancho; j++) {
+				tiles[i][j].dibujar(g2d);
+			}}
+
+	}
 }

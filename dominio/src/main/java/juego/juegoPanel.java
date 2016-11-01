@@ -1,7 +1,9 @@
 package juego;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -17,8 +19,7 @@ public class juegoPanel extends Component implements Runnable, KeyListener{
 	private static final int ANCHO = 800;
 	private static final int ALTO = 600;
 	private Thread thread;
-	private boolean ejecutando;
-	private Graphics2D g;
+	private boolean ejecutando = true;
 	private Mapa mapa;
 
 	public juegoPanel() {
@@ -26,6 +27,7 @@ public class juegoPanel extends Component implements Runnable, KeyListener{
 		setFocusable(true);
 		requestFocus();
 		//addKeyListener(this);
+		mapa = new Mapa("map1");
 		thread = new Thread(this);
 		thread.start();
 	}
@@ -36,14 +38,12 @@ public class juegoPanel extends Component implements Runnable, KeyListener{
 	 */
 	@Override
 	public void run(){
-		
-		
+
+
 		while(ejecutando) {
-
 			actualizar();				//Actualizo el juego
-			hacerDibujos();				//Actualizo el dibujo
-			dibujar();					//Dibujo en la patanlla.
-
+		//	hacerDibujos();				//Actualizo el dibujo
+			repaint();					//Dibujo en la patanlla.
 			try {
 				Thread.sleep(200); //Hacer calculos para sacar el tiempo para que de 60FPS(o 30)
 			}
@@ -57,13 +57,16 @@ public class juegoPanel extends Component implements Runnable, KeyListener{
 	 * si logro sincronizar esto, ya queda pipi cucu 
 	 */
 	
-	private void actualizar() {
+	public void actualizar() {
 	mapa.actualizar();
 	}
-	private void dibujar() {
+	public void paint(Graphics g) {
+		super.paint(g);
+		Graphics2D g2d = (Graphics2D) g;
+		mapa.dibujar(g2d);
 	}
-	private void hacerDibujos() {
-	}
+//	public void hacerDibujos() {
+	//}
 	
 	/**
 	 * Ver bien esto para hacerlo mejor:

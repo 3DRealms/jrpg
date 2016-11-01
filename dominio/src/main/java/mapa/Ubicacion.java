@@ -1,11 +1,13 @@
 package mapa;
 
+import javax.swing.SwingConstants;
+
 public class Ubicacion {
-	
+
 	private int x;
 	private int y;
 	protected int z;
-	
+
 	public Ubicacion(int coorX, int coorY) {
 		this.x = coorX;
 		this.y = coorY;
@@ -20,25 +22,44 @@ public class Ubicacion {
 	 * @param dir
 	 */
 	public void desplazar(String dir){
-		
-		if(dir == "N"){
-			this.y--;
-			return;
+		/**
+		 * El hermoso switch para desplazarce a voluntad.
+		 * valido para coordenadas isometricas.
+		 */
+		switch (dir) {
+		case "N":
+			x--;
+			y--;
+			break;
+		case "NE":
+			y--;
+			break;
+		case "E":
+			x++;
+			y--;
+			break;
+		case "SE":
+			x++;
+			break;
+		case "S":
+			x++;
+			y++;
+			break;
+		case "SO":
+			y++;
+			break;
+		case "O":
+			x--;
+			y++;
+			break;
+		case "NO":
+			x--;
+			break;
 		}
-		if(dir == "S"){
-			this.y++;
-			return;
-		}
-		if(dir == "O"){
-			this.x--;
-			return;
-		}
-		if(dir == "E"){
-			this.x++;
-			return;
-		}
+
+
 	}
-	
+
 	public boolean delanteDe(Ubicacion obj){
 		return false;
 	}
