@@ -13,7 +13,7 @@ public class MensajeMapaTest {
 	
 	@Test
 	public void casoAgregoYMuevoporMensaje(){
-		Mapa mapa1 = new Mapa("map1");
+		Mapa mapa1 = new Mapa("map1",1,800,800);
 		Personaje dani = new PersonajePrueba("El dani");
 		dani.setUbicacion(1,1);
 		dani.setPuedoMoverme(true);
@@ -26,7 +26,7 @@ public class MensajeMapaTest {
 	
 	@Test
 	public void AgregoMuchosYMuevoVariasVecesporMensaje(){
-		Mapa mapa1 = new Mapa("map1");
+		Mapa mapa1 = new Mapa("map1",1,800,800);
 		Personaje dani = new PersonajePrueba("El dani");
 		Personaje alex = new PersonajePrueba("El alex");
 		dani.setUbicacion(1,1);

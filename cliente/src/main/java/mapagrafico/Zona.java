@@ -1,4 +1,4 @@
-package mapa;
+package mapagrafico;
 
 @SuppressWarnings("unused") //No desarrollado por ahora :'c
 public class Zona {

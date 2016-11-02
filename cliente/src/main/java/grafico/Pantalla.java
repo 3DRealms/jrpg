@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import mapa.Mapa;
+import mapagrafico.MapaGrafico;
 import personaje.Personaje;
 import raza.PersonajePrueba;
 
@@ -12,7 +12,7 @@ import raza.PersonajePrueba;
 public class Pantalla extends JPanel {
 
 	private JFrame frame;
-	private static Mapa map;
+	private static MapaGrafico map;
 
 	public Pantalla() {
 		//map = new Mapa(800, 600, "generic",1);
@@ -41,7 +41,7 @@ public class Pantalla extends JPanel {
 		Personaje dani = new PersonajePrueba("el dani");
 		map.agregarPersonaje(dani);
 		Personaje pj = map.getPersonaje("el dani");
-		pj.setSprite( "src\\main\\resources\\dani.png" );
+		//pj.setSprite( "src\\main\\resources\\dani.png" );
 	//	pj.putSprite(g2d);
 		
 		while (true) {	

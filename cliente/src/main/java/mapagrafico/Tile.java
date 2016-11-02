@@ -1,6 +1,8 @@
-package mapa;
+package mapagrafico;
 
 import java.awt.Graphics2D;
+
+
 
 public class Tile {
 	
@@ -45,7 +47,7 @@ public class Tile {
 		deltaY+=y;		
 		px = (deltaX - deltaY) * ( ANCHO / 2);
 		py = (deltaX + deltaY) * ( ALTO / 2);
-		g2d.drawImage( Mapa.getImage(sprite), px, py , null);			
+		g2d.drawImage( MapaGrafico.getImage(sprite), px, py , null);			
 		
 	}
 	
@@ -55,7 +57,7 @@ public class Tile {
 		deltaY+=y;		
 		px = (deltaX - deltaY) * ( ANCHO / 2);
 		py = (deltaX + deltaY) * (64 / 2);
-		g2d.drawImage( Mapa.getImage(sprite), px, py , null);
+		g2d.drawImage( MapaGrafico.getImage(sprite), px, py , null);
 		
 	
 		
@@ -68,7 +70,7 @@ public class Tile {
 		deltaY+=y;		
 		px = (deltaX - deltaY) * ( ANCHO / 2);
 		py = (deltaX + deltaY) * (64 / 2);
-		g2d.drawImage( Mapa.getImage(sprite), px, py , null);
+		g2d.drawImage( MapaGrafico.getImage(sprite), px, py , null);
 		
 	
 		

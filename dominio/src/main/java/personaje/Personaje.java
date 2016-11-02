@@ -12,7 +12,7 @@ import casta.Casta;
 import casta.Guerrero;
 import casta.LoroMaster;
 import casta.Mago;
-import grafico.Sprite;
+//import grafico.Sprite;
 import interfaces.Atacable;
 import interfaces.Equipo;
 import item.ItemEquipo;
@@ -35,7 +35,7 @@ public abstract class Personaje implements Atacable {
 	protected Casta casta;
 	//Ubicacion y sprite:
 	protected Punto ubicacion;
-	protected Sprite sprite;
+	//protected Sprite sprite;
 	protected boolean puedoMoverme;
 
 	//Mochila for now.
@@ -643,12 +643,14 @@ public abstract class Personaje implements Atacable {
 		ubicacion = pun;
 	}
 	
+	/*
 	public void setSprite(String path) {
 		sprite = new Sprite(path);
 	}
 	public void putSprite(Graphics2D g2d) {
 		sprite.putSprite(g2d, ubicacion.getX(), ubicacion.getY());
 	}
+	*/
 	public void defenderse() {
 		enDefensa = true;
 

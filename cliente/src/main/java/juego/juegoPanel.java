@@ -7,8 +7,8 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import mapa.Mapa;
-import mapa.Tile;
+import mapagrafico.MapaGrafico;
+import mapagrafico.Tile;
 
 
  // No vamos a tener ID es un solo juego :v.
@@ -20,7 +20,7 @@ public class juegoPanel extends Component implements Runnable, KeyListener{
 	
 	private Thread thread;
 	private boolean ejecutando = true;
-	private Mapa mapa;
+	private MapaGrafico mapa;
 	
 	private Tile pj;
 	int x = 0;
@@ -31,7 +31,7 @@ public class juegoPanel extends Component implements Runnable, KeyListener{
 		requestFocus();
 		//addKeyListener(this);
 		pj = new Tile(5,5,1);
-		mapa = new Mapa("map1");
+		mapa = new MapaGrafico("map1");
 		thread = new Thread(this);
 		thread.start();
 	}

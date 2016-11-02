@@ -1,4 +1,6 @@
-package mapa;
+package mapagrafico;
+
+import mapa.Punto;
 
 public class Obstaculo extends Punto{
 
