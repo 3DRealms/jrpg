@@ -11,7 +11,7 @@ public class Juego {
 		
 		JFrame ventana=new JFrame(NOMBRE_DEL_JUEGO); //Ventana comun
 				
-		ventana.add(new juegoPanel()); //Dentro de la ventana pongo el juego.
+		ventana.add(new JuegoPanel()); //Dentro de la ventana pongo el juego.
 		
 		ventana.pack(); //hace que el tamaño se ajuste al tamaño preferido y diseños de sus subcomponentes.
 	

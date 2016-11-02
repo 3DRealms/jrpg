@@ -51,7 +51,7 @@ public class Tile {
 		
 	}
 	
-	public void dibujar2(Graphics2D g2d, int deltaX, int deltaY) {
+	public void dibujarCentro(Graphics2D g2d, int deltaX, int deltaY) {
 		
 		deltaX+=x;
 		deltaY+=y;		

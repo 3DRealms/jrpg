@@ -5,24 +5,24 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 import javax.swing.ImageIcon;
 
+import juego.JuegoPanel;
 import mapa.Punto;
 import mensaje.MensajeMovimiento;
 import personaje.Personaje;
 
 
 public class MapaGrafico {
-	private final static File map1 = new File("src\\main\\resources\\mapas\\map1.txt");
-	private static Image[] spriteMapa = new Image[3];	
 
+	private static Image[] spriteMapa = new Image[3];	
 	protected int alto;
 	protected int ancho;
 	protected String nombre;
+	protected String sprites;
 	protected Tile[][] tiles;
 	protected Map<String,Personaje> personajes;
 	protected int id;
@@ -30,7 +30,8 @@ public class MapaGrafico {
 
 	public MapaGrafico(String nombre) {
 		this.nombre = nombre;
-		File path = cargarMap();
+
+		File path = new File("src\\main\\resources\\mapas\\"+nombre+".txt");
 
 		Scanner sc = null;
 		try {
@@ -42,7 +43,8 @@ public class MapaGrafico {
 		this.id = sc.nextInt();
 		this.ancho=sc.nextInt();
 		this.alto=sc.nextInt();
-		this.nombre=sc.nextLine();
+		this.sprites=sc.next();
+		cargarSprite();
 		this.tiles = new Tile[ancho][alto];
 		/**
 		 * no hace falta pero para que se entienda
@@ -59,14 +61,28 @@ public class MapaGrafico {
 		this.personajes=new HashMap<String,Personaje>();
 	}
 
-	private File cargarMap() {
-		if ( nombre.equals("map1") ) {
-			load("map1");
-			return  map1;
+	private void cargarSprite() {
+		if ( sprites.equals("exterior") ) {
+			load("exterior");
 		}
-		return null;
 	}
 
+
+	/**
+	 * Aca alex tiene que hacer la hoja de sprite y ir cortandola.
+	 * lo que yo pense (que ya esta casi echo)
+	 * es tener una carpeta (o unos sprites) con distintos nombres para 
+	 * distintos mapas.
+	 * por ejemplo:
+	 * exterior va a hacer un a hoja de sprite con todo los sprite del exterior
+	 * 
+	 * pero si el mapa tiene la palabra castillo.
+	 * va a cargar la hoja de sprite de castillo.
+	 * 
+	 * pero como dije necesitamos los sprite y a alex que haga el corte
+	 * si no lo dejamos como esta :D
+	 * @param nombre
+	 */
 	private void load(String nombre) {
 		spriteMapa[0] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\pasto.png");
 		spriteMapa[1] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\arbol.png");
@@ -101,10 +117,10 @@ public class MapaGrafico {
 	public void agregarPersonaje(Personaje pj){
 		personajes.put(pj.getNombre(), pj);
 	}
-	
+
 	public boolean recibirMensajeMovmiento(MensajeMovimiento men){
 		Personaje aMover = personajes.get(men.getEmisor());
-		
+
 		if(aMover.isPuedoMoverme()){
 			aMover.setUbicacion(men.getPos());
 			return true;
@@ -133,9 +149,10 @@ public class MapaGrafico {
 		g2d.setBackground(Color.BLACK);
 		g2d.clearRect(0, 0, 810, 610);		
 
-		for (int i = x; i <  ancho ; i++) { //(juegoPanel.ANCHO / Tile.ANCHO)*2
-			for (int j = y; j < alto ; j++) { //(juegoPanel.ALTO /Tile.ALTO)
-				tiles[i][j].dibujar(g2d,5,-5);
+		for (int i = 0; i <  alto; i++) { 
+			for (int j = 0; j < ancho ; j++) { 
+				tiles[i][j].dibujar(g2d,0,0);
+
 			}}
 
 	}
