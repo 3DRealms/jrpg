@@ -40,7 +40,7 @@ public class Pantalla extends JPanel {
 		Pantalla game = new Pantalla();	
 		Personaje dani = new PersonajePrueba("el dani");
 		map.agregarPersonaje(dani);
-		Personaje pj = map.getPersonaje(0);
+		Personaje pj = map.getPersonaje("el dani");
 		pj.setSprite( "src\\main\\resources\\dani.png" );
 	//	pj.putSprite(g2d);
 		

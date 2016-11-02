@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import mapa.Mapa;
+import mapa.Tile;
 
 
  // No vamos a tener ID es un solo juego :v.
@@ -20,12 +21,16 @@ public class juegoPanel extends Component implements Runnable, KeyListener{
 	private Thread thread;
 	private boolean ejecutando = true;
 	private Mapa mapa;
+	
+	private Tile pj;
+	int x = 0;
 
 	public juegoPanel() {
 		setPreferredSize(new Dimension(ANCHO, ALTO));
 		setFocusable(true);
 		requestFocus();
 		//addKeyListener(this);
+		pj = new Tile(5,5,1);
 		mapa = new Mapa("map1");
 		thread = new Thread(this);
 		thread.start();
@@ -43,7 +48,8 @@ public class juegoPanel extends Component implements Runnable, KeyListener{
 		//	hacerDibujos();				//Actualizo el dibujo
 			repaint();					//Dibujo en la patanlla.
 			try {
-				Thread.sleep(200); //Hacer calculos para sacar el tiempo para que de 60FPS(o 30)
+				//Thread.sleep(200); //Hacer calculos para sacar el tiempo para que de 60FPS(o 30)
+				Thread.sleep(60); //Hacer calculos para sacar el tiempo para que de 60FPS(o 30)
 			}
 			catch(Exception e) {
 				e.printStackTrace();
@@ -61,6 +67,9 @@ public class juegoPanel extends Component implements Runnable, KeyListener{
 		super.paint(g);
 		Graphics2D g2d = (Graphics2D) g;
 		mapa.dibujar(g2d,0,0);
+		
+		pj.dibujar2(g2d, 5, -7);
+
 	}
 //	public void hacerDibujos() {
 	//}

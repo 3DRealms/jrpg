@@ -4,12 +4,12 @@ public class Punto {
 
 	private int x;
 	private int y;
-	protected int z;
+
 
 	public Punto(int coorX, int coorY) {
 		this.x = coorX;
 		this.y = coorY;
-		this.z=0;
+
 	}
 	/**
 	 * preguntar Lucas, si usar un par de if

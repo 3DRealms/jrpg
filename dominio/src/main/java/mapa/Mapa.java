@@ -6,22 +6,25 @@ import java.awt.Image;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 import javax.swing.ImageIcon;
 
 import juego.juegoPanel;
+import mensaje.MensajeMovimiento;
 import personaje.Personaje;
 
 
 public class Mapa {
 	private final static File map1 = new File("src\\main\\resources\\mapas\\map1.txt");
-	private static Image[] spriteMapa = new Image[2];	
+	private static Image[] spriteMapa = new Image[3];	
 
 	protected int alto;
 	protected int ancho;
 	protected String nombre;
 	protected Tile[][] tiles;
-	protected ArrayList<Personaje> personajes;
+	protected Map<String,Personaje> personajes;
 	protected int id;
 
 
@@ -53,7 +56,7 @@ public class Mapa {
 			}
 		}
 		sc.close();
-		this.personajes=new ArrayList<Personaje>();
+		this.personajes=new HashMap<String,Personaje>();
 	}
 
 	private File cargarMap() {
@@ -67,6 +70,7 @@ public class Mapa {
 	private void load(String nombre) {
 		spriteMapa[0] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\pasto.png");
 		spriteMapa[1] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\arbol.png");
+		spriteMapa[2] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\piso.png");
 	}
 
 	public static Image loadImage(String path) {
@@ -95,11 +99,21 @@ public class Mapa {
 	}
 
 	public void agregarPersonaje(Personaje pj){
-		personajes.add(pj);
+		personajes.put(pj.getNombre(), pj);
+	}
+	
+	public boolean recibirMensajeMovmiento(MensajeMovimiento men){
+		Personaje aMover = personajes.get(men.getEmisor());
+		
+		if(aMover.isPuedoMoverme()){
+			aMover.setUbicacion(men.getPos());
+			return true;
+		}
+		return false;
 	}
 
-	public Personaje getPersonaje(int i) {
-		return personajes.get(i);
+	public Personaje getPersonaje(String per) {
+		return personajes.get(per);
 	}
 
 	public void actualizar() {
@@ -121,7 +135,7 @@ public class Mapa {
 
 		for (int i = x; i <  ancho ; i++) { //(juegoPanel.ANCHO / Tile.ANCHO)*2
 			for (int j = y; j < alto ; j++) { //(juegoPanel.ALTO /Tile.ALTO)
-				tiles[i][j].dibujar(g2d);
+				tiles[i][j].dibujar(g2d,5,-5);
 			}}
 
 	}

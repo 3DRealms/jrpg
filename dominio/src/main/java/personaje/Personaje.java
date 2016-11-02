@@ -638,6 +638,11 @@ public abstract class Personaje implements Atacable {
 	public void setUbicacion(int x, int y) {
 		ubicacion = new Punto(x,y);
 	}
+	
+	public void setUbicacion(Punto pun) {
+		ubicacion = pun;
+	}
+	
 	public void setSprite(String path) {
 		sprite = new Sprite(path);
 	}
@@ -653,6 +658,9 @@ public abstract class Personaje implements Atacable {
 	}
 	public void meVoy(){
 		equipo.quitar(this);
+	}
+	public String getNombre() {
+		return this.nombre;
 	}
 
 
