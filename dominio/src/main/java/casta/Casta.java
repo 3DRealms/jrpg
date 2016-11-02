@@ -3,7 +3,7 @@ package casta;
 import java.util.Map;
 import java.util.Set;
 
-import personaje.Habilidad;
+import habilidad.Habilidad;
 import personaje.Personaje;
 
 public abstract class Casta  {

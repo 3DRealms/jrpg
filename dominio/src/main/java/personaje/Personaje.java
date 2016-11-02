@@ -20,6 +20,8 @@ import item.ItemLanzable;
 import mapa.Punto;
 import mensaje.MensajeBatalla;
 
+import habilidad.Habilidad;
+
 public abstract class Personaje implements Atacable {
 
 	private static final int PUNTOS_POR_NIVEL = 2;
@@ -306,8 +308,7 @@ public abstract class Personaje implements Atacable {
 	public  boolean lanzarHabilidad(String conjuro, Personaje personaje){
 		Habilidad h = getCasta().getHabilidad(conjuro);
 		if( h != null && consumirEnergia( h.getCosto() )  ){
-			
-			h.afectar(personaje, getCasta().getEstado(this), tipoDanio(h.getTipo()));
+			h.afectar(personaje, getCasta().getEstado(this), tipoDanio(h.getEfecto()));
 
 			return true;
 		}
@@ -379,10 +380,14 @@ public abstract class Personaje implements Atacable {
 	 * @return
 	 */
 	private int tipoDanio(String tipo) {
-		if(tipo.equals("magico"))
+		if(tipo.equals("magica"))
 			return ataqueMagico;
-		else if(tipo.equals("fisico"))
+		if(tipo.equals("curativa"))
+			return ataqueMagico;
+		if(tipo.equals("fisica"))
 			return ataqueFisico;
+		if(tipo.equals("truedamage"))
+			return ataqueFisico+ataqueMagico;
 		return 0;
 	}
 

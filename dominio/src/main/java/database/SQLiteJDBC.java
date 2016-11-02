@@ -1,6 +1,9 @@
 package database;
 
 import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
+import habilidad.*;
 
 public class SQLiteJDBC
 {
@@ -44,6 +47,37 @@ public class SQLiteJDBC
 		return resultado;
 	}
 	
+
+	public static Map<String,Habilidad> obtenerHabilidades(){
+
+		Statement stmt = null;
+		Map<String,Habilidad> habilidades = new HashMap<String,Habilidad>();
+		try {
+
+			stmt = c.createStatement();
+
+			String consulta = "SELECT * FROM habilidad;";
+
+			ResultSet rs = stmt.executeQuery(consulta);
+
+			while ( rs.next() ) {
+				Habilidad aux = FactoriaHabilidades.getHabilidad(
+						rs.getString("nombre"), rs.getString("efecto"), rs.getString("descripcion"),
+						rs.getInt("costo"), rs.getInt("nivel"), rs.getInt("cantEfecto"), rs.getInt("velocidad"));
+
+				habilidades.put(rs.getString("key"), aux);
+			}
+
+			rs.close();
+			stmt.close();
+
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+		}
+
+		return habilidades;
+	}
+
 	public  boolean crearUsuario(String username, String password){
 
 		Statement stmt = null;

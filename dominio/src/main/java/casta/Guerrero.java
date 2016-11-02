@@ -1,7 +1,7 @@
 package casta;
 import java.util.HashMap;
 
-import personaje.Habilidad;
+import habilidad.Habilidad;
 import personaje.Personaje;
 public class Guerrero extends Casta{
 		

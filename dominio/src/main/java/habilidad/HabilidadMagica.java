@@ -14,6 +14,7 @@ public class HabilidadMagica extends Habilidad {
 	@Override
 	public void afectar(Personaje victima, int estado,int ataque) {
 		victima.serAtacadoMagico(calcularFinal(estado, ataque));
+		
 	}
 
 	private int calcularFinal(int estado, int ataque) {

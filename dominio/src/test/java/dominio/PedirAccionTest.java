@@ -1,17 +1,18 @@
 package dominio;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import acciones.Accion;
 import batalla.EquipoJugadores;
-import habilidades.Curar;
-import habilidades.LoroPunch;
-import habilidades.PiroExplosion;
-import habilidades.RompeHuesos;
+import database.SQLiteJDBC;
+import habilidad.Habilidad;
+
 import mensaje.MensajeBatalla;
 import personaje.Personaje;
 import raza.PersonajePrueba;
@@ -19,10 +20,13 @@ import raza.PersonajePrueba;
 public class PedirAccionTest {
 
 	@Test
-	public void peronsajePideAccion() {
+	public void peronsajePideAccion() throws ClassNotFoundException, SQLException {
+		SQLiteJDBC.getInstance();
+		Map<String, Habilidad> habilidades = SQLiteJDBC.obtenerHabilidades();
+		
 		Personaje pj = new PersonajePrueba("alex");
 		pj.setCastaMago();
-		pj.agregarHabilidad("piroExplosion", new PiroExplosion());
+		pj.agregarHabilidad("piroexplosion", habilidades.get("piroexplosion"));
 		EquipoJugadores malos = new EquipoJugadores("Promotion system");
 		Personaje pablito = new PersonajePrueba("pablo");
 
@@ -37,7 +41,9 @@ public class PedirAccionTest {
 	}
 
 	@Test
-	public void equipoPedirAccion() {
+	public void equipoPedirAccion() throws ClassNotFoundException, SQLException {
+		SQLiteJDBC.getInstance();
+		Map<String, Habilidad> habilidades = SQLiteJDBC.obtenerHabilidades();
 		// Creo 6 personajes, y 2 equipos:
 		Personaje dani = new PersonajePrueba("dani");
 		Personaje alex = new PersonajePrueba("alex");
@@ -58,16 +64,16 @@ public class PedirAccionTest {
 
 		//Aca le doy habilidades a cada pj. por ahora es asi.
 		dani.setCastaMago();
-		dani.agregarHabilidad("piroExplosion", new PiroExplosion());
+		dani.agregarHabilidad("piroexplosion", habilidades.get("piroexplosion"));
 
 		alex.setCastaLoroMaster();
-		alex.agregarHabilidad("loroPunch", new LoroPunch());
+		alex.agregarHabilidad("piroexplosion", habilidades.get("piroexplosion"));
 
 		braian.setCastaGuerrero();
-		braian.agregarHabilidad("curar", new Curar());
+		braian.agregarHabilidad("piroexplosion", habilidades.get("curar"));
 
 		martin.setCastaGuerrero();
-		martin.agregarHabilidad("rompeHuesos", new RompeHuesos());
+		martin.agregarHabilidad("piroexplosion", habilidades.get("cadenarelampago"));
 
 
 		// Esto es una lista de mensajes, que deberia ser por gson, pero para probar las hago a mano.

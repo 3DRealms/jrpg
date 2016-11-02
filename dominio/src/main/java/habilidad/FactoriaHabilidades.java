@@ -3,7 +3,7 @@ package habilidad;
 
 public class FactoriaHabilidades {
 
-	public static Habilidad getAccion(String nombre, String efecto, String descripcion, int costo, int nivel, int cantEfecto,
+	public static Habilidad getHabilidad(String nombre, String efecto, String descripcion, int costo, int nivel, int cantEfecto,
 			int velocidad){
 		if (efecto.equals("curativa")) {
 			return new HabilidadCurativa(nombre,efecto,descripcion,costo,nivel,cantEfecto,velocidad);
