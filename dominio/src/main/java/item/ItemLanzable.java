@@ -6,10 +6,11 @@ public abstract class ItemLanzable extends Item {
 	
 	protected int cantidadDeEfecto; // total de daño, cura, mana, o lo que sea que modifique. 
 	protected String nombre;
-	protected String Efecto;
+	protected String efecto;
 	protected int cantidad;
-	protected int limite;
+
 	protected int velociad;
+	
 	public abstract void afectar(Personaje personaje);
 	public void usar() {
 		this.cantidad--;
@@ -20,12 +21,10 @@ public abstract class ItemLanzable extends Item {
 	public int getCantidad(){
 		return this.cantidad;
 	}
-	public int getLimite() {
-		return this.limite;
-	}
+
 	@Override
 	public String toString() {
-		return this.nombre+"\n"+this.Efecto+": "+this.cantidadDeEfecto+"\n"+this.descripcion+"\nCantidad en mochila: "+this.cantidad+".";
+		return this.nombre+"\n"+this.efecto+": "+this.cantidadDeEfecto+"\n"+this.descripcion+"\nCantidad en mochila: "+this.cantidad+".";
 	}
 	public int getVelocidad() {
 

@@ -8,8 +8,8 @@ public class PotaDeEnergia  extends ItemLanzable{
 		this.cantidadDeEfecto = 100;
 		this.nivel = 0;
 		this.cantidad = cantidad;
-		this.limite = 5;
-		this.Efecto = "energia";
+
+		this.efecto = "energia";
 		this.nombre = "Pota de mana";
 		this.descripcion = "Clasica pota de mana que aumenta "+cantidadDeEfecto+"pnts de energia.";
 		}

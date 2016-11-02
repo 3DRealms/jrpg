@@ -531,7 +531,6 @@ public abstract class Personaje implements Atacable {
 			mochilaItemLanzable.put(i,item);
 		}
 		else{
-			if(loTengo.getCantidad() >= item.getLimite())
 				loTengo.aumentarCantidad( item.getCantidad() );
 		}
 		return true;
