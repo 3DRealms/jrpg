@@ -13,12 +13,6 @@ public class HabilidadTrueDamage extends Habilidad {
 
 	@Override
 	public void afectar(Personaje victima, int estado,int ataque) {
-		victima.serAtacadoDanioPuro(calcularFinal(estado, ataque));
+		victima.serAtacadoDanioPuro( calcularFinal(estado, ataque) );
 	}
-
-	private int calcularFinal(int estado, int ataque) {
-		return cantEfecto+(estado*ataque)/100;
-	}
-
-
 }

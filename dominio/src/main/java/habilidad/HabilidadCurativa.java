@@ -16,9 +16,9 @@ public class HabilidadCurativa extends Habilidad {
 		victima.serCurado(calcularFinal(estado, ataque));
 	}
 
-	private int calcularFinal(int estado, int ataque) {
-		return cantEfecto+(estado*ataque)/100;
-	}
+
+
+
 
 
 }

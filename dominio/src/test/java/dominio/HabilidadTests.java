@@ -37,12 +37,15 @@ public class HabilidadTests {
 		SQLiteJDBC.getInstance();
 		Map<String, Habilidad> habilidades = SQLiteJDBC.obtenerHabilidades();
 		Mognatal dani = new Mognatal("dani");
+		
 		dani.setCastaMago();
 		dani.agregarHabilidad("piroexplosion", habilidades.get("piroexplosion"));
-
 		//Creo un personaje para atacarlo.
+		
 		Personaje alex = new PersonajePrueba("alex");
+		
 		int alexSalud = alex.getSaludActual();
+		
 		dani.lanzarHabilidad("piroexplosion", alex); 
 		//System.out.println(alexSalud + " - " + alex.getSaludActual());
 		// Piro Explosion quita 20 puntos de vida. 

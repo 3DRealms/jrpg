@@ -12,14 +12,8 @@ public class HabilidadMagica extends Habilidad {
 	}
 
 	@Override
-	public void afectar(Personaje victima, int estado,int ataque) {
-		victima.serAtacadoMagico(calcularFinal(estado, ataque));
-		
+	public void afectar(Personaje victima, int estado,int ataqueMagico) {
+		victima.serAtacadoMagico(calcularFinal(estado, ataqueMagico));
 	}
-
-	private int calcularFinal(int estado, int ataque) {
-		return cantEfecto+(estado*ataque)/100;
-	}
-
-
+	
 }

@@ -14,11 +14,7 @@ public class HabilidadFisica extends Habilidad{
 
 	@Override
 	public void afectar(Personaje victima, int estado,int ataqueFisico) {
-		victima.serAtacadoFisico(calcularFinal(ataqueFisico));
-	}
-
-	private int calcularFinal(int ataqueFisico) {
-		return cantEfecto+ataqueFisico;
+		victima.serAtacadoFisico(calcularFinal(estado,ataqueFisico));
 	}
 
 }

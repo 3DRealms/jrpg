@@ -1,10 +1,8 @@
 package personaje;
 
 
-import java.awt.Graphics2D;
 import java.util.HashMap;
 import java.util.Map;
-
 import acciones.Accion;
 import acciones.FactoriaAcciones;
 import batalla.EquipoJugadores;
@@ -12,7 +10,6 @@ import casta.Casta;
 import casta.Guerrero;
 import casta.LoroMaster;
 import casta.Mago;
-//import grafico.Sprite;
 import interfaces.Atacable;
 import interfaces.Equipo;
 import item.ItemEquipo;
@@ -309,7 +306,6 @@ public abstract class Personaje implements Atacable {
 		Habilidad h = getCasta().getHabilidad(conjuro);
 		if( h != null && consumirEnergia( h.getCosto() )  ){
 			h.afectar(personaje, getCasta().getEstado(this), tipoDanio(h.getEfecto()));
-
 			return true;
 		}
 		return false;
