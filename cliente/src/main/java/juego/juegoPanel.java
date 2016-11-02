@@ -13,7 +13,7 @@ import mapagrafico.Tile;
 
  // No vamos a tener ID es un solo juego :v.
 @SuppressWarnings("serial")
-public class juegoPanel extends Component implements Runnable, KeyListener{
+public class JuegoPanel extends Component implements Runnable, KeyListener{
 	
 	public static final int ANCHO = 800;
 	public static final int ALTO = 600;
@@ -25,13 +25,13 @@ public class juegoPanel extends Component implements Runnable, KeyListener{
 	private Tile pj;
 	int x = 0;
 
-	public juegoPanel() {
+	public JuegoPanel() {
 		setPreferredSize(new Dimension(ANCHO, ALTO));
 		setFocusable(true);
 		requestFocus();
 		//addKeyListener(this);
 		pj = new Tile(5,5,1);
-		mapa = new MapaGrafico("map1");
+		mapa = new MapaGrafico("map2");
 		thread = new Thread(this);
 		thread.start();
 	}
@@ -66,9 +66,8 @@ public class juegoPanel extends Component implements Runnable, KeyListener{
 	public void paint(Graphics g) {
 		super.paint(g);
 		Graphics2D g2d = (Graphics2D) g;
-		mapa.dibujar(g2d,0,0);
-		
-		pj.dibujar2(g2d, 5, -7);
+		mapa.dibujar(g2d,10,10);
+		pj.dibujarCentro(g2d, 5, -7);
 
 	}
 //	public void hacerDibujos() {
