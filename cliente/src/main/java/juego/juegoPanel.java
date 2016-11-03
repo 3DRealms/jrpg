@@ -23,15 +23,15 @@ public class JuegoPanel extends Component implements Runnable, KeyListener{
 	private MapaGrafico mapa;
 	
 	private Tile pj;
-	int x = 0;
+	int x = 10;
 
 	public JuegoPanel() {
 		setPreferredSize(new Dimension(ANCHO, ALTO));
 		setFocusable(true);
 		requestFocus();
 		//addKeyListener(this);
-		pj = new Tile(5,5,1);
-		mapa = new MapaGrafico("map2");
+		pj = new Tile(7,2,2);
+		mapa = new MapaGrafico("map1");
 		thread = new Thread(this);
 		thread.start();
 	}
@@ -49,7 +49,7 @@ public class JuegoPanel extends Component implements Runnable, KeyListener{
 			repaint();					//Dibujo en la patanlla.
 			try {
 				//Thread.sleep(200); //Hacer calculos para sacar el tiempo para que de 60FPS(o 30)
-				Thread.sleep(60); //Hacer calculos para sacar el tiempo para que de 60FPS(o 30)
+				Thread.sleep(1000); //Hacer calculos para sacar el tiempo para que de 60FPS(o 30)
 			}
 			catch(Exception e) {
 				e.printStackTrace();
@@ -66,8 +66,9 @@ public class JuegoPanel extends Component implements Runnable, KeyListener{
 	public void paint(Graphics g) {
 		super.paint(g);
 		Graphics2D g2d = (Graphics2D) g;
-		mapa.dibujar(g2d,10,10);
-		pj.dibujarCentro(g2d, 5, -7);
+		mapa.dibujar(g2d,x,0);
+		pj.dibujar(g2d, 7, 2);
+		x--;
 
 	}
 //	public void hacerDibujos() {
