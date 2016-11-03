@@ -42,12 +42,13 @@ public class Tile {
 	}
 
 	public void dibujar(Graphics2D g2d, int deltaX, int deltaY) {
-
+		// 0,0 -> 0,0
+		// 1,0 -> 0,16
 		deltaX+=x;
 		deltaY+=y;		
 		px = (deltaX - deltaY) * ( ANCHO / 2);
 		py = (deltaX + deltaY) * ( ALTO / 2);
-		System.out.println(px+" "+py);
+
 		g2d.drawImage( MapaGrafico.getImage(sprite), px, py , null);			
 
 	}
@@ -76,6 +77,26 @@ public class Tile {
 
 
 
+	}
+	public void mover(Graphics2D g2d, int x2, int y2) {
+				
+		int nx = (x2 - y2) * ( ANCHO / 2);
+		int ny = (x2 + y2) * ( ALTO / 2);
+		
+		if(px < nx){
+			px+=2;
+		}
+		if(px > nx){
+			px-=2;
+		}
+		if(py < ny){
+			py++;
+		}
+		if(py > ny){
+			py--;
+		}
+
+		g2d.drawImage( MapaGrafico.getImage(sprite), px, py , null);	
 	}
 
 }
