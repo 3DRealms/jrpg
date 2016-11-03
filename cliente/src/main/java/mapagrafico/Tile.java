@@ -15,6 +15,7 @@ public class Tile {
 
 	public final static int ANCHO = 64;
 	public final static int ALTO = 32;
+	private int altoImagen;
 	private int x;
 	private int y;
 	private int px; // Pasar de coordenadas logicas a coordenadas reales
@@ -28,14 +29,25 @@ public class Tile {
 		this.y = y;
 		this.sprite = sprite;
 		this.obstaculo = obstaculo;
+		altoImagen = ALTO;
 
 	}
 	public Tile(int x, int y, int sprite) {
 		this.x = x;
 		this.y = y;
 		this.sprite = sprite;
+		altoImagen = ALTO;
 		//	this.obstaculo = obstaculo;
 	}
+	
+	public Tile(int x, int y, int sprite,int altoImagen) {
+		this.x = x;
+		this.y = y;
+		this.sprite = sprite;
+		this.altoImagen = altoImagen;
+		//	this.obstaculo = obstaculo;
+	}
+	
 
 	public boolean getObstaculo() {
 		return this.obstaculo;
@@ -47,7 +59,9 @@ public class Tile {
 		deltaX+=x;
 		deltaY+=y;		
 		px = (deltaX - deltaY) * ( ANCHO / 2);
-		py = (deltaX + deltaY) * ( ALTO / 2);
+		py = (deltaX + deltaY) * ( ALTO / 2) + ((altoImagen%ALTO - 1)*ALTO );
+		
+		
 
 		g2d.drawImage( MapaGrafico.getImage(sprite), px, py , null);			
 

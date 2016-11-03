@@ -79,11 +79,11 @@ public class JuegoPanel extends Component implements Runnable{
 		Graphics2D g2d = (Graphics2D) g;
 		if(jugar){
 			//posicion inicial del mapa
-			mapa.dibujar(g2d, -5, -5);
+			mapa.dibujar(g2d, 0, 0);
 			jugar = false;
 		}
 		
-		mapa.mover(g2d,0,0);
+		mapa.mover(g2d,14,4);
 		pj.dibujar(g2d,7,2);
 	}
 
