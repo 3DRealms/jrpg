@@ -16,7 +16,7 @@ import personaje.Personaje;
 
 public class MapaGrafico {
 
-	private static Image[] spriteMapa = new Image[3];	
+	private static Image[] spriteMapa;	
 	protected int alto;
 	protected int ancho;
 	protected String nombre;
@@ -27,8 +27,8 @@ public class MapaGrafico {
 
 
 	public MapaGrafico(String nombre) {
+		spriteMapa = new Image[6];
 		this.nombre = nombre;
-
 		File path = new File("src\\main\\resources\\mapas\\"+nombre+".txt");
 
 		Scanner sc = null;
@@ -85,6 +85,9 @@ public class MapaGrafico {
 		spriteMapa[0] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\pasto.png");
 		spriteMapa[1] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\arbol.png");
 		spriteMapa[2] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\piso.png");
+		spriteMapa[3] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\agua.png");
+		spriteMapa[4] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\dani.png");
+		spriteMapa[5] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\cubo.png");
 	}
 
 	public static Image loadImage(String path) {
