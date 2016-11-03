@@ -1,15 +1,17 @@
 package mensaje;
 
 
-public class MensajeEmpezarBatalla {
+public class MensajeInteraccion {
 	
-	public MensajeEmpezarBatalla(String emisor) {
+	public MensajeInteraccion(String emisor) {
 
 		this.emisor = emisor;
 	}
 
 	
 	private String emisor;
+	
+	private String tipo;
 	
 	public String getEmisor() {
 		return emisor;
