@@ -15,7 +15,7 @@ public class JuegoPanel extends Component implements Runnable{
 
 	public static final int ANCHO = 800;
 	public static final int ALTO = 600;
-	public static final int fps = 60;
+	public static final int fps = 30;
 	public static double timePerTick = 1000000000/fps;
 	private MapaGrafico mapa;
 	private Thread thread;
@@ -32,8 +32,9 @@ public class JuegoPanel extends Component implements Runnable{
 		requestFocus();
 		mouse = new Mouse();
 		//addKeyListener(this);
-		pj = new Tile(7,2,1);
+		
 		mapa = new MapaGrafico("map1");
+		pj = new Tile(7,2,2);
 		thread = new Thread(this);
 		thread.start();
 	}
@@ -73,8 +74,8 @@ public class JuegoPanel extends Component implements Runnable{
 	public void paint(Graphics g) {
 		super.paint(g);
 		Graphics2D g2d = (Graphics2D) g;
-		mapa.dibujar(g2d,x--,x+1);
-		pj.dibujarCentro(g2d,7,2);
+		mapa.dibujar(g2d,0,0);
+		pj.mover(g2d,5,4);
 	}
 
 }
