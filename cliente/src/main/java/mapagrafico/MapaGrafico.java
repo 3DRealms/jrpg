@@ -9,8 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 import javax.swing.ImageIcon;
-
-import juego.JuegoPanel;
 import mapa.Punto;
 import mensaje.MensajeMovimiento;
 import personaje.Personaje;
@@ -142,18 +140,18 @@ public class MapaGrafico {
 	 * 			      (0,0)
 	 * 			 (0,1)(1,1)(1,0)
 	 *		(0,2)(1,2)(2,2)(2,1)(2,0)
-	 * 
-	 * 
+	 *
 	 */
 	public void dibujar(Graphics2D g2d,int x,int y) {
 		g2d.setBackground(Color.BLACK);
 		g2d.clearRect(0, 0, 810, 610);		
-
 		for (int i = 0; i <  alto; i++) { 
 			for (int j = 0; j < ancho ; j++) { 
-				tiles[i][j].dibujar(g2d,0,0);
-
-			}}
+				tiles[i][j].dibujar(g2d,x,y);
+			}
+		}
 
 	}
+	
+	
 }
