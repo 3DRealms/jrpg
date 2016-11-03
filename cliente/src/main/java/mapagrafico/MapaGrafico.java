@@ -153,5 +153,16 @@ public class MapaGrafico {
 
 	}
 	
+	public void mover(Graphics2D g2d,int x,int y) {
+		g2d.setBackground(Color.BLACK);
+		g2d.clearRect(0, 0, 810, 610);		
+		for (int i = 0; i <  alto; i++) { 
+			for (int j = 0; j < ancho ; j++) { 
+				tiles[i][j].mover(g2d,x,y);
+			}
+		}
+
+	}
+	
 	
 }

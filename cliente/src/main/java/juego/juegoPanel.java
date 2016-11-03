@@ -24,7 +24,9 @@ public class JuegoPanel extends Component implements Runnable{
 	private boolean ejecutando = true;
 
 	private Tile pj;
-	int x = 3;
+	int x = 0;
+	
+	private boolean jugar = true;
 
 	public JuegoPanel() {
 		setPreferredSize(new Dimension(ANCHO, ALTO));
@@ -72,10 +74,17 @@ public class JuegoPanel extends Component implements Runnable{
 	}
 
 	public void paint(Graphics g) {
+		
 		super.paint(g);
 		Graphics2D g2d = (Graphics2D) g;
-		mapa.dibujar(g2d,0,0);
-		pj.mover(g2d,5,4);
+		if(jugar){
+			//posicion inicial del mapa
+			mapa.dibujar(g2d, -5, -5);
+			jugar = false;
+		}
+		
+		mapa.mover(g2d,0,0);
+		pj.dibujar(g2d,7,2);
 	}
 
 }

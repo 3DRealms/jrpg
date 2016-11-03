@@ -80,6 +80,9 @@ public class Tile {
 	}
 	public void mover(Graphics2D g2d, int x2, int y2) {
 				
+		x2+=x;
+		y2+=y;	
+		
 		int nx = (x2 - y2) * ( ANCHO / 2);
 		int ny = (x2 + y2) * ( ALTO / 2);
 		
@@ -89,11 +92,17 @@ public class Tile {
 		if(px > nx){
 			px-=2;
 		}
+		if(px == nx){
+			//x = x2;
+		}
 		if(py < ny){
 			py++;
 		}
 		if(py > ny){
 			py--;
+		}
+		if(py == ny){
+			//y = y2;
 		}
 
 		g2d.drawImage( MapaGrafico.getImage(sprite), px, py , null);	
