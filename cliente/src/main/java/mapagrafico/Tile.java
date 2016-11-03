@@ -40,40 +40,35 @@ public class Tile {
 	public boolean getObstaculo() {
 		return this.obstaculo;
 	}
-	
+
 	public void dibujar(Graphics2D g2d, int deltaX, int deltaY) {
-		
+
 		deltaX+=x;
 		deltaY+=y;		
 		px = (deltaX - deltaY) * ( ANCHO / 2);
 		py = (deltaX + deltaY) * ( ALTO / 2);
 		g2d.drawImage( MapaGrafico.getImage(sprite), px, py , null);			
-		
+
 	}
-	
+
 	public void dibujarCentro(Graphics2D g2d, int deltaX, int deltaY) {
-		
+
 		deltaX+=x;
 		deltaY+=y;		
 		px = (deltaX - deltaY) * ( ANCHO / 2);
 		py = (deltaX + deltaY) * (64 / 2);
 		g2d.drawImage( MapaGrafico.getImage(sprite), px, py , null);
-		
-	
-		
+
+
+
 	}
-	
-	public void dibujarMover(Graphics2D g2d, int deltaX, int deltaY) {
-		
-		
-		deltaX+=x;
-		deltaY+=y;		
-		px = (deltaX - deltaY) * ( ANCHO / 2);
-		py = (deltaX + deltaY) * (64 / 2);
-		g2d.drawImage( MapaGrafico.getImage(sprite), px, py , null);
-		
-	
-		
+
+	public void dibujar(Graphics2D g2d) {
+
+		px = (x - y) * ( ANCHO / 2);
+		py = (x + y) * ( ALTO / 2);
+		g2d.drawImage( MapaGrafico.getImage(sprite), px, py , null);			
+
 	}
- 
+
 }

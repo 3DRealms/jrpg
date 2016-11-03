@@ -151,7 +151,7 @@ public class MapaGrafico {
 
 		for (int i = 0; i <  alto; i++) { 
 			for (int j = 0; j < ancho ; j++) { 
-				tiles[i][j].dibujar(g2d,0,0);
+				tiles[i][j].dibujar(g2d,x,y);
 
 			}}
 
