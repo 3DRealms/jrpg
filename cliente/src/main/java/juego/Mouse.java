@@ -16,7 +16,7 @@ public class Mouse implements MouseListener{
 	public void mouseClicked(MouseEvent evento) {
 		x = evento.getX();
 		y = evento.getY();
-		
+	
 		recorrido = true;
 	}
 	public boolean getRecorrido(){
@@ -26,8 +26,10 @@ public class Mouse implements MouseListener{
 		recorrido = b;
 	}
 	public void actualizar() {
-		pos[0] = x;
-		pos[1] = y;
+
+		pos[0] = x / 64;
+		pos[1] = y / 32;
+		
 	}
 	public int[] getPos() {
 		return pos;

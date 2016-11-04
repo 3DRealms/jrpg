@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 
 import mapagrafico.MapaGrafico;
 import mapagrafico.Tile;
+import mapagrafico.TilePersonaje;
 
 
 @SuppressWarnings("serial")
@@ -23,9 +24,10 @@ public class JuegoPanel extends Component implements Runnable{
 	private double delta = 0;
 	private boolean ejecutando = true;
 
-	private Tile pj;
-	int x = 0;
-	
+	private TilePersonaje pj;
+	private int x;
+	private int y;
+
 	private boolean jugar = true;
 
 	public JuegoPanel() {
@@ -33,10 +35,9 @@ public class JuegoPanel extends Component implements Runnable{
 		setFocusable(true);
 		requestFocus();
 		mouse = new Mouse();
-		//addKeyListener(this);
-		
-		mapa = new MapaGrafico("map3");
-		pj = new Tile(7,1,5);
+		addMouseListener(mouse);
+		mapa = new MapaGrafico("map4");
+		pj = new TilePersonaje(7,1,5,"DANI");
 		thread = new Thread(this);
 		thread.start();
 	}
@@ -74,7 +75,7 @@ public class JuegoPanel extends Component implements Runnable{
 	}
 
 	public void paint(Graphics g) {
-		
+
 		super.paint(g);
 		Graphics2D g2d = (Graphics2D) g;
 		if(jugar){
@@ -82,9 +83,11 @@ public class JuegoPanel extends Component implements Runnable{
 			mapa.dibujar(g2d, 0, 0);
 			jugar = false;
 		}
-		
-		mapa.mover(g2d,14,3);
-		pj.dibujar(g2d,7,2);
+		pj.getEntrada(mouse);
+		mapa.mover(g2d,pj.getxFinal(),pj.getyFinal());
+		pj.dibujarCentro(g2d,0,0);
 	}
+
+
 
 }

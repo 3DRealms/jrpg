@@ -60,9 +60,12 @@ public class MapaGrafico {
 	}
 
 	private void cargarSprite() {
-		if ( sprites.equals("exterior") ) {
+		if ( sprites.equals("exterior") ) 
 			load("exterior");
-		}
+		else if( sprites.equals("test"))
+			load("test");
+		else
+			System.exit(1);
 	}
 
 
@@ -82,12 +85,12 @@ public class MapaGrafico {
 	 * @param nombre
 	 */
 	private void load(String nombre) {
-		spriteMapa[0] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\pasto.png");
-		spriteMapa[1] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\arbol.png");
-		spriteMapa[2] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\piso.png");
-		spriteMapa[3] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\agua.png");
-		spriteMapa[4] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\dani.png");
-		spriteMapa[5] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\cubo.png");
+		spriteMapa[0] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\00.png");
+		spriteMapa[1] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\01.png");
+		spriteMapa[2] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\02.png");
+		spriteMapa[3] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\03.png");
+		spriteMapa[4] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\04.png");
+		spriteMapa[5] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\05.png");
 	}
 
 	public static Image loadImage(String path) {
@@ -155,7 +158,7 @@ public class MapaGrafico {
 		}
 
 	}
-	
+
 	public void mover(Graphics2D g2d,int x,int y) {
 		g2d.setBackground(Color.BLACK);
 		g2d.clearRect(0, 0, 810, 610);		
@@ -166,6 +169,6 @@ public class MapaGrafico {
 		}
 
 	}
-	
-	
+
+
 }
