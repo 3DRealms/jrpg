@@ -25,8 +25,7 @@ public class JuegoPanel extends Component implements Runnable{
 	private boolean ejecutando = true;
 
 	private TilePersonaje pj;
-	private int x;
-	private int y;
+
 
 	private boolean jugar = true;
 
@@ -37,7 +36,8 @@ public class JuegoPanel extends Component implements Runnable{
 		mouse = new Mouse();
 		addMouseListener(mouse);
 		mapa = new MapaGrafico("map4");
-		pj = new TilePersonaje(7,1,5,"DANI");
+		
+		pj = new TilePersonaje(16,6,5,"DANI"); 
 		thread = new Thread(this);
 		thread.start();
 	}
@@ -71,6 +71,7 @@ public class JuegoPanel extends Component implements Runnable{
 
 	public void actualizar() {
 		mouse.actualizar();
+		pj.actualizar(mouse);
 		mapa.actualizar();
 	}
 
@@ -80,14 +81,14 @@ public class JuegoPanel extends Component implements Runnable{
 		Graphics2D g2d = (Graphics2D) g;
 		if(jugar){
 			//posicion inicial del mapa
-			mapa.dibujar(g2d, 0, 0);
+			
+			//El xFinal es la posicion del spaw
+			mapa.dibujar(g2d, pj.getxFinal(), pj.getyFinal() );
 			jugar = false;
 		}
 
-
 		//mapa.dibujar(g2d, 0, 0);
 		//mapa.mover(g2d,pos[0],pos[1]);
-		pj.getEntrada(mouse);
 		mapa.mover(g2d,pj.getxFinal(),pj.getyFinal());
 		pj.dibujarCentro(g2d,0,0);
 	}
