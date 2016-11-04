@@ -11,6 +11,8 @@ public class Mouse implements MouseListener{
 	private boolean recorrido;
 	public Mouse() {
 		pos = new int[2];
+		x=0;
+		y=0;
 	}
 	@Override
 	public void mouseClicked(MouseEvent evento) {
@@ -27,9 +29,26 @@ public class Mouse implements MouseListener{
 	}
 	public void actualizar() {
 
-		pos[0] = x / 64;
-		pos[1] = y / 32;
 		
+		
+		int x0 = x - 32; //ancho/2
+		int y0 = y;
+
+		int auxX = y0 + (x0 / 2);
+		int auxY = y0 - (x0 / 2);
+
+		if(auxX < 0)
+			auxX -= 31;
+		if(auxY < 0)
+			auxY -= 31;
+
+
+		auxX /= 32;
+		auxY /= 32;
+		
+		pos[0] = auxX;
+		pos[1] = auxY;
+
 	}
 	public int[] getPos() {
 		return pos;

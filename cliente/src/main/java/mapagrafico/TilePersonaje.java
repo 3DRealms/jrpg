@@ -10,8 +10,8 @@ public class TilePersonaje {
 	public final static int ALTO = 32;
 	private int altoImagen;
 	private int sprite;
-	private final int xCentro;
-	private final int yCentro;
+	public final int xCentro;
+	public final int yCentro;
 	private String nombre;
 	
 	
@@ -91,6 +91,9 @@ public class TilePersonaje {
 		int posMouse[] = mouse.getPos();
 
 		if (mouse.getRecorrido() ) {
+			xFinal = 16 - posMouse[0];
+			yFinal = 6 -posMouse[1];
+			
 			diagonalInfIzq = false;
 			diagonalInfDer = false;
 			diagonalSupIzq = false;
@@ -103,7 +106,7 @@ public class TilePersonaje {
 										//Mover Camara.
 			System.out.println(xFinal + " "+ yFinal);
 			
-			
+			/*
 			xInicio = x;
 			yInicio = y;
 			
@@ -114,7 +117,7 @@ public class TilePersonaje {
 			difY = Math.abs(yFinal - yInicio);
 			x += xFinal;
 			y += yFinal;
-
+*/
 			/* esto es para animaciones no le des bola
 			if (difX < ancho && yInicio != yFinal) {
 				vertical = true;
