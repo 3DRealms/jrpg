@@ -37,7 +37,6 @@ public class Tile {
 		this.y = y;
 		this.sprite = sprite;
 		altoImagen = ALTO;
-		//	this.obstaculo = obstaculo;
 	}
 
 	public Tile(int x, int y, int sprite,int altoImagen) {
@@ -45,8 +44,8 @@ public class Tile {
 		this.y = y;
 		this.sprite = sprite;
 		this.altoImagen = altoImagen;
-		//	this.obstaculo = obstaculo;
 	}
+	
 
 
 	public boolean getObstaculo() {
@@ -60,19 +59,8 @@ public class Tile {
 		deltaY+=y;		
 		px = (deltaX - deltaY) * ( ANCHO / 2);
 		py = (deltaX + deltaY) * ( ALTO / 2);
-		g2d.drawImage( MapaGrafico.getImage(sprite), px, py , null);			
+		g2d.drawImage( MapaGrafico.getImage(sprite), 0, 0 , null);			
 
-	}
-
-	/**
-	 * Ver si le mando las coordenadas donde  esto al personaje.
-	 * @param g2d
-	 * @param deltaX
-	 * @param deltaY
-	 */
-	public void dibujarCentro(Graphics2D g2d, int deltaX, int deltaY) {
-		g2d.drawString("DANI", 335, 310);
-		g2d.drawImage( MapaGrafico.getImage(sprite), 320, 320 , null);
 	}
 
 
@@ -87,10 +75,10 @@ public class Tile {
 		int ny = (x2 + y2) * ( ALTO / 2);
 
 		if(py == ny){
-			y = y2;
+	//		y = y2;
 		}
 		if(px == nx){
-			x = x2;
+	//		x = x2;
 		}
 		
 		if(px < nx){

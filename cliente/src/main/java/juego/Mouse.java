@@ -3,6 +3,8 @@ package juego;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.SingleSelectionModel;
+
 public class Mouse implements MouseListener{
 
 	private int x;
@@ -18,7 +20,6 @@ public class Mouse implements MouseListener{
 	public void mouseClicked(MouseEvent evento) {
 		x = evento.getX();
 		y = evento.getY();
-	
 		recorrido = true;
 	}
 	public boolean getRecorrido(){
@@ -29,8 +30,8 @@ public class Mouse implements MouseListener{
 	}
 	public void actualizar() {
 
-		
-		
+
+
 		int x0 = x - 32; //ancho/2
 		int y0 = y;
 
@@ -45,7 +46,7 @@ public class Mouse implements MouseListener{
 
 		auxX /= 32;
 		auxY /= 32;
-		
+
 		pos[0] = auxX;
 		pos[1] = auxY;
 
@@ -53,10 +54,13 @@ public class Mouse implements MouseListener{
 	public int[] getPos() {
 		return pos;
 	}
-
+	@Override
+	public String toString() {
+		return pos[0]+" : "+pos[1];
+	}
 	@Override
 	public void mouseEntered(MouseEvent evento) {}
-	
+
 
 	@Override
 	public void mouseExited(MouseEvent evento) {}

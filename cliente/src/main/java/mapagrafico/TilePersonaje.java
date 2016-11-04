@@ -13,9 +13,9 @@ public class TilePersonaje {
 	public final int xCentro;
 	public final int yCentro;
 	private String nombre;
-	
-	
-	
+
+
+
 
 	// Tamaño de la entidad
 	private int ancho;
@@ -28,8 +28,8 @@ public class TilePersonaje {
 	private float dy;
 	private int xInicio;
 	private int yInicio;
-	
-	
+
+
 	public int getxFinal() {
 		return xFinal;
 	}
@@ -39,8 +39,8 @@ public class TilePersonaje {
 	}
 	private int xFinal;
 	private int yFinal;
-	
-	
+
+
 	private float xOffset;
 	private float yOffset;
 	private int drawX;
@@ -65,17 +65,21 @@ public class TilePersonaje {
 	private boolean diagonalInfDer;
 	private boolean diagonalSupIzq;
 	private boolean diagonalSupDer;
-	
-	
-	
-	
+
+
+
+
 	public TilePersonaje(int x, int y, int sprite,String nombre) {
 		this.xCentro = 320;
 		this.yCentro = 320;
 		this.sprite = sprite;
 		this.nombre = nombre;	
+		this.xInicio = this.xFinal = -x;  //alta logica wachin.
+		this.yInicio = this.yFinal =  -y; 
+		// baicamente como le sumo (16,6) para que coicida con el 0,0 del mapa.
+
 	}
-	
+
 	/**
 	 * Ver si le mando las coordenadas donde  esto al personaje.
 	 * @param g2d
@@ -86,14 +90,21 @@ public class TilePersonaje {
 		g.drawImage( MapaGrafico.getImage(sprite), xCentro, yCentro, null);
 		g.drawString(nombre, xCentro, yCentro+35);
 	}
-	
-	public void getEntrada(Mouse mouse) {
+
+	public void actualizar(Mouse mouse) {
 		int posMouse[] = mouse.getPos();
 
-		if (mouse.getRecorrido() ) {
-			xFinal = 16 - posMouse[0];
-			yFinal = 6 -posMouse[1];
-			
+		if( enMovimiento ){
+			System.out.println("cancelar"); 
+			//Cancelar movimiento actual.
+		}
+		if (mouse.getRecorrido()) {
+			xFinal = xInicio - posMouse[0] + 16;
+			yFinal = yInicio - posMouse[1] + 6;
+
+			xInicio = xFinal;
+			yInicio = yFinal;
+
 			diagonalInfIzq = false;
 			diagonalInfDer = false;
 			diagonalSupIzq = false;
@@ -102,22 +113,19 @@ public class TilePersonaje {
 			horizontal = false;
 			enMovimiento = false;
 
-			
-										//Mover Camara.
-			System.out.println(xFinal + " "+ yFinal);
-			
+
 			/*
 			xInicio = x;
 			yInicio = y;
-			
+
 			xFinal = posMouse[0]  - xInicio;
 			yFinal = posMouse[1]  - yInicio;
-			
+
 			difX = Math.abs(xFinal - xInicio);
 			difY = Math.abs(yFinal - yInicio);
 			x += xFinal;
 			y += yFinal;
-*/
+			 */
 			/* esto es para animaciones no le des bola
 			if (difX < ancho && yInicio != yFinal) {
 				vertical = true;
@@ -139,9 +147,9 @@ public class TilePersonaje {
 					diagonalSupIzq = true;
 				}
 			}
-			*/
-			mouse.setNuevoRecorrido(false);
-			enMovimiento = true;
+			 */
+			mouse.setNuevoRecorrido(false); 
+			enMovimiento = true;// Cuando llego a destino tengo que poner esto en false
 		}
 	}
 }

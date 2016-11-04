@@ -149,6 +149,8 @@ public class MapaGrafico {
 	 *
 	 */
 	public void dibujar(Graphics2D g2d,int x,int y) {
+		x+=16; //Corrimiento de la camara.
+		y+=6;
 		g2d.setBackground(Color.BLACK);
 		g2d.clearRect(0, 0, 810, 610);		
 		for (int i = 0; i <  alto; i++) { 
@@ -160,6 +162,8 @@ public class MapaGrafico {
 	}
 
 	public void mover(Graphics2D g2d,int x,int y) {
+		x+=16;
+		y+=6;
 		g2d.setBackground(Color.BLACK);
 		g2d.clearRect(0, 0, 810, 610);		
 		for (int i = 0; i <  alto; i++) { 
