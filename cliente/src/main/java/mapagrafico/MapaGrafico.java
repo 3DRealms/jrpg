@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 import javax.swing.ImageIcon;
+
+import juego.JuegoPanel;
 import mapa.Punto;
 import mensaje.MensajeMovimiento;
 import personaje.Personaje;
@@ -149,8 +151,8 @@ public class MapaGrafico {
 	 *
 	 */
 	public void dibujar(Graphics2D g2d,int x,int y) {
-		x+=16; //Corrimiento de la camara.
-		y+=6;
+		x+=JuegoPanel.xOffSetCamara; 	//Corrimiento de la camara.
+		y+=JuegoPanel.yOffCamara;
 		g2d.setBackground(Color.BLACK);
 		g2d.clearRect(0, 0, 810, 610);		
 		for (int i = 0; i <  alto; i++) { 
@@ -160,10 +162,10 @@ public class MapaGrafico {
 		}
 
 	}
-
+	
 	public void mover(Graphics2D g2d,int x,int y) {
-		x+=16;
-		y+=6;
+		x+=JuegoPanel.xOffSetCamara; 	
+		y+=JuegoPanel.yOffCamara;
 		g2d.setBackground(Color.BLACK);
 		g2d.clearRect(0, 0, 810, 610);		
 		for (int i = 0; i <  alto; i++) { 

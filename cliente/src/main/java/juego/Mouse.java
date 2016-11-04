@@ -5,6 +5,8 @@ import java.awt.event.MouseListener;
 
 import javax.swing.SingleSelectionModel;
 
+import mapagrafico.Tile;
+
 public class Mouse implements MouseListener{
 
 	private int x;
@@ -29,10 +31,8 @@ public class Mouse implements MouseListener{
 		recorrido = b;
 	}
 	public void actualizar() {
-
-
-
-		int x0 = x - 32; //ancho/2
+		
+		int x0 = x - ( Tile.ANCHO / 2 ); //ancho/2
 		int y0 = y;
 
 		int auxX = y0 + (x0 / 2);
@@ -51,6 +51,8 @@ public class Mouse implements MouseListener{
 		pos[1] = auxY;
 
 	}
+	
+	
 	public int[] getPos() {
 		return pos;
 	}

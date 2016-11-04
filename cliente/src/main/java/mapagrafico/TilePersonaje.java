@@ -1,61 +1,28 @@
 package mapagrafico;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
+import juego.JuegoPanel;
 import juego.Mouse;
 
 @SuppressWarnings("unused")
 public class TilePersonaje {
 	public final static int ANCHO = 64;
 	public final static int ALTO = 32;
-	private int altoImagen;
 	private int sprite;
 	public final int xCentro;
 	public final int yCentro;
 	private String nombre;
 
 
-
-
-	// Tamaño de la entidad
-	private int ancho;
-	private int alto;
-
 	// Posiciones
-	private int x;
-	private int y;
-	private float dx;
-	private float dy;
+
 	private int xInicio;
 	private int yInicio;
-
-
-	public int getxFinal() {
-		return xFinal;
-	}
-
-	public int getyFinal() {
-		return yFinal;
-	}
 	private int xFinal;
 	private int yFinal;
 
-
-	private float xOffset;
-	private float yOffset;
-	private int drawX;
-	private int drawY;
-	private int posMouse[];
-	private float[] tile;
-
-	// Calculo de movimiento
-	private float difX;
-	private float difY;
-	private float relacion;
-
-	// Posicion final
-	private float auxX;
-	private float auxY;
 
 	// Movimiento Actual
 	private boolean enMovimiento;
@@ -65,7 +32,7 @@ public class TilePersonaje {
 	private boolean diagonalInfDer;
 	private boolean diagonalSupIzq;
 	private boolean diagonalSupDer;
-
+	
 
 
 
@@ -88,22 +55,29 @@ public class TilePersonaje {
 	 */
 	public void dibujarCentro(Graphics g, int deltaX, int deltaY) {
 		g.drawImage( MapaGrafico.getImage(sprite), xCentro, yCentro, null);
-		g.drawString(nombre, xCentro, yCentro+35);
+		g.setColor(Color.GREEN);
+		g.drawString(nombre, xCentro+17, yCentro);
 	}
 
 	public void actualizar(Mouse mouse) {
 		int posMouse[] = mouse.getPos();
 
-		if( enMovimiento ){
-			System.out.println("cancelar"); 
-			//Cancelar movimiento actual.
-		}
 		if (mouse.getRecorrido()) {
-			xFinal = xInicio - posMouse[0] + 16;
-			yFinal = yInicio - posMouse[1] + 6;
 
-			xInicio = xFinal;
-			yInicio = yFinal;
+			if( enMovimiento ){
+
+				//Cancelar movimiento actual.
+			}
+
+
+			xFinal = xInicio - posMouse[0] + JuegoPanel.xOffSetCamara;;
+			yFinal = yInicio - posMouse[1] + JuegoPanel.yOffCamara;
+
+
+			//Esto podria suseder cuando termina el mov. (sino es al dope).
+			xInicio = xFinal; 	// Las posiciones dan negativas nos e porque pero funca :D 
+			yInicio = yFinal;	// solo conponer un - delante basta. 
+
 
 			diagonalInfIzq = false;
 			diagonalInfDer = false;
@@ -151,5 +125,14 @@ public class TilePersonaje {
 			mouse.setNuevoRecorrido(false); 
 			enMovimiento = true;// Cuando llego a destino tengo que poner esto en false
 		}
+
 	}
+	public int getxFinal() {
+		return xFinal;
+	}
+
+	public int getyFinal() {
+		return yFinal;
+	}
+
 }
