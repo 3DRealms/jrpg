@@ -1,4 +1,6 @@
 	package juego;
+
+
 import javax.swing.JFrame;
 
 public class Juego {
@@ -8,7 +10,7 @@ public class Juego {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		
+
 		JFrame ventana=new JFrame(NOMBRE_DEL_JUEGO); //Ventana comun
 				
 		ventana.add(new JuegoPanel()); //Dentro de la ventana pongo el juego.

@@ -1,6 +1,7 @@
 package mapagrafico;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 
 import juego.JuegoPanel;
@@ -55,8 +56,11 @@ public class TilePersonaje {
 	 */
 	public void dibujarCentro(Graphics g, int deltaX, int deltaY) {
 		g.drawImage( MapaGrafico.getImage(sprite), xCentro, yCentro, null);
+		Font fuente=new Font("Arial", Font.BOLD, 16);
 		g.setColor(Color.GREEN);
+		g.setFont(fuente);
 		g.drawString(nombre, xCentro+17, yCentro);
+
 	}
 
 	public void actualizar(Mouse mouse) {
