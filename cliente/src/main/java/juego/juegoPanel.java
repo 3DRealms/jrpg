@@ -83,6 +83,10 @@ public class JuegoPanel extends Component implements Runnable{
 			mapa.dibujar(g2d, 0, 0);
 			jugar = false;
 		}
+
+
+		//mapa.dibujar(g2d, 0, 0);
+		//mapa.mover(g2d,pos[0],pos[1]);
 		pj.getEntrada(mouse);
 		mapa.mover(g2d,pj.getxFinal(),pj.getyFinal());
 		pj.dibujarCentro(g2d,0,0);
