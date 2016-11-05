@@ -1,12 +1,12 @@
 # Mensajeria
 
-## Inicio de sesion
+## Inicio de sesión
 ### Cliente envia al sevidor el usuario y contraseña y le indica si se quiere registrar o iniciar sesion - MensajeAutenticacion 
 ```sh
 {"username":"eldani","password":"123456", "registro":false}
 ```
-## Confirmacion
-### Confirmacion o respuesta del servidor y su correspondiente mensaje en caso de error - MensajeConfirmacion
+## Confirmación
+### Confirmación o respuesta del servidor y su correspondiente mensaje en caso de error - MensajeConfirmacion
 ```sh
 {"confirmo":false, "mensaje":"La clave y el usuario no coinciden"}
 ```
@@ -16,12 +16,12 @@
 {"raza":"Humano","casta":"Mago"}
 ```
 ## Mapa Actual
-### Servidor le envia el mapa al que entro el personaje
+### Servidor le envia el mapa al que ingresó el personaje
 ```sh
 {"mapa":"CalabozoSucio"}
 ```
-## Movimiento Jugadores
-### Cliente envia la posicion a la que se movera el personaje al servidor y el servidor responde con la de los demas personajes
+## Movimiento de Jugadores
+### Cliente envia al servidor la posicion a la que se movera el personaje, y el servidor responde con la de los demas personajes
 ```sh
 {"personaje":"eldani", "pos":{"x":2,"y":2}}
 ```
@@ -62,11 +62,11 @@
 ]}
 ```
 
-## Solicitacion de accion en combate
+## Solicitud de acción en combate
 ```sh
 {"personaje":"eldani1", "tipo":"accion"}
 ```
-## Accion de combate a realizar 
+## Acción de combate a realizar 
 ```sh
 {"emisor":"eldani1", "objetivo":"eldani2", "accion":"curaracionestandar", "tipo":"habilidad"}
 ```
