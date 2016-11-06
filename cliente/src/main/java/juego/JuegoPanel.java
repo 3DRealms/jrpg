@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
+import javax.swing.JFrame;
 
 import mapagrafico.MapaGrafico;
 import mapagrafico.Tile;
@@ -31,10 +32,12 @@ public class JuegoPanel extends Component implements Runnable{
 
 	private TilePersonaje pj;
 
-
+	JFrame padre;
+	
 	private boolean jugar = true;
 
-	public JuegoPanel() {
+	public JuegoPanel(JFrame padre) {
+		this.padre = padre;
 		setPreferredSize(new Dimension(ANCHO, ALTO));
 		setFocusable(true);
 		requestFocus();
@@ -55,6 +58,7 @@ public class JuegoPanel extends Component implements Runnable{
 	public void run(){
 
 		long now;
+		long deltaaa = 0;
 		long lastTime = System.nanoTime();
 
 		while(ejecutando) {
@@ -66,8 +70,20 @@ public class JuegoPanel extends Component implements Runnable{
 			if(delta >=1){   
 				actualizar();
 				repaint();
+				deltaaa++;
 				delta--;
 			}
+			
+			if (deltaaa > 100) {
+				JuegoPanel2 a = new JuegoPanel2(padre);
+				padre.add(a);
+				padre.remove(this);
+				padre.revalidate();
+				repaint();
+				a.repaint();
+				ejecutando = false;
+			}
+			
 		}
 	}
 	/*
