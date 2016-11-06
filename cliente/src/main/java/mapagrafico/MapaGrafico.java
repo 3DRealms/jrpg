@@ -29,7 +29,7 @@ public class MapaGrafico {
 
 
 	public MapaGrafico(String nombre) {
-		spriteMapa = new Image[6];
+		spriteMapa = new Image[7];
 		this.nombre = nombre;
 		File path = new File("src\\main\\resources\\mapas\\"+nombre+".txt");
 
@@ -93,6 +93,8 @@ public class MapaGrafico {
 		spriteMapa[3] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\03.png");
 		spriteMapa[4] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\04.png");
 		spriteMapa[5] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\05.png");
+		spriteMapa[6] = loadImage("src\\main\\resources\\mapas\\99.png");
+
 	}
 
 	public static Image loadImage(String path) {
@@ -173,6 +175,7 @@ public class MapaGrafico {
 				tiles[i][j].mover(g2d,x,y);
 			}
 		}
+		g2d.drawImage( getImage(6), 0, 0 , null);	
 
 	}
 
