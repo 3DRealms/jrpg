@@ -6,10 +6,15 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import org.newdawn.easyogg.OggClip;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Point;
+
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
@@ -17,10 +22,26 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+
 
 public class Combate extends JFrame {
 
 	private JPanel contentPane;
+	
+	private List<Point> posEquipo1;
+	private List<Point> posEquipo2;
+	private List <SpriteCombate> equipo1;
+	private List <SpriteCombate> equipo2;
+	
+	OggClip musica = null;
+	OggClip sonido = null;
+	
 
 	/**
 	 * Launch the application.
@@ -42,6 +63,34 @@ public class Combate extends JFrame {
 	 * Create the frame.
 	 */
 	public Combate() {
+		
+		posEquipo1 = new ArrayList<Point>();
+		equipo1 = new ArrayList<SpriteCombate>();
+		posEquipo2 = new ArrayList<Point>();
+		equipo2 = new ArrayList<SpriteCombate>();
+		
+		posEquipo1.add(new Point(25,100));
+		posEquipo1.add(new Point(25,240));
+		posEquipo1.add(new Point(25,380));
+		posEquipo1.add(new Point(150,180));
+		posEquipo1.add(new Point(150,340));
+		
+		posEquipo2.add(new Point(879,100));
+		posEquipo2.add(new Point(879,240));
+		posEquipo2.add(new Point(879,380));
+		posEquipo2.add(new Point(754,180));
+		posEquipo2.add(new Point(754,340));
+		
+		boolean audiosAbiertos = abrirAudios();
+		if(audiosAbiertos){
+			musica.setGain(0.8f);
+			musica.loop();
+			
+		}
+		
+		
+		String pathSprite = "src\\main\\resources\\combate\\actor\\actor1.png";
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 745);
 		setResizable(false);
@@ -59,37 +108,62 @@ public class Combate extends JFrame {
 		contentPane.add(fondoBatalla);
 		fondoBatalla.setLayout(null);
 		
-		JPanel team1player1 = new SpriteCombate("src\\main\\resources\\combate\\actor\\actor1.png");
-		team1player1.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
-				((SpriteCombate) team1player1).mostrarFlecha(true);
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				((SpriteCombate) team1player1).mostrarFlecha(false);
-			}
-		});
-		team1player1.setLocation(25, 100);
-		fondoBatalla.add(team1player1);
-
-		JPanel team1player2 = new SpriteCombate("src\\main\\resources\\combate\\actor\\actor1.png");
+		for(Point pos: posEquipo1){
+			SpriteCombate player1 = new SpriteCombate(pathSprite, "Lightray", 500, 250, 500, 250, true);
+			player1.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseEntered(MouseEvent arg0) {
+					((SpriteCombate) player1).mostrarFlecha(true);
+					if(audiosAbiertos){
+						sonido.play();	
+					}
+				}
+				@Override
+				public void mouseExited(MouseEvent e) {
+					((SpriteCombate) player1).mostrarFlecha(false);
+				}
+			});
+			player1.setLocation(pos);
+			fondoBatalla.add(player1);
+			equipo1.add(player1);
+		}
+		
+		for(Point pos: posEquipo2){
+			SpriteCombate player1 = new SpriteCombate(pathSprite, "Lightray", 500, 250, 500, 250, false);
+			player1.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseEntered(MouseEvent arg0) {
+					((SpriteCombate) player1).mostrarFlecha(true);
+				}
+				@Override
+				public void mouseExited(MouseEvent e) {
+					((SpriteCombate) player1).mostrarFlecha(false);
+				}
+			});
+			player1.setLocation(pos);
+			fondoBatalla.add(player1);
+			equipo2.add(player1);
+		}
+		
+		
+/*
+		JPanel team1player2 = new SpriteCombate(pathSprite, "Lightray", 500, 250, 500, 250);
 		team1player2.setLocation(25, 240);
 		fondoBatalla.add(team1player2);
 		
-		JPanel team1player3 = new SpriteCombate("src\\main\\resources\\combate\\actor\\actor1.png");
+		JPanel team1player3 = new SpriteCombate(pathSprite, "Lightray", 500, 250, 500, 250);
 		team1player3.setLocation(25, 380);
 		fondoBatalla.add(team1player3);
 
-		JPanel team1player4 = new SpriteCombate("src\\main\\resources\\combate\\actor\\actor1.png");
+		JPanel team1player4 = new SpriteCombate(pathSprite, "Lightray", 500, 250, 500, 250);
 		team1player4.setLocation(150, 180);
 		fondoBatalla.add(team1player4);
 		
-		JPanel team1player5 = new SpriteCombate("src\\main\\resources\\combate\\actor\\actor1.png");
+		JPanel team1player5 = new SpriteCombate(pathSprite, "Lightray", 500, 250, 500, 250);
 		team1player5.setLocation(150, 340);
 		fondoBatalla.add(team1player5);
 		
-		
+*/		
 		
 		JPanel fondoMenu = new ImagePanel("src\\main\\resources\\combate\\menu.jpg");		
 		fondoMenu.setBounds(0, 520, 1024, 200);
@@ -157,4 +231,21 @@ public class Combate extends JFrame {
 
 
 	}
+	
+	private boolean abrirAudios(){
+		try {
+			InputStream inputStream1 =
+				      new FileInputStream("C:\\Users\\Braian\\Documents\\GitHub\\jrpg\\cliente\\src\\main\\resources\\sound\\battle1.ogg");
+			musica = new OggClip(inputStream1);
+			InputStream inputStream2 =
+				      new FileInputStream("C:\\Users\\Braian\\Documents\\GitHub\\jrpg\\cliente\\src\\main\\resources\\sound\\sound.ogg");
+			sonido = new OggClip(inputStream2);
+			
+		} catch (IOException e1) {
+			return false;
+		}
+		return true;
+	}
+	
+
 }

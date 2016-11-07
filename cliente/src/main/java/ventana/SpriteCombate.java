@@ -23,17 +23,17 @@ public class SpriteCombate extends JPanel{
 	int mana;
 	
 	
-	SpriteCombate(String spritePath){
+	SpriteCombate(String spritePath,String nombre,int vidaBase,int manaBase,int vida,int mana, boolean invertido){
 		this.setOpaque(false);
 		this.setLayout(null);
 		
-		nombre = "Lightray";
-		vidaBase = 500;
-		manaBase = 250;
-		vida = 500;
-		mana = 250;
+		this.nombre = nombre;
+		this.vidaBase = vidaBase;
+		this.manaBase = manaBase;
+		this.vida = vida;
+		this.mana = mana;
 		
-		sprite = new ImagePanel(spritePath, true);
+		sprite = new ImagePanel(spritePath, invertido);
 		sprite.setBounds(16, 56, 64, 64);
 		sprite.setOpaque(false);
 		
