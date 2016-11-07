@@ -235,10 +235,10 @@ public class Combate extends JFrame {
 	private boolean abrirAudios(){
 		try {
 			InputStream inputStream1 =
-				      new FileInputStream("C:\\Users\\Braian\\Documents\\GitHub\\jrpg\\cliente\\src\\main\\resources\\sound\\battle1.ogg");
+				      new FileInputStream("src\\main\\resources\\sound\\battle1.ogg");
 			musica = new OggClip(inputStream1);
 			InputStream inputStream2 =
-				      new FileInputStream("C:\\Users\\Braian\\Documents\\GitHub\\jrpg\\cliente\\src\\main\\resources\\sound\\sound.ogg");
+				      new FileInputStream("src\\main\\resources\\sound\\sound.ogg");
 			sonido = new OggClip(inputStream2);
 			
 		} catch (IOException e1) {
