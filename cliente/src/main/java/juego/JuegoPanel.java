@@ -19,7 +19,7 @@ public class JuegoPanel extends Component implements Runnable{
 	public static final int ALTO = 600;
 	public static final int fps = 60;
 	
-	public static final int xOffSetCamara = 16; // mouse.actualizar(); en el (0,0) del personaje segun el mouse es 
+	public static final int xOffCamara = 16; // mouse.actualizar(); en el (0,0) del personaje segun el mouse es 
 	public static final int yOffCamara = 6;  // el 16,6. Hay que ver bien como hacer para sacar la formula, 
 										  // usando las dimeciones de la ventana, para calcular el centro y asi sacar los offSet de la camra.
 	
@@ -43,9 +43,9 @@ public class JuegoPanel extends Component implements Runnable{
 		requestFocus();
 		mouse = new Mouse();
 		addMouseListener(mouse);
-		mapa = new MapaGrafico("map4");
+		mapa = new MapaGrafico("map4",pj);
 		
-		pj = new TilePersonaje(0,0,4,"DANI");  //Pone las que quiera papu.
+		pj = new TilePersonaje(1,1,4,"DANI",mouse); //Pone las que quiera papu.
 		thread = new Thread(this);
 		thread.start();
 	}

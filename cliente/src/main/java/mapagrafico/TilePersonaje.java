@@ -80,7 +80,7 @@ public class TilePersonaje {
 		if (mouse.getRecorrido()) {
 			
 			setNuevoRecorrido(true);
-			xDestino = xInicio - posMouse[0] + JuegoPanel.xOffCamara;;
+			xDestino = xInicio - posMouse[0] + JuegoPanel.xOffCamara;
 			yDestino = yInicio - posMouse[1] + JuegoPanel.yOffCamara;
 			
 			
