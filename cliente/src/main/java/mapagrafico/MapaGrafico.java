@@ -18,20 +18,29 @@ import personaje.Personaje;
 
 public class MapaGrafico {
 
-	private static Image[] spriteMapa;	
+	protected int id;
 	protected int alto;
 	protected int ancho;
 	protected String nombre;
 	protected String sprites;
+	private static Image[] spriteMapa;	
 	protected Tile[][] tiles;
-	protected Map<String,Personaje> personajes;
-	protected int id;
+	protected Tile[][] tilesObstaculo; 
+	protected boolean[][] obstaculos; 
+	protected TilePersonaje pj; // cliente
+	protected Map<String,Personaje> personajes; // esto server
 
 
-	public MapaGrafico(String nombre) {
-		spriteMapa = new Image[7];
+	protected int xDestino;
+	protected int yDestino;
+
+	public MapaGrafico(String nombre,TilePersonaje pj) {
+		this.pj = pj;
+		xDestino = pj.getXDestino();
+		yDestino = pj.getYDestino();
 		this.nombre = nombre;
 		File path = new File("src\\main\\resources\\mapas\\"+nombre+".txt");
+		spriteMapa = new Image[7];
 
 		Scanner sc = null;
 		try {
@@ -46,15 +55,22 @@ public class MapaGrafico {
 		this.sprites=sc.next();
 		cargarSprite();
 		this.tiles = new Tile[ancho][alto];
+		this.obstaculos = new boolean[ancho][alto];
 		/**
 		 * no hace falta pero para que se entienda
 		 */
 		int sprite;
-		//	boolean obs;
 		for (int i = 0; i < ancho ; i++) {
 			for (int j = 0; j < alto; j++) {
 				sprite = sc.nextInt();
 				tiles[i][j] = new Tile(i,j,sprite);
+			}
+		}
+		int obstaculo;
+		for (int i = 0; i < ancho ; i++) {
+			for (int j = 0; j < alto; j++) {
+				obstaculo = sc.nextInt();
+				obstaculos[i][j] = obstaculo==1?true:false;
 			}
 		}
 		sc.close();
@@ -108,19 +124,20 @@ public class MapaGrafico {
 	public int getId() {
 		return this.id;
 	}
+	/* esto capaz vuela, loque puedo hacer es que si clikeo en un obstaculo, 
+	 *	es depender lo que me diga disjktram ( o como sea) 
+	 * si me dice que no hay camino ( que seria logico) ya esta me lo resuelve.
+	 * o capaz me deja cerca ( que bueno me sirve).
 	public boolean posicionValida(Punto ubic){
 		if(dentroDelMapa(ubic) && !hayObstaculo(ubic))
 			return true;
 		return false;
+	}
+	 */
+	private boolean dentroDelMapa(int x, int y) {
+		return x>=0 && y>=0 && x<alto && y<ancho;
+	}
 
-	}
-	private boolean dentroDelMapa(Punto ubic) {
-		return ubic.getX()>=0 && ubic.getY()>=0 && ubic.getX()<alto && ubic.getY()<ancho;
-	}
-
-	private boolean hayObstaculo(Punto ubic) {
-		return tiles[ubic.getX()][ubic.getY()].getObstaculo();
-	}
 
 	public void agregarPersonaje(Personaje pj){
 		personajes.put(pj.getNombre(), pj);
@@ -141,8 +158,25 @@ public class MapaGrafico {
 	}
 
 	public void actualizar() {
-
+		if( pj.getNuevoRecorrido() && dentroDelMapa(-pj.getXDestino(),-pj.getYDestino())  )	{
+			pj.mover();
+			xDestino=pj.getXDestino();
+			yDestino=pj.getYDestino();
+			System.out.println(-xDestino+" : "+-yDestino);
+			xDestino+=JuegoPanel.xOffCamara; 	//Corrimiento de la camara.
+			yDestino+=JuegoPanel.yOffCamara;
+			// Hacer dijkstram (modificado a isometrico)
+			// obtener la "lista" de cuadraditos 
+		}
+		//	Recorrer la lista de cuadraditos por CADA vez que avanzo uno seria 
+		//	if ( proximo == actual ) 
+		// 		actual = proximo 
+		//		proximo = sigcuadradito.
+		// 	if( llegue ? ) 
+		//	xProximo;
+		//	yProximo; // estas van a hacer las posiciones actuales.
 	}
+
 
 	/**
 	 * tengo que buscar la forma de dibujar solo la pantalla.
@@ -152,32 +186,26 @@ public class MapaGrafico {
 	 *		(0,2)(1,2)(2,2)(2,1)(2,0)
 	 *
 	 */
-	public void dibujar(Graphics2D g2d,int x,int y) {
-		x+=JuegoPanel.xOffSetCamara; 	//Corrimiento de la camara.
-		y+=JuegoPanel.yOffCamara;
+	public void dibujar(Graphics2D g2d) {
 		g2d.setBackground(Color.BLACK);
 		g2d.clearRect(0, 0, 810, 610);		
 		for (int i = 0; i <  alto; i++) { 
 			for (int j = 0; j < ancho ; j++) { 
-				tiles[i][j].dibujar(g2d,x,y);
+				tiles[i][j].dibujar(g2d,xDestino,yDestino);
 			}
 		}
-
 	}
-	
-	public void mover(Graphics2D g2d,int x,int y) {
-		x+=JuegoPanel.xOffSetCamara; 	
-		y+=JuegoPanel.yOffCamara;
+
+	public void mover(Graphics2D g2d) {
 		g2d.setBackground(Color.BLACK);
 		g2d.clearRect(0, 0, 810, 610);		
+		//Tiene que ser uno por uno entonces si cancelo termino el movimiento (sino se descuajaina todo).
 		for (int i = 0; i <  alto; i++) { 
 			for (int j = 0; j < ancho ; j++) { 
-				tiles[i][j].mover(g2d,x,y);
+				tiles[i][j].mover(g2d,xDestino,yDestino);
 			}
 		}
 		g2d.drawImage( getImage(6), 0, 0 , null);	
 
 	}
-
-
 }

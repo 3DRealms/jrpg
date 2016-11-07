@@ -5,7 +5,7 @@ public class Tile {
 
 	public final static int ANCHO = 64;
 	public final static int ALTO = 32;
-		
+
 	protected int xLogica;		// posicion logica de la matriz.
 	protected int yLogica;
 	protected int xIsometrica; 	// posicion real que se va dibujar
@@ -29,8 +29,7 @@ public class Tile {
 	}
 
 	public void dibujar(Graphics2D g2d, int deltaX, int deltaY) {
-		// 0,0 -> 0,0
-		// 1,0 -> 0,16
+
 		deltaX+=xLogica;
 		deltaY+=yLogica;		
 		xIsometrica = (deltaX - deltaY) * ( ANCHO / 2);
@@ -40,19 +39,20 @@ public class Tile {
 
 	public void mover(Graphics2D g2d, int x2, int y2) {
 
+
 		x2+=xLogica;
 		y2+=yLogica;	
 
 		int nx = (x2 - y2) * ( ANCHO / 2);
 		int ny = (x2 + y2) * ( ALTO / 2);
-		
+
 		if(xIsometrica < nx){
 			xIsometrica+=2;
 		}
 		if(xIsometrica > nx){
 			xIsometrica-=2;
 		}
-		
+
 		if(yIsometrica < ny){
 			yIsometrica++;
 		}
@@ -61,7 +61,7 @@ public class Tile {
 		}
 		g2d.drawImage( MapaGrafico.getImage(sprite), xIsometrica, yIsometrica , null);	
 	}
-	
+
 	public int getPx() {
 		return xIsometrica;
 	}

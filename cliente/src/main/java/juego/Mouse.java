@@ -27,7 +27,7 @@ public class Mouse implements MouseListener{
 	public boolean getRecorrido(){
 		return recorrido;
 	}
-	public void setNuevoRecorrido(boolean b) {
+	public void setRecorrido(boolean b) {
 		recorrido = b;
 	}
 	public void actualizar() {
@@ -60,9 +60,9 @@ public class Mouse implements MouseListener{
 	public String toString() {
 		return pos[0]+" : "+pos[1];
 	}
+	
 	@Override
 	public void mouseEntered(MouseEvent evento) {}
-
 
 	@Override
 	public void mouseExited(MouseEvent evento) {}
