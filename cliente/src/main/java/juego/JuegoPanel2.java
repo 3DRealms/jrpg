@@ -4,11 +4,8 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-
 import javax.swing.JFrame;
-
 import mapagrafico.MapaGrafico;
-import mapagrafico.Tile;
 import mapagrafico.TilePersonaje;
 
 
@@ -43,47 +40,36 @@ public class JuegoPanel2 extends Component implements Runnable{
 		requestFocus();
 		mouse = new Mouse();
 		addMouseListener(mouse);
-		mapa = new MapaGrafico("map2");
-		
-		pj = new TilePersonaje(0,0,4,"DANI");  //Pone las que quiera papu.
+		pj = new TilePersonaje(1,1,4,"DANI",mouse);  //Pone las que quiera papu.
+		mapa = new MapaGrafico("map4",pj);
 		thread = new Thread(this);
 		thread.start();
 	}
 
 
-	/**
-	 * Aca es donde se actualiza el contenido del juego y se dibuja.	
-	 */
 	@Override
 	public void run(){
 
 		long now;
-		long deltaaa= 0;
 		long lastTime = System.nanoTime();
 
 		while(ejecutando) {
-
+			
 			now = System.nanoTime();
 			delta += (now - lastTime)/timePerTick;
 			lastTime = now;
-
+			
 			if(delta >=1){   
 				actualizar();
 				repaint();
-				deltaaa++;
 				delta--;
 			}
-			
-			
 		}
 	}
-	/*
-	 * si logro sincronizar esto, ya queda pipi cucu 
-	 */
 
 	public void actualizar() {
-		mouse.actualizar();
-		pj.actualizar(mouse);
+		mouse.actualizar(); 
+		pj.actualizar();
 		mapa.actualizar();
 	}
 
@@ -92,17 +78,16 @@ public class JuegoPanel2 extends Component implements Runnable{
 		super.paint(g);
 		Graphics2D g2d = (Graphics2D) g;
 		if(jugar){
-			//posicion inicial del mapa
-			
-			//El xFinal es la posicion del spaw
-			mapa.dibujar(g2d, pj.getxFinal(), pj.getyFinal() );
+			//	posicion inicial del mapa.
+			//	El xFinal es la posicion del spaw.
+			mapa.dibujar(g2d);
 			jugar = false;
 		}
 
 		//mapa.dibujar(g2d, 0, 0);
 		//mapa.mover(g2d,pos[0],pos[1]);
-		mapa.mover(g2d,pj.getxFinal(),pj.getyFinal()); 
-		pj.dibujarCentro(g2d,0,0);
+		mapa.mover(g2d);
+		pj.dibujarCentro(g2d);
 	}
 
 

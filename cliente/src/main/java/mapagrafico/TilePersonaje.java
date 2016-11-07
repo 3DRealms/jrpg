@@ -7,45 +7,54 @@ import java.awt.Graphics;
 import juego.JuegoPanel;
 import juego.Mouse;
 
-@SuppressWarnings("unused")
 public class TilePersonaje {
+	
 	public final static int ANCHO = 64;
 	public final static int ALTO = 32;
 	private int sprite;
 	public final int xCentro;
 	public final int yCentro;
 	private String nombre;
-
-
+	private Mouse mouse;
 	// Posiciones
-
 	private int xInicio;
 	private int yInicio;
-	private int xFinal;
-	private int yFinal;
-
-
+	private int xDestino;
+	private int yDestino;
 	// Movimiento Actual
 	private boolean enMovimiento;
+	private boolean nuevoRecorrido;
+	
+	/*
 	private boolean horizontal;
 	private boolean vertical;
 	private boolean diagonalInfIzq;
 	private boolean diagonalInfDer;
 	private boolean diagonalSupIzq;
 	private boolean diagonalSupDer;
-	
+	*/
 
 
 
-	public TilePersonaje(int x, int y, int sprite,String nombre) {
+	public TilePersonaje(int x, int y, int sprite,String nombre,Mouse mouse) {
 		this.xCentro = 320;
 		this.yCentro = 320;
 		this.sprite = sprite;
 		this.nombre = nombre;	
-		this.xInicio = this.xFinal = -x;  //alta logica wachin.
-		this.yInicio = this.yFinal =  -y; 
+		this.xInicio = this.xDestino = -x;  //alta logica wachin.
+		this.yInicio = this.yDestino =  -y; 
+		this.mouse = mouse;
+		this.nuevoRecorrido = true; // NO BORRAR.
 		// baicamente como le sumo (16,6) para que coicida con el 0,0 del mapa.
 
+	}
+
+	public void setxInicio(int xInicio) {
+		this.xInicio = xInicio;
+	}
+
+	public void setyInicio(int yInicio) {
+		this.yInicio = yInicio;
 	}
 
 	/**
@@ -54,7 +63,7 @@ public class TilePersonaje {
 	 * @param deltaX
 	 * @param deltaY
 	 */
-	public void dibujarCentro(Graphics g, int deltaX, int deltaY) {
+	public void dibujarCentro(Graphics g) {
 		g.drawImage( MapaGrafico.getImage(sprite), xCentro, yCentro, null);
 		Font fuente=new Font("Arial", Font.BOLD, 16);
 		g.setColor(Color.GREEN);
@@ -63,26 +72,21 @@ public class TilePersonaje {
 
 	}
 
-	public void actualizar(Mouse mouse) {
+	public void actualizar() {
 		int posMouse[] = mouse.getPos();
-
+		
+		///if( llego a destino )
+			//enMovimiento = false;
 		if (mouse.getRecorrido()) {
-
-			if( enMovimiento ){
-
-				//Cancelar movimiento actual.
-			}
-
-
-			xFinal = xInicio - posMouse[0] + JuegoPanel.xOffSetCamara;;
-			yFinal = yInicio - posMouse[1] + JuegoPanel.yOffCamara;
-
-
-			//Esto podria suseder cuando termina el mov. (sino es al dope).
-			xInicio = xFinal; 	// Las posiciones dan negativas nos e porque pero funca :D 
-			yInicio = yFinal;	// solo conponer un - delante basta. 
-
-
+			
+			setNuevoRecorrido(true);
+			xDestino = xInicio - posMouse[0] + JuegoPanel.xOffCamara;;
+			yDestino = yInicio - posMouse[1] + JuegoPanel.yOffCamara;
+			
+			
+			
+			//esto es para animaciones no le des bola:
+			/*
 			diagonalInfIzq = false;
 			diagonalInfDer = false;
 			diagonalSupIzq = false;
@@ -90,21 +94,6 @@ public class TilePersonaje {
 			vertical = false;
 			horizontal = false;
 			enMovimiento = false;
-
-
-			/*
-			xInicio = x;
-			yInicio = y;
-
-			xFinal = posMouse[0]  - xInicio;
-			yFinal = posMouse[1]  - yInicio;
-
-			difX = Math.abs(xFinal - xInicio);
-			difY = Math.abs(yFinal - yInicio);
-			x += xFinal;
-			y += yFinal;
-			 */
-			/* esto es para animaciones no le des bola
 			if (difX < ancho && yInicio != yFinal) {
 				vertical = true;
 				horizontal = true;
@@ -126,17 +115,37 @@ public class TilePersonaje {
 				}
 			}
 			 */
-			mouse.setNuevoRecorrido(false); 
+			mouse.setRecorrido(false); 
 			enMovimiento = true;// Cuando llego a destino tengo que poner esto en false
 		}
 
 	}
-	public int getxFinal() {
-		return xFinal;
+	/**
+	 * Por un extraño motivo dan negativas :c
+	 * @return
+	 */
+	public int getXDestino() {
+		return xDestino;
 	}
 
-	public int getyFinal() {
-		return yFinal;
+	public int getYDestino() {
+		return yDestino;
+	}
+	
+	public void mover() {
+		//me muevo de inicio  a fin.
+		xInicio = xDestino;  
+		yInicio = yDestino;	
+		setNuevoRecorrido(false); // cuando me muevo ya no es nuevo recorrido.
+	}
+	
+	public void setNuevoRecorrido(boolean bs){
+		this.nuevoRecorrido = bs;
+	}
+	
+	public boolean getNuevoRecorrido() {
+		return nuevoRecorrido;
+		
 	}
 
 }
