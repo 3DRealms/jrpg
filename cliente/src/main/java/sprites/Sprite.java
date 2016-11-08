@@ -17,7 +17,7 @@ public class Sprite {
 	public static BufferedImage[] pjDerecha;
 	public static BufferedImage[] pjIzquierda;
 	
-	
+	public static BufferedImage[] estandar;
 	
 	public static void inicializar(){
 		HojaSprite hoja = new HojaSprite(cargaImagen.cargarImagen("src/main/resources/mapas/sprites/spriteMapa.png"));
@@ -29,6 +29,20 @@ public class Sprite {
 		
 		cubo =hojapj.cortar(0, 0, anchopj, altopj);
 		pelado = hojapj.cortar(anchopj, 0, anchopj, altopj);
+		
+	}
+	
+	public static void recortarSprite(HojaSprite hoja, int numElementosFila,
+			int numElementosColumna){
+		estandar = new BufferedImage[numElementosFila*numElementosColumna];
+		int x = 0;
+		
+		for (int i = 0; i < numElementosFila; i++) {
+			for (int j = 0; j < numElementosColumna; j++) {
+				estandar[x] = hoja.cortar(ancho*j, alto*i, ancho, alto);
+				x++;
+			}
+		}
 		
 	}
 	
