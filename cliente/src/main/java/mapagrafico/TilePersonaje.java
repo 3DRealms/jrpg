@@ -114,7 +114,7 @@ public class TilePersonaje {
 			}
 			 */
 			mouse.setRecorrido(false); 
-			enMovimiento = true;// Cuando llego a destino tengo que poner esto en false
+		//	enMovimiento = true;// Cuando llego a destino tengo que poner esto en false
 		}
 
 	}

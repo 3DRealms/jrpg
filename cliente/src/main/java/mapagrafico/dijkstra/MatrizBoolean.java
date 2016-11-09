@@ -13,7 +13,7 @@ public class MatrizBoolean {
 		this.mat = mat;
 		this.filas = filas;
 		this.columnas = columnas;
-		
+
 	}
 	/**
 	 * Verigica que los vecinos de i j sean validos 
@@ -22,23 +22,32 @@ public class MatrizBoolean {
 	 * @param fil
 	 * @param col
 	 */
-	public void obtenerVecinosNodo(int fil, int col,Nodo actual) {
-		int i, j;
-
-		for (i = -1; i < 2; i++) // recorro matriz de vecinos
-		{
+	public void obtenerVecinosNodo(int fil, int col,Nodo actual, Grafo g) {
+		int i, j,fila,columna;
+		Nodo aux;// recorro matriz de vecinos
+		for (i = -1; i < 2; i++) {
+			fila = fil +i;
 			for (j = -1; j < 2; j++) {
-				if (esPosicionValida(fil + i, col + j, filas, columnas)) // descarto fuera de rango
+				columna = col + j;
+				if (esPosicionValida(fila, columna, filas, columnas)) // descarto fuera de rango
 				{
-					if ((fil + i != fil || col + j != col)) // descarto la fila
-															// y columna dados
+				
+					if ((fila != fil || columna != col)) // descarto la fila
+						// y columna dados
 					{
-						if(! mat[i][j]){
-						//	actual.agregarConexion(new Punto(i,j));
-						}			
-			}}
+
+						if(! mat[fila][columna] ){
+							aux = g.getNodo(fila, columna);
+							if(aux==null)
+								actual.agregarConexion( new Nodo(new Punto(fila,columna)) ) ;
+							else
+								actual.agregarConexion(aux);
+						}
+
+					}}
 			}}
 	}
+
 
 	public boolean esPosicionValida(int pos_f, int pos_c, int filas,
 			int columnas) {

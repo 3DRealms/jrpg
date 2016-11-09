@@ -26,14 +26,22 @@ public class Grafo {
 
 				if( obstaculos.get(i,j) )
 					continue; // es un goto :v 
-				actual = new Nodo(new Punto(i,j));
-				obstaculos.obtenerVecinosNodo(i, j,actual);
+				actual = this.getNodo(i, j);
+				if(actual == null)
+					actual = new Nodo(new Punto(i,j));
+				obstaculos.obtenerVecinosNodo(i, j,actual,this);
 
 				nodos.add(actual); 
 			}	
 		}
 	}
 
+	public Nodo getNodo(int i, int j) {
+		for(Nodo nodo : nodos)
+			if( nodo.getPunto().comparar(new Punto(i,j)))
+				return nodo;
+		return null;
+	}
 	public String toString() {
 		String aux = "";
 		for (Nodo n : nodos) {
@@ -44,33 +52,25 @@ public class Grafo {
 
 
 
-	/*		
+	/**	
 	 * 	c = comienzo.
 	 *  x = destino.
 	 * 
-	 *		c - 0 - 0 - 0 
+	 *		0 - 0 - 0 - 0 
 	 * 		| X | X | X |
-	 * 		0 - @ - 0 - @ 
+	 * 		0 - 0 - 0 - 0 
 	 * 		| X | X | X |
-	 *		0 - @ - 0 - 0 
+	 *		0 - 0 - 0 - 0 
 	 * 		| X | X | X |
-	 * 		0 - @ - 0 - x 
-
+	 * 		0 - 0 - 0 - 0 
 	 */
 	public static void main(String[] args) {
-		int n = 4;
-		boolean[][] obstaculos = new boolean[n][n];
-		obstaculos[1][1] = true;
-		obstaculos[1][2] = true;
-		obstaculos[1][3] = true;
-		obstaculos[3][1] = true;
-
-		for (int i = 0; i < 2; i++) {
-			for (int j = 0; j < 2; j++) {
-				if( i == 1 && j == 1)
-					continue;
-			} 
-		}
+		int n = 300;
+		MatrizBoolean obstaculos = new MatrizBoolean(new boolean[n][n], n, n);
+		
+		Grafo g = new Grafo(obstaculos);
+		
+		System.out.println(g.toString());
 	}
 
 }

@@ -29,6 +29,10 @@ public class Nodo {
 	public void agregarConexion(Nodo pepe) {
 		nodosAdyacentes.add(pepe);
 	}
+	
+	public void agregarConexionPunto(Punto pepe) {
+		nodosAdyacentes.add(new Nodo(pepe));
+	}
 
 	public double calcularDistanciaNodos(Nodo n2) {
 		return this.getPunto().calcularDistancia(n2.getPunto());
