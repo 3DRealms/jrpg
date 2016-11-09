@@ -11,7 +11,6 @@ import java.util.Scanner;
 import javax.swing.ImageIcon;
 
 import juego.JuegoPanel;
-import mapa.Punto;
 import mensaje.MensajeMovimiento;
 import personaje.Personaje;
 
@@ -73,8 +72,22 @@ public class MapaGrafico {
 				obstaculos[i][j] = obstaculo==1?true:false;
 			}
 		}
+		/*
+		for (int i = 0; i < ancho ; i++) {
+			for (int j = 0; j < alto; j++) {
+				sprite = sc.nextInt();
+				tilesObstaculo[i][j] = new Tile(i,j,sprite);
+			}
+		}*/
+		
+		hacerGrafos();
+
 		sc.close();
 		this.personajes=new HashMap<String,Personaje>();
+	}
+
+	private void hacerGrafos() {
+		
 	}
 
 	private void cargarSprite() {
@@ -162,7 +175,6 @@ public class MapaGrafico {
 			pj.mover();
 			xDestino=pj.getXDestino();
 			yDestino=pj.getYDestino();
-			System.out.println(-xDestino+" : "+-yDestino);
 			xDestino+=JuegoPanel.xOffCamara; 	//Corrimiento de la camara.
 			yDestino+=JuegoPanel.yOffCamara;
 			// Hacer dijkstram (modificado a isometrico)

@@ -92,7 +92,7 @@ public class JuegoPanel extends Component implements Runnable{
 
 	public void actualizar() {
 		mouse.actualizar();
-		pj.actualizar(mouse);
+		pj.actualizar();
 		mapa.actualizar();
 	}
 
@@ -104,14 +104,14 @@ public class JuegoPanel extends Component implements Runnable{
 			//posicion inicial del mapa
 			
 			//El xFinal es la posicion del spaw
-			mapa.dibujar(g2d, pj.getxFinal(), pj.getyFinal() );
+		//	mapa.dibujar(g2d, pj.getxFinal(), pj.getyFinal() );
 			jugar = false;
 		}
 
 		//mapa.dibujar(g2d, 0, 0);
 		//mapa.mover(g2d,pos[0],pos[1]);
-		mapa.mover(g2d,pj.getxFinal(),pj.getyFinal()); 
-		pj.dibujarCentro(g2d,0,0);
+//		mapa.mover(g2d,pj.getxFinal(),pj.getyFinal()); 
+//		pj.dibujarCentro(g2d,0,0);
 	}
 
 
