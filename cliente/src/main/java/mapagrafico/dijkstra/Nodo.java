@@ -62,5 +62,28 @@ public class Nodo {
 		nodo.nodosAdyacentes.addAll(this.nodosAdyacentes);
 		return nodo;
 	}
+	
+	public boolean equals(Nodo n2){
+		
+		if(this.getPunto().equals(n2.getPunto()))
+		return true;
+		
+		return false;
+	}
+	
+	public Nodo obtenerMenorAdyacente(Nodo destino){
+		
+		double i = this.nodosAdyacentes.get(0).calcularDistanciaNodos(destino);
+		Nodo aux = nodosAdyacentes.get(0).clone();
+		
+		for(Nodo nodo : this.nodosAdyacentes){
+			double x = nodo.calcularDistanciaNodos(destino);
+			if(x <= i){
+				aux = nodo;
+			}
+		}
+		
+		return aux;
+	}
 
 }

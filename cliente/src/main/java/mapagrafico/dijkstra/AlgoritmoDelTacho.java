@@ -14,26 +14,17 @@ public class AlgoritmoDelTacho {
 
 	public void calcularDijkstra(Nodo origen, Nodo nodoDestino) {
 
-		double i = 0;
 		nodoMenorDistancia = origen;
 		aux = nodoMenorDistancia.clone();
-		double distanciaActual = nodoMenorDistancia.getPunto()
-				.calcularDistancia(nodoDestino.getPunto());
 
-		while (distanciaActual != 0.0) { //RANCIOO no me cambia el nodo :(
-
-			for (Nodo nodo : nodoMenorDistancia.nodosAdyacentes) {
-				System.out.println(nodo);
-				i = nodo.calcularDistanciaNodos(nodoDestino);	
-				if (distanciaActual >= i) {
-					distanciaActual = i;
-					aux = nodo.clone();
-				}
-			}
+		while (!nodoMenorDistancia.equals(nodoDestino)) { //RANCIOO no me cambia el nodo :(
+			aux = nodoMenorDistancia.obtenerMenorAdyacente(nodoDestino);
 			predecesores.add(aux);
 			nodoMenorDistancia = aux.clone();
 		}
 	}
+	
+	
 	public ArrayList<Nodo> getPredecesores() {
 		return predecesores;
 	}
