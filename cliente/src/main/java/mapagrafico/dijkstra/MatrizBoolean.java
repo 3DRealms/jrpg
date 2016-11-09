@@ -1,18 +1,25 @@
 package mapagrafico.dijkstra;
 
-public class Matriz {
+public class MatrizBoolean {
 
-	private int[][]mat;
+	private boolean[][]mat;
 	private int filas;
 	private int columnas;
 
-	public Matriz(int[][] mat, int filas, int columnas) {
+
+	public MatrizBoolean(boolean[][] mat, int filas, int columnas) {
 		this.mat = mat;
 		this.filas = filas;
 		this.columnas = columnas;
 	}
-
-	public void obtenerVecinos(int fil, int col) {
+	/**
+	 * Verigica que los vecinos de i j sean validos 
+	 * y no hay obstaculo, agrega como adyasente al nodo
+	 * 
+	 * @param fil
+	 * @param col
+	 */
+	public void obtenerVecinosNodo(int fil, int col,Nodo actual) {
 		int i, j;
 
 		for (i = -1; i < 2; i++) // recorro matriz de vecinos
@@ -23,16 +30,26 @@ public class Matriz {
 					if ((fil + i != fil || col + j != col)) // descarto la fila
 															// y columna dados
 					{
-						// Hacer lo que sea que haga con la i,j
-					}
-				}
-			}
-		}
+						if(! mat[i][j]){
+							actual.agregarConexion(Nodo.calcularID(i,j));
+						}			
+			}}
+			}}
 	}
 
 	public boolean esPosicionValida(int pos_f, int pos_c, int filas,
 			int columnas) {
 		return (pos_f >= 0 && pos_f < filas && pos_c >= 0 && pos_c < columnas);
+	}
+	public boolean get(int i,int j){
+		return mat[i][j];
+	}
+	public int getFilas() {
+		return filas;
+	}
+
+	public int getColumnas() {
+		return columnas;
 	}
 
 }

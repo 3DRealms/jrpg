@@ -7,42 +7,41 @@ public class Grafo {
 	private ArrayList<Nodo> nodos;
 	/*
 	 *  00 	01	02	03	04
-	 *  10 	11 	12	13	14
+	 *  10 	x 	12	13	14  // EJ: 00 -> 01, 10
 	 *	20	21	22	23	24
-	 *	30	31	32	33	34
+	 *	30	31	x	33	34
 	 *	40	41	42	43	44
 	 *
 	 */
 
-	public Grafo(boolean[][] obstaculos) {
+	public Grafo(MatrizBoolean obstaculos) {
 		this.nodos  = new ArrayList<Nodo>();
-		int tam = obstaculos.length;
 		int k = 0;
 		Nodo actual;
-		
-		
-		for (int i = 0; i < tam; i++) {    	// Recorro la matriz (filas)
-			for (int j = 0; j < tam; j++) {	// Recorro la matriz (columna)
-				
-				k = calcularID(i, j);  // ID de cada nodo, seria las coordenadas pero juntitas tipo (1,4) = 14.
-				
-				if( obstaculos[i][j])
+
+
+		for (int i = 0; i < obstaculos.getFilas(); i++) {    	// Recorro la matriz (filas)
+			for (int j = 0; j < obstaculos.getFilas(); j++) {	// Recorro la matriz (columna)
+
+				k = Nodo.calcularID(i, j);  // ID de cada nodo, seria las coordenadas pero juntitas tipo (1,4) = 14.
+
+				if( obstaculos.get(i,j) )
 					continue; // es un goto :v 
 				actual = new Nodo(k);
-				if( i-1>=0  && ! obstaculos[i-1][j] ) //Si estoy dentro  y NO hay obstaculo agrego
-					actual.agregarConexion(calcularID(i-1, j));
+				obstaculos.obtenerVecinosNodo(i, j,actual);
 
+				nodos.add(actual);
 			}	
 		}
 	}
 
-
-
-
-	private int calcularID(int i, int j) {
-		return i*10+j;
+	public String toString() {
+		String aux = "";
+		for (Nodo n : nodos) {
+			aux += n.toString()+"\n";
+		}
+		return aux;
 	}
-
 
 
 
@@ -71,35 +70,10 @@ public class Grafo {
 			for (int j = 0; j < 2; j++) {
 				if( i == 1 && j == 1)
 					continue;
-				System.out.println(i+" "+j);
 			} 
 		}
+	}
 
-
-	}
-	
-	public void obtenerVecinos(int fil, int col, int mat[][], int filas, int columnas){
-		int i,j;
-		
-	    for( i =-1; i<2; i++) // recorro matriz de vecinos
-	    {
-	        for(j =-1; j<2; j++)
-	        {
-	            if(esPosicionValida(fil+i,col+j,filas,columnas) ) // descarto a los fuera de rango
-	            {
-	                if( ( fil+i!=fil || col+j!=col) ) // descarto la fila y colugna dados
-	                {
-	                    //Hacer lo que sea que haga con la i,j
-	                }
-	            }
-	        }
-	    }
-	}
-	
-	public boolean esPosicionValida(int pos_f,int pos_c,int filas, int columnas){
-		return (pos_f>=0 && pos_f<filas && pos_c>=0 && pos_c<columnas);
-	}
-	
 }
 
 
