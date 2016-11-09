@@ -29,7 +29,6 @@ public class Tile {
 	}
 
 	public void dibujar(Graphics2D g2d, int deltaX, int deltaY) {
-
 		deltaX+=xLogica;
 		deltaY+=yLogica;		
 		xIsometrica = (deltaX - deltaY) * ( ANCHO / 2);
@@ -62,10 +61,10 @@ public class Tile {
 		g2d.drawImage( MapaGrafico.getImage(sprite), xIsometrica, yIsometrica , null);	
 	}
 
-	public int getPx() {
+	public int getXIso() {
 		return xIsometrica;
 	}
-	public int getPy() {
+	public int getYIso() {
 		return yIsometrica;
 	}
 }

@@ -78,14 +78,9 @@ public class JuegoPanel2 extends Component implements Runnable{
 		super.paint(g);
 		Graphics2D g2d = (Graphics2D) g;
 		if(jugar){
-			//	posicion inicial del mapa.
-			//	El xFinal es la posicion del spaw.
 			mapa.dibujar(g2d);
 			jugar = false;
 		}
-
-		//mapa.dibujar(g2d, 0, 0);
-		//mapa.mover(g2d,pos[0],pos[1]);
 		mapa.mover(g2d);
 		pj.dibujarCentro(g2d);
 	}

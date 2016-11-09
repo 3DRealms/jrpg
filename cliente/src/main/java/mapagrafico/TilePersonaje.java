@@ -22,7 +22,6 @@ public class TilePersonaje {
 	private int xDestino;
 	private int yDestino;
 	// Movimiento Actual
-	private boolean enMovimiento;
 	private boolean nuevoRecorrido;
 	
 	/*
@@ -75,15 +74,14 @@ public class TilePersonaje {
 	public void actualizar() {
 		int posMouse[] = mouse.getPos();
 		
-		///if( llego a destino )
-			//enMovimiento = false;
+
 		if (mouse.getRecorrido()) {
 			
 			setNuevoRecorrido(true);
 			xDestino = xInicio - posMouse[0] + JuegoPanel.xOffCamara;
 			yDestino = yInicio - posMouse[1] + JuegoPanel.yOffCamara;
 			
-			
+
 			
 			//esto es para animaciones no le des bola:
 			/*
@@ -120,6 +118,8 @@ public class TilePersonaje {
 		}
 
 	}
+
+
 	/**
 	 * Por un extraño motivo dan negativas :c
 	 * @return
@@ -138,7 +138,7 @@ public class TilePersonaje {
 		yInicio = yDestino;	
 		setNuevoRecorrido(false); // cuando me muevo ya no es nuevo recorrido.
 	}
-	
+		
 	public void setNuevoRecorrido(boolean bs){
 		this.nuevoRecorrido = bs;
 	}

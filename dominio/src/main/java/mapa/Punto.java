@@ -9,7 +9,6 @@ public class Punto {
 	public Punto(int coorX, int coorY) {
 		this.x = coorX;
 		this.y = coorY;
-
 	}
 	/**
 	 * preguntar Lucas, si usar un par de if
