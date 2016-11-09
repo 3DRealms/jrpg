@@ -13,5 +13,6 @@
 	<classpathentry kind="lib" path="jogg-0.0.7.jar"/>
 	<classpathentry kind="lib" path="jorbis-0.0.15.jar"/>
 	<classpathentry kind="lib" path="startup2.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

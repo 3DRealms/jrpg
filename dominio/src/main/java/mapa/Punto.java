@@ -90,4 +90,8 @@ public class Punto {
 	public boolean comparar(Punto ubic) {
 		return this.x == ubic.x && this.y == ubic.y;
 	}
+	
+	public Punto clone(Punto aux){
+		return new Punto(aux.x,aux.y);
+	}
 }

@@ -18,7 +18,7 @@ public class Nodo {
 		nodosAdyacentes = new ArrayList<>();
 	}
 
-	public Punto getPos() {
+	public Punto getPunto() {
 		return pos;
 	}
 
@@ -28,7 +28,11 @@ public class Nodo {
 
 	public void agregarConexion(Punto id) {
 		nodosAdyacentes.add(new Nodo(id));
-	}	
+	}
+	
+	public double calcularDistanciaNodos(Nodo n2) {
+		return this.getPunto().calcularDistancia(n2.getPunto());
+	}
 	
 	@Override
 	public String toString() {
@@ -36,6 +40,12 @@ public class Nodo {
 		for(Nodo nodo : nodosAdyacentes)
 			aux += nodo.pos.toString() + " ";
 		return aux;
+	}
+	
+	public Nodo clone( Nodo n1){
+		Nodo n2 = new Nodo(n1.getPunto());
+		
+		return n2;
 	}
 
 }

@@ -1,5 +1,7 @@
 package mapagrafico.dijkstra;
 
+import mapa.Punto;
+
 public class MatrizBoolean {
 
 	private boolean[][]mat;
@@ -11,6 +13,7 @@ public class MatrizBoolean {
 		this.mat = mat;
 		this.filas = filas;
 		this.columnas = columnas;
+		
 	}
 	/**
 	 * Verigica que los vecinos de i j sean validos 
@@ -31,7 +34,7 @@ public class MatrizBoolean {
 															// y columna dados
 					{
 						if(! mat[i][j]){
-							actual.agregarConexion(Nodo.calcularID(i,j));
+							actual.agregarConexion(new Punto(i,j));
 						}			
 			}}
 			}}
