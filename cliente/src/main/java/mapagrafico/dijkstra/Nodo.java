@@ -26,14 +26,14 @@ public class Nodo {
 		this.pos = pos;
 	}
 
-	public void agregarConexion(Punto id) {
-		nodosAdyacentes.add(new Nodo(id));
+	public void agregarConexion(Nodo pepe) {
+		nodosAdyacentes.add(pepe);
 	}
-	
+
 	public double calcularDistanciaNodos(Nodo n2) {
 		return this.getPunto().calcularDistancia(n2.getPunto());
 	}
-	
+
 	@Override
 	public String toString() {
 		String aux = "Nodo"+pos+": ";
@@ -41,11 +41,22 @@ public class Nodo {
 			aux += nodo.pos.toString() + " ";
 		return aux;
 	}
-	
-	public Nodo clone( Nodo n1){
-		Nodo n2 = new Nodo(n1.getPunto());
-		
+
+	public Nodo clone(){
+		Nodo n2 = new Nodo(this.getPunto());
+		n2.nodosAdyacentes = new ArrayList<>();
+
+		for(Nodo nodo : this.nodosAdyacentes){
+			n2.agregarConexion(nodo);
+		}
 		return n2;
+	}
+	
+	public Nodo clone2(){
+		Nodo nodo = new Nodo(this.getPunto());
+
+		nodo.nodosAdyacentes.addAll(this.nodosAdyacentes);
+		return nodo;
 	}
 
 }

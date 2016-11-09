@@ -34,7 +34,7 @@ public class MatrizBoolean {
 															// y columna dados
 					{
 						if(! mat[i][j]){
-							actual.agregarConexion(new Punto(i,j));
+						//	actual.agregarConexion(new Punto(i,j));
 						}			
 			}}
 			}}
