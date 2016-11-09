@@ -64,14 +64,24 @@ public class Grafo {
 	 * 		| X | X | X |
 	 * 		0 - 0 - 0 - 0 
 	 */
-	public static void main(String[] args) {
-		int n = 300;
-		MatrizBoolean obstaculos = new MatrizBoolean(new boolean[n][n], n, n);
-		
-		Grafo g = new Grafo(obstaculos);
-		
-		System.out.println(g.toString());
-	}
+	 public static void main(String[] args) {
+		  int n = 5;
+		  boolean[][] m = new boolean[n][n];
+		  m[1][0]= true; //hay ostaculo
+		  m[1][1]= true;
+		  m[1][2]= true;
+		  m[1][3]= true;
+		  
+		  m[3][1]= true;
+		  m[3][2]= true;
+		  m[3][3]= true;
+		  m[3][4]= true;
+		  MatrizBoolean obstaculos = new MatrizBoolean(m, n, n);
+
+		  Grafo g = new Grafo(obstaculos);
+
+		  System.out.println(g.toString());
+		 }
 
 }
 

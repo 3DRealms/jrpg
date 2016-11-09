@@ -16,9 +16,11 @@ public class AlgoritmoDelTacho {
 
 		nodoMenorDistancia = origen;
 		aux = nodoMenorDistancia.clone();
-
-		while (!nodoMenorDistancia.equals(nodoDestino)) { //RANCIOO no me cambia el nodo :(
-			aux = nodoMenorDistancia.obtenerMenorAdyacente(nodoDestino);
+		predecesores.add(origen);
+		
+		while (!nodoMenorDistancia.equals(nodoDestino)) { 
+			aux = nodoMenorDistancia.obtenerMenorAdyacente(nodoDestino, predecesores);
+			//System.out.println(aux.getPunto());
 			predecesores.add(aux);
 			nodoMenorDistancia = aux.clone();
 		}
