@@ -11,28 +11,24 @@ import mapa.Punto;
  */
 public class Nodo {
 	private Punto pos;
+	
 	List<Nodo> nodosAdyacentes;
 	// esto capaz vuele.
+	
 	public Nodo(final Punto pos){
 		this.pos = pos;
 		nodosAdyacentes = new ArrayList<>();
+		
 	}
 
 	public Punto getPunto() {
 		return pos;
 	}
 
-	public void setPos(Punto pos) {
-		this.pos = pos;
-	}
-
 	public void agregarConexion(Nodo pepe) {
 		nodosAdyacentes.add(pepe);
 	}
-	
-	public void agregarConexionPunto(Punto pepe) {
-		nodosAdyacentes.add(new Nodo(pepe));
-	}
+
 
 	public double calcularDistanciaNodos(Nodo n2) {
 		return this.getPunto().calcularDistancia(n2.getPunto());

@@ -75,14 +75,14 @@ public class MapaGrafico {
 				sprite = sc.nextInt();
 				tiles[i][j] = new Tile(i,j,sprite);
 			}
-		}
+		}/*
 		int obstaculo;
 		for (int i = 0; i < ancho ; i++) {
 			for (int j = 0; j < alto; j++) {
 				obstaculo = sc.nextInt();
 				obstaculos[i][j] = obstaculo==1?true:false;
 			}
-		}
+		}*/
 		/*
 		for (int i = 0; i < ancho ; i++) {
 			for (int j = 0; j < alto; j++) {
