@@ -3,39 +3,38 @@ package mapagrafico.dijkstra;
 import java.util.ArrayList;
 import java.util.List;
 
+import mapa.Punto;
+
 /**
  * Para mi todos el paso de nodo a nodo es de 1 siempre.
  * @author Danie
  */
 public class Nodo {
-	private int pos;
+	private Punto pos;
 	List<Nodo> nodosAdyacentes;
 	// esto capaz vuele.
-	public Nodo(final int pos){
+	public Nodo(final Punto pos){
 		this.pos = pos;
 		nodosAdyacentes = new ArrayList<>();
 	}
 
-	public int getPos() {
+	public Punto getPos() {
 		return pos;
 	}
 
-	public void setPos(int pos) {
+	public void setPos(Punto pos) {
 		this.pos = pos;
 	}
 
-	public void agregarConexion(int calcularID) {
-		nodosAdyacentes.add(new Nodo(calcularID));
+	public void agregarConexion(Punto id) {
+		nodosAdyacentes.add(new Nodo(id));
 	}	
-	public static int calcularID(int i, int j) {
-		return i*10+j;
-	}
 	
 	@Override
 	public String toString() {
 		String aux = "Nodo"+pos+": ";
-		for(Nodo a : nodosAdyacentes)
-			aux += a.pos + " ";
+		for(Nodo nodo : nodosAdyacentes)
+			aux += nodo.pos.toString() + " ";
 		return aux;
 	}
 
