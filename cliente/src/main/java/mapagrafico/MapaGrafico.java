@@ -3,6 +3,7 @@ package mapagrafico;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -11,12 +12,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import javax.swing.ImageIcon;
+import juego.Camara;
 import juego.JuegoPanel;
 import mapagrafico.dijkstra.Grafo;
 import mapagrafico.dijkstra.MatrizBoolean;
 import mapagrafico.dijkstra.Nodo;
 import mensaje.MensajeMovimiento;
 import personaje.Personaje;
+import sprites.CargaImagen;
+import sprites.Sprite;
 
 
 public class MapaGrafico {
@@ -41,6 +45,8 @@ public class MapaGrafico {
 	protected boolean[][] obstaculos; 
 	protected TilePersonaje pj; // cliente
 	protected Map<String,Personaje> personajes; // esto server
+
+	protected Camara cam;
 
 	protected int xDestino;
 	protected int yDestino;
@@ -122,21 +128,14 @@ public class MapaGrafico {
 	}
 
 	/**
-	 * Aca alex tiene que hacer la hoja de sprite y ir cortandola.
-	 * lo que yo pense (que ya esta casi echo)
-	 * es tener una carpeta (o unos sprites) con distintos nombres para 
-	 * distintos mapas.
-	 * por ejemplo:
-	 * exterior va a hacer un a hoja de sprite con todo los sprite del exterior
-	 * 
-	 * pero si el mapa tiene la palabra castillo.
-	 * va a cargar la hoja de sprite de castillo.
-	 * 
-	 * pero como dije necesitamos los sprite y a alex que haga el corte
-	 * si no lo dejamos como esta :D
+	 * cambiar por hoja:
 	 * @param nombre
 	 */
 	private void load(String nombre) {
+		String relativo = "src\\main\\resources\\mapas\\";
+		Sprite.inicializar(relativo+nombre+"\\piso.png",relativo+nombre+"\\pj.png");
+		
+		
 		spriteMapa[0] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\00.png");
 		spriteMapa[1] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\01.png");
 		spriteMapa[2] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\02.png");
@@ -144,6 +143,7 @@ public class MapaGrafico {
 		spriteMapa[4] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\04.png");
 		spriteMapa[5] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\05.png");
 		spriteMapa[6] = loadImage("src\\main\\resources\\mapas\\99.png");
+		
 
 	}
 
@@ -155,23 +155,12 @@ public class MapaGrafico {
 		return spriteMapa[sprite];
 	}
 
-	public int getId() {
-		return this.id;
-	}
-
 	public boolean posicionValida(int x, int y){
 		return dentroDelMapa(-pj.getXDestino(),-pj.getYDestino()) && ! hayObstaculo(-pj.getXDestino(),-pj.getYDestino());
 
 
 	}
 
-	/**
-	 * Segun la las coordenadas que recibe devuelve 
-	 * verdadero si hay un obstaculo y falso si no.
-	 * @param x
-	 * @param y
-	 * @return
-	 */
 	public boolean hayObstaculo(int x,int y){
 		return obstaculos[x][y];
 	}
@@ -202,30 +191,22 @@ public class MapaGrafico {
 	public void actualizar() {
 
 		if( pj.getNuevoRecorrido() && posicionValida(-pj.getXDestino(),-pj.getYDestino()) )	{
-
 			pj.mover();
+			
 			camino = grafoDeObstaculo.getCamino(xActual,yActual,-pj.getXDestino(),-pj.getYDestino());
-
-			nodoActual = camino.get(0);
-			xDestino = -nodoActual.getPunto().getX();
-			yDestino = -nodoActual.getPunto().getY();
-			camino.remove(0);
-			xActual = -xDestino;
-			yActual = -yDestino;
-
-
 		}
-		if(!enMovimiento && ! camino.isEmpty()){
-			nodoActual = camino.get(0);
-			xDestino = -nodoActual.getPunto().getX();
-			yDestino = -nodoActual.getPunto().getY();
-			camino.remove(0);
-			xActual = -xDestino;
-			yActual = -yDestino;
+		if( !enMovimiento && ! camino.isEmpty())
+			moverUnPaso();
+	}
 
-		}
-
-
+	private void moverUnPaso() {
+		System.out.println(camino);
+		nodoActual = camino.get(0);
+		xDestino = -nodoActual.getPunto().getX();
+		yDestino = -nodoActual.getPunto().getY();
+		camino.remove(0);
+		xActual = -xDestino;
+		yActual = -yDestino;
 	}
 
 
@@ -249,9 +230,11 @@ public class MapaGrafico {
 	public void mover(Graphics2D g2d) {
 		g2d.setBackground(Color.BLACK);
 		g2d.clearRect(0, 0, 810, 610);		
+		
 		//Tiene que ser uno por uno entonces si cancelo termino el movimiento (sino se descuajaina todo).
 		x = tiles[0][0].getXIso(); // puedo agarrar el centro. pero por ahora asi.
 		y = tiles[0][0].getYIso();
+		
 		for (int i = 0; i <  alto; i++) { 
 			for (int j = 0; j < ancho ; j++) { 
 				tiles[i][j].mover(g2d,xDestino+ JuegoPanel.xOffCamara,yDestino+JuegoPanel.yOffCamara);

@@ -16,10 +16,7 @@ public class JuegoPanel2 extends Component implements Runnable{
 	public static final int ALTO = 600;
 	public static final int fps = 60;
 	
-	public static final int xOffCamara = 16; // mouse.actualizar(); en el (0,0) del personaje segun el mouse es 
-	public static final int yOffCamara = 6;  // el 16,6. Hay que ver bien como hacer para sacar la formula, 
-										  // usando las dimeciones de la ventana, para calcular el centro y asi sacar los offSet de la camra.
-	
+
 	public static double timePerTick = 1000000000/fps;
 	private MapaGrafico mapa;
 	private Thread thread;

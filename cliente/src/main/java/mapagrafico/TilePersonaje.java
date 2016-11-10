@@ -6,6 +6,7 @@ import java.awt.Graphics;
 
 import juego.JuegoPanel;
 import juego.Mouse;
+import sprites.Sprite;
 
 public class TilePersonaje {
 	
@@ -80,8 +81,7 @@ public class TilePersonaje {
 			setNuevoRecorrido(true);
 			xDestino = xInicio - posMouse[0] + JuegoPanel.xOffCamara;
 			yDestino = yInicio - posMouse[1] + JuegoPanel.yOffCamara;
-			
-
+			mouse.setRecorrido(false); 
 			
 			//esto es para animaciones no le des bola:
 			/*
@@ -113,7 +113,6 @@ public class TilePersonaje {
 				}
 			}
 			 */
-			mouse.setRecorrido(false); 
 		//	enMovimiento = true;// Cuando llego a destino tengo que poner esto en false
 		}
 
@@ -138,6 +137,7 @@ public class TilePersonaje {
 		yInicio = yDestino;	
 		setNuevoRecorrido(false); // cuando me muevo ya no es nuevo recorrido.
 	}
+
 		
 	public void setNuevoRecorrido(boolean bs){
 		this.nuevoRecorrido = bs;

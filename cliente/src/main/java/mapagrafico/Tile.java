@@ -1,6 +1,8 @@
 package mapagrafico;
 import java.awt.Graphics2D;
 
+import sprites.Sprite;
+
 public class Tile {
 
 	public final static int ANCHO = 64;
@@ -21,19 +23,14 @@ public class Tile {
 		this.sprite = sprite;
 		this.altoImagen = Tile.ALTO;
 	}
-	public Tile(int x, int y, int sprite,int altoImagen) {
-		this.xLogica = x;
-		this.yLogica = y;
-		this.sprite = sprite;
-		this.altoImagen = altoImagen;
-	}
+
 
 	public void dibujar(Graphics2D g2d, int deltaX, int deltaY) {
 		deltaX+=xLogica;
 		deltaY+=yLogica;		
 		xIsometrica = (deltaX - deltaY) * ( ANCHO / 2);
 		yIsometrica = (deltaX + deltaY) * ( ALTO / 2);
-		g2d.drawImage( MapaGrafico.getImage(sprite), 0, 0 , null);			
+		g2d.drawImage( Sprite.getImagePiso(sprite), 0, 0 , null);			
 	}
 
 	public void mover(Graphics2D g2d, int x2, int y2) {
@@ -58,7 +55,7 @@ public class Tile {
 		if(yIsometrica > ny){
 			yIsometrica--;
 		}
-		g2d.drawImage( MapaGrafico.getImage(sprite), xIsometrica, yIsometrica , null);	
+		g2d.drawImage( Sprite.getImagePiso(sprite), xIsometrica, yIsometrica , null);	
 	}
 
 	public int getXIso() {
