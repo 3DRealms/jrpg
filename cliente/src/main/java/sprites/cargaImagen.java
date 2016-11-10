@@ -8,7 +8,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.imageio.stream.FileImageInputStream;
 
-public class cargaImagen {
+public class CargaImagen {
 	
 	public static BufferedImage cargarImagen(String path){
 		try {
