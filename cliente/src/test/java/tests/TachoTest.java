@@ -312,6 +312,7 @@ public class TachoTest {
 		salidaEsperada.add(new Nodo(new Punto(5,3)));
 		salidaEsperada.add(new Nodo(new Punto(5,2)));
 		salidaEsperada.add(new Nodo(new Punto(5,1)));
+	
 		Assert.assertTrue(compararListas(p1.getPredecesores(),salidaEsperada));
 
 	}

@@ -43,7 +43,7 @@ public class TilePersonaje {
 		this.xInicio = this.xDestino = -x;  //alta logica wachin.
 		this.yInicio = this.yDestino =  -y; 
 		this.mouse = mouse;
-		this.nuevoRecorrido = true; // NO BORRAR.
+		this.nuevoRecorrido = false; // NO BORRAR.
 		// baicamente como le sumo (16,6) para que coicida con el 0,0 del mapa.
 
 	}

@@ -5,11 +5,16 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import javax.swing.ImageIcon;
 import juego.JuegoPanel;
+import mapagrafico.dijkstra.Grafo;
+import mapagrafico.dijkstra.MatrizBoolean;
+import mapagrafico.dijkstra.Nodo;
 import mensaje.MensajeMovimiento;
 import personaje.Personaje;
 
@@ -21,18 +26,18 @@ public class MapaGrafico {
 	protected int ancho;
 	protected String nombre;
 
-	
+
 	// BUGERO
 	protected int x;
 	protected int y;
-	
+
 	protected boolean enMovimiento;
-	
+
 
 	protected String sprites;
 	private static Image[] spriteMapa;	
 	protected Tile[][] tiles;
-	protected Tile[][] tilesObstaculo; 
+	protected Tile[][]  tilesObstaculo; 
 	protected boolean[][] obstaculos; 
 	protected TilePersonaje pj; // cliente
 	protected Map<String,Personaje> personajes; // esto server
@@ -41,15 +46,22 @@ public class MapaGrafico {
 	protected int yDestino;
 	protected int xActual;
 	protected int yActual;
-	protected int[] posActual = new int[2];
+
+	protected Grafo grafoDeObstaculo;
+	protected List<Nodo> camino;
+	private Nodo nodoActual;
 
 	public MapaGrafico(String nombre,TilePersonaje pj) {
-		enMovimiento = false;
+		File path = new File("src\\main\\resources\\mapas\\"+nombre+".txt");
 		this.pj = pj;
+		enMovimiento = false;
 		xDestino = pj.getXDestino();
 		yDestino = pj.getYDestino();
+
+		xActual = -xDestino;
+		yActual = -yDestino;
+
 		this.nombre = nombre;
-		File path = new File("src\\main\\resources\\mapas\\"+nombre+".txt");
 		spriteMapa = new Image[7];
 
 		Scanner sc = null;
@@ -64,7 +76,9 @@ public class MapaGrafico {
 		this.alto=sc.nextInt();
 		this.sprites=sc.next();
 		cargarSprite();
+
 		this.tiles = new Tile[ancho][alto];
+		this.tilesObstaculo  = new Tile[ancho][alto];
 		this.obstaculos = new boolean[ancho][alto];
 		/**
 		 * no hace falta pero para que se entienda
@@ -75,31 +89,24 @@ public class MapaGrafico {
 				sprite = sc.nextInt();
 				tiles[i][j] = new Tile(i,j,sprite);
 			}
-		}/*
+		}
 		int obstaculo;
 		for (int i = 0; i < ancho ; i++) {
 			for (int j = 0; j < alto; j++) {
 				obstaculo = sc.nextInt();
-				obstaculos[i][j] = obstaculo==1?true:false;
+				obstaculos[i][j] = obstaculo>=1?true:false;
 			}
-		}*/
-		/*
-		for (int i = 0; i < ancho ; i++) {
-			for (int j = 0; j < alto; j++) {
-				sprite = sc.nextInt();
-				tilesObstaculo[i][j] = new Tile(i,j,sprite);
-			}
-		}*/
-		
-		hacerGrafos();
+		}
+
+		grafoDeObstaculo = new Grafo(new MatrizBoolean(obstaculos, ancho, alto));
+		camino = new ArrayList<Nodo>();
+
+
 
 		sc.close();
 		this.personajes=new HashMap<String,Personaje>();
 	}
 
-	private void hacerGrafos() {
-		
-	}
 
 	private void cargarSprite() {
 		if ( sprites.equals("exterior") ) 
@@ -154,10 +161,10 @@ public class MapaGrafico {
 
 	public boolean posicionValida(int x, int y){
 		return dentroDelMapa(-pj.getXDestino(),-pj.getYDestino()) && ! hayObstaculo(-pj.getXDestino(),-pj.getYDestino());
-			 
-		 
+
+
 	}
-	 
+
 	/**
 	 * Segun la las coordenadas que recibe devuelve 
 	 * verdadero si hay un obstaculo y falso si no.
@@ -168,7 +175,7 @@ public class MapaGrafico {
 	public boolean hayObstaculo(int x,int y){
 		return obstaculos[x][y];
 	}
-	
+
 	private boolean dentroDelMapa(int x, int y) {
 		return x>=0 && y>=0 && x<alto && y<ancho;
 	}
@@ -193,26 +200,31 @@ public class MapaGrafico {
 	}
 
 	public void actualizar() {
-					
+
 		if( pj.getNuevoRecorrido() && posicionValida(-pj.getXDestino(),-pj.getYDestino()) )	{
-			
+
 			pj.mover();
-			xDestino = pj.getXDestino();
-			yDestino = pj.getYDestino();
-			
-			// Hacer dijkstram.
-			// obtener la "lista" de cuadraditos.
-			
-			//ArrayList<Nodo> pasos = new ArrayList<>();	
+			camino = grafoDeObstaculo.getCamino(xActual,yActual,-pj.getXDestino(),-pj.getYDestino());
+
+			nodoActual = camino.get(0);
+			xDestino = -nodoActual.getPunto().getX();
+			yDestino = -nodoActual.getPunto().getY();
+			camino.remove(0);
+			xActual = -xDestino;
+			yActual = -yDestino;
+
+
+		}
+		if(!enMovimiento && ! camino.isEmpty()){
+			nodoActual = camino.get(0);
+			xDestino = -nodoActual.getPunto().getX();
+			yDestino = -nodoActual.getPunto().getY();
+			camino.remove(0);
+			xActual = -xDestino;
+			yActual = -yDestino;
+
 		}
 
-		//	Recorrer la lista de cuadraditos por CADA vez que avanzo uno seria 
-		//	if ( proximo == actual ) 
-		// 		actual = proximo 
-		//		proximo = sigcuadradito.
-		// 	if( llegue ? ) 
-		//	xProximo;
-		//	yProximo; // estas van a hacer las posiciones actuales.
 
 	}
 
@@ -229,7 +241,7 @@ public class MapaGrafico {
 		g2d.clearRect(0, 0, 810, 610);		
 		for (int i = 0; i <  alto; i++) { 
 			for (int j = 0; j < ancho ; j++) { 
-				tiles[i][j].dibujar(g2d,xDestino+JuegoPanel.xOffCamara,yDestino+JuegoPanel.yOffCamara);
+				tiles[i][j].dibujar(g2d,xDestino+JuegoPanel.xOffCamara,yDestino+JuegoPanel.yOffCamara);			
 			}
 		}
 	}

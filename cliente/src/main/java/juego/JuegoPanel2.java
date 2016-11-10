@@ -41,7 +41,7 @@ public class JuegoPanel2 extends Component implements Runnable{
 		mouse = new Mouse();
 		addMouseListener(mouse);
 		pj = new TilePersonaje(1,1,4,"DANI",mouse);  //Pone las que quiera papu.
-		mapa = new MapaGrafico("map2",pj);
+		mapa = new MapaGrafico("map4",pj);
 		thread = new Thread(this);
 		thread.start();
 	}

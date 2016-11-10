@@ -8,6 +8,7 @@ public class Grafo {
 
 	private ArrayList<Nodo> nodos;
 	private Nodo[][] nodosVistados;
+	private AlgoritmoDelTacho d;
 	/*
 	 *  00 	01	02	03	04
 	 *  10 	x 	12	13	14  // EJ: 00 -> 01, 10
@@ -20,7 +21,7 @@ public class Grafo {
 	public Grafo(MatrizBoolean obstaculos) {
 		this.nodos  = new ArrayList<Nodo>();
 		nodosVistados = new Nodo[obstaculos.getFilas()][obstaculos.getColumnas()];
-
+		d = new AlgoritmoDelTacho();
 		Nodo actual;
 		for (int i = 0; i < obstaculos.getFilas(); i++) {    	// Recorro la matriz (filas)
 			for (int j = 0; j < obstaculos.getFilas(); j++) {	// Recorro la matriz (columna)
@@ -49,11 +50,11 @@ public class Grafo {
 				return nodo;
 		return null;
 	}
-	
+
 	public void setVisitados(Nodo aux, int fila, int columna) {
 		nodosVistados[fila][columna] = aux;
 	}
-	
+
 	public String toString() {
 		String aux = "";
 		for (Nodo n : nodos) {
@@ -76,23 +77,31 @@ public class Grafo {
 	 * 		| X | X | X |
 	 * 		0 - 0 - 0 - 0 
 	 */
-	public static void main(String[] args) {
-		int n = 1000;
+	
+	/*public static void main(String[] args) {
+		int n = 5;
 		boolean[][] m = new boolean[n][n];
 		m[2][2]= true; //hay ostaculo
-		//		  m[1][1]= true;
-		//		  m[1][2]= true;
-		//		  m[1][3]= true;
-		//		  
-		//		  m[3][1]= true;
-		//		  m[3][2]= true;
-		//		  m[3][3]= true;
-		//		  m[3][4]= true;
+		m[1][1]= true;
+		m[1][2]= true;
+		m[1][3]= true;
+
+		m[3][1]= true;
+		m[3][2]= true;
+		m[3][3]= true;
+		m[3][4]= true;
 		MatrizBoolean obstaculos = new MatrizBoolean(m, n, n);
 
 		Grafo g = new Grafo(obstaculos);
 
-		System.out.println(g.getNodo(2,3));
+		System.out.println(g);
+	}*/
+
+	public ArrayList<Nodo> getCamino(int xActual, int yActual, int xDestino, int yDestino) {
+		Nodo actual = getNodo(xActual, yActual);
+		Nodo destino = getNodo(xDestino, yDestino);
+		d.calcularDijkstra(actual,destino);
+		return d.getPredecesores();
 	}
 
 
