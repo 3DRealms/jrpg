@@ -390,8 +390,7 @@ public abstract class Personaje implements Atacable {
 	public  boolean lanzarItem(String item, Personaje personaje){
 		ItemLanzable  i = mochilaItemLanzable.get(item);
 		if(i != null ){
-			i.afectar(personaje);
-			i.usar();
+			i.usar(personaje);
 			if(i.getCantidad() == 0)
 				this.mochilaItemLanzable.remove(item);
 			return true;
