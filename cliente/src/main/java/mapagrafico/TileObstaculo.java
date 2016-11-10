@@ -47,7 +47,7 @@ public class TileObstaculo extends Tile{
 			yIsometrica--;
 		}
 
-		g2d.drawImage( Sprite.getImagePiso(sprite), xIsometrica-anchoImagen%64, yIsometrica-altoImagen%32 , null);	
+		g2d.drawImage( Sprite.getImagePiso(sprite), xIsometrica, yIsometrica-32 , null);	
 	}
 
 }

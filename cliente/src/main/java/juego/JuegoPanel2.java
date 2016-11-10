@@ -66,8 +66,8 @@ public class JuegoPanel2 extends Component implements Runnable{
 
 	public void actualizar() {
 		mouse.actualizar(); 
-		pj.actualizar();
 		mapa.actualizar();
+		pj.actualizar();
 	}
 
 	public void paint(Graphics g) {
@@ -79,7 +79,6 @@ public class JuegoPanel2 extends Component implements Runnable{
 			jugar = false;
 		}
 		mapa.mover(g2d);
-		pj.dibujarCentro(g2d);
 	}
 
 

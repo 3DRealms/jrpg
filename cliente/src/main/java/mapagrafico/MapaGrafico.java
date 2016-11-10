@@ -96,14 +96,15 @@ public class MapaGrafico {
 		int obstaculo;
 		int anchoImagen;
 		int altoImagen;
+		
 		for (int i = 0; i < ancho ; i++) {
 			for (int j = 0; j < alto; j++) {
 				obstaculo = sc.nextInt();
 				anchoImagen = sc.nextInt();
 				altoImagen = sc.nextInt();
-				System.out.println(obstaculo+" : "+anchoImagen+" : "+altoImagen);
+				
 				obstaculos[i][j] = obstaculo>=1?true:false;
-				tilesObstaculo[i][j] = new TileObstaculo(i,j,obstaculo,ancho,alto);
+				tilesObstaculo[i][j] = new TileObstaculo(i,j,obstaculo,anchoImagen,altoImagen);
 			}
 		}
 
@@ -195,7 +196,8 @@ public class MapaGrafico {
 
 		if( pj.getNuevoRecorrido() && posicionValida(-pj.getXDestino(),-pj.getYDestino()) )	{
 			pj.mover();
-			
+			xDestino = pj.getXDestino();
+			yDestino = pj.getYDestino();
 			camino = grafoDeObstaculo.getCamino(xActual,yActual,-pj.getXDestino(),-pj.getYDestino());
 		}
 		if( !enMovimiento && ! camino.isEmpty())
@@ -205,11 +207,14 @@ public class MapaGrafico {
 	private void moverUnPaso() {
 		System.out.println(camino);
 		nodoActual = camino.get(0);
+		
+		xActual = -xDestino;
+		yActual = -yDestino;
+		
 		xDestino = -nodoActual.getPunto().getX();
 		yDestino = -nodoActual.getPunto().getY();
 		camino.remove(0);
-		xActual = -xDestino;
-		yActual = -yDestino;
+
 	}
 
 
@@ -226,7 +231,9 @@ public class MapaGrafico {
 		for (int i = 0; i <  alto; i++) { 
 			for (int j = 0; j < ancho ; j++) { 
 				tiles[i][j].dibujar(g2d,xDestino+JuegoPanel.xOffCamara,yDestino+JuegoPanel.yOffCamara);
-								
+				if(i == xActual && j == yActual)
+					pj.dibujarCentro(g2d);			
+				System.out.println(i+" : "+j);
 				if( tilesObstaculo[i][j].sprite > 1  ){
 					tilesObstaculo[i][j].dibujar(g2d,xDestino+ JuegoPanel.xOffCamara,yDestino+JuegoPanel.yOffCamara);
 				}
@@ -241,10 +248,11 @@ public class MapaGrafico {
 		//Tiene que ser uno por uno entonces si cancelo termino el movimiento (sino se descuajaina todo).
 		x = tiles[0][0].getXIso(); // puedo agarrar el centro. pero por ahora asi.
 		y = tiles[0][0].getYIso();
-		
 		for (int i = 0; i <  alto; i++) { 
 			for (int j = 0; j < ancho ; j++) { 
-				tiles[i][j].mover(g2d,xDestino+ JuegoPanel.xOffCamara,yDestino+JuegoPanel.yOffCamara);
+				tiles[i][j].mover(g2d,xDestino + JuegoPanel.xOffCamara,yDestino+JuegoPanel.yOffCamara);
+				if(i == xActual && j == yActual)
+					pj.dibujarCentro(g2d);
 				if( tilesObstaculo[i][j].sprite > 1  ){
 					tilesObstaculo[i][j].mover(g2d,xDestino+ JuegoPanel.xOffCamara,yDestino+JuegoPanel.yOffCamara);
 				}

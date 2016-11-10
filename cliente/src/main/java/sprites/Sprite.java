@@ -21,29 +21,27 @@ public class Sprite {
 
 	public static BufferedImage[] estandar;
 
-	public static void inicializar(String pathPiso, String pathPJ){
+	public static void inicializar(String pathPiso,String pathPJ){
 		HojaSprite hoja = new HojaSprite(CargaImagen.cargarImagen(pathPiso));
-	//	HojaSprite hojapj = new HojaSprite(CargaImagen.cargarImagen(pathPJ));
+		//	HojaSprite hojapj = new HojaSprite(CargaImagen.cargarImagen(pathPJ));
 		piso = new BufferedImage[6];
-		
+
 		int k = 0;
-		
+
 		for (int i = 0; i <  2 ;i++) {
-			for (int j = 0; j < 2; j++) {
-				piso[k] =  hoja.cortar(ancho*i, alto*j, ancho, alto);
+			for (int j = 0; j < 3; j++) {
+				if(j<2)
+					piso[k] =  hoja.cortar(ancho*i, alto*j, ancho, alto);
+				else
+					piso[k] =  hoja.cortar(ancho*i, alto*j, ancho, altoObjeto);
 				k++;
-			}
-		}
-		
-		for (int i = 0; i <  1 ;i++) { 
-			for (int j = 0; j < 2; j++) {
-				piso[k] =  hoja.cortar(ancho*i, altoObjeto*j, ancho, alto);
-				k++;
+				System.out.println(i+" "+j);
 			}
 		}
 
-	//	cubo =hojapj.cortar(0, 0, anchopj, altopj);
-	//	pelado = hojapj.cortar(anchopj, 0, anchopj, altopj);
+
+		//	cubo =hojapj.cortar(0, 0, anchopj, altopj);
+		//	pelado = hojapj.cortar(anchopj, 0, anchopj, altopj);
 
 	}
 
