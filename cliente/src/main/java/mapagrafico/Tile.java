@@ -13,7 +13,6 @@ public class Tile {
 	protected int xIsometrica; 	// posicion real que se va dibujar
 	protected int yIsometrica;	
 	protected int sprite;
-	protected int altoImagen;
 
 
 
@@ -21,7 +20,6 @@ public class Tile {
 		this.xLogica = x;
 		this.yLogica = y;
 		this.sprite = sprite;
-		this.altoImagen = Tile.ALTO;
 	}
 
 
@@ -29,7 +27,7 @@ public class Tile {
 		deltaX+=xLogica;
 		deltaY+=yLogica;		
 		xIsometrica = (deltaX - deltaY) * ( ANCHO / 2);
-		yIsometrica = (deltaX + deltaY) * ( ALTO / 2);
+		yIsometrica = (deltaX + deltaY) * ( ALTO / 2) ;
 		g2d.drawImage( Sprite.getImagePiso(sprite), 0, 0 , null);			
 	}
 

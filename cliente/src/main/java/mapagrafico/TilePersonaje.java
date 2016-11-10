@@ -3,10 +3,8 @@ package mapagrafico;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-
 import juego.JuegoPanel;
 import juego.Mouse;
-import sprites.Sprite;
 
 public class TilePersonaje {
 	

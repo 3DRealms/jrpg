@@ -8,7 +8,7 @@ public class Sprite {
 
 	public static BufferedImage pelado, cubo;
 	private static final int ancho = 64, alto = 32;
-	private static final int anchopj =64, altopj = 64;
+	private static final int altoObjeto = 64;
 
 
 	/**
@@ -24,13 +24,20 @@ public class Sprite {
 	public static void inicializar(String pathPiso, String pathPJ){
 		HojaSprite hoja = new HojaSprite(CargaImagen.cargarImagen(pathPiso));
 	//	HojaSprite hojapj = new HojaSprite(CargaImagen.cargarImagen(pathPJ));
-		piso = new BufferedImage[4];
+		piso = new BufferedImage[6];
 		
 		int k = 0;
 		
 		for (int i = 0; i <  2 ;i++) {
 			for (int j = 0; j < 2; j++) {
 				piso[k] =  hoja.cortar(ancho*i, alto*j, ancho, alto);
+				k++;
+			}
+		}
+		
+		for (int i = 0; i <  1 ;i++) { 
+			for (int j = 0; j < 2; j++) {
+				piso[k] =  hoja.cortar(ancho*i, altoObjeto*j, ancho, alto);
 				k++;
 			}
 		}
@@ -51,7 +58,6 @@ public class Sprite {
 				x++;
 			}
 		}
-
 	}
 
 	public static Image getImagePiso(int sprite) {

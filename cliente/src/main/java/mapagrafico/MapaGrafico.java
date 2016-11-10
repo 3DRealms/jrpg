@@ -3,7 +3,6 @@ package mapagrafico;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -19,7 +18,6 @@ import mapagrafico.dijkstra.MatrizBoolean;
 import mapagrafico.dijkstra.Nodo;
 import mensaje.MensajeMovimiento;
 import personaje.Personaje;
-import sprites.CargaImagen;
 import sprites.Sprite;
 
 
@@ -40,21 +38,21 @@ public class MapaGrafico {
 
 	protected String sprites;
 	private static Image[] spriteMapa;	
-	protected Tile[][] tiles;
-	protected Tile[][]  tilesObstaculo; 
-	protected boolean[][] obstaculos; 
-	protected TilePersonaje pj; // cliente
-	protected Map<String,Personaje> personajes; // esto server
+	private Tile[][] tiles;
+	private TileObstaculo[][]  tilesObstaculo; 
+	private boolean[][] obstaculos; 
+	private TilePersonaje pj; // cliente
+	private Map<String,Personaje> personajes; // esto server
 
 	protected Camara cam;
 
-	protected int xDestino;
-	protected int yDestino;
-	protected int xActual;
-	protected int yActual;
+	private int xDestino;
+	private int yDestino;
+	private int xActual;
+	private int yActual;
 
-	protected Grafo grafoDeObstaculo;
-	protected List<Nodo> camino;
+	private Grafo grafoDeObstaculo;
+	private List<Nodo> camino;
 	private Nodo nodoActual;
 
 	public MapaGrafico(String nombre,TilePersonaje pj) {
@@ -63,7 +61,6 @@ public class MapaGrafico {
 		enMovimiento = false;
 		xDestino = pj.getXDestino();
 		yDestino = pj.getYDestino();
-
 		xActual = -xDestino;
 		yActual = -yDestino;
 
@@ -84,7 +81,7 @@ public class MapaGrafico {
 		cargarSprite();
 
 		this.tiles = new Tile[ancho][alto];
-		this.tilesObstaculo  = new Tile[ancho][alto];
+		this.tilesObstaculo  = new TileObstaculo[ancho][alto];
 		this.obstaculos = new boolean[ancho][alto];
 		/**
 		 * no hace falta pero para que se entienda
@@ -97,10 +94,16 @@ public class MapaGrafico {
 			}
 		}
 		int obstaculo;
+		int anchoImagen;
+		int altoImagen;
 		for (int i = 0; i < ancho ; i++) {
 			for (int j = 0; j < alto; j++) {
 				obstaculo = sc.nextInt();
+				anchoImagen = sc.nextInt();
+				altoImagen = sc.nextInt();
+				System.out.println(obstaculo+" : "+anchoImagen+" : "+altoImagen);
 				obstaculos[i][j] = obstaculo>=1?true:false;
+				tilesObstaculo[i][j] = new TileObstaculo(i,j,obstaculo,ancho,alto);
 			}
 		}
 
@@ -222,7 +225,11 @@ public class MapaGrafico {
 		g2d.clearRect(0, 0, 810, 610);		
 		for (int i = 0; i <  alto; i++) { 
 			for (int j = 0; j < ancho ; j++) { 
-				tiles[i][j].dibujar(g2d,xDestino+JuegoPanel.xOffCamara,yDestino+JuegoPanel.yOffCamara);			
+				tiles[i][j].dibujar(g2d,xDestino+JuegoPanel.xOffCamara,yDestino+JuegoPanel.yOffCamara);
+								
+				if( tilesObstaculo[i][j].sprite > 1  ){
+					tilesObstaculo[i][j].dibujar(g2d,xDestino+ JuegoPanel.xOffCamara,yDestino+JuegoPanel.yOffCamara);
+				}
 			}
 		}
 	}
@@ -238,6 +245,9 @@ public class MapaGrafico {
 		for (int i = 0; i <  alto; i++) { 
 			for (int j = 0; j < ancho ; j++) { 
 				tiles[i][j].mover(g2d,xDestino+ JuegoPanel.xOffCamara,yDestino+JuegoPanel.yOffCamara);
+				if( tilesObstaculo[i][j].sprite > 1  ){
+					tilesObstaculo[i][j].mover(g2d,xDestino+ JuegoPanel.xOffCamara,yDestino+JuegoPanel.yOffCamara);
+				}
 			}
 		}
 		g2d.drawImage( getImage(6), 0, 0 , null);	

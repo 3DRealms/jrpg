@@ -3,8 +3,6 @@ package juego;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.SingleSelectionModel;
-
 import mapagrafico.Tile;
 
 public class Mouse implements MouseListener{

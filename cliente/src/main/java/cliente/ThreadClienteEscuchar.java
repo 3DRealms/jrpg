@@ -3,7 +3,6 @@ package cliente;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.List;
 import mensaje.*;
 import com.google.gson.Gson;
 
