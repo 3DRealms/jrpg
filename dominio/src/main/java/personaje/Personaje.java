@@ -642,14 +642,6 @@ public abstract class Personaje implements Atacable {
 		ubicacion = pun;
 	}
 	
-	/*
-	public void setSprite(String path) {
-		sprite = new Sprite(path);
-	}
-	public void putSprite(Graphics2D g2d) {
-		sprite.putSprite(g2d, ubicacion.getX(), ubicacion.getY());
-	}
-	*/
 	public void defenderse() {
 		enDefensa = true;
 

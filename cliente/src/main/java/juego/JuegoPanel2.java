@@ -7,6 +7,8 @@ import java.awt.Graphics2D;
 import javax.swing.JFrame;
 import mapagrafico.MapaGrafico;
 import mapagrafico.TilePersonaje;
+import personaje.Personaje;
+import raza.PersonajePrueba;
 
 
 @SuppressWarnings("serial")
@@ -23,22 +25,23 @@ public class JuegoPanel2 extends Component implements Runnable{
 	private Mouse mouse;
 	private double delta = 0;
 	private boolean ejecutando = true;
-
-	private TilePersonaje pj;
+	private Personaje pj;
+	private TilePersonaje pjDibujo;
 
 	JFrame padre;
 	
 	private boolean jugar = true;
 
 	public JuegoPanel2(JFrame padre) {
+		pj = new PersonajePrueba("El Dani");
 		this.padre = padre;
 		setPreferredSize(new Dimension(ANCHO, ALTO));
 		setFocusable(true);
 		requestFocus();
 		mouse = new Mouse();
 		addMouseListener(mouse);
-		pj = new TilePersonaje(1,1,4,"DANI",mouse);  //Pone las que quiera papu.
-		mapa = new MapaGrafico("map4",pj);
+		pjDibujo = new TilePersonaje(1,1,4,pj,mouse);  //Pone las que quiera papu.
+		mapa = new MapaGrafico("map4",pjDibujo);
 		thread = new Thread(this);
 		thread.start();
 	}
@@ -66,7 +69,7 @@ public class JuegoPanel2 extends Component implements Runnable{
 
 	public void actualizar() {
 		mouse.actualizar(); 
-		pj.actualizar();
+		pjDibujo.actualizar();
 		mapa.actualizar();
 	}
 
@@ -80,7 +83,4 @@ public class JuegoPanel2 extends Component implements Runnable{
 		}
 		mapa.mover(g2d);
 	}
-
-
-
 }

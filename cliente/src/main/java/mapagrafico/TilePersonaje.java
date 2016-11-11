@@ -3,14 +3,18 @@ package mapagrafico;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Image;
+
 import juego.JuegoPanel;
 import juego.Mouse;
+import personaje.Personaje;
+import sprites.Sprite;
 
 public class TilePersonaje {
 	
 	public final static int ANCHO = 64;
 	public final static int ALTO = 32;
-	private int sprite;
+	private static Image spritePJ;
 	public final int xCentro;
 	public final int yCentro;
 	private String nombre;
@@ -34,26 +38,22 @@ public class TilePersonaje {
 
 
 
-	public TilePersonaje(int x, int y, int sprite,String nombre,Mouse mouse) {
+	public TilePersonaje(int x, int y, int sprite,Personaje pj,Mouse mouse) {
 		this.xCentro = 320;
 		this.yCentro = 320;
-		this.sprite = sprite;
-		this.nombre = nombre;	
+		//this.sprite = sprite;
+		this.nombre = pj.getNombre();	
 		this.xInicio = this.xDestino = -x;  //alta logica wachin.
 		this.yInicio = this.yDestino =  -y; 
 		this.mouse = mouse;
+
+		spritePJ = Sprite.loadImage("src\\main\\resources\\mapas\\"+nombre+"\\04.png");
+		
 		this.nuevoRecorrido = false; // NO BORRAR.
 		// baicamente como le sumo (16,6) para que coicida con el 0,0 del mapa.
 
 	}
 
-	public void setxInicio(int xInicio) {
-		this.xInicio = xInicio;
-	}
-
-	public void setyInicio(int yInicio) {
-		this.yInicio = yInicio;
-	}
 
 	/**
 	 * Ver si le mando las coordenadas donde  esto al personaje.
@@ -62,7 +62,7 @@ public class TilePersonaje {
 	 * @param deltaY
 	 */
 	public void dibujarCentro(Graphics g) {
-		g.drawImage( MapaGrafico.getImage(sprite), xCentro, yCentro, null);
+		g.drawImage( spritePJ ,xCentro, yCentro, null);
 		Font fuente=new Font("Arial", Font.BOLD, 16);
 		g.setColor(Color.GREEN);
 		g.setFont(fuente);
@@ -142,8 +142,7 @@ public class TilePersonaje {
 	}
 	
 	public boolean getNuevoRecorrido() {
-		return nuevoRecorrido;
-		
+		return nuevoRecorrido;	
 	}
 
 }

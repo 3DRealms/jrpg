@@ -3,6 +3,8 @@ package sprites;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 
+import javax.swing.ImageIcon;
+
 public class Sprite {
 	public static BufferedImage[] piso;
 
@@ -61,7 +63,9 @@ public class Sprite {
 	public static Image getImagePiso(int sprite) {
 		return piso[sprite];
 	}
-
+	public static Image loadImage(String path) {
+		return new ImageIcon(path).getImage();
+	}
 
 
 }

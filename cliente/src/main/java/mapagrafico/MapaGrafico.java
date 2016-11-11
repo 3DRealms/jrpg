@@ -37,7 +37,8 @@ public class MapaGrafico {
 
 
 	protected String sprites;
-	private static Image[] spriteMapa;	
+
+	private static Image iluminacion;	
 	private Tile[][] tiles;
 	private TileObstaculo[][]  tilesObstaculo; 
 	private boolean[][] obstaculos; 
@@ -65,7 +66,6 @@ public class MapaGrafico {
 		yAnterior = -yActual;
 
 		this.nombre = nombre;
-		spriteMapa = new Image[7];
 
 		Scanner sc = null;
 		try {
@@ -138,25 +138,10 @@ public class MapaGrafico {
 	private void load(String nombre) {
 		String relativo = "src\\main\\resources\\mapas\\";
 		Sprite.inicializar(relativo+nombre+"\\piso.png",relativo+nombre+"\\pj.png");
+		
+		iluminacion = Sprite.loadImage("src\\main\\resources\\mapas\\99.png");
 
 
-		spriteMapa[0] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\00.png");
-		spriteMapa[1] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\01.png");
-		spriteMapa[2] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\02.png");
-		spriteMapa[3] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\03.png");
-		spriteMapa[4] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\04.png");
-		spriteMapa[5] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\05.png");
-		spriteMapa[6] = loadImage("src\\main\\resources\\mapas\\99.png");
-
-
-	}
-
-	public static Image loadImage(String path) {
-		ImageIcon i = new ImageIcon(path);
-		return i.getImage();
-	}
-	public static Image getImage(int sprite) {
-		return spriteMapa[sprite];
 	}
 
 	public boolean posicionValida(int x, int y){
@@ -263,7 +248,7 @@ public class MapaGrafico {
 					pj.dibujarCentro(g2d);*/
 			}
 		}
-		g2d.drawImage( getImage(6), 0, 0 , null);	
+		g2d.drawImage( iluminacion, 0, 0 , null);	
 		termino();
 	}
 
