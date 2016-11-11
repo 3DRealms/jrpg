@@ -96,7 +96,6 @@ public class MapaGrafico {
 		int obstaculo;
 		int anchoImagen;
 		int altoImagen;
-
 		for (int i = 0; i < ancho ; i++) {
 			for (int j = 0; j < alto; j++) {
 				obstaculo = sc.nextInt();
@@ -119,12 +118,16 @@ public class MapaGrafico {
 
 
 	private void cargarSprite() {
+		load(sprites);
+		//Despues tendria que validar que encuentre el todo.
+		/*
 		if ( sprites.equals("exterior") ) 
 			load("exterior");
 		else if( sprites.equals("test"))
 			load("test");
 		else
 			System.exit(1);
+			*/
 	}
 
 	public boolean EnMovimiento() {
@@ -136,8 +139,9 @@ public class MapaGrafico {
 	 * @param nombre
 	 */
 	private void load(String nombre) {
-		String relativo = "src\\main\\resources\\mapas\\";
-		Sprite.inicializar(relativo+nombre+"\\piso.png",relativo+nombre+"\\pj.png");
+		String recursos = "src\\main\\resources\\";
+		
+		Sprite.inicializar(recursos+"mapas\\"+nombre+"\\piso.png",recursos+"personajes\\pj.png");
 		
 		iluminacion = Sprite.loadImage("src\\main\\resources\\mapas\\99.png");
 

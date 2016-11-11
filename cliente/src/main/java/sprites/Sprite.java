@@ -25,7 +25,7 @@ public class Sprite {
 
 	public static void inicializar(String pathPiso,String pathPJ){
 		HojaSprite hoja = new HojaSprite(CargaImagen.cargarImagen(pathPiso));
-		//	HojaSprite hojapj = new HojaSprite(CargaImagen.cargarImagen(pathPJ));
+	//	HojaSprite hojapj = new HojaSprite(CargaImagen.cargarImagen(pathPJ));
 		piso = new BufferedImage[6];
 
 		int k = 0;
@@ -44,7 +44,6 @@ public class Sprite {
 
 		//	cubo =hojapj.cortar(0, 0, anchopj, altopj);
 		//	pelado = hojapj.cortar(anchopj, 0, anchopj, altopj);
-
 	}
 
 	public static void recortarSprite(HojaSprite hoja, int numElementosFila,

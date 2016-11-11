@@ -103,7 +103,7 @@ public class Grafo {
 	public ArrayList<Nodo> getCamino(int xActual, int yActual, int xDestino, int yDestino) {
 		Nodo actual = getNodo(xActual, yActual);
 		Nodo destino = getNodo(xDestino, yDestino);
-		d.calcularDijkstra(this,destino);
+		d.calcularDijkstra(this,actual);
 		return d.getPredecesores();
 	}
 

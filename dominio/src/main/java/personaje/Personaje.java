@@ -38,9 +38,12 @@ public abstract class Personaje implements Atacable {
 	protected boolean puedoMoverme;
 
 	//Mochila for now.
+	
 	protected Map<String, ItemLanzable> mochilaItemLanzable;
 	protected Map<String, ItemEquipo> mochilaEquipo;
+	
 	protected final int ESPACIO_MOCHILA = 10;
+
 	protected Equipo equipo;
 	// Atributos: depende de items, (cada raza empieza con basicos pero a la larga se amortigua.
 	protected int ataqueFisico;  
