@@ -36,7 +36,7 @@ public abstract class Personaje implements Atacable {
 	protected Punto ubicacion;
 	//protected Sprite sprite;
 	protected boolean puedoMoverme;
-
+	protected String sprite;
 	//Mochila for now.
 	
 	protected Map<String, ItemLanzable> mochilaItemLanzable;
@@ -71,13 +71,16 @@ public abstract class Personaje implements Atacable {
 	//Constructor:
 	public Personaje(String nombre) {
 		this.nombre = nombre;
+		this.sprite = "pj"; // Por ahora asi.
 		mochilaItemLanzable = new HashMap<String, ItemLanzable>();
 		itemEquipado = new HashMap<String, ItemEquipo>();
+		
 		itemEquipado.put("anillo", new ItemEquipo());
 		itemEquipado.put("armaDer", new ItemEquipo());
 		itemEquipado.put("armaIzq", new ItemEquipo());
 		itemEquipado.put("armadura", new ItemEquipo());
 		itemEquipado.put("casco", new ItemEquipo());
+		
 		ubicacion = new Punto(0,0);
 		this.equipo = new EquipoJugadores(nombre);
 	}	
@@ -657,6 +660,12 @@ public abstract class Personaje implements Atacable {
 	}
 	public String getNombre() {
 		return this.nombre;
+	}
+	public String getSprite() {
+		return this.sprite;
+	}
+	public String getItemEquipables() {
+		return itemEquipado.toString();
 	}
 
 

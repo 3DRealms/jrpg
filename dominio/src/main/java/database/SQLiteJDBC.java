@@ -119,7 +119,7 @@ public class SQLiteJDBC
 
 			stmt = c.createStatement();
 
-			String consulta = "SELECT * FROM itemLanzable;";
+			String consulta = "SELECT * FROM itemEquipable;";
 
 			ResultSet rs = stmt.executeQuery(consulta);
 
@@ -128,7 +128,7 @@ public class SQLiteJDBC
 						rs.getString("key"), rs.getInt("nivel"), rs.getString("nombre"),
 						rs.getString("descripcion"),rs.getInt("fuerza"), rs.getInt("intelecto"), 
 						rs.getInt("destreza"),rs.getInt("vitalidad"), rs.getInt("ataqueFisico"), 
-						rs.getInt("ataqueMagico"),rs.getInt("defensaFisica"), rs.getInt("defensaMagica"));	
+						rs.getInt("ataqueMagico"),rs.getInt("defensaFisica"), rs.getInt("defensaMagica"),rs.getString("tipo"));	
 						
 				equipables.put(rs.getString("key"), aux);
 			}

@@ -1,7 +1,14 @@
 package dominio;
 
+import java.sql.SQLException;
+import java.util.Map;
+
 import org.junit.Assert;
 import org.junit.Test;
+
+import database.SQLiteJDBC;
+import habilidad.Habilidad;
+import item.ItemEquipo;
 import personaje.Personaje;
 import raza.PersonajePrueba;
 
@@ -21,64 +28,79 @@ public class EquipoTests {
 	 * VaritaMagica: 
 	 */
 	@Test
-	public void quePuedoAgregarAnillo() {
-
+	public void quePuedoAgregarAnillo() throws ClassNotFoundException, SQLException {
+		SQLiteJDBC.getInstance();
+		Map<String, ItemEquipo> equipables = SQLiteJDBC.obtenerEquipables();
 		Personaje dani = new PersonajePrueba("Dr.Coffee");
 		dani.obtenerPuntosDeDefensaFisica();
 		Assert.assertEquals( 0, dani.obtenerPuntosDeDefensaFisica());
 
-		dani.equipar( new AnilloDelDragon() );
+
+		dani.equipar( equipables.get("AnilloDragon") );
 		//El anillo aumenta 15 def
+		
+
 		Assert.assertEquals( 15, dani.obtenerPuntosDeDefensaFisica());
 
 	}
-	
+
+
 	@Test
-	public void quePuedoAgregarDosItem() {
+	public void quePuedoAgregarDosItem() throws ClassNotFoundException, SQLException {
+		SQLiteJDBC.getInstance();
+		Map<String, ItemEquipo> equipables = SQLiteJDBC.obtenerEquipables();
 		Personaje dani = new PersonajePrueba("Dr.Coffee");
 		//Equipo los dos anillos:
-		dani.equipar( new AnilloDelDragon() );	//	| 15+
-		dani.equipar( new EscudoDeMadera() );	// 	|  5
+		dani.equipar( equipables.get("AnilloDragon")  );	//	| 15+
+		dani.equipar( equipables.get("EscudoMadera")   );	// 	|  5
+		
+		System.out.println(dani.getItemEquipables());
 
 		Assert.assertEquals( 20 , dani.obtenerPuntosDeDefensaFisica());
 	}
 
 	@Test
-	public void quePuedoAgregarDosItemYQuitarUno() {
-			Personaje dani = new PersonajePrueba("Dr.Coffee");
-			dani.obtenerPuntosDeDefensaFisica();
-			Assert.assertEquals( 0, dani.obtenerPuntosDeDefensaFisica());
-			dani.equipar( new AnilloDelDragon() );  //		15 de defensa.
-			dani.equipar( new EscudoDeMadera()  );	//		5 de defensa.
+	public void quePuedoAgregarDosItemYQuitarUno() throws ClassNotFoundException, SQLException {
+		SQLiteJDBC.getInstance();
+		Map<String, ItemEquipo> equipables = SQLiteJDBC.obtenerEquipables();
+		Personaje dani = new PersonajePrueba("Dr.Coffee");
+		dani.obtenerPuntosDeDefensaFisica();
+		Assert.assertEquals( 0, dani.obtenerPuntosDeDefensaFisica());
+		dani.equipar( equipables.get("AnilloDragon")  );  //		15 de defensa.
+		dani.equipar(equipables.get("EscudoMadera")  );	//		5 de defensa.
 
-			Assert.assertEquals( 20 , dani.obtenerPuntosDeDefensaFisica());
-			// Saco el anillo 
-			dani.desequipar("anillo");
-			Assert.assertEquals( 5 , dani.obtenerPuntosDeDefensaFisica());
+		Assert.assertEquals( 20 , dani.obtenerPuntosDeDefensaFisica());
+		// Saco el anillo 
+		dani.desequipar("anillo");
+		Assert.assertEquals( 5 , dani.obtenerPuntosDeDefensaFisica());
 	}
 	@Test
-	public void quePuedoAgregarDosItemYQuitarDos() {
+	public void quePuedoAgregarDosItemYQuitarDos() throws ClassNotFoundException, SQLException {
+		SQLiteJDBC.getInstance();
+		Map<String, ItemEquipo> equipables = SQLiteJDBC.obtenerEquipables();
 		Personaje dani = new PersonajePrueba("Dr.Coffee");
 		dani.obtenerPuntosDeDefensaFisica();
 		//Equipo los dos anillos:
-		dani.equipar( new AnilloDelDragon() );
-		dani.equipar( new PaloDeEscobaMagico());
+		dani.equipar( equipables.get("AnilloDragon")  );
+		dani.equipar( equipables.get("PaloDeEscoba") );
 
 		// Saco los dos items
 		dani.desequipar("anillo");
 		dani.desequipar("armaDer");
-		
+
 		Assert.assertEquals("sinEquipo" , dani.verEquipo("anillo").toString() );
 		Assert.assertEquals("sinEquipo" , dani.verEquipo("armaDer").toString() );
-		
+
 	}
 
 
 	@Test
-	public void quePuedoAgregarYAtacar() {
+	public void quePuedoAgregarYAtacar() throws ClassNotFoundException, SQLException {
+		SQLiteJDBC.getInstance();
+		Map<String, ItemEquipo> equipables = SQLiteJDBC.obtenerEquipables();
 		Personaje dani = new PersonajePrueba("Dr.Coffee");
 
-		dani.equipar( new AnilloDelDragon() );
+		dani.equipar( equipables.get("AnilloDragon")  );
 		Personaje alex = new PersonajePrueba("Loco del tacho");
 		int salud = alex.getSaludActual();
 		dani.atacar(alex);
@@ -93,7 +115,7 @@ public class EquipoTests {
 	}
 	@Test
 	public void verEquipo(){
-	//	Personaje dani = new PersonajePrueba("Dr.Coffee");
+		//	Personaje dani = new PersonajePrueba("Dr.Coffee");
 
 	}
 
@@ -107,6 +129,6 @@ public class EquipoTests {
 	public void sacarEscudo(){
 
 	}
-	 
+
 }
 

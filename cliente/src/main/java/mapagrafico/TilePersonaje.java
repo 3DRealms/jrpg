@@ -49,8 +49,8 @@ public class TilePersonaje {
 		this.xInicio = this.xDestino = -x;  //alta logica wachin.
 		this.yInicio = this.yDestino =  -y; 
 		this.mouse = mouse;
-
-		spritePJ = Sprite.loadImage("src\\main\\resources\\mapas\\"+nombre+"\\04.png");
+																	//Aca va la raza
+		spritePJ = Sprite.loadImage("src\\main\\resources\\personajes\\"+pj.getSprite()+".png");
 		
 		this.nuevoRecorrido = false; // NO BORRAR.
 		// baicamente como le sumo (16,6) para que coicida con el 0,0 del mapa.
@@ -70,7 +70,6 @@ public class TilePersonaje {
 		g.setColor(Color.GREEN);
 		g.setFont(fuente);
 		g.drawString(nombre, xCentro+10, yCentro);
-		g.drawString("SALUD: "+pj.getSaludActual(), 320, 50);
 
 	}
 

@@ -10,6 +10,7 @@ public class ItemEquipo extends Item {
 	protected int ataqueMagico;  
 	protected int defensaFisica;
 	protected int defensaMagica;
+	protected String tipo;
 
 	public int getFuerza() {
 		return fuerza;
@@ -18,7 +19,7 @@ public class ItemEquipo extends Item {
 		return intelecto;
 	}
 	public ItemEquipo(String key, int nivel, String nombre, String descripcion, int fuerza, int intelecto, int destreza,
-			int vitalidad, int ataqueFisico, int ataqueMagico, int defensaFisica, int defensaMagica) {
+			int vitalidad, int ataqueFisico, int ataqueMagico, int defensaFisica, int defensaMagica,String tipo) {
 		super(key, nivel, nombre, descripcion);
 		this.fuerza = fuerza;
 		this.intelecto = intelecto;
@@ -28,6 +29,7 @@ public class ItemEquipo extends Item {
 		this.ataqueMagico = ataqueMagico;
 		this.defensaFisica = defensaFisica;
 		this.defensaMagica = defensaMagica;
+		this.tipo = tipo;
 	}
 	public ItemEquipo() {
 		super("noItem", 0, "Vacio", "Vacio");
@@ -39,6 +41,7 @@ public class ItemEquipo extends Item {
 		this.ataqueMagico = 0;
 		this.defensaFisica = 0;
 		this.defensaMagica = 0;
+		this.tipo = "sinEquipo";
 	}
 	
 	public int getDestreza() {
@@ -68,7 +71,7 @@ public class ItemEquipo extends Item {
 	 */
 	@Override
 	public String toString() {
-		return "sinEquipo";
+		return tipo;
 	}
 
 
