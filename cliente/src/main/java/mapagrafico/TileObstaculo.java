@@ -6,14 +6,12 @@ import sprites.Sprite;
 
 public class TileObstaculo extends Tile{
 
-	protected int anchoImagen;
-	protected int altoImagen;
+	protected int anchoImagen = 64;
+	protected int altoImagen = 64;
 
 
-	public TileObstaculo(int x, int y, int sprite,int anchoImagen,int altoImagen) {
+	public TileObstaculo(int x, int y, int sprite) {
 		super(x, y, sprite);
-		this.anchoImagen = anchoImagen;
-		this.altoImagen = altoImagen;
 	}
 
 	public void dibujar(Graphics2D g2d, int deltaX, int deltaY) {

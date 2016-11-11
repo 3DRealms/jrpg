@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 import juego.Camara;
 import juego.JuegoPanelTestBatalla;
 import mapagrafico.dijkstra.AlgoritmoDelTacho;
@@ -52,13 +53,13 @@ public class MapaGrafico {
 	private int xAnterior;
 	private int yAnterior;
 
-	private Grafo grafoDeObstaculo;
+	private Grafo grafoDeMapa;
 	AlgoritmoDelTacho dijkstra;
 	private List<Nodo> camino;
 	private Nodo nodoActual;
 
 	public MapaGrafico(String nombre,TilePersonaje pj) {
-		File path = new File("src\\main\\resources\\mapas\\"+nombre+".txt");
+		File path = new File("src\\main\\resources\\mapas\\"+nombre+".map");
 		this.pj = pj;
 		enMovimiento = false;
 		xActual = pj.getXDestino();
@@ -72,8 +73,8 @@ public class MapaGrafico {
 		try {
 			sc = new Scanner(path);
 		} catch (FileNotFoundException e) {
-			// no se encutra el mapa -nombre-
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "No se encuentra el mapa "+nombre+".map llamar al 0800-333-JUNIT");
+			System.exit(0);
 		}
 		this.id = sc.nextInt();
 		this.ancho=sc.nextInt();
@@ -95,21 +96,16 @@ public class MapaGrafico {
 			}
 		}
 		int obstaculo;
-		int anchoImagen;
-		int altoImagen;
 		for (int i = 0; i < ancho ; i++) {
 			for (int j = 0; j < alto; j++) {
 				obstaculo = sc.nextInt();
-				anchoImagen = sc.nextInt();
-				altoImagen = sc.nextInt();
-
 				obstaculos[i][j] = obstaculo>=1?true:false;
-				tilesObstaculo[i][j] = new TileObstaculo(i,j,obstaculo,anchoImagen,altoImagen);
+				tilesObstaculo[i][j] = new TileObstaculo(i,j,obstaculo);
 			}
 		}
 
 		sc.close();
-		grafoDeObstaculo = new Grafo( new MatrizBoolean(obstaculos, ancho, alto) );
+		grafoDeMapa = new Grafo( new MatrizBoolean(obstaculos, ancho, alto) );
 		camino = new LinkedList<Nodo>();
 		this.personajes=new HashMap<String,Personaje>();
 	}
@@ -117,6 +113,8 @@ public class MapaGrafico {
 
 	private void cargarSprite() {
 		load(sprites);
+		
+		//debo cargar al pj aca tambien ( las animaciones).
 		//Despues tendria que validar que encuentre el todo.
 		/*
 		if ( sprites.equals("exterior") ) 
@@ -138,18 +136,12 @@ public class MapaGrafico {
 	 */
 	private void load(String nombre) {
 		String recursos = "src\\main\\resources\\";
-
 		Sprite.inicializar(recursos+"mapas\\"+nombre+"\\piso.png",recursos+"personajes\\pj.png");
-
 		iluminacion = Sprite.loadImage("src\\main\\resources\\mapas\\99.png");
-
-
 	}
 
 	public boolean posicionValida(int x, int y){
 		return dentroDelMapa(-pj.getXDestino(),-pj.getYDestino()) && ! hayObstaculo(-pj.getXDestino(),-pj.getYDestino());
-
-
 	}
 
 	public boolean hayObstaculo(int x,int y){
@@ -183,13 +175,10 @@ public class MapaGrafico {
 		if( pj.getNuevoRecorrido() && posicionValida(-pj.getXDestino(),-pj.getYDestino()) )	{
 			dijkstra = new AlgoritmoDelTacho();
 			pj.mover();	
-			Nodo actual = grafoDeObstaculo.getNodo(-xActual, -yActual);
-			Nodo destino =  grafoDeObstaculo.getNodo(-pj.getXDestino(), -pj.getYDestino());
-			System.out.println(actual.toString());
-			System.out.println(destino.toString());
-			dijkstra.calcularDijkstra(grafoDeObstaculo, actual);
+			Nodo actual = grafoDeMapa.getNodo(-xActual, -yActual);
+			Nodo destino =  grafoDeMapa.getNodo(-pj.getXDestino(), -pj.getYDestino());
+			dijkstra.calcularDijkstra(grafoDeMapa, actual);
 			camino = dijkstra.obtenerCamino(destino);
-			System.out.println(camino);
 		}
 
 
@@ -239,6 +228,7 @@ public class MapaGrafico {
 		//Tiene que ser uno por uno entonces si cancelo termino el movimiento (sino se descuajaina todo).
 		x = tiles[0][0].getXIso(); // puedo agarrar el centro. pero por ahora asi.
 		y = tiles[0][0].getYIso();
+		
 		for (int i = 0; i <  alto; i++) { 
 			for (int j = 0; j < ancho ; j++) { 
 				tiles[i][j].mover(g2d,xActual + JuegoPanelTestBatalla.xOffCamara,yActual+JuegoPanelTestBatalla.yOffCamara);

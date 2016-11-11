@@ -41,7 +41,7 @@ public class JuegoPanel extends Component implements Runnable{
 		mouse = new Mouse();
 		addMouseListener(mouse);
 		pjDibujo = new TilePersonaje(1,1,4,pj,mouse);  //Pone las que quiera papu.
-		mapa = new MapaGrafico("map_castillo",pjDibujo);
+		mapa = new MapaGrafico("map_test",pjDibujo);
 		thread = new Thread(this);
 		thread.start();
 	}
