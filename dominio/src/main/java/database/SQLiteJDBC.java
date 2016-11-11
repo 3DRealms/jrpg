@@ -4,6 +4,9 @@ import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 import habilidad.*;
+import item.FactoriaItemLanzable;
+import item.ItemEquipo;
+import item.ItemLanzable;
 
 public class SQLiteJDBC
 {
@@ -76,6 +79,68 @@ public class SQLiteJDBC
 		}
 
 		return habilidades;
+	}
+	
+	public static Map<String,ItemLanzable> obtenerLanzables(){
+
+		Statement stmt = null;
+		Map<String,ItemLanzable> lanzables = new HashMap<String,ItemLanzable>();
+		try {
+
+			stmt = c.createStatement();
+
+			String consulta = "SELECT * FROM itemLanzable;";
+
+			ResultSet rs = stmt.executeQuery(consulta);
+
+			while ( rs.next() ) {
+				ItemLanzable aux = FactoriaItemLanzable.getItemLanzable(
+						rs.getString("key"), rs.getInt("nivel"),rs.getString("nombre"), rs.getString("descripcion"),
+						rs.getInt("cantEfecto"), rs.getString("efecto"),1, rs.getInt("velocidad"));
+
+				lanzables.put(rs.getString("key"), aux);
+			}
+
+			rs.close();
+			stmt.close();
+
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+		}
+
+		return lanzables;
+	}
+	
+	public static Map<String,ItemEquipo> obtenerEquipables(){
+
+		Statement stmt = null;
+		Map<String,ItemEquipo> equipables = new HashMap<String,ItemEquipo>();
+		try {
+
+			stmt = c.createStatement();
+
+			String consulta = "SELECT * FROM itemLanzable;";
+
+			ResultSet rs = stmt.executeQuery(consulta);
+
+			while ( rs.next() ) {
+				ItemEquipo aux = new ItemEquipo(
+						rs.getString("key"), rs.getInt("nivel"), rs.getString("nombre"),
+						rs.getString("descripcion"),rs.getInt("fuerza"), rs.getInt("intelecto"), 
+						rs.getInt("destreza"),rs.getInt("vitalidad"), rs.getInt("ataqueFisico"), 
+						rs.getInt("ataqueMagico"),rs.getInt("defensaFisica"), rs.getInt("defensaMagica"));	
+						
+				equipables.put(rs.getString("key"), aux);
+			}
+
+			rs.close();
+			stmt.close();
+
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+		}
+
+		return equipables;
 	}
 
 	public  boolean crearUsuario(String username, String password){

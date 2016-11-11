@@ -259,6 +259,8 @@ public class MapaGrafico {
 				if( puedoDibujarObstaculo(i, j)  ){
 					tilesObstaculo[i][j].mover(g2d,xActual+ JuegoPanel.xOffCamara,yActual+JuegoPanel.yOffCamara);
 				}
+				/*if(i != xActual && j != yActual)
+					pj.dibujarCentro(g2d);*/
 			}
 		}
 		g2d.drawImage( getImage(6), 0, 0 , null);	
