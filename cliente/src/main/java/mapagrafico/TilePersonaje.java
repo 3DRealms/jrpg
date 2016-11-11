@@ -3,20 +3,25 @@ package mapagrafico;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Image;
 
 import juego.JuegoPanel;
+import juego.JuegoPanel2;
 import juego.Mouse;
+import personaje.Personaje;
+import sprites.Sprite;
 
 public class TilePersonaje {
 	
 	public final static int ANCHO = 64;
 	public final static int ALTO = 32;
-	private int sprite;
+	private static Image spritePJ;
 	public final int xCentro;
 	public final int yCentro;
 	private String nombre;
 	private Mouse mouse;
 	// Posiciones
+	Personaje pj;
 	private int xInicio;
 	private int yInicio;
 	private int xDestino;
@@ -35,26 +40,23 @@ public class TilePersonaje {
 
 
 
-	public TilePersonaje(int x, int y, int sprite,String nombre,Mouse mouse) {
+	public TilePersonaje(int x, int y, int sprite,Personaje pj,Mouse mouse) {
 		this.xCentro = 320;
 		this.yCentro = 320;
-		this.sprite = sprite;
-		this.nombre = nombre;	
+		//this.sprite = sprite;
+		this.pj = pj;
+		this.nombre = pj.getNombre();	
 		this.xInicio = this.xDestino = -x;  //alta logica wachin.
 		this.yInicio = this.yDestino =  -y; 
 		this.mouse = mouse;
+
+		spritePJ = Sprite.loadImage("src\\main\\resources\\mapas\\"+nombre+"\\04.png");
+		
 		this.nuevoRecorrido = false; // NO BORRAR.
 		// baicamente como le sumo (16,6) para que coicida con el 0,0 del mapa.
 
 	}
 
-	public void setxInicio(int xInicio) {
-		this.xInicio = xInicio;
-	}
-
-	public void setyInicio(int yInicio) {
-		this.yInicio = yInicio;
-	}
 
 	/**
 	 * Ver si le mando las coordenadas donde  esto al personaje.
@@ -62,12 +64,13 @@ public class TilePersonaje {
 	 * @param deltaX
 	 * @param deltaY
 	 */
-	public void dibujarCentro(Graphics g) {
-		g.drawImage( MapaGrafico.getImage(sprite), xCentro, yCentro, null);
+	public void dibujarCentro(Graphics g) {  // Aca puedo dibujar el HUD.
+		g.drawImage( spritePJ ,xCentro, yCentro, null);
 		Font fuente=new Font("Arial", Font.BOLD, 16);
 		g.setColor(Color.GREEN);
 		g.setFont(fuente);
-		g.drawString(nombre, xCentro+17, yCentro);
+		g.drawString(nombre, xCentro+10, yCentro);
+		g.drawString("SALUD: "+pj.getSaludActual(), 320, 50);
 
 	}
 
@@ -80,8 +83,7 @@ public class TilePersonaje {
 			setNuevoRecorrido(true);
 			xDestino = xInicio - posMouse[0] + JuegoPanel.xOffCamara;
 			yDestino = yInicio - posMouse[1] + JuegoPanel.yOffCamara;
-			
-
+			mouse.setRecorrido(false); 
 			
 			//esto es para animaciones no le des bola:
 			/*
@@ -113,7 +115,6 @@ public class TilePersonaje {
 				}
 			}
 			 */
-			mouse.setRecorrido(false); 
 		//	enMovimiento = true;// Cuando llego a destino tengo que poner esto en false
 		}
 
@@ -138,14 +139,14 @@ public class TilePersonaje {
 		yInicio = yDestino;	
 		setNuevoRecorrido(false); // cuando me muevo ya no es nuevo recorrido.
 	}
+
 		
 	public void setNuevoRecorrido(boolean bs){
 		this.nuevoRecorrido = bs;
 	}
 	
 	public boolean getNuevoRecorrido() {
-		return nuevoRecorrido;
-		
+		return nuevoRecorrido;	
 	}
 
 }

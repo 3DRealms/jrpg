@@ -390,8 +390,7 @@ public abstract class Personaje implements Atacable {
 	public  boolean lanzarItem(String item, Personaje personaje){
 		ItemLanzable  i = mochilaItemLanzable.get(item);
 		if(i != null ){
-			i.afectar(personaje);
-			i.usar();
+			i.usar(personaje);
 			if(i.getCantidad() == 0)
 				this.mochilaItemLanzable.remove(item);
 			return true;
@@ -643,14 +642,6 @@ public abstract class Personaje implements Atacable {
 		ubicacion = pun;
 	}
 	
-	/*
-	public void setSprite(String path) {
-		sprite = new Sprite(path);
-	}
-	public void putSprite(Graphics2D g2d) {
-		sprite.putSprite(g2d, ubicacion.getX(), ubicacion.getY());
-	}
-	*/
 	public void defenderse() {
 		enDefensa = true;
 

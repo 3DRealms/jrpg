@@ -2,10 +2,6 @@ package dominio;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import itemEquipo.AnilloDelDragon;
-import itemEquipo.EscudoDeMadera;
-import itemEquipo.PaloDeEscobaMagico;
 import personaje.Personaje;
 import raza.PersonajePrueba;
 

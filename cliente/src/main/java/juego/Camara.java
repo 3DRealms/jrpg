@@ -3,12 +3,12 @@ package juego;
 public class Camara {
 	public static final int ANCHO = 800;
 	public static final int ALTO = 600;
-	
-	public int xOffCamara; 
-	public int yOffCamara; 
-	
-	public Camara(int ancho, int alto, int xCamara, int yCamara) {
 
+	public int xOffCamara;
+	public int yOffCamara; 
+
+	public Camara(int ancho, int alto, int xCamara, int yCamara) {
+		
 		int x0 = xCamara; //ancho/2
 		int y0 = yCamara;
 
@@ -23,9 +23,16 @@ public class Camara {
 
 		auxX /= 32;
 		auxY /= 32;
-		
+
 		xOffCamara = auxX; 
 		yOffCamara = auxY;
 	}
 
+	public int getxOffCamara() {
+		return xOffCamara;
+	}
+
+	public int getyOffCamara() {
+		return yOffCamara;
+	}
 }

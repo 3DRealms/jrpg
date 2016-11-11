@@ -13,6 +13,7 @@ import mapa.Punto;
 public class Nodo {
 	private Punto pos;
 	List<Nodo> nodosAdyacentes;
+	private int peso = 1;
 
 	// esto capaz vuele.
 	public Nodo(final Punto pos) {
@@ -42,9 +43,9 @@ public class Nodo {
 
 	@Override
 	public String toString() {
-		String aux = "Nodo" + pos + ": ";
-		for (Nodo nodo : nodosAdyacentes)
-			aux += nodo.pos.toString() + " ";
+		String aux = pos + ": ";
+	//	for (Nodo nodo : nodosAdyacentes)
+	//		aux += nodo.pos.toString() + " ";
 		return aux;
 	}
 
