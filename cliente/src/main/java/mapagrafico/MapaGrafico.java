@@ -109,12 +109,9 @@ public class MapaGrafico {
 			}
 		}
 
+		sc.close();
 		grafoDeObstaculo = new Grafo( new MatrizBoolean(obstaculos, ancho, alto) );
 		camino = new LinkedList<Nodo>();
-
-
-
-		sc.close();
 		this.personajes=new HashMap<String,Personaje>();
 	}
 
@@ -195,7 +192,6 @@ public class MapaGrafico {
 			Nodo actual = grafoDeObstaculo.getNodo(xAnterior, yAnterior);
 			Nodo destino =  grafoDeObstaculo.getNodo(xActual, yActual);
 			
-			System.out.println("de aca: "+actual.toString() + " a aca: "+destino);
 			dijkstra.calcularDijkstra(grafoDeObstaculo, actual);
 			camino = dijkstra.obtenerCamino(destino);
 			System.out.println(camino);

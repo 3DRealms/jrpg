@@ -44,8 +44,8 @@ public class AlgoritmoDelTacho {
 
 		for (Nodo vecino : actual.nodosAdyacentes) {
 			if (!yaVisitado(vecino)) {
-				if (obtenerDistancia(vecino) > obtenerDistancia(actual) + 1) {
-					distancias.put(vecino, obtenerDistancia(actual) + 1);
+				if (obtenerDistancia(vecino) > obtenerDistancia(actual) + actual.getPeso(vecino)) {
+					distancias.put(vecino, obtenerDistancia(actual) + actual.getPeso(vecino));
 					predecesores.put(vecino, actual);
 					pendientes.add(vecino);
 				}

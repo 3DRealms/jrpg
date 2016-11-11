@@ -14,7 +14,7 @@ import mapa.Punto;
 public class Nodo {
 	private Punto pos;
 	List<Nodo> nodosAdyacentes;
-	private int peso = 1;
+	private int peso;
 
 	// esto capaz vuele.
 	public Nodo(final Punto pos) {
@@ -50,6 +50,13 @@ public class Nodo {
 		return aux;
 	}
 
+	public String toStrong() {
+		String aux = pos+"";
+		for (Nodo nodo : nodosAdyacentes)
+			aux += nodo.pos.toString() + " ";
+		return aux;
+	}
+
 	public Nodo clone() {
 		Nodo n2 = new Nodo(this.getPunto());
 		n2.nodosAdyacentes = new ArrayList<>();
@@ -82,6 +89,17 @@ public class Nodo {
 		
 		return false;
 	}
+
+	public int getPeso(Nodo vecino) {
+		if( noEsDiagonal(vecino) )
+			return 2;
+		return 3;
+	}
+
+	private boolean noEsDiagonal(Nodo vecino) {
+		return this.getPunto().getX() == vecino.getPunto().getX() || this.getPunto().getY() == vecino.getPunto().getY() ;
+	}
+	
 
 
 }
