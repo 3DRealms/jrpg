@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import personaje.Personaje;
-import raza.Orco;
+import raza.Gordo;
 import raza.PersonajePrueba;
 
 public class AtaquesSobrePersonajesTest {
@@ -27,7 +27,7 @@ public class AtaquesSobrePersonajesTest {
 	}
 	@Test
 	public void serAtacadoFisicoConDefenza() {
-		Personaje dani = new Orco("PistolaLoca");
+		Personaje dani = new Gordo("PistolaLoca");
 		//El Orco tiene 15 puntos de defensa.
 		int saludDani = dani.getSaludActual();
 		//Lo ataco y verifico que le quito esa energia.
@@ -36,7 +36,7 @@ public class AtaquesSobrePersonajesTest {
 	}
 	@Test
 	public void serAtacadoMagicoConDefenza() {
-		Personaje dani = new Orco("PistolaLoca");
+		Personaje dani = new Gordo("PistolaLoca");
 		//El Orco tiene 5 puntos de defensa.
 		int saludDani = dani.getSaludActual();
 		//Lo ataco y verifico que le quito esa energia.

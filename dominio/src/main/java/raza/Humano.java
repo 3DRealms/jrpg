@@ -14,6 +14,7 @@ public class Humano extends Personaje {
 		this.defensaMagica = 7;
 		this.saludActual = calcularSaludTotal();
 		this.energiaActual = calcularEnergiaTotal();
+		this.tipoRaza = "humano";
 	}
 	
 	@Override

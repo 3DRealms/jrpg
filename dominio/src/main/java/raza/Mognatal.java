@@ -14,6 +14,8 @@ public class Mognatal extends Personaje {
 		this.defensaMagica = 15;
 		this.saludActual = calcularSaludTotal();
 		this.energiaActual = calcularEnergiaTotal();
+		this.tipoRaza = "mognatal";
+
 	}
 
 	@Override

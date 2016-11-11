@@ -2,12 +2,9 @@ package dominio;
 
 import java.sql.SQLException;
 import java.util.Map;
-
 import org.junit.Assert;
 import org.junit.Test;
-
 import database.SQLiteJDBC;
-import habilidad.Habilidad;
 import item.ItemEquipo;
 import personaje.Personaje;
 import raza.PersonajePrueba;

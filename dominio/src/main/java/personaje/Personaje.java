@@ -33,6 +33,12 @@ public abstract class Personaje implements Atacable {
 	protected String tipoCasta;
 	protected String tipoRaza;
 	
+	public String getTipoCasta() {
+		return tipoCasta;
+	}
+	public String getTipoRaza() {
+		return tipoRaza;
+	}
 	public Personaje(Personaje pj) {
 		this.nombre = pj.nombre;
 		this.saludBase = pj.saludBase;
@@ -294,12 +300,15 @@ public abstract class Personaje implements Atacable {
 
 	//Por ahora seria asi: ( y creo que va a quedar asi).
 	public void setCastaMago() {
+		this.tipoCasta = "mago";
 		this.casta = new Mago();
 	}
 	public void setCastaLoroMaster() {
+		this.tipoCasta = "loromaster";
 		this.casta = new LoroMaster();
 	}
 	public void setCastaGuerrero(){
+		this.tipoCasta = "guerrero";
 		this.casta = new Guerrero();
 	}
 	

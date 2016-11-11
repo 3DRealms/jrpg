@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import personaje.Personaje;
 import raza.Humano;
-import raza.Orco;
+import raza.Gordo;
 
 public class ItemsTest {
 	@Test
@@ -19,7 +19,7 @@ public class ItemsTest {
 	public void quePuedoLanzarUnItem() {
 		Personaje coffee = new Humano("El Dani turritu");
 		coffee.guardarItem("balaMagicaDePasty", new BalaMagicaDePatsy(1));
-		Personaje locoDelTecho = new Orco("El alex tontis");
+		Personaje locoDelTecho = new Gordo("El alex tontis");
 		int saludLocoDelTecho = locoDelTecho.getSaludActual();
 		coffee.lanzarItem("balaMagicaDePasty", locoDelTecho);
 		//SI DICE LOCO DEL TECHO!
