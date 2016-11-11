@@ -19,6 +19,8 @@ import javax.swing.JPasswordField;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class Registro extends JDialog {
 
@@ -26,6 +28,8 @@ public class Registro extends JDialog {
 	private JTextField userField;
 	private JPasswordField passwordField;
 	private JPasswordField password2Field;
+	private JComboBox razaBox;
+	private JComboBox castaBox;
 
 	/**
 	 * Launch the application.
@@ -91,6 +95,32 @@ public class Registro extends JDialog {
 			}
 		}
 		{
+			JPanel panel = new JPanel();
+			contentPanel.add(panel);
+			{
+				JLabel lblRaza = new JLabel("Raza: ");
+				panel.add(lblRaza);
+			}
+			{
+				razaBox = new JComboBox();
+				razaBox.setModel(new DefaultComboBoxModel(new String[] {"Humano", "Orco", "Mognatal"}));
+				panel.add(razaBox);
+			}
+		}
+		{
+			JPanel panel = new JPanel();
+			contentPanel.add(panel);
+			{
+				JLabel lblCasta = new JLabel("Casta: ");
+				panel.add(lblCasta);
+			}
+			{
+				castaBox = new JComboBox();
+				castaBox.setModel(new DefaultComboBoxModel(new String[] {"Guerrero", "LoroMaster", "Mago"}));
+				panel.add(castaBox);
+			}
+		}
+		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
@@ -122,11 +152,19 @@ public class Registro extends JDialog {
 		String user = userField.getText();
 		String pass = String.valueOf(passwordField.getPassword());
 		String pass2 = String.valueOf(password2Field.getPassword());
+		String casta = (String) castaBox.getSelectedItem();
+		String raza = (String) razaBox.getSelectedItem();
+		
+		casta = casta.toLowerCase();
+		raza = raza.toLowerCase();
+		
 		if(pass.equals(pass2)){
 			Cliente client;
+
+			
 			try {
 				client = new Cliente(user);
-				MensajeConfirmacion men = client.enviarRegistro(user, pass);
+				MensajeConfirmacion men = client.enviarRegistro(user, pass, casta, raza);
 				if(men.isConfirmado()){
 					JOptionPane.showMessageDialog(null, "Registrado");
 					dispose();
@@ -138,6 +176,7 @@ public class Registro extends JDialog {
 				e.printStackTrace();
 				JOptionPane.showMessageDialog(null, "Error de conexion");
 			}
+		
 		}
 		else{
 			JOptionPane.showMessageDialog(null, "Las claves no coinciden");

@@ -176,9 +176,9 @@ public class SQLiteJDBC
 		
 		try {			
 			stmt = c.createStatement();
-			String sql = "UPDATE jugadores SET json = " +
+			String sql = "UPDATE jugadores SET json = '" +
 					gson.toJson(per) +
-					" WHERE username = '"+per.getNombre()+"';"; 
+					"' WHERE username = '"+per.getNombre()+"';"; 
 			
 			stmt.executeUpdate(sql);
 			

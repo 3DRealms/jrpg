@@ -5,6 +5,7 @@ package servidor;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import mapa.Mapa;
 import mapa.Punto;
@@ -54,6 +55,32 @@ public class Canal {
 				cliente.enviarMensaje(men);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
+				e.printStackTrace();
+				
+				this.quitarCliente(cliente);
+				
+				try {
+					cliente.cerrar();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					//e1.printStackTrace();
+				}
+			}
+			
+		
+		
+	}
+	}
+	
+	public void enviarPosicionesACliente(SocketCliente cliente){
+		 Map<String,Punto> personajes = map.obtenerPosiciones();
+		for(String key : personajes.keySet())
+		{
+			
+			try {
+				cliente.enviarMensaje(new MensajeMovimiento(personajes.get(key), key, nombre));
+			} catch (IOException e) {
+
 				e.printStackTrace();
 				
 				this.quitarCliente(cliente);

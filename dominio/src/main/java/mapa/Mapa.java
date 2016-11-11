@@ -33,6 +33,17 @@ public class Mapa {
 	public void agregarPersonaje(Personaje per, String nombre){
 		personajes.put(nombre, per);
 	}
+	
+	public Map<String,Punto> obtenerPosiciones(){
+		Map<String,Punto> pers = new HashMap<String,Punto>();
+		
+		for (String key : personajes.keySet()) {
+	        pers.put(key,personajes.get(key).getUbicacion());
+	    }
+		
+		
+		return pers;
+	}
 
 
 }

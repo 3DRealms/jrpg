@@ -65,9 +65,10 @@ public class ThreadEscuchar extends Thread{
 					cliente.enviarMensajeConfirmacion(true, "");
 					cliente.setUsuario(men.getUsername());
 					Personaje per = sqcon.getPersonaje(men.getUsername());
-					if(per != null){
+					if(per != null){						
 						jugadores.agregarCliente(cliente, per);					
 						escuchar(jugadores);
+						new ThreadEnviarPosicionesIniciales(jugadores, cliente).start();
 					}
 					else{
 						cliente.enviarMensajeConfirmacion(false, "Hay un error con su cuenta.");

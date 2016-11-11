@@ -86,9 +86,9 @@ public class Cliente {
 
 	}
 
-	public MensajeConfirmacion enviarRegistro(String user, String pass) throws IOException {
+	public MensajeConfirmacion enviarRegistro(String user, String pass, String casta, String raza) throws IOException {
 
-		enviarObjeto(new MensajeAutenticacion(usuario,pass,true));
+		enviarObjeto(new MensajeAutenticacion(usuario,pass,true,casta,raza));
 		return this.pedirConfirmacion();
 
 
