@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 
 import juego.JuegoPanel;
+import juego.JuegoPanel2;
 import juego.Mouse;
 import personaje.Personaje;
 import sprites.Sprite;
@@ -20,6 +21,7 @@ public class TilePersonaje {
 	private String nombre;
 	private Mouse mouse;
 	// Posiciones
+	Personaje pj;
 	private int xInicio;
 	private int yInicio;
 	private int xDestino;
@@ -42,6 +44,7 @@ public class TilePersonaje {
 		this.xCentro = 320;
 		this.yCentro = 320;
 		//this.sprite = sprite;
+		this.pj = pj;
 		this.nombre = pj.getNombre();	
 		this.xInicio = this.xDestino = -x;  //alta logica wachin.
 		this.yInicio = this.yDestino =  -y; 
@@ -61,12 +64,13 @@ public class TilePersonaje {
 	 * @param deltaX
 	 * @param deltaY
 	 */
-	public void dibujarCentro(Graphics g) {
+	public void dibujarCentro(Graphics g) {  // Aca puedo dibujar el HUD.
 		g.drawImage( spritePJ ,xCentro, yCentro, null);
 		Font fuente=new Font("Arial", Font.BOLD, 16);
 		g.setColor(Color.GREEN);
 		g.setFont(fuente);
-		g.drawString(nombre, xCentro+17, yCentro);
+		g.drawString(nombre, xCentro+10, yCentro);
+		g.drawString("SALUD: "+pj.getSaludActual(), 320, 50);
 
 	}
 
