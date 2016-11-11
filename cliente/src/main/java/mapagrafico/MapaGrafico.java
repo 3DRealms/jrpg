@@ -12,7 +12,6 @@ import java.util.Map;
 import java.util.Scanner;
 import juego.Camara;
 import juego.JuegoPanel;
-import mapa.Punto;
 import mapagrafico.dijkstra.AlgoritmoDelTacho;
 import mapagrafico.dijkstra.Grafo;
 import mapagrafico.dijkstra.MatrizBoolean;
@@ -181,17 +180,13 @@ public class MapaGrafico {
 	}
 
 	public void actualizar() {
-
 		if( pj.getNuevoRecorrido() && posicionValida(-pj.getXDestino(),-pj.getYDestino()) )	{
+			dijkstra = new AlgoritmoDelTacho();
 			pj.mover();	
-			xAnterior = -xActual;
-			yAnterior = -yActual;
-			xActual = -pj.getXDestino();
-			yActual = -pj.getYDestino();
-
-			Nodo actual = grafoDeObstaculo.getNodo(xAnterior, yAnterior);
-			Nodo destino =  grafoDeObstaculo.getNodo(xActual, yActual);
-			
+			Nodo actual = grafoDeObstaculo.getNodo(-xActual, -yActual);
+			Nodo destino =  grafoDeObstaculo.getNodo(-pj.getXDestino(), -pj.getYDestino());
+			System.out.println(actual.toString());
+			System.out.println(destino.toString());
 			dijkstra.calcularDijkstra(grafoDeObstaculo, actual);
 			camino = dijkstra.obtenerCamino(destino);
 			System.out.println(camino);

@@ -50,13 +50,6 @@ public class Nodo {
 		return aux;
 	}
 
-	public String toStrong() {
-		String aux = pos+"";
-		for (Nodo nodo : nodosAdyacentes)
-			aux += nodo.pos.toString() + " ";
-		return aux;
-	}
-
 	public Nodo clone() {
 		Nodo n2 = new Nodo(this.getPunto());
 		n2.nodosAdyacentes = new ArrayList<>();
