@@ -46,10 +46,10 @@ public class MapaGrafico {
 
 	protected Camara cam;
 
-	private int xDestino;
-	private int yDestino;
 	private int xActual;
 	private int yActual;
+	private int xAnterior;
+	private int yAnterior;
 
 	private Grafo grafoDeObstaculo;
 	private List<Nodo> camino;
@@ -59,10 +59,10 @@ public class MapaGrafico {
 		File path = new File("src\\main\\resources\\mapas\\"+nombre+".txt");
 		this.pj = pj;
 		enMovimiento = false;
-		xDestino = pj.getXDestino();
-		yDestino = pj.getYDestino();
-		xActual = -xDestino;
-		yActual = -yDestino;
+		xActual = pj.getXDestino();
+		yActual = pj.getYDestino();
+		xAnterior = -xActual;
+		yAnterior = -yActual;
 
 		this.nombre = nombre;
 		spriteMapa = new Image[7];
@@ -96,13 +96,13 @@ public class MapaGrafico {
 		int obstaculo;
 		int anchoImagen;
 		int altoImagen;
-		
+
 		for (int i = 0; i < ancho ; i++) {
 			for (int j = 0; j < alto; j++) {
 				obstaculo = sc.nextInt();
 				anchoImagen = sc.nextInt();
 				altoImagen = sc.nextInt();
-				
+
 				obstaculos[i][j] = obstaculo>=1?true:false;
 				tilesObstaculo[i][j] = new TileObstaculo(i,j,obstaculo,anchoImagen,altoImagen);
 			}
@@ -138,8 +138,8 @@ public class MapaGrafico {
 	private void load(String nombre) {
 		String relativo = "src\\main\\resources\\mapas\\";
 		Sprite.inicializar(relativo+nombre+"\\piso.png",relativo+nombre+"\\pj.png");
-		
-		
+
+
 		spriteMapa[0] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\00.png");
 		spriteMapa[1] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\01.png");
 		spriteMapa[2] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\02.png");
@@ -147,7 +147,7 @@ public class MapaGrafico {
 		spriteMapa[4] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\04.png");
 		spriteMapa[5] = loadImage("src\\main\\resources\\mapas\\"+nombre+"\\05.png");
 		spriteMapa[6] = loadImage("src\\main\\resources\\mapas\\99.png");
-		
+
 
 	}
 
@@ -196,23 +196,26 @@ public class MapaGrafico {
 
 		if( pj.getNuevoRecorrido() && posicionValida(-pj.getXDestino(),-pj.getYDestino()) )	{
 			pj.mover();
-			xDestino = pj.getXDestino();
-			yDestino = pj.getYDestino();
-			camino = grafoDeObstaculo.getCamino(xActual,yActual,-pj.getXDestino(),-pj.getYDestino());
+
+			System.out.println("a: "+ xAnterior+" : "+yAnterior +"   d:" +-xActual+" : "+-yActual);
+			xAnterior = -xActual;
+			yAnterior = -yActual; // Anterior
+			xActual = pj.getXDestino();
+			yActual = pj.getYDestino();
+			//		camino = grafoDeObstaculo.getCamino(xActual,yActual,-pj.getXDestino(),-pj.getYDestino());
 		}
-		if( !enMovimiento && ! camino.isEmpty())
-			moverUnPaso();
+		//		if( !enMovimiento && ! camino.isEmpty())
+		//			moverUnPaso();
 	}
 
-	private void moverUnPaso() {
+	private void moverUnPaso() { // Esto tengo que ver, pero lo que hace es mover paso a paso por el camino del DI kjsoihyoas TRAMMMMMMMMMMM
 		System.out.println(camino);
 		nodoActual = camino.get(0);
-		
-		xActual = -xDestino;
-		yActual = -yDestino;
-		
-		xDestino = -nodoActual.getPunto().getX();
-		yDestino = -nodoActual.getPunto().getY();
+
+		xAnterior = -xActual;
+		yAnterior = -yActual;
+		xActual = -nodoActual.getPunto().getX();
+		yActual = -nodoActual.getPunto().getY();
 		camino.remove(0);
 
 	}
@@ -230,12 +233,12 @@ public class MapaGrafico {
 		g2d.clearRect(0, 0, 810, 610);		
 		for (int i = 0; i <  alto; i++) { 
 			for (int j = 0; j < ancho ; j++) { 
-				tiles[i][j].dibujar(g2d,xDestino+JuegoPanel.xOffCamara,yDestino+JuegoPanel.yOffCamara);
-				if(i == xActual && j == yActual)
-					pj.dibujarCentro(g2d);			
-				System.out.println(i+" : "+j);
-				if( tilesObstaculo[i][j].sprite > 1  ){
-					tilesObstaculo[i][j].dibujar(g2d,xDestino+ JuegoPanel.xOffCamara,yDestino+JuegoPanel.yOffCamara);
+				tiles[i][j].dibujar(g2d,xActual+JuegoPanel.xOffCamara,yActual+JuegoPanel.yOffCamara);
+				if( puedoDibujarPJ(g2d, i, j))
+					pj.dibujarCentro(g2d);
+
+				if( puedoDibujarObstaculo(i, j)  ){
+					tilesObstaculo[i][j].dibujar(g2d,xActual+ JuegoPanel.xOffCamara,yActual+JuegoPanel.yOffCamara);
 				}
 			}
 		}
@@ -244,23 +247,33 @@ public class MapaGrafico {
 	public void mover(Graphics2D g2d) {
 		g2d.setBackground(Color.BLACK);
 		g2d.clearRect(0, 0, 810, 610);		
-		
+
 		//Tiene que ser uno por uno entonces si cancelo termino el movimiento (sino se descuajaina todo).
 		x = tiles[0][0].getXIso(); // puedo agarrar el centro. pero por ahora asi.
 		y = tiles[0][0].getYIso();
 		for (int i = 0; i <  alto; i++) { 
 			for (int j = 0; j < ancho ; j++) { 
-				tiles[i][j].mover(g2d,xDestino + JuegoPanel.xOffCamara,yDestino+JuegoPanel.yOffCamara);
-				if(i == xActual && j == yActual)
+				tiles[i][j].mover(g2d,xActual + JuegoPanel.xOffCamara,yActual+JuegoPanel.yOffCamara);
+				if( puedoDibujarPJ(g2d, i, j))
 					pj.dibujarCentro(g2d);
-				if( tilesObstaculo[i][j].sprite > 1  ){
-					tilesObstaculo[i][j].mover(g2d,xDestino+ JuegoPanel.xOffCamara,yDestino+JuegoPanel.yOffCamara);
+				if( puedoDibujarObstaculo(i, j)  ){
+					tilesObstaculo[i][j].mover(g2d,xActual+ JuegoPanel.xOffCamara,yActual+JuegoPanel.yOffCamara);
 				}
 			}
 		}
 		g2d.drawImage( getImage(6), 0, 0 , null);	
 		termino();
 	}
+
+
+	private boolean puedoDibujarObstaculo(int i, int j) {
+		return tilesObstaculo[i][j].sprite > 1; // Si es 0 no dibujo y si es uno TAMPOCO, porque seria un obstaculo trasparente.
+	}
+
+
+	private boolean puedoDibujarPJ(Graphics2D g2d, int i, int j) {
+		return  i == -xActual && j == -yActual || i == xAnterior &&  j == yAnterior || i == -xActual && j == yAnterior ||  i == xAnterior && j == -yActual;
+	}  
 
 	private void termino() {
 		if ( x == tiles[0][0].getXIso() && y == tiles[0][0].getYIso() )
