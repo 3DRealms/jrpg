@@ -1,72 +1,113 @@
 package mapagrafico.dijkstra;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
 
-public class AlgoritmoDelTacho {
 
-	protected Nodo origen;
+public class AlgoritmoDelTacho {
+	/**
+	 * Bienvenidos al algoritmo de Dijkstra, sin m
+	 * recuestese, sus asientos flotaran suavemente.
+	 * @param
+	 */
 	protected Nodo actualW;
-	protected Nodo proximoNodo;
-	protected int distanciaActual;
-	protected ArrayList<Nodo> predecesores = new ArrayList<Nodo>();
-	protected ArrayList<Nodo> V = new ArrayList<Nodo>();
-	protected ArrayList<Nodo> S = new ArrayList<Nodo>();
-	private Map<Nodo, Integer> costoDesdeOrigen = new HashMap<Nodo,Integer >();
+	protected Nodo aux;
+	protected Map<Nodo,Nodo> predecesores; 
+	protected ArrayList<Nodo> pendientes; 
+	protected ArrayList<Nodo> solucion; 
+	private Map<Nodo, Integer> distancias = new HashMap<Nodo, Integer>(); 
 
 	public void calcularDijkstra(Grafo grafo, Nodo inicial) {
+		predecesores = new HashMap<Nodo,Nodo>();
+		
+		pendientes = new ArrayList<Nodo>();
+		solucion = new ArrayList<Nodo>();
 
-		origen = inicial;
-		int distanciaC=1;
+		distancias.put(inicial, 0); 
+		pendientes.add(inicial);
+	
+		while (pendientes.size() > 0) { 
+			actualW = obtenerMinimo(pendientes); 
+			solucion.add(actualW); 
+			pendientes.remove(actualW);  
+			encontrarDistanciasMinimas(actualW);  
 
-		cargarConjuntoV(grafo,inicial);
-		actualW = inicial;
+		}
 
-		while(!V.isEmpty()){
-			for(Nodo vecino : actualW.nodosAdyacentes){
-				if(V.contains(vecino)){
+	}
 
-					if(costoDesdeOrigen.get(vecino) !=null)
-						distanciaActual =  costoDesdeOrigen.get(vecino)+distanciaC ;
-					else
-						distanciaActual = distanciaC;
+	public void encontrarDistanciasMinimas(Nodo actual) {
 
-					if(costoDesdeOrigen.get(vecino)== null || distanciaActual < costoDesdeOrigen.get(vecino)){
-						costoDesdeOrigen.replace(vecino, costoDesdeOrigen.get(vecino), distanciaActual);
-						predecesores.add(actualW);
-					} 
+		for (Nodo vecino : actual.nodosAdyacentes) {
+			if (!yaVisitado(vecino)) {
+				if (obtenerDistancia(vecino) > obtenerDistancia(actual) + 1) {
+					distancias.put(vecino, obtenerDistancia(actual) + 1);
+					predecesores.put(vecino, actual);
+					pendientes.add(vecino);
 				}
 			}
 
-			V.remove(actualW);
-			proximoNodo = minimoNoVisitado(V);
-
-			if(proximoNodo == null)
-				return;
-
-			actualW = proximoNodo;
 		}
 
 	}
 
-	public void cargarConjuntoV(Grafo grafo, Nodo inicial){
-		//HACER UN GET PARA LA LISTA DE NODOS
-		for(Nodo nodo: grafo.getListaNodos()){
-			if(nodo != inicial)
-				V.add(nodo.clone());
-			costoDesdeOrigen.put(nodo, null);
+	public Nodo obtenerMinimo(ArrayList<Nodo> nodosAdy) {
+		Nodo minimo = null;
+
+		for (Nodo nodo : nodosAdy) {
+			if (minimo == null) {
+				minimo = nodo;
+			} else if (obtenerDistancia(nodo) < obtenerDistancia(minimo))
+				minimo = nodo;
 		}
-
+		return minimo;
 	}
 
-	public Nodo minimoNoVisitado(ArrayList<Nodo> lista){	
-		return null;
+	private int obtenerDistancia(Nodo nodo) {
+		Integer distancia = distancias.get(nodo);
+		if (distancia == null)
+			return Integer.MAX_VALUE;
+
+		return distancia;
 	}
 
-	public ArrayList<Nodo> getPredecesores() {
+	public Map<Nodo,Nodo> getPredecesores() {
 		return predecesores;
 	}
-}
 
+	public boolean yaVisitado(Nodo nodo) {
+		return solucion.contains(nodo);
+	}
+	
+	public LinkedList<Nodo> obtenerCamino(Nodo destino){
+		LinkedList<Nodo> camino = new LinkedList<Nodo>();
+		Nodo nodito = destino;
+		if(predecesores.get(nodito)==null)
+		return null;
+		
+		camino.add(nodito);
+		while(predecesores.get(nodito)!=null){
+			nodito = predecesores.get(nodito);
+			camino.add(nodito);
+			
+		}
+		
+		Collections.reverse(camino);
+		return camino;
+	}
+	
+	public void mostrarCamino(Nodo destino){
+		LinkedList<Nodo> camino = obtenerCamino(destino);
+		if(camino==null)
+			return;
+		
+		for (int i = 0; i < camino.size(); i++) {
+			System.out.println(camino.get(i).getPunto());
+		}
+	}
+
+}
