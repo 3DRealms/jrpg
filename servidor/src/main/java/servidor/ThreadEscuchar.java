@@ -6,7 +6,11 @@ import java.util.List;
 import java.util.Map;
 
 import database.SQLiteJDBC;
+import mapa.Punto;
 import mensaje.*;
+import personaje.FactoriaPersonaje;
+import personaje.Personaje;
+import raza.Humano;
 
 
 
@@ -22,7 +26,6 @@ public class ThreadEscuchar extends Thread{
 		try {
 			sqcon = SQLiteJDBC.getInstance();
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -43,7 +46,12 @@ public class ThreadEscuchar extends Thread{
 			if(men.isRegistro()){
 				if(sqcon.crearUsuario(men.getUsername(), men.getPassword())){
 					//si los datos son para un nuevo registro sigo con el mismo
-					cliente.enviarMensajeConfirmacion(true, "");									
+					Personaje newper = FactoriaPersonaje.getPersonaje(men.getUsername(), "humano", "mago");
+					newper.setUbicacion(6, 6);
+					if(sqcon.guardarPersonaje(newper))
+						cliente.enviarMensajeConfirmacion(true, "");
+					else
+						cliente.enviarMensajeConfirmacion(false, "Error al crear el personaje, intentelo nuevamente");
 				}
 				else{
 					//sino le digo el nombre de usuario ya existe
@@ -55,8 +63,16 @@ public class ThreadEscuchar extends Thread{
 					
 					//si el mensaje era para loguearse y cumple la autenticacion lo uno al juego
 					cliente.enviarMensajeConfirmacion(true, "");
-					//jugadores.agregarCliente(cliente);					
-					//escuchar(jugadores);
+					cliente.setUsuario(men.getUsername());
+					Personaje per = sqcon.getPersonaje(men.getUsername());
+					if(per != null){
+						jugadores.agregarCliente(cliente, per);					
+						escuchar(jugadores);
+					}
+					else{
+						cliente.enviarMensajeConfirmacion(false, "Hay un error con su cuenta.");
+					}
+					
 				}
 				else{
 					//le muestro un error que los datos son incorrectos
@@ -85,8 +101,9 @@ public class ThreadEscuchar extends Thread{
 		while(conetado){
 			
 			try {
-				Mensaje mens = new Mensaje(cliente.getUsuario(),cliente.pedirMensaje().getMensaje());
-				new ThreadEnviar(can, mens).start();
+				MensajeInteraccion mens = cliente.pedirMensajeInteraccion();
+				if(mens.isMovimiento())
+					new ThreadEnviarMovimiento(can, mens).start();
 			} catch (IOException e) {				
 				e.printStackTrace();
 				can.quitarCliente(cliente);

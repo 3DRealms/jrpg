@@ -17,7 +17,7 @@ import database.SQLiteJDBC;
 
 public class Servidor extends Thread{
 	
-	private Canal jugadores = new Canal("General");
+	private Canal jugadores = new Canal("General", 200,200);
 	private int puerto;
 	
 	Servidor() throws IOException, ClassNotFoundException, SQLException{

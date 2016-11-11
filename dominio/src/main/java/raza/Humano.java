@@ -17,6 +17,10 @@ public class Humano extends Personaje {
 		this.tipoRaza = "humano";
 	}
 	
+	public Humano(Personaje per) {
+		super(per);
+	}
+
 	@Override
 	public  int calcularSaludTotal(){
 		return saludBase+getVitalidad()*4; // cada 5 puntos da 20 de vida.

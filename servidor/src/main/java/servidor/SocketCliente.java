@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.net.Socket;
 
 import com.google.gson.Gson;
+
+import mapa.Punto;
 import mensaje.*;
 
 
@@ -65,6 +67,26 @@ public class SocketCliente {
 	
 	public void enviarMensajeConfirmacion(boolean estado,String mensaje) throws IOException{
 		this.enviarMensaje(new MensajeConfirmacion(estado, mensaje));
+	}
+	
+	public void enviarMensajePosicion(Punto punto,String personaje, String mapa) throws IOException{
+		this.enviarMensaje(new MensajeMovimiento(punto, personaje, mapa));
+	}
+
+	public MensajeInteraccion pedirMensajeInteraccion() throws IOException {
+		DataInputStream lectura = new DataInputStream(
+				cliente.getInputStream());
+		String leido = lectura.readUTF();
+		Gson gson = new Gson();
+		MensajeInteraccion men = gson.fromJson(leido, MensajeInteraccion.class);
+		if(men.isMovimiento())
+			return gson.fromJson(leido, MensajeMovimiento.class);
+		if(men.isAccion())
+			return men;
+		if(men.isCombate())
+			return men;
+		
+		return null;
 	}
 	
 	

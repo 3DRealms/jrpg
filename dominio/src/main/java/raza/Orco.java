@@ -18,6 +18,10 @@ public class Orco extends Personaje {
 		this.tipoRaza = "orco";
 	}
 	
+	public Orco(Personaje per) {
+		super(per);
+	}
+
 	@Override
 	public  int calcularSaludTotal(){
 		return saludBase+getVitalidad()*5; // cada 5 puntos da 25 de vida.

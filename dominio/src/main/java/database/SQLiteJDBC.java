@@ -3,10 +3,16 @@ package database;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.google.gson.Gson;
+
 import habilidad.*;
 import item.FactoriaItemLanzable;
 import item.ItemEquipo;
 import item.ItemLanzable;
+import mensaje.Mensaje;
+import personaje.FactoriaPersonaje;
+import personaje.Personaje;
 
 public class SQLiteJDBC
 {
@@ -161,9 +167,30 @@ public class SQLiteJDBC
 			return false;
 		}
 			return true;
+	}
+	
+	public boolean guardarPersonaje(Personaje per){
+		Statement stmt = null;
 
-
-
+		final Gson gson = new Gson();		
+		
+		try {			
+			stmt = c.createStatement();
+			String sql = "UPDATE jugadores SET json = " +
+					gson.toJson(per) +
+					" WHERE username = '"+per.getNombre()+"';"; 
+			
+			stmt.executeUpdate(sql);
+			
+			stmt.close();
+			c.commit();
+			
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+			return false;
+		}
+			return true;
+		
 	}
 	
 	public void cerrar(){
@@ -180,4 +207,31 @@ public class SQLiteJDBC
 	      }
 	      return instance;
 	   }
+
+	public Personaje getPersonaje(String username) {
+		Statement stmt = null;
+		username = username.toLowerCase();
+		Personaje resultado = null;
+		try {
+
+			stmt = c.createStatement();
+
+			String consulta = "SELECT json FROM jugadores WHERE username = '"+username+"' LIMIT 1;";
+
+			ResultSet rs = stmt.executeQuery(consulta);
+			if(rs.next()){
+				Gson gson = new Gson();
+				resultado = FactoriaPersonaje.reconstruirPersonaje(gson.fromJson(rs.getString("json"), Personaje.class));
+			}
+			rs.close();
+			stmt.close();
+			
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+			return null;
+		}
+
+		return resultado;
+		
+	}
 }

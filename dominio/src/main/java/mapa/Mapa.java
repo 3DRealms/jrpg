@@ -16,12 +16,10 @@ public class Mapa {
 	protected String nombre;
 
 	protected Map<String,Personaje> personajes;
-	protected int id;
 
-
-	public Mapa(String nombre, int id, int alto, int ancho) {
+	public Mapa(String nombre, int alto, int ancho) {
+		
 		this.nombre = nombre;
-		this.id = id;
 		this.ancho=ancho;
 		this.alto=alto;
 		this.personajes=new HashMap<String,Personaje>();
@@ -30,6 +28,10 @@ public class Mapa {
 
 	public void actualizar() {
 
+	}
+	
+	public void agregarPersonaje(Personaje per, String nombre){
+		personajes.put(nombre, per);
 	}
 
 

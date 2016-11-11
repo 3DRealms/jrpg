@@ -18,6 +18,10 @@ public class Mognatal extends Personaje {
 
 	}
 
+	public Mognatal(Personaje per) {
+		super(per);
+	}
+
 	@Override
 	public  int calcularSaludTotal(){
 		return saludBase+getVitalidad()*3; // cada 5 puntos da 15 de vida.
