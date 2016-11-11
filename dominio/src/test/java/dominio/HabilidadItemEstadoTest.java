@@ -8,8 +8,7 @@ import org.junit.Test;
 
 import database.SQLiteJDBC;
 import habilidad.Habilidad;
-import itemEquipo.PaloDeEscobaMagico;
-import itemEquipo.VaritaMagica;
+import item.ItemEquipo;
 import personaje.Personaje;
 import raza.Mognatal;
 import raza.PersonajePrueba;
@@ -20,6 +19,7 @@ public class HabilidadItemEstadoTest {
 	public void equipoSubeIntelectoYAtaco() throws ClassNotFoundException, SQLException {
 		SQLiteJDBC.getInstance();
 		Map<String, Habilidad> habilidades = SQLiteJDBC.obtenerHabilidades();
+
 		Personaje braian = new Mognatal("gandalf");
 	
 		braian.setCastaMago();

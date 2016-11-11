@@ -66,8 +66,8 @@ public class JuegoPanel2 extends Component implements Runnable{
 
 	public void actualizar() {
 		mouse.actualizar(); 
-		mapa.actualizar();
 		pj.actualizar();
+		mapa.actualizar();
 	}
 
 	public void paint(Graphics g) {

@@ -272,7 +272,6 @@ public class MapaGrafico {
 		return tilesObstaculo[i][j].sprite > 1; // Si es 0 no dibujo y si es uno TAMPOCO, porque seria un obstaculo trasparente.
 	}
 
-
 	private boolean puedoDibujarPJ(Graphics2D g2d, int i, int j) {
 		return  i == -xActual && j == -yActual || i == xAnterior &&  j == yAnterior || i == -xActual && j == yAnterior ||  i == xAnterior && j == -yActual;
 	}  
