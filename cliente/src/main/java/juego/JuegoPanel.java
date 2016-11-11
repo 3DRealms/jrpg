@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import javax.swing.JFrame;
 import mapagrafico.MapaGrafico;
 import mapagrafico.TilePersonaje;
+import raza.PersonajePrueba;
 
 
 @SuppressWarnings("serial")
@@ -42,7 +43,7 @@ public class JuegoPanel extends Component implements Runnable{
 		addMouseListener(mouse);
 		mapa = new MapaGrafico("map4",pj);
 		
-		pj = new TilePersonaje(1,1,4,"DANI",mouse); //Pone las que quiera papu.
+		pj = new TilePersonaje(1,1,4,new PersonajePrueba("wacho"),mouse); //Pone las que quiera papu.
 		thread = new Thread(this);
 		thread.start();
 	}
