@@ -116,7 +116,7 @@ public class TestDijkstra {
 		Grafo g = new Grafo(obstaculos);
 		
 		prueba.calcularDijkstra(g, g.getNodo(0, 3));
-		//prueba.mostrarCamino(g.getNodo(3, 3));
+		System.out.println(prueba.mostrarCamino(g.getNodo(3, 3)));
 		
 		//System.out.println(prueba.predecesores);
 		
@@ -245,4 +245,6 @@ public class TestDijkstra {
 		//System.out.println(g);
 		
 	}
+
+
 }

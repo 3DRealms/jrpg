@@ -37,7 +37,6 @@ public class Sprite {
 				else
 					piso[k] =  hoja.cortar(ancho*i, alto*j, ancho, altoObjeto);
 				k++;
-				System.out.println(i+" "+j);
 			}
 		}
 

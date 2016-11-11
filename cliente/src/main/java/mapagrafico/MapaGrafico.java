@@ -5,14 +5,15 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import javax.swing.ImageIcon;
 import juego.Camara;
 import juego.JuegoPanel;
+import mapa.Punto;
+import mapagrafico.dijkstra.AlgoritmoDelTacho;
 import mapagrafico.dijkstra.Grafo;
 import mapagrafico.dijkstra.MatrizBoolean;
 import mapagrafico.dijkstra.Nodo;
@@ -53,6 +54,7 @@ public class MapaGrafico {
 	private int yAnterior;
 
 	private Grafo grafoDeObstaculo;
+	AlgoritmoDelTacho dijkstra;
 	private List<Nodo> camino;
 	private Nodo nodoActual;
 
@@ -64,7 +66,7 @@ public class MapaGrafico {
 		yActual = pj.getYDestino();
 		xAnterior = -xActual;
 		yAnterior = -yActual;
-
+		dijkstra = new AlgoritmoDelTacho();
 		this.nombre = nombre;
 
 		Scanner sc = null;
@@ -107,8 +109,8 @@ public class MapaGrafico {
 			}
 		}
 
-		grafoDeObstaculo = new Grafo(new MatrizBoolean(obstaculos, ancho, alto));
-		camino = new ArrayList<Nodo>();
+		grafoDeObstaculo = new Grafo( new MatrizBoolean(obstaculos, ancho, alto) );
+		camino = new LinkedList<Nodo>();
 
 
 
@@ -127,7 +129,7 @@ public class MapaGrafico {
 			load("test");
 		else
 			System.exit(1);
-			*/
+		 */
 	}
 
 	public boolean EnMovimiento() {
@@ -140,9 +142,9 @@ public class MapaGrafico {
 	 */
 	private void load(String nombre) {
 		String recursos = "src\\main\\resources\\";
-		
+
 		Sprite.inicializar(recursos+"mapas\\"+nombre+"\\piso.png",recursos+"personajes\\pj.png");
-		
+
 		iluminacion = Sprite.loadImage("src\\main\\resources\\mapas\\99.png");
 
 
@@ -184,23 +186,29 @@ public class MapaGrafico {
 	public void actualizar() {
 
 		if( pj.getNuevoRecorrido() && posicionValida(-pj.getXDestino(),-pj.getYDestino()) )	{
-			pj.mover();
-
-			System.out.println("a: "+ xAnterior+" : "+yAnterior +"   d:" +-xActual+" : "+-yActual);
+			pj.mover();	
 			xAnterior = -xActual;
-			yAnterior = -yActual; // Anterior
-			xActual = pj.getXDestino();
-			yActual = pj.getYDestino();
-			//		camino = grafoDeObstaculo.getCamino(xActual,yActual,-pj.getXDestino(),-pj.getYDestino());
+			yAnterior = -yActual;
+			xActual = -pj.getXDestino();
+			yActual = -pj.getYDestino();
+
+			Nodo actual = grafoDeObstaculo.getNodo(xAnterior, yAnterior);
+			Nodo destino =  grafoDeObstaculo.getNodo(xActual, yActual);
+			
+			System.out.println("de aca: "+actual.toString() + " a aca: "+destino);
+			dijkstra.calcularDijkstra(grafoDeObstaculo, actual);
+			camino = dijkstra.obtenerCamino(destino);
+			System.out.println(camino);
 		}
-		//		if( !enMovimiento && ! camino.isEmpty())
-		//			moverUnPaso();
+
+
+
+		if( !enMovimiento && camino != null && ! camino.isEmpty() )
+			moverUnPaso();
 	}
 
 	private void moverUnPaso() { // Esto tengo que ver, pero lo que hace es mover paso a paso por el camino del DI kjsoihyoas TRAMMMMMMMMMMM
-		System.out.println(camino);
 		nodoActual = camino.get(0);
-
 		xAnterior = -xActual;
 		yAnterior = -yActual;
 		xActual = -nodoActual.getPunto().getX();

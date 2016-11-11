@@ -6,7 +6,6 @@ import java.awt.Graphics;
 import java.awt.Image;
 
 import juego.JuegoPanel;
-import juego.JuegoPanel2;
 import juego.Mouse;
 import personaje.Personaje;
 import sprites.Sprite;

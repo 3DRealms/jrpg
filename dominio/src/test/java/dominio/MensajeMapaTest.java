@@ -10,7 +10,7 @@ import personaje.Personaje;
 import raza.PersonajePrueba;
 
 public class MensajeMapaTest {
-	
+/*	
 	@Test
 	public void casoAgregoYMuevoporMensaje(){
 		Mapa mapa1 = new Mapa("map1",1,800,800);
@@ -48,5 +48,5 @@ public class MensajeMapaTest {
 		ubAct = alex.getUbicacion();
 		Assert.assertTrue(ubAct.getX() == 10 && ubAct.getY() == 9);				
 	}
-
+*/
 }

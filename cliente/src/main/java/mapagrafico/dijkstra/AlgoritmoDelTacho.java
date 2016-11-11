@@ -50,9 +50,7 @@ public class AlgoritmoDelTacho {
 					pendientes.add(vecino);
 				}
 			}
-
 		}
-
 	}
 
 	public Nodo obtenerMinimo(ArrayList<Nodo> nodosAdy) {
@@ -100,14 +98,16 @@ public class AlgoritmoDelTacho {
 		return camino;
 	}
 	
-	public void mostrarCamino(Nodo destino){
+	public String mostrarCamino(Nodo destino){
 		LinkedList<Nodo> camino = obtenerCamino(destino);
+		String aux = "";
 		if(camino==null)
-			return;
+			return aux;
 		
 		for (int i = 0; i < camino.size(); i++) {
-			System.out.println(camino.get(i).getPunto());
+			aux += " " + camino.get(i).getPunto();
 		}
+		return aux;
 	}
 
 }

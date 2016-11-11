@@ -1,6 +1,7 @@
 package mapagrafico.dijkstra;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import mapa.Punto;
@@ -9,7 +10,6 @@ public class Grafo {
 
 	private ArrayList<Nodo> nodos;
 	private Nodo[][] nodosVistados;
-	AlgoritmoDelTacho d;
 	//	private AlgoritmoDelTacho d;
 
 	/*
@@ -23,7 +23,6 @@ public class Grafo {
 	public Grafo(MatrizBoolean obstaculos) {
 		this.nodos  = new ArrayList<Nodo>();
 		nodosVistados = new Nodo[obstaculos.getFilas()][obstaculos.getColumnas()];
-		d = new AlgoritmoDelTacho();
 		Nodo actual;
 		for (int i = 0; i < obstaculos.getFilas(); i++) {    	// Recorro la matriz (filas)
 			for (int j = 0; j < obstaculos.getFilas(); j++) {	// Recorro la matriz (columna)
@@ -105,6 +104,7 @@ public class Grafo {
 	public List<Nodo> getListaNodos() {
 		return this.nodos;
 	}
+
 
 
 
