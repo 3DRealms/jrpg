@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import juego.Camara;
-import juego.JuegoPanel;
+import juego.JuegoPanelTestBatalla;
 import mapagrafico.dijkstra.AlgoritmoDelTacho;
 import mapagrafico.dijkstra.Grafo;
 import mapagrafico.dijkstra.MatrizBoolean;
@@ -221,12 +221,12 @@ public class MapaGrafico {
 		g2d.clearRect(0, 0, 810, 610);		
 		for (int i = 0; i <  alto; i++) { 
 			for (int j = 0; j < ancho ; j++) { 
-				tiles[i][j].dibujar(g2d,xActual+JuegoPanel.xOffCamara,yActual+JuegoPanel.yOffCamara);
+				tiles[i][j].dibujar(g2d,xActual+JuegoPanelTestBatalla.xOffCamara,yActual+JuegoPanelTestBatalla.yOffCamara);
 				if( puedoDibujarPJ(g2d, i, j))
 					pj.dibujarCentro(g2d);
 
 				if( puedoDibujarObstaculo(i, j)  ){
-					tilesObstaculo[i][j].dibujar(g2d,xActual+ JuegoPanel.xOffCamara,yActual+JuegoPanel.yOffCamara);
+					tilesObstaculo[i][j].dibujar(g2d,xActual+ JuegoPanelTestBatalla.xOffCamara,yActual+JuegoPanelTestBatalla.yOffCamara);
 				}
 			}
 		}
@@ -241,11 +241,11 @@ public class MapaGrafico {
 		y = tiles[0][0].getYIso();
 		for (int i = 0; i <  alto; i++) { 
 			for (int j = 0; j < ancho ; j++) { 
-				tiles[i][j].mover(g2d,xActual + JuegoPanel.xOffCamara,yActual+JuegoPanel.yOffCamara);
+				tiles[i][j].mover(g2d,xActual + JuegoPanelTestBatalla.xOffCamara,yActual+JuegoPanelTestBatalla.yOffCamara);
 				if( puedoDibujarPJ(g2d, i, j))
 					pj.dibujarCentro(g2d);
 				if( puedoDibujarObstaculo(i, j)  ){
-					tilesObstaculo[i][j].mover(g2d,xActual+ JuegoPanel.xOffCamara,yActual+JuegoPanel.yOffCamara);
+					tilesObstaculo[i][j].mover(g2d,xActual+ JuegoPanelTestBatalla.xOffCamara,yActual+JuegoPanelTestBatalla.yOffCamara);
 				}
 				/*if(i != xActual && j != yActual)
 					pj.dibujarCentro(g2d);*/

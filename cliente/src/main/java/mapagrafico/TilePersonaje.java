@@ -5,7 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 
-import juego.JuegoPanel;
+import juego.JuegoPanelTestBatalla;
 import juego.Mouse;
 import personaje.Personaje;
 import sprites.Sprite;
@@ -79,8 +79,8 @@ public class TilePersonaje {
 		if (mouse.getRecorrido()) {
 			
 			setNuevoRecorrido(true);
-			xDestino = xInicio - posMouse[0] + JuegoPanel.xOffCamara;
-			yDestino = yInicio - posMouse[1] + JuegoPanel.yOffCamara;
+			xDestino = xInicio - posMouse[0] + JuegoPanelTestBatalla.xOffCamara;
+			yDestino = yInicio - posMouse[1] + JuegoPanelTestBatalla.yOffCamara;
 			mouse.setRecorrido(false); 
 			
 			//esto es para animaciones no le des bola:
