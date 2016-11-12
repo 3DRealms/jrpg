@@ -92,7 +92,7 @@ public abstract class Personaje implements Atacable {
 		itemEquipado.put("armadura", new ItemEquipo());
 		itemEquipado.put("casco", new ItemEquipo());
 		
-		ubicacion = new Punto(0,0);
+		ubicacion = new Punto(1,1); // esto tiene que ser seteado por el servidor, posiblemente en el costructor. 
 		this.equipo = new EquipoJugadores();
 	}
 	

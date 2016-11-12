@@ -1,12 +1,7 @@
-	package juego;
+package juego;
 
 
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-
-import mapa.Punto;
-import raza.PersonajePrueba;
 import ventana.Autenticar;
 
 public class Juego {
@@ -16,6 +11,8 @@ public class Juego {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
