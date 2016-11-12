@@ -233,12 +233,11 @@ public class SQLiteJDBC
 				gsonBuilder.registerTypeAdapter(Equipo.class, new EquipoInstanceCreator()); 
 				Gson gson = gsonBuilder.create();
 				String stringRes = rs.getString("json");
-				System.out.println(stringRes);
+
 				resultado = gson.fromJson(stringRes, Personaje.class);
 				resultado = FactoriaPersonaje.reconstruirPersonaje(resultado);
 				
-				final Gson gson2 = new Gson();
-				System.out.println(gson.toJson(resultado));
+
 			}
 			rs.close();
 			stmt.close();

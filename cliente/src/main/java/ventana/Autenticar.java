@@ -11,6 +11,7 @@ import cliente.Cliente;
 import juego.JuegoPanel;
 import mapa.Punto;
 import mensaje.MensajeConfirmacion;
+import personaje.Personaje;
 import raza.PersonajePrueba;
 
 import java.awt.FlowLayout;
@@ -31,21 +32,6 @@ public class Autenticar extends JFrame {
 	private JPasswordField claveField;
 	
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Autenticar frame = new Autenticar();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -117,7 +103,8 @@ public class Autenticar extends JFrame {
 			if(men.isConfirmado()){
 				//JOptionPane.showMessageDialog(null, "Logueado");
 				//ACA ABRO EL PUTO JUEGO
-				abrirJuego();
+				Personaje personaje = client.pedirPersonaje();
+				abrirJuego(personaje);
 				
 				//no te olvides de abrirlo
 				
@@ -135,10 +122,10 @@ public class Autenticar extends JFrame {
 		
 	}
 	
-	private void abrirJuego(){
+	private void abrirJuego(Personaje per){
 		JFrame ventana=new JFrame("El señor de los aniloros"); //Ventana comun
 		
-		ventana.add(new JuegoPanel(ventana,new Punto(1,1),new PersonajePrueba("Dani")) ); //Dentro de la ventana pongo el juego.
+		ventana.add(new JuegoPanel(ventana,per.getUbicacion(),per) ); //Dentro de la ventana pongo el juego.
 		
 		ventana.pack(); //hace que el tamaño se ajuste al tamaño preferido y diseños de sus subcomponentes.
 

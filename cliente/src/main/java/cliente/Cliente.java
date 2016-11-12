@@ -10,8 +10,15 @@ import java.net.UnknownHostException;
 import java.util.Properties;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
+import casta.Casta;
+import gson.CastaInstanceCreator;
+import gson.EquipoInstanceCreator;
+import gson.PersonajeInstanceCreator;
+import interfaces.Equipo;
 import mensaje.*;
+import personaje.Personaje;
 
 public class Cliente {
 
@@ -85,6 +92,21 @@ public class Cliente {
 		return gson.fromJson(lectura.readUTF(), MensajeConfirmacion.class);
 
 	}
+
+	public Personaje pedirPersonaje() throws IOException{
+		DataInputStream lectura = new DataInputStream(
+				cliente.getInputStream());
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.registerTypeAdapter(Casta.class, new CastaInstanceCreator()); 
+		gsonBuilder.registerTypeAdapter(Personaje.class, new PersonajeInstanceCreator()); 
+		gsonBuilder.registerTypeAdapter(Equipo.class, new EquipoInstanceCreator()); 
+		Gson gson = gsonBuilder.create();
+		String lect = lectura.readUTF();
+		System.out.println(lect);
+		return gson.fromJson(lect, Personaje.class);
+
+	}
+	
 
 	public MensajeConfirmacion enviarRegistro(String user, String pass, String casta, String raza) throws IOException {
 
