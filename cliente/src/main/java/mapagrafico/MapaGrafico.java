@@ -177,7 +177,7 @@ public class MapaGrafico {
 			pj.mover();	
 			Nodo actual = grafoDeMapa.getNodo(-xActual, -yActual);
 			Nodo destino =  grafoDeMapa.getNodo(-pj.getXDestino(), -pj.getYDestino());
-			dijkstra.calcularDijkstra(grafoDeMapa, actual);
+			dijkstra.calcularDijkstra(grafoDeMapa, actual,destino);
 			camino = dijkstra.obtenerCamino(destino);
 		}
 

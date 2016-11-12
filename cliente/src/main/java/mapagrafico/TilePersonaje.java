@@ -7,6 +7,7 @@ import java.awt.Image;
 
 import juego.JuegoPanelTestBatalla;
 import juego.Mouse;
+import mapa.Punto;
 import personaje.Personaje;
 import sprites.Sprite;
 
@@ -39,16 +40,16 @@ public class TilePersonaje {
 
 
 
-	public TilePersonaje(int x, int y, int sprite,Personaje pj,Mouse mouse) {
+	public TilePersonaje(Punto p,Personaje pj,Mouse mouse) {
 		this.xCentro = 320;
 		this.yCentro = 320;
 		//this.sprite = sprite;
 		this.pj = pj;
 		this.nombre = pj.getNombre();	
-		this.xInicio = this.xDestino = -x;  //alta logica wachin.
-		this.yInicio = this.yDestino =  -y; 
+		this.xInicio = this.xDestino = -p.getX();  //alta logica wachin.
+		this.yInicio = this.yDestino =  -p.getY(); 
 		this.mouse = mouse;
-																	//Aca va la raza
+																		//Aca va la raza
 		spritePJ = Sprite.loadImage("src\\main\\resources\\personajes\\"+pj.getSprite()+".png");
 		
 		this.nuevoRecorrido = false; // NO BORRAR.

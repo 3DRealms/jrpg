@@ -4,7 +4,9 @@ import mapagrafico.dijkstra.AlgoritmoDelTacho;
 import mapagrafico.dijkstra.Grafo;
 import mapagrafico.dijkstra.MatrizBoolean;
 
+import org.junit.Assert;
 import org.junit.Test;
+
 
 public class TestDijkstra {
 	
@@ -29,9 +31,7 @@ public class TestDijkstra {
 		AlgoritmoDelTacho prueba = new AlgoritmoDelTacho();
 		int n = 3;
 		boolean[][] m = new boolean[n][n];
-		m[1][1]= true; //hay ostaculo
-		m[1][2]= true; //hay ostaculo
-		
+	
 		MatrizBoolean obstaculos = new MatrizBoolean(m, n, n);
 		Grafo g = new Grafo(obstaculos);
 		
@@ -39,7 +39,9 @@ public class TestDijkstra {
 		 * despues hago los asserts no jodas gordo
 		 */
 		
-		prueba.calcularDijkstra(g, g.getNodo(0, 2));
+		prueba.calcularDijkstra(g, g.getNodo(0, 2), g.getNodo(0, 0));
+		
+		Assert.assertNotEquals(null, prueba.obtenerCamino(g.getNodo(0, 0)));
 		
 		//prueba.mostrarCamino(g.getNodo(2, 2));
 		
@@ -53,7 +55,7 @@ public class TestDijkstra {
 		
 	}
 	
-	
+	/*
 	@Test
 	public void prueba2(){
 		
@@ -246,5 +248,5 @@ public class TestDijkstra {
 		
 	}
 
-
+*/
 }

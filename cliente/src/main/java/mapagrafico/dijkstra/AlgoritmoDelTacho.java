@@ -21,7 +21,7 @@ public class AlgoritmoDelTacho {
 	protected ArrayList<Nodo> solucion; 
 	private Map<Nodo, Integer> distancias = new HashMap<Nodo, Integer>(); 
 
-	public void calcularDijkstra(Grafo grafo, Nodo inicial) {
+	public void calcularDijkstra(Grafo grafo, Nodo inicial,Nodo destino) {
 		predecesores = new HashMap<Nodo,Nodo>();
 		
 		pendientes = new ArrayList<Nodo>();
@@ -32,6 +32,8 @@ public class AlgoritmoDelTacho {
 	
 		while (pendientes.size() > 0) { 
 			actualW = obtenerMinimo(pendientes); 
+			if(actualW == destino) // Ultra optimizacion :) 
+				break;
 			solucion.add(actualW); 
 			pendientes.remove(actualW);  
 			encontrarDistanciasMinimas(actualW);  

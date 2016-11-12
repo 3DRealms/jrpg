@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JFrame;
+
+import mapa.Punto;
 import mapagrafico.MapaGrafico;
 import mapagrafico.TilePersonaje;
 import raza.PersonajePrueba;
@@ -43,7 +45,7 @@ public class JuegoPanelTestBatalla extends Component implements Runnable{
 		addMouseListener(mouse);
 		mapa = new MapaGrafico("map4",pj);
 		
-		pj = new TilePersonaje(1,1,4,new PersonajePrueba("wacho"),mouse); //Pone las que quiera papu.
+		pj = new TilePersonaje(new Punto(1,2),new PersonajePrueba("wacho"),mouse); //Pone las que quiera papu.
 		thread = new Thread(this);
 		thread.start();
 	}
@@ -73,7 +75,7 @@ public class JuegoPanelTestBatalla extends Component implements Runnable{
 			}
 			
 			if (deltaaa > 100) {
-				JuegoPanel a = new JuegoPanel(padre);
+				JuegoPanel a = new JuegoPanel(padre,new Punto(1,1));
 				padre.add(a);
 				padre.remove(this);
 				padre.revalidate();

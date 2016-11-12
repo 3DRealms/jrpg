@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JFrame;
+
+import mapa.Punto;
 import mapagrafico.MapaGrafico;
 import mapagrafico.TilePersonaje;
 import personaje.Personaje;
@@ -32,16 +34,15 @@ public class JuegoPanel extends Component implements Runnable{
 	
 	private boolean jugar = true;
 
-	public JuegoPanel(JFrame padre) {
-		pj = new PersonajePrueba("El Dani");
+	public JuegoPanel(JFrame padre,Punto spaw, Personaje pj) {
 		this.padre = padre;
 		setPreferredSize(new Dimension(ANCHO, ALTO));
 		setFocusable(true);
 		requestFocus();
 		mouse = new Mouse();
 		addMouseListener(mouse);
-		pjDibujo = new TilePersonaje(1,1,4,pj,mouse);  //Pone las que quiera papu.
-		mapa = new MapaGrafico("map_test",pjDibujo);
+		pjDibujo = new TilePersonaje(spaw,pj,mouse);  //Pone las que quiera papu.
+		mapa = new MapaGrafico("map_castillo",pjDibujo);
 		thread = new Thread(this);
 		thread.start();
 	}
