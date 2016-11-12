@@ -4,9 +4,9 @@ package mensaje;
 public class MensajeInteraccion {
 	
 
-	private String emisor;
+	protected String emisor;
 	
-	private String tipo;
+	protected String tipo;
 
 	public MensajeInteraccion(String emisor, String tipo) {
 		this.emisor = emisor;

@@ -35,7 +35,7 @@ public class Canal {
 		canal.add(cliente);
 		map.agregarPersonaje(per, cliente.getUsuario());
 		cliente.enviarMensajePosicion(per.getUbicacion(), cliente.getUsuario(), "mapa4");
-		
+
 	}
 	
 	public String toString(){

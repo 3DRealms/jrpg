@@ -21,6 +21,10 @@ public class Humano extends Personaje {
 		super(per);
 	}
 
+	public Humano() {
+		super();
+	}
+
 	@Override
 	public  int calcularSaludTotal(){
 		return saludBase+getVitalidad()*4; // cada 5 puntos da 20 de vida.

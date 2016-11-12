@@ -46,7 +46,7 @@ public class ThreadEscuchar extends Thread{
 			if(men.isRegistro()){
 				if(sqcon.crearUsuario(men.getUsername(), men.getPassword())){
 					//si los datos son para un nuevo registro sigo con el mismo
-					Personaje newper = FactoriaPersonaje.getPersonaje(men.getUsername(), "humano", "mago");
+					Personaje newper = FactoriaPersonaje.getPersonaje(men.getUsername(), men.getRaza(), men.getCasta());
 					newper.setUbicacion(6, 6);
 					if(sqcon.guardarPersonaje(newper))
 						cliente.enviarMensajeConfirmacion(true, "");

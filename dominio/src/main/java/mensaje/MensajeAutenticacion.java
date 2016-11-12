@@ -36,5 +36,11 @@ public class MensajeAutenticacion {
 	public boolean isRegistro() {
 		return registro;
 	}
+	public String getCasta() {
+		return casta;
+	}
+	public String getRaza() {
+		return raza;
+	}
 
 }

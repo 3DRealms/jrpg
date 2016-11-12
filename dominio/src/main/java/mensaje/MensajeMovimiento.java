@@ -4,9 +4,9 @@ import mapa.Punto;
 
 public class MensajeMovimiento extends MensajeInteraccion{
 	
-	private Punto pos;
-	private String emisor;
-	private String mapa;
+	protected Punto pos;
+
+	protected String mapa;
 	
 	public Punto getPos() {
 		return pos;

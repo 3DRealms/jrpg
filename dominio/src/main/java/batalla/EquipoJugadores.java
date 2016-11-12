@@ -12,7 +12,7 @@ import personaje.Personaje;
 public class EquipoJugadores implements Equipo{
 
 	private List<Personaje> equipo;
-	private String nombreEquipo;
+
 
 	/**
 	 * Bueno alianza de personajes. 
@@ -20,9 +20,10 @@ public class EquipoJugadores implements Equipo{
 	 * @param nombreEquipo
 	 * @author DrCoffee84
 	 */
-	public EquipoJugadores(String nombreEquipo) {
+
+	public EquipoJugadores() {
 		equipo = new ArrayList<Personaje>();
-		this.nombreEquipo = nombreEquipo;
+		
 	}
 	
 	/**
@@ -38,10 +39,6 @@ public class EquipoJugadores implements Equipo{
 	}
 
 	/// Todo el codigo de aqui puede volar:
-
-	public String toString() {
-		return nombreEquipo;
-	}
 
 
 	public boolean isEmpty() {

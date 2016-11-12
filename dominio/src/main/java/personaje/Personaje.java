@@ -39,36 +39,8 @@ public abstract class Personaje implements Atacable {
 	public String getTipoRaza() {
 		return tipoRaza;
 	}
-	public Personaje(Personaje pj) {
-		this.nombre = pj.nombre;
-		this.saludBase = pj.saludBase;
-		this.energiaBase = pj.energiaBase;
-		this.saludActual = pj.saludActual;
-		this.energiaActual = pj.energiaActual;
-		this.tipoCasta = pj.tipoCasta;
-		this.tipoRaza = pj.tipoRaza;
-		this.casta = pj.casta;
-		this.ubicacion = pj.ubicacion;
-		this.puedoMoverme = pj.puedoMoverme;
-		this.sprite = pj.sprite;
-		this.mochilaItemLanzable = pj.mochilaItemLanzable;
-		this.mochilaEquipo = pj.mochilaEquipo;
-		this.equipo = pj.equipo;
-		this.ataqueFisico = pj.ataqueFisico;
-		this.ataqueMagico = pj.ataqueMagico;
-		this.defensaFisica = pj.defensaFisica;
-		this.defensaMagica = pj.defensaMagica;
-		this.fuerza = pj.fuerza;
-		this.intelecto = pj.intelecto;
-		this.destreza = pj.destreza;
-		this.vitalidad = pj.vitalidad;
-		this.velocidad = pj.velocidad;
-		this.enDefensa = pj.enDefensa;
-		this.itemEquipado = pj.itemEquipado;
-		this.nivel = pj.nivel;
-		this.experiencia = pj.experiencia;
-		this.puntosDeEstados = pj.puntosDeEstados;
-	}
+	
+	
 	//Aca esta todo el manejo de habilidades, depende la casta tendra un libro distinto.
 	protected Casta casta;
 	//Ubicacion y sprite:
@@ -121,8 +93,54 @@ public abstract class Personaje implements Atacable {
 		itemEquipado.put("casco", new ItemEquipo());
 		
 		ubicacion = new Punto(0,0);
-		this.equipo = new EquipoJugadores(nombre);
-	}	
+		this.equipo = new EquipoJugadores();
+	}
+	
+	public Personaje(Personaje pj) {
+		this.nombre = pj.nombre;
+		this.saludBase = pj.saludBase;
+		this.energiaBase = pj.energiaBase;
+		this.saludActual = pj.saludActual;
+		this.energiaActual = pj.energiaActual;
+		this.tipoCasta = pj.tipoCasta;
+		this.tipoRaza = pj.tipoRaza;
+		this.casta = pj.casta;
+		this.ubicacion = pj.ubicacion;
+		this.puedoMoverme = pj.puedoMoverme;
+		this.sprite = pj.sprite;
+		this.mochilaItemLanzable = pj.mochilaItemLanzable;
+		this.mochilaEquipo = pj.mochilaEquipo;
+		this.equipo = pj.equipo;
+		this.ataqueFisico = pj.ataqueFisico;
+		this.ataqueMagico = pj.ataqueMagico;
+		this.defensaFisica = pj.defensaFisica;
+		this.defensaMagica = pj.defensaMagica;
+		this.fuerza = pj.fuerza;
+		this.intelecto = pj.intelecto;
+		this.destreza = pj.destreza;
+		this.vitalidad = pj.vitalidad;
+		this.velocidad = pj.velocidad;
+		this.enDefensa = pj.enDefensa;
+		this.itemEquipado = pj.itemEquipado;
+		this.nivel = pj.nivel;
+		this.experiencia = pj.experiencia;
+		this.puntosDeEstados = pj.puntosDeEstados;
+	}
+	
+	public Personaje() {
+/*
+		mochilaItemLanzable = new HashMap<String, ItemLanzable>();
+		itemEquipado = new HashMap<String, ItemEquipo>();
+		
+		itemEquipado.put("anillo", new ItemEquipo());
+		itemEquipado.put("armaDer", new ItemEquipo());
+		itemEquipado.put("armaIzq", new ItemEquipo());
+		itemEquipado.put("armadura", new ItemEquipo());
+		itemEquipado.put("casco", new ItemEquipo());
+		
+		ubicacion = new Punto(0,0);
+		this.equipo = new EquipoJugadores(nombre);*/
+	}
 	/**
 	 * La salud total depende de la raza.
 	 * @return
@@ -665,7 +683,7 @@ public abstract class Personaje implements Atacable {
 		this.equipo = equipo;
 	}
 	public void salirEquipo(){
-		this.equipo = new EquipoJugadores(nombre);
+		this.equipo = new EquipoJugadores();
 	}
 	public Punto getUbicacion() {
 		return ubicacion;

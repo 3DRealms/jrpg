@@ -5,14 +5,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
+import casta.Casta;
+import gson.CastaInstanceCreator;
+import gson.EquipoInstanceCreator;
+import gson.PersonajeInstanceCreator;
 import habilidad.*;
+import interfaces.Equipo;
 import item.FactoriaItemLanzable;
 import item.ItemEquipo;
 import item.ItemLanzable;
 import mensaje.Mensaje;
 import personaje.FactoriaPersonaje;
 import personaje.Personaje;
+import raza.Humano;
 
 public class SQLiteJDBC
 {
@@ -220,8 +227,18 @@ public class SQLiteJDBC
 
 			ResultSet rs = stmt.executeQuery(consulta);
 			if(rs.next()){
-				Gson gson = new Gson();
-				resultado = FactoriaPersonaje.reconstruirPersonaje(gson.fromJson(rs.getString("json"), Personaje.class));
+				GsonBuilder gsonBuilder = new GsonBuilder();
+				gsonBuilder.registerTypeAdapter(Casta.class, new CastaInstanceCreator()); 
+				gsonBuilder.registerTypeAdapter(Personaje.class, new PersonajeInstanceCreator()); 
+				gsonBuilder.registerTypeAdapter(Equipo.class, new EquipoInstanceCreator()); 
+				Gson gson = gsonBuilder.create();
+				String stringRes = rs.getString("json");
+				System.out.println(stringRes);
+				resultado = gson.fromJson(stringRes, Personaje.class);
+				resultado = FactoriaPersonaje.reconstruirPersonaje(resultado);
+				
+				final Gson gson2 = new Gson();
+				System.out.println(gson.toJson(resultado));
 			}
 			rs.close();
 			stmt.close();

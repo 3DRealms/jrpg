@@ -27,7 +27,7 @@ public class PedirAccionTest {
 		Personaje pj = new PersonajePrueba("alex");
 		pj.setCastaMago();
 		pj.agregarHabilidad("piroexplosion", habilidades.get("piroexplosion"));
-		EquipoJugadores malos = new EquipoJugadores("Promotion system");
+		EquipoJugadores malos = new EquipoJugadores();
 		Personaje pablito = new PersonajePrueba("pablo");
 
 		malos.agregar(pablito);
@@ -53,8 +53,8 @@ public class PedirAccionTest {
 		Personaje martin = new PersonajePrueba("martin");
 		Personaje nahuel = new PersonajePrueba("nahuel");
 
-		EquipoJugadores malos = new EquipoJugadores("Promotion system");
-		EquipoJugadores buenos = new EquipoJugadores("3DRealms");
+		EquipoJugadores malos = new EquipoJugadores();
+		EquipoJugadores buenos = new EquipoJugadores();
 
 
 		//Esto lo voy a  suar para validar:

@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import cliente.Cliente;
+import juego.JuegoPanel;
 import mensaje.MensajeConfirmacion;
 
 import java.awt.FlowLayout;
@@ -112,7 +113,12 @@ public class Autenticar extends JFrame {
 			client = new Cliente(user);
 			MensajeConfirmacion men = client.enviarAutenticacion(user, pass);
 			if(men.isConfirmado()){
-				JOptionPane.showMessageDialog(null, "Logueado");
+				//JOptionPane.showMessageDialog(null, "Logueado");
+				//ACA ABRO EL PUTO JUEGO
+				abrirJuego();
+				
+				//no te olvides de abrirlo
+				
 			}
 			else{
 				JOptionPane.showMessageDialog(null, men.getMensaje());
@@ -125,6 +131,23 @@ public class Autenticar extends JFrame {
 		
 		
 		
+	}
+	
+	private void abrirJuego(){
+		JFrame ventana=new JFrame("El señor de los aniloros"); //Ventana comun
+		
+		ventana.add(new JuegoPanel(ventana)); //Dentro de la ventana pongo el juego.
+		
+		ventana.pack(); //hace que el tamaño se ajuste al tamaño preferido y diseños de sus subcomponentes.
+
+		ventana.setLocationRelativeTo(null); //centro
+		
+		ventana.setResizable(true); // evito que se cambie el tamaño para que no se chanfle todo.
+		
+		ventana.setVisible(true); // uno se mata haciendo los graficos para que ponga false ¬¬
+		
+		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // :c adios amor.
+		this.setVisible(false);
 	}
 
 }
