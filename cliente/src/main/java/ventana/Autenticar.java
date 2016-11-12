@@ -9,7 +9,9 @@ import javax.swing.border.EmptyBorder;
 
 import cliente.Cliente;
 import juego.JuegoPanel;
+import mapa.Punto;
 import mensaje.MensajeConfirmacion;
+import raza.PersonajePrueba;
 
 import java.awt.FlowLayout;
 import javax.swing.JButton;
@@ -136,7 +138,7 @@ public class Autenticar extends JFrame {
 	private void abrirJuego(){
 		JFrame ventana=new JFrame("El señor de los aniloros"); //Ventana comun
 		
-		ventana.add(new JuegoPanel(ventana)); //Dentro de la ventana pongo el juego.
+		ventana.add(new JuegoPanel(ventana,new Punto(1,1),new PersonajePrueba("Dani")) ); //Dentro de la ventana pongo el juego.
 		
 		ventana.pack(); //hace que el tamaño se ajuste al tamaño preferido y diseños de sus subcomponentes.
 

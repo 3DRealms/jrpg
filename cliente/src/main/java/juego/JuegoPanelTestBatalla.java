@@ -75,7 +75,7 @@ public class JuegoPanelTestBatalla extends Component implements Runnable{
 			}
 			
 			if (deltaaa > 100) {
-				JuegoPanel a = new JuegoPanel(padre,new Punto(1,1));
+				JuegoPanel a = new JuegoPanel(padre,new Punto(1,1),new PersonajePrueba("hola"));
 				padre.add(a);
 				padre.remove(this);
 				padre.revalidate();
