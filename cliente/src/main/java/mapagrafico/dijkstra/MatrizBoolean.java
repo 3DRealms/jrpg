@@ -30,13 +30,14 @@ public class MatrizBoolean {
 			fila = fil +i;
 			for (j = -1; j < 2; j++) {
 				columna = col + j;
-				if ( esPosicionValida(fila, columna, filas, columnas)) // descarto fuera de rango
+				if ( esPosicionValida(fila, columna)) // descarto fuera de rango
 				{
-
 					if ((fila != fil || columna != col)) // descarto la fila y columna dados
-						
-					{
-						if( ! hayObstaculoCerca(fila,columna) ){  //Si no hay obstaculo
+
+					{	
+							//Si no hay obstaculo y si no hay alguno cerca (en diagonal) meto :*
+						if( !mat[fila][columna] && !hayObstaculoCerca(fila,columna,fil,col) ){  //Si no hay obstaculo
+
 							aux = g.getNodoVisitante(fila,columna);
 							if(aux==null){	
 								aux = new Nodo(new Punto(fila,columna));
@@ -46,22 +47,30 @@ public class MatrizBoolean {
 							else{
 								actual.agregarConexion(aux);
 							}
-							
+
 						}
 
 					}
 				}
 			}
 		}
-
 	}
 
 
-	private boolean hayObstaculoCerca(int i,int j) {
-		return mat[i][j];
+	private boolean hayObstaculoCerca(int i,int j, int fil, int col) {
+
+		boolean aux = false;
+		if( fil-1==i && col-1==j && j<columnas && i<filas)
+			aux = mat[i][j+1] || mat[i+1][j];
+		if( fil-1==i && col+1==j && i<filas && j>0)
+			aux =  mat[i][j-1] || mat[i+1][j];
+		if( fil+1==i && col-1==j && i>0 && j>=0)
+			aux =  mat[i-1][j] || mat[i][j-1];
+		if( fil+1==i && col+1==j && i>0 && j<columnas)
+			aux =  mat[i-1][j] || mat[i][j+1];
+		return aux;
 	}
-	public boolean esPosicionValida(int pos_f, int pos_c, int filas,
-			int columnas) {
+	public boolean esPosicionValida(int pos_f, int pos_c) {
 		return (pos_f >= 0 && pos_f < filas && pos_c >= 0 && pos_c < columnas);
 	}
 	public boolean get(int i,int j){

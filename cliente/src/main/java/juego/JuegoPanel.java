@@ -10,7 +10,6 @@ import mapa.Punto;
 import mapagrafico.MapaGrafico;
 import mapagrafico.TilePersonaje;
 import personaje.Personaje;
-import raza.PersonajePrueba;
 
 
 @SuppressWarnings("serial")
@@ -27,7 +26,6 @@ public class JuegoPanel extends Component implements Runnable{
 	private Mouse mouse;
 	private double delta = 0;
 	private boolean ejecutando = true;
-	private Personaje pj;
 	private TilePersonaje pjDibujo;
 
 	JFrame padre;
@@ -42,7 +40,7 @@ public class JuegoPanel extends Component implements Runnable{
 		mouse = new Mouse();
 		addMouseListener(mouse);
 		pjDibujo = new TilePersonaje(spaw,pj,mouse);  //Pone las que quiera papu.
-		mapa = new MapaGrafico("map_castillo",pjDibujo);
+		mapa = new MapaGrafico("map_test",pjDibujo);
 		thread = new Thread(this);
 		thread.start();
 	}
