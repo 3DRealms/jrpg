@@ -76,7 +76,7 @@ public class MapaGrafico {
 		try {
 			sc = new Scanner(path);
 		} catch (FileNotFoundException e) {
-			JOptionPane.showMessageDialog(null, "No se encuentra el mapa "+nombre+".map llamar al 0800-333-JUNIT");
+			JOptionPane.showMessageDialog(null, "No se encuentra el mapa "+nombre+".map\n Llamar al 0800-333-JUNIT\n"+e.toString());
 			System.exit(0);
 		}
 		this.id = sc.nextInt();
@@ -198,7 +198,7 @@ public class MapaGrafico {
 			pj.mover(xDestino,yDestino);	
 		}
 		
-		if(	camino.isEmpty()  ) //Fijarse para que pare justo cuando termina de dibujar.
+		if(	camino == null || camino.isEmpty()  ) //Fijarse para que pare justo cuando termina de dibujar.
 			pj.parar();	
 			
 		

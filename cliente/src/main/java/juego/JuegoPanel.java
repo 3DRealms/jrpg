@@ -32,15 +32,15 @@ public class JuegoPanel extends Component implements Runnable{
 
 	private boolean jugar = true;
 	
-	public JuegoPanel(JFrame padre,Punto spaw, Personaje pj) {
+	public JuegoPanel(JFrame padre,Punto spaw, Personaje pj,String nombre) {
 		this.padre = padre;
 		setPreferredSize(new Dimension(ANCHO, ALTO));
 		setFocusable(true);
 		requestFocus();
 		mouse = new Mouse();
 		addMouseListener(mouse);
-		pjDibujo = new TilePersonaje(spaw,pj,mouse);  //Pone las que quiera papu.
-		mapa = new MapaGrafico("map_test",pjDibujo);
+		pjDibujo = new TilePersonaje(spaw,pj,mouse);  
+		mapa = new MapaGrafico(nombre,pjDibujo);
 		thread = new Thread(this);
 		thread.start();
 	}

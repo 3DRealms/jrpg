@@ -10,7 +10,8 @@ public class JuegoTest_SinServidor {
 	public static void main(String[] args) {
 		JFrame ventana=new JFrame("El señor de los aniloros"); //Ventana comun
 		Personaje pj_test = new PersonajePrueba("Krilin");
-		ventana.add(new JuegoPanel(ventana, pj_test.getUbicacion(),pj_test )); //Dentro de la ventana pongo el juego.
+		String nombreMapa = "map_test";
+		ventana.add(new JuegoPanel(ventana, pj_test.getUbicacion(),pj_test,nombreMapa)); //Dentro de la ventana pongo el juego.
 
 		ventana.pack(); //hace que el tamaño se ajuste al tamaño preferido y diseños de sus subcomponentes.
 

@@ -46,6 +46,7 @@ public class TilePersonaje {
 	private boolean movIzquierda;
 	private boolean enMovimiento;
 	private boolean parado;
+	private boolean dir;
 
 	protected Animacion animAbajo;
 	protected Animacion animArriba;
