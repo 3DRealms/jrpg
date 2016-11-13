@@ -2,7 +2,6 @@ package sprites;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-
 import javax.swing.ImageIcon;
 
 public class Sprite {
@@ -12,37 +11,28 @@ public class Sprite {
 	private static final int ancho = 64, alto = 32;
 	private static final int altoObjeto = 64;
 	private static final int anchopj = 64, altopj = 64;
-
+	private static final int framesPJ = 6;
 	/**
 	 * Esto va a ser para las animaciones del pj, todavia no esta listo
 	 */
-	public static BufferedImage[] pjArriba= new BufferedImage[5] ;
-	public static BufferedImage[] pjAbajo= new BufferedImage[5];
-	public static BufferedImage[] pjDerecha= new BufferedImage[5];
-	public static BufferedImage[] pjIzquierda= new BufferedImage[5];
-	public static BufferedImage[] pjArribaDerecha= new BufferedImage[5];
-	public static BufferedImage[] pjArribaIzquierda= new BufferedImage[5];
-	public static BufferedImage[] pjAbajoDerecha= new BufferedImage[5];
-	public static BufferedImage[] pjAbajoIzquierda = new BufferedImage[5];
-	
-	
+	private BufferedImage[][] sprite;
+
 
 	public static BufferedImage[] estandar;
 
-	public static void inicializar(String pathPiso,String pathPJ){
-		HojaSprite hoja = new HojaSprite(CargaImagen.cargarImagen(pathPiso));
-		//HojaSprite hojapj = new HojaSprite(CargaImagen.cargarImagen(pathPJ));
-		HojaSprite hojaPelado = new HojaSprite(CargaImagen.cargarImagen(pathPJ));
-		System.out.println(pathPJ);
-		recortarSprite(hojaPelado,1,5,0,pjAbajo);
-		recortarSprite(hojaPelado,3,5,2,pjDerecha);
-		recortarSprite(hojaPelado,7,5,6,pjIzquierda);
-		recortarSprite(hojaPelado,5,5,4,pjArriba);
-		recortarSprite(hojaPelado,4,5,3,pjArribaDerecha);
-		recortarSprite(hojaPelado,6,5,5,pjArribaIzquierda);
-		recortarSprite(hojaPelado,2,5,1,pjAbajoDerecha);
-		recortarSprite(hojaPelado,8,5,7,pjAbajoIzquierda);
+	public Sprite(String pathPJ) {
+		HojaSprite hojaPJ = new HojaSprite(CargaImagen.cargarImagen(pathPJ));
+		sprite = new BufferedImage[8][framesPJ];
 		
+		for (int i = 0; i < 8; i++) {
+			recortarSprite(hojaPJ,i+1,framesPJ,i,sprite[i]);
+		}	
+	}
+	
+	public static void inicializar(String pathPiso){
+		HojaSprite hoja = new HojaSprite(CargaImagen.cargarImagen(pathPiso));
+
+
 		piso = new BufferedImage[6];
 
 		int k = 0;
@@ -56,11 +46,9 @@ public class Sprite {
 				k++;
 			}
 		}
-
-
-			//cubo =hojapj.cortar(0, 0, 64, 64);
-		//	pelado = hojapj.cortar(anchopj, 0, anchopj, altopj);
 	}
+
+
 	/**
 	 * Funcion para cortar sprites y cargarlos en un vector de bufferedImage
 	 * previamente inicializado.
@@ -83,6 +71,9 @@ public class Sprite {
 		}
 	}
 
+	public BufferedImage[] getVectorSprite(int i ) {
+		return sprite[i];
+	}
 	public static Image getImagePiso(int sprite) {
 		return piso[sprite];
 	}

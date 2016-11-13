@@ -3,6 +3,7 @@ package batalla;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -64,7 +65,9 @@ public class Batalla  {
 	/**
 	 * Batallar, es el combate por turnos, pero se ordena segun la velocidad de la accion elegida.
 	 * Al finalizar la batalla se reparte el botin, oro y experiencia.
-	 */
+	 *
+	 * Con un par de if, podemos hacer que la batalla sea distinta :D (por velocidad, o por otro parametro).
+	 */	
 	public void batallar(){
 		// Peleo mientras no haya ganador
 		List<Accion> accionesEquipo1;
@@ -95,8 +98,8 @@ public class Batalla  {
 		acciones.addAll(accEquipo2);
 
 		//Ordeno por velocidad:
-		acciones.sort(Accion.AccVelComparator); //Ordeno por velocidad.
-
+		Collections.sort(acciones, Accion.AccVelComparator);//Ordeno por velocidad.
+		
 		for (Accion accion : acciones) {
 			accion.ejecutar();
 		}

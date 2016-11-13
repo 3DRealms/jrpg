@@ -117,17 +117,6 @@ public class MapaGrafico {
 
 	private void cargarSprite() {
 		load(sprites);
-		
-		//debo cargar al pj aca tambien ( las animaciones).
-		//Despues tendria que validar que encuentre el todo.
-		/*
-		if ( sprites.equals("exterior") ) 
-			load("exterior");
-		else if( sprites.equals("test"))
-			load("test");
-		else
-			System.exit(1);
-		 */
 	}
 
 	public boolean EnMovimiento() {
@@ -140,7 +129,7 @@ public class MapaGrafico {
 	 */
 	private void load(String nombre) {
 		String recursos = "src\\main\\resources\\";
-		Sprite.inicializar(recursos+"mapas\\"+nombre+"\\piso.png",recursos+"personajes\\pelado.png");
+		Sprite.inicializar(recursos+"mapas\\"+nombre+"\\piso.png");
 		iluminacion = Sprite.loadImage("src\\main\\resources\\mapas\\99.png");
 	}
 
@@ -192,7 +181,8 @@ public class MapaGrafico {
 			pj.mover(xDestino,yDestino);	
 		}
 		
-		if(	camino == null || camino.isEmpty()  ) //Fijarse para que pare justo cuando termina de dibujar.
+		
+		if(	(camino == null || camino.isEmpty() )  ) //Fijarse para que pare justo cuando termina de dibujar. 
 			pj.parar();	
 			
 		
@@ -204,7 +194,7 @@ public class MapaGrafico {
 		
 		xAnterior = -xDestino;
 		yAnterior = -yDestino;
-	
+
 		xDestino = -paso.getPunto().getX();
 		yDestino = -paso.getPunto().getY();
 		
@@ -272,6 +262,6 @@ public class MapaGrafico {
 			pj.setEnMovimiento(false);
 		else 
 			pj.setEnMovimiento(true);
-;
+
 	}
 }

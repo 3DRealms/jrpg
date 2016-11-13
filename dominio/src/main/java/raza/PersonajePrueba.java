@@ -12,7 +12,7 @@ public class PersonajePrueba extends Personaje{
 	 */
 	public PersonajePrueba(String nombre) {
 		super(nombre);
-		this.sprite = "pj"; // Por ahora asi.
+		this.sprite = "pelado"; // Por ahora asi.
 		this.ataqueFisico = 15;
 		this.energiaBase = 100;
 		this.saludBase = 120;

@@ -20,18 +20,22 @@ public class Animacion {
 			
 		public void actualizar(){
 			timer+= System.currentTimeMillis() - lastTime;
-			lastTime = System.currentTimeMillis() ;
+			lastTime = System.currentTimeMillis();
 			
 			if(timer >velocidad){
 				i++;
 				timer = 0;
 				
-				if(i >= frames.length)
+				if(i >= frames.length-1)
 					i = 0;
 			}
 		}
 			
 		public BufferedImage getFrameActual(){
+			return frames[i];
+		}
+
+		public BufferedImage getFrame(int i) {
 			return frames[i];
 		}
 }
