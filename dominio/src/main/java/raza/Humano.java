@@ -15,6 +15,7 @@ public class Humano extends Personaje {
 		this.saludActual = calcularSaludTotal();
 		this.energiaActual = calcularEnergiaTotal();
 		this.tipoRaza = "humano";
+		this.sprite = "pelado"; // Por ahora asi.
 	}
 	
 	public Humano(Personaje per) {

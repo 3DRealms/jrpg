@@ -15,6 +15,7 @@ public class Mognatal extends Personaje {
 		this.saludActual = calcularSaludTotal();
 		this.energiaActual = calcularEnergiaTotal();
 		this.tipoRaza = "mognatal";
+		this.sprite = "pelado"; // Por ahora asi.
 
 	}
 

@@ -125,6 +125,14 @@ public class Canal {
 		}
 	}
 	
+	public void moverPersonaje(Personaje per, Punto point){
+		map.moverPersonaje(per, point);
+	}
+	
+	public void detenerPersonaje(Personaje per){
+		map.detenerPersonaje(per);		
+	}
+	
 	
 	
 	

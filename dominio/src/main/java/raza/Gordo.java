@@ -16,6 +16,7 @@ public class Gordo extends Personaje {
 		this.saludActual = calcularSaludTotal();
 		this.energiaActual = calcularEnergiaTotal();
 		this.tipoRaza = "gordo";
+		this.sprite = "pelado"; // Por ahora asi.
 	}
 	
 	@Override

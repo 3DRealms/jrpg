@@ -109,9 +109,19 @@ public class ThreadEscuchar extends Thread{
 		while(conetado){
 			
 			try {
+				
 				MensajeInteraccion mens = cliente.pedirMensajeInteraccion();
-				if(mens.isMovimiento())
-					new ThreadEnviarMovimiento(can, mens).start();
+				if(mens.isParado()){
+					can.detenerPersonaje(per);
+					new ThreadEnviarInteraccion(can, mens).start();
+				}
+					
+				if(mens.isMovimiento()){
+					can.moverPersonaje(per, ((MensajeMovimiento) mens).getPos());
+					new ThreadEnviarInteraccion(can, mens).start();
+				}
+					
+				
 			} catch (IOException e) {				
 				can.quitarCliente(cliente);
 				if(!sqcon.guardarPersonaje(per)){

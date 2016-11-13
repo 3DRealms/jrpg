@@ -5,14 +5,13 @@ import java.util.List;
 import mensaje.*;
 
 
-public class ThreadEnviarMovimiento extends Thread{
+public class ThreadEnviarInteraccion extends Thread{
 	
 	private Canal clientes;
 	MensajeInteraccion men;
-	String remitente;
 
 	
-	public ThreadEnviarMovimiento(Canal clientes, MensajeInteraccion mens){
+	public ThreadEnviarInteraccion(Canal clientes, MensajeInteraccion mens){
 		this.clientes = clientes;		
 		this.men = mens;
 	}

@@ -16,6 +16,7 @@ public class Mapa {
 	protected String nombre;
 
 	protected Map<String,Personaje> personajes;
+	protected Map<String,Punto> moviendoA;
 
 	public Mapa(String nombre, int alto, int ancho) {
 		
@@ -33,6 +34,15 @@ public class Mapa {
 	
 	public void agregarPersonaje(Personaje per, String nombre){
 		personajes.put(nombre, per);
+		moviendoA.put(nombre, per.getUbicacion());
+	}
+	
+	public void moverPersonaje(Personaje per, Punto point){
+		moviendoA.put(per.getNombre(), point);
+	}
+	
+	public void detenerPersonaje(Personaje per){
+		per.setUbicacion(moviendoA.get(per.getNombre()));		
 	}
 	
 	public Map<String,Personaje> obtenerPersonajes(){

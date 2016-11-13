@@ -32,6 +32,11 @@ public class MensajeInteraccion {
 	public boolean isCombate(){
 		return tipo.equals("combate");
 	}
+	
+	public boolean isParado(){
+		return tipo.equals("parado");
+	}
+
 
 	
 	

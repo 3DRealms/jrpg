@@ -16,6 +16,7 @@ public class Orco extends Personaje {
 		this.saludActual = calcularSaludTotal();
 		this.energiaActual = calcularEnergiaTotal();
 		this.tipoRaza = "orco";
+		this.sprite = "pelado"; // Por ahora asi.
 	}
 	
 	public Orco(Personaje per) {
