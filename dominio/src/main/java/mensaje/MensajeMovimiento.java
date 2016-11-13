@@ -8,6 +8,8 @@ public class MensajeMovimiento extends MensajeInteraccion{
 
 	protected String mapa;
 	
+	protected String sprite;
+	
 	public Punto getPos() {
 		return pos;
 	}
@@ -20,10 +22,11 @@ public class MensajeMovimiento extends MensajeInteraccion{
 		return mapa;
 	}
 
-	public MensajeMovimiento(Punto pos, String emisor, String mapa) {
+	public MensajeMovimiento(Punto pos, String emisor, String mapa, String sprite) {
 		super(emisor,"movimiento");
 		this.pos = pos;
 		this.mapa = mapa;
+		this.sprite = sprite;
 	}
 	
 

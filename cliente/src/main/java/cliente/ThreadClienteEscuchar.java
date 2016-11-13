@@ -9,9 +9,9 @@ import com.google.gson.Gson;
 
 public class ThreadClienteEscuchar extends Thread{
 	
-private Socket cliente;
+private Cliente cliente;
 	
-	public ThreadClienteEscuchar(Socket cliente){
+	public ThreadClienteEscuchar(Cliente cliente){
 		this.cliente = cliente;
 	}
 	
@@ -22,14 +22,8 @@ private Socket cliente;
 		while(conectado){
 			
 			try {
-				DataInputStream lectura = new DataInputStream(
-						cliente.getInputStream());
-				final Gson gson = new Gson();
-				final Mensaje men = gson.fromJson(lectura.readUTF(), Mensaje.class);
-				System.out.println(men);
+				cliente.pedirInteraccion();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				//e.printStackTrace();
 				conectado = false;
 			}
 			

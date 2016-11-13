@@ -9,6 +9,8 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Properties;
 
+import javax.swing.JFrame;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -17,6 +19,7 @@ import gson.CastaInstanceCreator;
 import gson.EquipoInstanceCreator;
 import gson.PersonajeInstanceCreator;
 import interfaces.Equipo;
+import juego.JuegoPanel;
 import mensaje.*;
 import personaje.Personaje;
 
@@ -26,6 +29,8 @@ public class Cliente {
 	String serverIP;
 	Integer puerto;
 	String usuario;
+	JuegoPanel juego;
+	JFrame ventana;
 	
 
 	public Cliente(String usuario) throws UnknownHostException, IOException{
@@ -38,7 +43,7 @@ public class Cliente {
 	}
 
 	public void escuchar(){
-		new ThreadClienteEscuchar(cliente).start();
+		new ThreadClienteEscuchar(this).start();
 	}
 
 	public void enviar(String mensaje) throws IOException{
@@ -114,6 +119,29 @@ public class Cliente {
 		return this.pedirConfirmacion();
 
 
+	}
+	
+	public MensajeInteraccion pedirInteraccion() throws IOException{
+		DataInputStream lectura = new DataInputStream(
+				cliente.getInputStream());
+		final Gson gson = new Gson();
+		String men = lectura.readUTF();
+		final MensajeInteraccion menInt = gson.fromJson(men, MensajeInteraccion.class);
+		return menInt;
+	}
+	
+	public void abrirJuego(Personaje per){
+		
+		ventana=new JFrame("El señor de los aniloros"); //Ventana comun
+		juego = new JuegoPanel(ventana,per.getUbicacion(),per, "map_test");
+		ventana.add(juego); //Dentro de la ventana pongo el juego.
+		ventana.pack(); //hace que el tamaño se ajuste al tamaño preferido y diseños de sus subcomponentes.
+		ventana.setLocationRelativeTo(null); //centro
+		ventana.setResizable(true); // evito que se cambie el tamaño para que no se chanfle todo.
+		ventana.setVisible(true); // uno se mata haciendo los graficos para que ponga false ¬¬
+		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // :c adios amor.
+		escuchar();
+		
 	}
 
 

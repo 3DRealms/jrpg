@@ -105,7 +105,7 @@ public class Autenticar extends JFrame {
 				//ACA ABRO EL PUTO JUEGO
 					Personaje personaje = client.pedirPersonaje();
 				//Personaje personaje = new PersonajePrueba("the Dani");
-				abrirJuego(personaje);
+				abrirJuego(personaje,client);
 
 				//no te olvides de abrirlo
 
@@ -123,20 +123,8 @@ public class Autenticar extends JFrame {
 
 	}
 
-	private void abrirJuego(Personaje per){
-		JFrame ventana=new JFrame("El señor de los aniloros"); //Ventana comun
-
-		ventana.add(new JuegoPanel(ventana,per.getUbicacion(),per) ); //Dentro de la ventana pongo el juego.
-
-		ventana.pack(); //hace que el tamaño se ajuste al tamaño preferido y diseños de sus subcomponentes.
-
-		ventana.setLocationRelativeTo(null); //centro
-
-		ventana.setResizable(true); // evito que se cambie el tamaño para que no se chanfle todo.
-
-		ventana.setVisible(true); // uno se mata haciendo los graficos para que ponga false ¬¬
-
-		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // :c adios amor.
+	private void abrirJuego(Personaje per, Cliente client){
+		client.abrirJuego(per);
 		this.setVisible(false);
 	}
 

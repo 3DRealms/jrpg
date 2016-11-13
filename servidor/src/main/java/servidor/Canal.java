@@ -73,12 +73,12 @@ public class Canal {
 	}
 	
 	public void enviarPosicionesACliente(SocketCliente cliente){
-		 Map<String,Punto> personajes = map.obtenerPosiciones();
+		Map<String,Personaje> personajes = map.obtenerPersonajes();
 		for(String key : personajes.keySet())
 		{
 			
 			try {
-				cliente.enviarMensaje(new MensajeMovimiento(personajes.get(key), key, nombre));
+				cliente.enviarMensaje(new MensajeMovimiento(personajes.get(key).getUbicacion(), key, nombre, personajes.get(key).getSprite()));
 			} catch (IOException e) {
 
 				e.printStackTrace();

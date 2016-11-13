@@ -69,8 +69,8 @@ public class SocketCliente {
 		this.enviarMensaje(new MensajeConfirmacion(estado, mensaje));
 	}
 	
-	public void enviarMensajePosicion(Punto punto,String personaje, String mapa) throws IOException{
-		this.enviarMensaje(new MensajeMovimiento(punto, personaje, mapa));
+	public void enviarMensajePosicion(Punto punto,String personaje, String mapa, String sprite) throws IOException{
+		this.enviarMensaje(new MensajeMovimiento(punto, personaje, mapa,sprite));
 	}
 
 	public MensajeInteraccion pedirMensajeInteraccion() throws IOException {
