@@ -101,7 +101,6 @@ public class TilePersonaje {
 			setNuevoRecorrido(true);
 			xDestino = xInicio - posMouse[0] + JuegoPanelTestBatalla.xOffCamara;
 			yDestino = yInicio - posMouse[1] + JuegoPanelTestBatalla.yOffCamara;
-			paraDondeVoy(xDestino, yDestino);
 			mouse.setRecorrido(false); 
 		}
 
@@ -165,8 +164,13 @@ public class TilePersonaje {
 		/**
 		 * Dani, me tiraste cualquier cosa en los nombres, nada se movia para los
 		 * lados que decia -.-
+		 * Se ya se me di cuenta, pero esta la estructura loco :v
 		 */
-		
+		if (xInicio == xDestino2 && yInicio == yDestino2) { // sureste
+			parado = true;
+			return; 
+		}
+			
 		if (xInicio > xDestino2 && yInicio == yDestino2) { // sureste
 			movAbajoDerecha = true;
 			return;
@@ -176,7 +180,6 @@ public class TilePersonaje {
 			return;
 		}
 		if (xInicio == xDestino2 && yInicio < yDestino2) {// noreste
-			System.out.println("arriba a la derecha");
 			movArribaDerecha = true;
 			return;
 		}
@@ -222,6 +225,7 @@ public class TilePersonaje {
 		else if (this.movAbajoIzquierda)
 			return this.animAbajoIzquierda.getFrameActual();
 
+
 		return Sprite.pjAbajo[0];
 	}
 
@@ -245,6 +249,20 @@ public class TilePersonaje {
 	}
 	public boolean isHorizontal() {
 		return horizontal;
+	}
+
+
+	public void parar() {
+		movAbajoIzquierda = false;
+		movArribaDerecha = false;
+		movArribaIzquierda = false;
+		movAbajoDerecha = false;
+		movArriba = false;
+		movDerecha = false;
+		movAbajo = false;
+		movIzquierda = false;
+		parado = false;
+		parado = true;
 	}
 
 

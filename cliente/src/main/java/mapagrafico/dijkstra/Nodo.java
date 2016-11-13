@@ -44,9 +44,9 @@ public class Nodo {
 
 	@Override
 	public String toString() {
-		String aux = pos+"";
-		//for (Nodo nodo : nodosAdyacentes)
-		//	aux += nodo.pos.toString() + " ";
+		String aux = pos+": ";
+		for (Nodo nodo : nodosAdyacentes)
+			aux += nodo.pos.toString() + " ";
 		return aux;
 	}
 

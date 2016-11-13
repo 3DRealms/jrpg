@@ -18,7 +18,7 @@ public class JuegoPanel extends Component implements Runnable{
 	public static final int ANCHO = 800;
 	public static final int ALTO = 600;
 	public static final int fps = 60;
-	
+
 
 	public static double timePerTick = 1000000000/fps;
 	private MapaGrafico mapa;
@@ -29,9 +29,9 @@ public class JuegoPanel extends Component implements Runnable{
 	private TilePersonaje pjDibujo;
 
 	JFrame padre;
-	
-	private boolean jugar = true;
 
+	private boolean jugar = true;
+	
 	public JuegoPanel(JFrame padre,Punto spaw, Personaje pj) {
 		this.padre = padre;
 		setPreferredSize(new Dimension(ANCHO, ALTO));
@@ -53,7 +53,7 @@ public class JuegoPanel extends Component implements Runnable{
 		long lastTime = System.nanoTime();
 
 		while(ejecutando) {
-			
+
 			now = System.nanoTime();
 			delta += (now - lastTime)/timePerTick;
 			lastTime = now;
@@ -81,6 +81,6 @@ public class JuegoPanel extends Component implements Runnable{
 			jugar = false;
 		}
 		mapa.mover(g2d);
-		
+
 	}
 }

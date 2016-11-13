@@ -23,13 +23,13 @@ public class AlgoritmoDelTacho {
 
 	public void calcularDijkstra(Grafo grafo, Nodo inicial,Nodo destino) {
 		predecesores = new HashMap<Nodo,Nodo>();
-		
+
 		pendientes = new ArrayList<Nodo>();
 		solucion = new ArrayList<Nodo>();
 
 		distancias.put(inicial, 0); 
 		pendientes.add(inicial);
-	
+
 		while (pendientes.size() > 0) { 
 			actualW = obtenerMinimo(pendientes); 
 			if(actualW == destino) // Ultra optimizacion :) 
@@ -82,30 +82,30 @@ public class AlgoritmoDelTacho {
 	public boolean yaVisitado(Nodo nodo) {
 		return solucion.contains(nodo);
 	}
-	
+
 	public LinkedList<Nodo> obtenerCamino(Nodo destino){
 		LinkedList<Nodo> camino = new LinkedList<Nodo>();
 		Nodo nodito = destino;
 		if(predecesores.get(nodito)==null)
-		return null;
-		
+			return null;
+
 		camino.add(nodito);
 		while(predecesores.get(nodito)!=null){
 			nodito = predecesores.get(nodito);
 			camino.add(nodito);
-			
+
 		}
-		
+
 		Collections.reverse(camino);
 		return camino;
 	}
-	
+
 	public String mostrarCamino(Nodo destino){
 		LinkedList<Nodo> camino = obtenerCamino(destino);
 		String aux = "";
 		if(camino==null)
 			return aux;
-		
+
 		for (int i = 0; i < camino.size(); i++) {
 			aux += " " + camino.get(i).getPunto();
 		}

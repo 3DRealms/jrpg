@@ -1,4 +1,4 @@
-package mapagrafico;
+	package mapagrafico;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -60,6 +60,7 @@ public class MapaGrafico {
 	private Nodo actual;
 	private Nodo destino;
 
+	
 	public MapaGrafico(String nombre,TilePersonaje pj) {
 		File path = new File("src\\main\\resources\\mapas\\"+nombre+".map");
 		this.pj = pj;
@@ -185,8 +186,23 @@ public class MapaGrafico {
 
 		if( !pj.enMovimiento() && camino != null && ! camino.isEmpty() ){
 			moverUnPaso();
+			/**
+			 * 
+			 *  Aca Braian,  se cambia el destino (osea el punto donde me dirigo)
+			 *  No utilizo la clase punto porque me parece poco optimo llamarla 60 por segundo pero se puede construir aca y mandar 
+			 *  esto no se va a ejecutar siempre,s olo cuando me estoy realmente moviendo.
+			 *  
+			 * 
+			 */		
+			pj.paraDondeVoy(xDestino, yDestino);
 			pj.mover(xDestino,yDestino);	
 		}
+		
+		if(	camino.isEmpty()  ) //Fijarse para que pare justo cuando termina de dibujar.
+			pj.parar();	
+			
+		
+			
 	}
 
 	private void moverUnPaso() { // Esto tengo que ver, pero lo que hace es mover paso a paso por el camino del DI kjsoihyoas TRAMMMMMMMMMMM
@@ -233,17 +249,13 @@ public class MapaGrafico {
 		//Tiene que ser uno por uno entonces si cancelo termino el movimiento (sino se descuajaina todo).
 		x = tiles[0][0].getXIso(); // puedo agarrar el centro. pero por ahora asi.
 		y = tiles[0][0].getYIso();
-		
 		for (int i = 0; i <  alto; i++) { 
 			for (int j = 0; j < ancho ; j++) { 
 				tiles[i][j].mover(g2d,xDestino + JuegoPanelTestBatalla.xOffCamara,yDestino+JuegoPanelTestBatalla.yOffCamara);
 				if( puedoDibujarPJ(g2d, i, j))
 					pj.dibujarCentro(g2d);
-				if( puedoDibujarObstaculo(i, j)  ){
+				if( puedoDibujarObstaculo(i, j)  )
 					tilesObstaculo[i][j].mover(g2d,xDestino+ JuegoPanelTestBatalla.xOffCamara,yDestino+JuegoPanelTestBatalla.yOffCamara);
-				}
-				/*if(i != xActual && j != yActual)
-					pj.dibujarCentro(g2d);*/
 			}
 		}
 		g2d.drawImage( iluminacion, 0, 0 , null);	
@@ -258,7 +270,9 @@ public class MapaGrafico {
 	private boolean puedoDibujarPJ(Graphics2D g2d, int i, int j) {
 		return  i == -xDestino && j == -yDestino || i == xAnterior &&  j == yAnterior || i == -xDestino && j == yAnterior ||  i == xAnterior && j == -yDestino;
 	}  
-
+	/**
+	 * Estrambolico, avisa cuando termino de moverse el personaje. deberia camiarlo ya que utiliza los tiles Graficos.
+	 */
 	private void termino() {
 		if ( x == tiles[0][0].getXIso() && y == tiles[0][0].getYIso() )
 			pj.setEnMovimiento(false);
