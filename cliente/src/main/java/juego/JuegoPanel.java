@@ -37,11 +37,11 @@ public class JuegoPanel extends Component implements Runnable{
 		setPreferredSize(new Dimension(ANCHO, ALTO));
 		setFocusable(true);
 		requestFocus();
-		mouse = new Mouse();
+		mouse 	 = new Mouse();
 		addMouseListener(mouse);
 		pjDibujo = new TilePersonaje(spaw,pj,mouse);  
-		mapa = new MapaGrafico(nombre,pjDibujo);
-		thread = new Thread(this);
+		mapa 	 = new MapaGrafico(nombre,pjDibujo);
+		thread 	 = new Thread(this);
 		thread.start();
 	}
 

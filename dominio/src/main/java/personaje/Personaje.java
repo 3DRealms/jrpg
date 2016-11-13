@@ -82,7 +82,6 @@ public abstract class Personaje implements Atacable {
 	//Constructor:
 	public Personaje(String nombre) {
 		this.nombre = nombre;
-		this.sprite = "pj"; // Por ahora asi.
 		mochilaItemLanzable = new HashMap<String, ItemLanzable>();
 		itemEquipado = new HashMap<String, ItemEquipo>();
 		

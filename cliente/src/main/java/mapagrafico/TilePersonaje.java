@@ -32,22 +32,9 @@ public class TilePersonaje {
 	private boolean nuevoRecorrido;
 
 
-	private boolean horizontal;
-	private boolean vertical;
-	
-	
-	private boolean movDerecha;
-	private boolean movAbajoIzquierda;
-	private boolean movArribaDerecha;
-	private boolean movArribaIzquierda;
-	private boolean movAbajoDerecha;
-	private boolean movArriba;
-	private boolean movAbajo;
-	private boolean movIzquierda;
+	private int movimiento;
 	private boolean enMovimiento;
 	private boolean parado;
-	private boolean dir;
-
 	protected Animacion animAbajo;
 	protected Animacion animArriba;
 	protected Animacion animDerecha;
@@ -56,6 +43,7 @@ public class TilePersonaje {
 	protected Animacion animArribaIzquierda;
 	protected Animacion animAbajoDerecha;
 	protected Animacion animArribaDerecha;
+	private int movimientoAnterior;
 
 
 
@@ -64,6 +52,9 @@ public class TilePersonaje {
 		this.xCentro = 320;
 		this.yCentro = 320;
 		//this.sprite = sprite;
+
+		movimiento = 0;
+
 		this.pj = pj;
 		this.nombre = pj.getNombre();	
 		this.xInicio = this.xDestino = -p.getX();  //alta logica wachin.
@@ -95,9 +86,9 @@ public class TilePersonaje {
 
 	public void actualizar() {
 		int posMouse[] = mouse.getPos();
-		
+
 		actualizarAnimaciones();
-		
+
 		if (mouse.getRecorrido()) {
 			setNuevoRecorrido(true);
 			xDestino = xInicio - posMouse[0] + JuegoPanelTestBatalla.xOffCamara;
@@ -125,7 +116,7 @@ public class TilePersonaje {
 		yInicio = yDestino2;
 
 	}
-	
+
 	public void inicializarAnimaciones() {
 		animAbajo = new Animacion(150, Sprite.pjAbajo);
 		animArriba = new Animacion(150, Sprite.pjArriba);
@@ -136,7 +127,7 @@ public class TilePersonaje {
 		animAbajoDerecha = new Animacion(150, Sprite.pjAbajoDerecha);
 		animArribaDerecha = new Animacion(150, Sprite.pjArribaDerecha);
 	}
-	
+
 	public void actualizarAnimaciones() {
 
 		animArriba.actualizar();
@@ -151,80 +142,90 @@ public class TilePersonaje {
 
 	// Esto lo podria resolver con un 1 byte en c++ ¬¬
 	public void paraDondeVoy(int xDestino2, int yDestino2) {
-		movAbajoIzquierda = false;
-		movArribaDerecha = false;
-		movArribaIzquierda = false;
-		movAbajoDerecha = false;
-		movArriba = false;
-		movDerecha = false;
-		movAbajo = false;
-		movIzquierda = false;
+		movimiento = 0;
 		parado = false;
-		
+
 		//faltaria parado, estaba rancia
 		/**
 		 * Dani, me tiraste cualquier cosa en los nombres, nada se movia para los
 		 * lados que decia -.-
 		 * Se ya se me di cuenta, pero esta la estructura loco :v
 		 */
-		if (xInicio == xDestino2 && yInicio == yDestino2) { // sureste
+		if (xInicio == xDestino2 && yInicio == yDestino2) { // parado
 			parado = true;
 			return; 
 		}
-			
-		if (xInicio > xDestino2 && yInicio == yDestino2) { // sureste
-			movAbajoDerecha = true;
+
+		if (xInicio > xDestino2 && yInicio == yDestino2) { // sureste 
+			movimiento = 1;
 			return;
 		}
 		if (xInicio < xDestino2 && yInicio == yDestino2) {// noroeste
-			movArribaIzquierda = true;
+			movimiento = 2;
 			return;
 		}
 		if (xInicio == xDestino2 && yInicio < yDestino2) {// noreste
-			movArribaDerecha = true;
+			movimiento = 3;
 			return;
 		}
 		if (xInicio == xDestino2 && yInicio > yDestino2) {// suroeste
-			movAbajoIzquierda = true;
+
+			movimiento = 4;
 			return;
 		}
 		if (xInicio < xDestino2 && yInicio < yDestino2) {// norte
-			movArriba = true;
+			movimiento = 5;
 			return;
 		}
-		if (xInicio > xDestino2 && yInicio < yDestino2) {// este
-			movDerecha = true;
+		if (xInicio > xDestino2 && yInicio < yDestino2) {// este se bugea 
+			movimiento = 6;
 			return;
 		}
 		if (xInicio > xDestino2 && yInicio > yDestino2) {// sur
-			movAbajo = true;
+			movimiento = 7;
 			return;
 		}
 		if (xInicio < xDestino2 && yInicio > yDestino2) {// oeste
-			movIzquierda = true;
+			movimiento = 8;
 			return;
 		}
 
 	}
-	
-	public BufferedImage obtenerFrameActual() {
 
-		if (movAbajo)
+	public BufferedImage obtenerFrameActual() {
+		if (movimiento == 7 && !parado)
 			return animAbajo.getFrameActual();
-		else if (movArriba)
+		if (movimiento == 5 && !parado)
 			return animArriba.getFrameActual();
-		else if (movDerecha)
+		if (movimiento == 6 && !parado)
 			return animDerecha.getFrameActual();
-		else if (movIzquierda)
+		if (movimiento == 8 && !parado)
 			return animIzquierda.getFrameActual();
-		else if (movArribaDerecha)
+		if (movimiento == 3 && !parado)
 			return this.animArribaDerecha.getFrameActual();
-		else if (this.movAbajoDerecha)
+		if (movimiento == 1 && !parado)
 			return this.animAbajoDerecha.getFrameActual();
-		else if (this.movArribaIzquierda)
+		if (movimiento == 2 && !parado)
 			return this.animArribaIzquierda.getFrameActual();
-		else if (this.movAbajoIzquierda)
+		if (movimiento == 4 && !parado)
 			return this.animAbajoIzquierda.getFrameActual();
+		
+		if (movimientoAnterior == 7)
+			return Sprite.pjAbajo[0];
+		if (movimientoAnterior == 5)
+			return Sprite.pjArriba[0];
+		if (movimientoAnterior == 6)
+			return Sprite.pjDerecha[0];
+		if (movimientoAnterior == 8)
+			return Sprite.pjIzquierda[0];
+		if (movimientoAnterior == 3)
+			return Sprite.pjArribaDerecha[0];
+		if (movimientoAnterior == 1)
+			return Sprite.pjAbajoDerecha[0];
+		if (movimientoAnterior == 2)
+			return Sprite.pjArribaIzquierda[0];
+		if (movimientoAnterior == 4)
+			return Sprite.pjAbajoIzquierda[0];
 
 
 		return Sprite.pjAbajo[0];
@@ -248,21 +249,10 @@ public class TilePersonaje {
 	public void setEnMovimiento(boolean b) {
 		this.enMovimiento = b;
 	}
-	public boolean isHorizontal() {
-		return horizontal;
-	}
-
 
 	public void parar() {
-		movAbajoIzquierda = false;
-		movArribaDerecha = false;
-		movArribaIzquierda = false;
-		movAbajoDerecha = false;
-		movArriba = false;
-		movDerecha = false;
-		movAbajo = false;
-		movIzquierda = false;
-		parado = false;
+		movimientoAnterior = movimiento;
+	//	movimiento = 0;
 		parado = true;
 	}
 

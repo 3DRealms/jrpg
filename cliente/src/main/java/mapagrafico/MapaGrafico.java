@@ -44,10 +44,10 @@ public class MapaGrafico {
 	private TileObstaculo[][]  tilesObstaculo; 
 	private boolean[][] obstaculos; 
 	private TilePersonaje pj; // cliente
-	private Map<String,Personaje> personajes; // esto server
+	
+	private Map<String,Personaje> personajes; // mensaje movimiento: 
 
 	protected Camara cam;
-
 	private int xDestino;
 	private int yDestino;
 	private int xAnterior;
@@ -55,6 +55,7 @@ public class MapaGrafico {
 
 	private Grafo grafoDeMapa;
 	AlgoritmoDelTacho dijkstra;
+	
 	private List<Nodo> camino;
 	private Nodo paso;
 	private Nodo actual;
@@ -175,25 +176,18 @@ public class MapaGrafico {
 	}
 
 	public void actualizar() {
+
 		if( pj.getNuevoRecorrido() && posicionValida(-pj.getXDestino(),-pj.getYDestino()) )	{
-			dijkstra = new AlgoritmoDelTacho();
-			actual = grafoDeMapa.getNodo(-xDestino, -yDestino);
-			destino =  grafoDeMapa.getNodo(-pj.getXDestino(), -pj.getYDestino());			
+			dijkstra	= 	new AlgoritmoDelTacho();
+			actual 		= 	grafoDeMapa.getNodo(-xDestino, -yDestino);
+			destino 	=	grafoDeMapa.getNodo(-pj.getXDestino(), -pj.getYDestino());			
 			dijkstra.calcularDijkstra(grafoDeMapa, actual,destino);
-			camino = dijkstra.obtenerCamino(destino);
+			camino 		=	dijkstra.obtenerCamino(destino);
 			pj.setNuevoRecorrido(false);
 		}
 
 		if( !pj.enMovimiento() && camino != null && ! camino.isEmpty() ){
-			moverUnPaso();
-			/**
-			 * 
-			 *  Aca Braian,  se cambia el destino (osea el punto donde me dirigo)
-			 *  No utilizo la clase punto porque me parece poco optimo llamarla 60 por segundo pero se puede construir aca y mandar 
-			 *  esto no se va a ejecutar siempre,s olo cuando me estoy realmente moviendo.
-			 *  
-			 * 
-			 */		
+			moverUnPaso();	
 			pj.paraDondeVoy(xDestino, yDestino);
 			pj.mover(xDestino,yDestino);	
 		}
