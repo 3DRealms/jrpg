@@ -18,7 +18,7 @@ public class ThreadEnviarPosicionesIniciales extends Thread{
 	
 	@Override
 	public void run(){
-			clientes.enviarPosicionesACliente(client);
+			//clientes.enviarPosicionesACliente(client);
 	}
 
 }

@@ -1,6 +1,7 @@
 package servidor;
 
 import java.io.IOException;
+import java.net.SocketException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,7 @@ public class ThreadEscuchar extends Thread{
 	private Canal jugadores;
 	private SocketCliente cliente;
 	SQLiteJDBC sqcon;
+	private Personaje per;
 	
 	public ThreadEscuchar(Canal jugadores, SocketCliente cliente){
 		this.jugadores = jugadores;
@@ -64,7 +66,7 @@ public class ThreadEscuchar extends Thread{
 					//si el mensaje era para loguearse y cumple la autenticacion lo uno al juego
 					cliente.enviarMensajeConfirmacion(true, "");
 					cliente.setUsuario(men.getUsername());
-					Personaje per = sqcon.getPersonaje(men.getUsername());
+					per = sqcon.getPersonaje(men.getUsername());
 					if(per != null){						
 						jugadores.agregarCliente(cliente, per);					
 						cliente.enviarMensaje(per);
@@ -90,7 +92,11 @@ public class ThreadEscuchar extends Thread{
 
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			try {
+				cliente.cerrar();
+			} catch (IOException e1) {
+				System.out.println("No se pudo cerrar el cliente");
+			}
 		}
 		
 
@@ -107,13 +113,14 @@ public class ThreadEscuchar extends Thread{
 				if(mens.isMovimiento())
 					new ThreadEnviarMovimiento(can, mens).start();
 			} catch (IOException e) {				
-				e.printStackTrace();
 				can.quitarCliente(cliente);
+				if(!sqcon.guardarPersonaje(per)){
+					System.out.println("No se pudo guardar el personaje " + cliente.getUsuario());
+				}
 				try {
 					cliente.cerrar();
 				} catch (IOException e1) {
-
-					e1.printStackTrace();
+					System.out.println("No se pudo cerrar al cliente");
 				}
 				
 				conetado = false;

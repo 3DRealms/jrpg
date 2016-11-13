@@ -44,6 +44,7 @@ public class Canal {
 	
 	public void quitarCliente(SocketCliente cliente){
 		canal.remove(cliente);
+		
 	}
 	
 	public void enviarMensaje(Object men){

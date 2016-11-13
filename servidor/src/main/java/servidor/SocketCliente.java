@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.net.SocketException;
 
 import com.google.gson.Gson;
 
@@ -73,7 +74,7 @@ public class SocketCliente {
 		this.enviarMensaje(new MensajeMovimiento(punto, personaje, mapa,sprite));
 	}
 
-	public MensajeInteraccion pedirMensajeInteraccion() throws IOException {
+	public MensajeInteraccion pedirMensajeInteraccion() throws IOException,SocketException {
 		DataInputStream lectura = new DataInputStream(
 				cliente.getInputStream());
 		String leido = lectura.readUTF();
