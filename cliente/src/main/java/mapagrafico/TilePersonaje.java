@@ -32,7 +32,6 @@ public class TilePersonaje {
 	private int movimiento;
 	private boolean enMovimiento;
 	private boolean parado;
-	private Sprite spriteCaminando;
 	private int movimientoAnterior;
 	private Animacion[] animacionCaminado;
 
@@ -109,7 +108,7 @@ public class TilePersonaje {
 	}
 
 	public void inicializarAnimaciones(String pathPJ) {
-		spriteCaminando = new Sprite(pathPJ);
+		Sprite spriteCaminando =  new Sprite(pathPJ);
 		animacionCaminado = new Animacion[8];
 		for (int i = 0; i < animacionCaminado.length; i++) {
 			animacionCaminado[i] = new Animacion(150, spriteCaminando.getVectorSprite(i));

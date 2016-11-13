@@ -166,6 +166,9 @@ public class MapaGrafico {
 
 	public void actualizar() {
 
+		/*
+		 * Aca me empeze a mover.
+		 */
 		if( pj.getNuevoRecorrido() && posicionValida(-pj.getXDestino(),-pj.getYDestino()) )	{
 			dijkstra	= 	new AlgoritmoDelTacho();
 			actual 		= 	grafoDeMapa.getNodo(-xDestino, -yDestino);
@@ -180,12 +183,9 @@ public class MapaGrafico {
 			pj.paraDondeVoy(xDestino, yDestino);
 			pj.mover(xDestino,yDestino);	
 		}
-		
-		
-		if(	(camino == null || camino.isEmpty() )  ) //Fijarse para que pare justo cuando termina de dibujar. 
-			pj.parar();	
+
+
 			
-		
 			
 	}
 
@@ -238,7 +238,7 @@ public class MapaGrafico {
 				tiles[i][j].mover(g2d,xDestino + JuegoPanelTestBatalla.xOffCamara,yDestino+JuegoPanelTestBatalla.yOffCamara);
 				if( puedoDibujarPJ(g2d, i, j))
 					pj.dibujarCentro(g2d);
-				if( puedoDibujarObstaculo(i, j)  )
+				if( puedoDibujarObstaculo(i, j))
 					tilesObstaculo[i][j].mover(g2d,xDestino+ JuegoPanelTestBatalla.xOffCamara,yDestino+JuegoPanelTestBatalla.yOffCamara);
 			}
 		}
@@ -258,8 +258,10 @@ public class MapaGrafico {
 	 * Estrambolico, avisa cuando termino de moverse el personaje. deberia camiarlo ya que utiliza los tiles Graficos.
 	 */
 	private void termino() {
-		if ( x == tiles[0][0].getXIso() && y == tiles[0][0].getYIso() )
+		if ( x == tiles[0][0].getXIso() && y == tiles[0][0].getYIso() ){
 			pj.setEnMovimiento(false);
+			pj.parar();
+		}
 		else 
 			pj.setEnMovimiento(true);
 
