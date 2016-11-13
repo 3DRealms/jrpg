@@ -36,6 +36,7 @@ public class MatrizBoolean {
 
 					{	
 							//Si no hay obstaculo y si no hay alguno cerca (en diagonal) meto :*
+						
 						if( !mat[fila][columna] && !hayObstaculoCerca(fila,columna,fil,col) ){  //Si no hay obstaculo
 
 							aux = g.getNodoVisitante(fila,columna);
@@ -62,11 +63,14 @@ public class MatrizBoolean {
 		boolean aux = false;
 		if( fil-1==i && col-1==j && j<columnas && i<filas)
 			aux = mat[i][j+1] || mat[i+1][j];
-		if( fil-1==i && col+1==j && i<filas && j>0)
+		
+		if( fil-1==i && col+1==j && i<filas && j>=0)
 			aux =  mat[i][j-1] || mat[i+1][j];
-		if( fil+1==i && col-1==j && i>0 && j>=0)
+		
+		if( fil+1==i && col-1==j && i>=0 && j>=0)
 			aux =  mat[i-1][j] || mat[i][j-1];
-		if( fil+1==i && col+1==j && i>0 && j<columnas)
+		
+		if( fil-1==i && col+1==j && i>=0 && j<columnas)
 			aux =  mat[i-1][j] || mat[i][j+1];
 		return aux;
 	}

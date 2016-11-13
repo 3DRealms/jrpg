@@ -22,6 +22,8 @@ public class Mouse implements MouseListener{
 		y = evento.getY();
 		recorrido = true;
 	}
+	
+	
 	public boolean getRecorrido(){
 		return recorrido;
 	}

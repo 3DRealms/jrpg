@@ -14,13 +14,13 @@ import mapa.Punto;
 public class Nodo {
 	private Punto pos;
 	List<Nodo> nodosAdyacentes;
-	private int peso;
 
 	// esto capaz vuele.
 	public Nodo(final Punto pos) {
 		this.pos = pos;
 		nodosAdyacentes = new ArrayList<>();
 	}
+
 
 	public Punto getPunto() {
 		return pos;

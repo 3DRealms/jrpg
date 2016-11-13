@@ -57,7 +57,7 @@ public class JuegoPanel extends Component implements Runnable{
 			now = System.nanoTime();
 			delta += (now - lastTime)/timePerTick;
 			lastTime = now;
-			
+
 			if(delta >=1){   
 				actualizar();
 				repaint();
@@ -67,7 +67,7 @@ public class JuegoPanel extends Component implements Runnable{
 	}
 
 	public void actualizar() {
-		mouse.actualizar(); 
+		mouse.actualizar();  // Preguntar porque aveces no me lo agarra :c estupido mouse listener de java ?
 		pjDibujo.actualizar();
 		mapa.actualizar();
 	}

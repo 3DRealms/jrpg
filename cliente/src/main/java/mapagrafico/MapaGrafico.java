@@ -48,24 +48,26 @@ public class MapaGrafico {
 
 	protected Camara cam;
 
-	private int xActual;
-	private int yActual;
+	private int xDestino;
+	private int yDestino;
 	private int xAnterior;
 	private int yAnterior;
 
 	private Grafo grafoDeMapa;
 	AlgoritmoDelTacho dijkstra;
 	private List<Nodo> camino;
-	private Nodo nodoActual;
+	private Nodo paso;
+	private Nodo actual;
+	private Nodo destino;
 
 	public MapaGrafico(String nombre,TilePersonaje pj) {
 		File path = new File("src\\main\\resources\\mapas\\"+nombre+".map");
 		this.pj = pj;
 		enMovimiento = false;
-		xActual = pj.getXDestino();
-		yActual = pj.getYDestino();
-		xAnterior = -xActual;
-		yAnterior = -yActual;
+		xDestino = pj.getXDestino();
+		yDestino = pj.getYDestino();
+		xAnterior = -xDestino;
+		yAnterior = -yDestino;
 		dijkstra = new AlgoritmoDelTacho();
 		this.nombre = nombre;
 
@@ -174,25 +176,28 @@ public class MapaGrafico {
 	public void actualizar() {
 		if( pj.getNuevoRecorrido() && posicionValida(-pj.getXDestino(),-pj.getYDestino()) )	{
 			dijkstra = new AlgoritmoDelTacho();
-			pj.mover();	
-			Nodo actual = grafoDeMapa.getNodo(-xActual, -yActual);
-			Nodo destino =  grafoDeMapa.getNodo(-pj.getXDestino(), -pj.getYDestino());
+			actual = grafoDeMapa.getNodo(-xDestino, -yDestino);
+			destino =  grafoDeMapa.getNodo(-pj.getXDestino(), -pj.getYDestino());			
 			dijkstra.calcularDijkstra(grafoDeMapa, actual,destino);
 			camino = dijkstra.obtenerCamino(destino);
+			pj.setNuevoRecorrido(false);
 		}
 
-
-
-		if( !enMovimiento && camino != null && ! camino.isEmpty() )
+		if( !pj.enMovimiento() && camino != null && ! camino.isEmpty() ){
 			moverUnPaso();
+			pj.mover(xDestino,yDestino);	
+		}
 	}
 
 	private void moverUnPaso() { // Esto tengo que ver, pero lo que hace es mover paso a paso por el camino del DI kjsoihyoas TRAMMMMMMMMMMM
-		nodoActual = camino.get(0);
-		xAnterior = -xActual;
-		yAnterior = -yActual;
-		xActual = -nodoActual.getPunto().getX();
-		yActual = -nodoActual.getPunto().getY();
+		paso = camino.get(0);
+		
+		xAnterior = -xDestino;
+		yAnterior = -yDestino;
+	
+		xDestino = -paso.getPunto().getX();
+		yDestino = -paso.getPunto().getY();
+		
 		camino.remove(0);
 
 	}
@@ -210,12 +215,12 @@ public class MapaGrafico {
 		g2d.clearRect(0, 0, 810, 610);		
 		for (int i = 0; i <  alto; i++) { 
 			for (int j = 0; j < ancho ; j++) { 
-				tiles[i][j].dibujar(g2d,xActual+JuegoPanelTestBatalla.xOffCamara,yActual+JuegoPanelTestBatalla.yOffCamara);
+				tiles[i][j].dibujar(g2d,xDestino+JuegoPanelTestBatalla.xOffCamara,yDestino+JuegoPanelTestBatalla.yOffCamara);
 				if( puedoDibujarPJ(g2d, i, j))
 					pj.dibujarCentro(g2d);
 
 				if( puedoDibujarObstaculo(i, j)  ){
-					tilesObstaculo[i][j].dibujar(g2d,xActual+ JuegoPanelTestBatalla.xOffCamara,yActual+JuegoPanelTestBatalla.yOffCamara);
+					tilesObstaculo[i][j].dibujar(g2d,xDestino+ JuegoPanelTestBatalla.xOffCamara,yDestino+JuegoPanelTestBatalla.yOffCamara);
 				}
 			}
 		}
@@ -231,11 +236,11 @@ public class MapaGrafico {
 		
 		for (int i = 0; i <  alto; i++) { 
 			for (int j = 0; j < ancho ; j++) { 
-				tiles[i][j].mover(g2d,xActual + JuegoPanelTestBatalla.xOffCamara,yActual+JuegoPanelTestBatalla.yOffCamara);
+				tiles[i][j].mover(g2d,xDestino + JuegoPanelTestBatalla.xOffCamara,yDestino+JuegoPanelTestBatalla.yOffCamara);
 				if( puedoDibujarPJ(g2d, i, j))
 					pj.dibujarCentro(g2d);
 				if( puedoDibujarObstaculo(i, j)  ){
-					tilesObstaculo[i][j].mover(g2d,xActual+ JuegoPanelTestBatalla.xOffCamara,yActual+JuegoPanelTestBatalla.yOffCamara);
+					tilesObstaculo[i][j].mover(g2d,xDestino+ JuegoPanelTestBatalla.xOffCamara,yDestino+JuegoPanelTestBatalla.yOffCamara);
 				}
 				/*if(i != xActual && j != yActual)
 					pj.dibujarCentro(g2d);*/
@@ -251,13 +256,14 @@ public class MapaGrafico {
 	}
 
 	private boolean puedoDibujarPJ(Graphics2D g2d, int i, int j) {
-		return  i == -xActual && j == -yActual || i == xAnterior &&  j == yAnterior || i == -xActual && j == yAnterior ||  i == xAnterior && j == -yActual;
+		return  i == -xDestino && j == -yDestino || i == xAnterior &&  j == yAnterior || i == -xDestino && j == yAnterior ||  i == xAnterior && j == -yDestino;
 	}  
 
 	private void termino() {
 		if ( x == tiles[0][0].getXIso() && y == tiles[0][0].getYIso() )
-			enMovimiento = false;
+			pj.setEnMovimiento(false);
 		else 
-			enMovimiento = true;
+			pj.setEnMovimiento(true);
+;
 	}
 }
