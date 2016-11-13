@@ -138,7 +138,7 @@ public class MapaGrafico {
 	 */
 	private void load(String nombre) {
 		String recursos = "src\\main\\resources\\";
-		Sprite.inicializar(recursos+"mapas\\"+nombre+"\\piso.png",recursos+"personajes\\pj.png");
+		Sprite.inicializar(recursos+"mapas\\"+nombre+"\\piso.png",recursos+"personajes\\pelado.png");
 		iluminacion = Sprite.loadImage("src\\main\\resources\\mapas\\99.png");
 	}
 

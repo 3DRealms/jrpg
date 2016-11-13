@@ -4,11 +4,13 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 
 import juego.JuegoPanelTestBatalla;
 import juego.Mouse;
 import mapa.Punto;
 import personaje.Personaje;
+import sprites.Animacion;
 import sprites.Sprite;
 
 public class TilePersonaje {
@@ -32,19 +34,27 @@ public class TilePersonaje {
 
 	private boolean horizontal;
 	private boolean vertical;
-	private boolean meMuevoParaInfIzq;
-	private boolean meMuevoParaSup;
-	private boolean meMuevoParaInf;
 	
-
-
-	private boolean meMuevoParaDer;
-	private boolean meMuevoParaIzq;
-	private boolean meMuevoParaInfDer;
-	private boolean meMuevoParaSupIzq;
-	private boolean meMuevoParaSupDer;
+	
+	private boolean movDerecha;
+	private boolean movAbajoIzquierda;
+	private boolean movArribaDerecha;
+	private boolean movArribaIzquierda;
+	private boolean movAbajoDerecha;
+	private boolean movArriba;
+	private boolean movAbajo;
+	private boolean movIzquierda;
 	private boolean enMovimiento;
 	private boolean parado;
+
+	protected Animacion animAbajo;
+	protected Animacion animArriba;
+	protected Animacion animDerecha;
+	protected Animacion animIzquierda;
+	protected Animacion animAbajoIzquierda;
+	protected Animacion animArribaIzquierda;
+	protected Animacion animAbajoDerecha;
+	protected Animacion animArribaDerecha;
 
 
 
@@ -60,7 +70,7 @@ public class TilePersonaje {
 		this.mouse = mouse;
 		//Aca va la raza
 		spritePJ = Sprite.loadImage("src\\main\\resources\\personajes\\"+pj.getSprite()+".png");
-
+		inicializarAnimaciones();
 		this.nuevoRecorrido = false; // NO BORRAR.
 		// baicamente como le sumo (16,6) para que coicida con el 0,0 del mapa.
 
@@ -74,7 +84,7 @@ public class TilePersonaje {
 	 * @param deltaY
 	 */
 	public void dibujarCentro(Graphics g) {  // Aca puedo dibujar el HUD.
-		g.drawImage( spritePJ ,xCentro, yCentro, null);
+		g.drawImage( obtenerFrameActual() ,xCentro, yCentro, null);
 		Font fuente=new Font("Arial", Font.BOLD, 16);
 		g.setColor(Color.GREEN);
 		g.setFont(fuente);
@@ -84,11 +94,14 @@ public class TilePersonaje {
 
 	public void actualizar() {
 		int posMouse[] = mouse.getPos();
-
+		
+		actualizarAnimaciones();
+		
 		if (mouse.getRecorrido()) {
 			setNuevoRecorrido(true);
 			xDestino = xInicio - posMouse[0] + JuegoPanelTestBatalla.xOffCamara;
 			yDestino = yInicio - posMouse[1] + JuegoPanelTestBatalla.yOffCamara;
+			paraDondeVoy(xDestino, yDestino);
 			mouse.setRecorrido(false); 
 		}
 
@@ -112,56 +125,104 @@ public class TilePersonaje {
 		yInicio = yDestino2;
 
 	}
+	
+	public void inicializarAnimaciones() {
+		animAbajo = new Animacion(150, Sprite.pjAbajo);
+		animArriba = new Animacion(150, Sprite.pjArriba);
+		animDerecha = new Animacion(150, Sprite.pjDerecha);
+		animIzquierda = new Animacion(150, Sprite.pjIzquierda);
+		animAbajoIzquierda = new Animacion(150, Sprite.pjAbajoIzquierda);
+		animArribaIzquierda = new Animacion(150, Sprite.pjArribaIzquierda);
+		animAbajoDerecha = new Animacion(150, Sprite.pjAbajoDerecha);
+		animArribaDerecha = new Animacion(150, Sprite.pjArribaDerecha);
+	}
+	
+	public void actualizarAnimaciones() {
+
+		animArriba.actualizar();
+		animAbajo.actualizar();
+		animIzquierda.actualizar();
+		animDerecha.actualizar();
+		animAbajoIzquierda.actualizar();
+		animArribaIzquierda.actualizar();
+		animAbajoDerecha.actualizar();
+		animArribaDerecha.actualizar();
+	}
 
 	// Esto lo podria resolver con un 1 byte en c++ ¬¬
 	public void paraDondeVoy(int xDestino2, int yDestino2) {
-		meMuevoParaSup = false;
-		meMuevoParaInf = false;
-		meMuevoParaDer= false;
-		meMuevoParaIzq = false;
-		meMuevoParaInfDer = false;
-		meMuevoParaInfIzq = false;
-		meMuevoParaSupIzq = false;
-		meMuevoParaSupDer = false;
+		movAbajoIzquierda = false;
+		movArribaDerecha = false;
+		movArribaIzquierda = false;
+		movAbajoDerecha = false;
+		movArriba = false;
+		movDerecha = false;
+		movAbajo = false;
+		movIzquierda = false;
 		parado = false;
+		
+		//faltaria parado, estaba rancia
+		/**
+		 * Dani, me tiraste cualquier cosa en los nombres, nada se movia para los
+		 * lados que decia -.-
+		 */
+		
+		if (xInicio > xDestino2 && yInicio == yDestino2) { // sureste
+			movAbajoDerecha = true;
+			return;
+		}
+		if (xInicio < xDestino2 && yInicio == yDestino2) {// noroeste
+			movArribaIzquierda = true;
+			return;
+		}
+		if (xInicio == xDestino2 && yInicio < yDestino2) {// noreste
+			System.out.println("arriba a la derecha");
+			movArribaDerecha = true;
+			return;
+		}
+		if (xInicio == xDestino2 && yInicio > yDestino2) {// suroeste
+			movAbajoIzquierda = true;
+			return;
+		}
+		if (xInicio < xDestino2 && yInicio < yDestino2) {// norte
+			movArriba = true;
+			return;
+		}
+		if (xInicio > xDestino2 && yInicio < yDestino2) {// este
+			movDerecha = true;
+			return;
+		}
+		if (xInicio > xDestino2 && yInicio > yDestino2) {// sur
+			movAbajo = true;
+			return;
+		}
+		if (xInicio < xDestino2 && yInicio > yDestino2) {// oeste
+			movIzquierda = true;
+			return;
+		}
 
-		if(xInicio ==  xDestino2 && yInicio == yDestino2){
-			parado = true;
-			return;
-		}
-		if(xInicio >  xDestino2 && yInicio == yDestino2){
-			meMuevoParaIzq = true;
-			return;
-		}
-		if(xInicio <  xDestino2 && yInicio == yDestino2){
-			meMuevoParaDer = true;
-			return;
-		}
-		if(xInicio ==  xDestino2 && yInicio < yDestino2){
-			meMuevoParaInf = true;
-			return;
-		}
-		if(xInicio ==  xDestino2 && yInicio > yDestino2){
-			meMuevoParaSup = true;
-			return;
-		}
-		if(xInicio <  xDestino2 && yInicio < yDestino2){
-			meMuevoParaInfDer = true;
-			return;
-		}
-		if(xInicio >  xDestino2 && yInicio < yDestino2){
-			meMuevoParaInfIzq = true;
-			return;
-		}
-		if(xInicio >  xDestino2 && yInicio > yDestino2){
-			meMuevoParaSupIzq = true;
-			return;
-		}
-		if(xInicio <  xDestino2 && yInicio > yDestino2){
-			meMuevoParaSupDer = true;
-			return;
-		}
+	}
+	
+	public BufferedImage obtenerFrameActual() {
 
+		if (movAbajo)
+			return animAbajo.getFrameActual();
+		else if (movArriba)
+			return animArriba.getFrameActual();
+		else if (movDerecha)
+			return animDerecha.getFrameActual();
+		else if (movIzquierda)
+			return animIzquierda.getFrameActual();
+		else if (movArribaDerecha)
+			return this.animArribaDerecha.getFrameActual();
+		else if (this.movAbajoDerecha)
+			return this.animAbajoDerecha.getFrameActual();
+		else if (this.movArribaIzquierda)
+			return this.animArribaIzquierda.getFrameActual();
+		else if (this.movAbajoIzquierda)
+			return this.animAbajoIzquierda.getFrameActual();
+
+		return Sprite.pjAbajo[0];
 	}
 
 
@@ -187,43 +248,6 @@ public class TilePersonaje {
 	}
 
 
-	public boolean isMeMuevoParaInfIzq() {
-		return meMuevoParaInfIzq;
-	}
 
-
-	public boolean isMeMuevoParaSup() {
-		return meMuevoParaSup;
-	}
-
-
-	public boolean isMeMuevoParaInf() {
-		return meMuevoParaInf;
-	}
-
-
-	public boolean isMeMuevoParaDer() {
-		return meMuevoParaDer;
-	}
-
-
-	public boolean isMeMuevoParaIzq() {
-		return meMuevoParaIzq;
-	}
-
-
-	public boolean isMeMuevoParaInfDer() {
-		return meMuevoParaInfDer;
-	}
-
-
-	public boolean isMeMuevoParaSupIzq() {
-		return meMuevoParaSupIzq;
-	}
-
-
-	public boolean isMeMuevoParaSupDer() {
-		return meMuevoParaSupDer;
-	}
 
 }
