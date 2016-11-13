@@ -37,8 +37,8 @@ public class MatrizBoolean {
 					{	
 							//Si no hay obstaculo y si no hay alguno cerca (en diagonal) meto :*
 						
-						if( !mat[fila][columna] && !hayObstaculoCerca(fila,columna,fil,col) ){  //Si no hay obstaculo
-
+						if( !mat[fila][columna] && !hayObstaculoCerca(fil,col,fila,columna) ){  //Si no hay obstaculo
+						
 							aux = g.getNodoVisitante(fila,columna);
 							if(aux==null){	
 								aux = new Nodo(new Punto(fila,columna));
@@ -57,21 +57,32 @@ public class MatrizBoolean {
 		}
 	}
 
-
-	private boolean hayObstaculoCerca(int i,int j, int fil, int col) {
+	/**
+	 * 
+	 * Le paso el nodo que evaluo 
+	 * y les paso las coordenadas de la arista que quiero conectar
+	 * @param xNodo
+	 * @param yNodo
+	 * @param xArista
+	 * @param yArista
+	 * @return
+	 */
+	private boolean hayObstaculoCerca(int xNodo,int yNodo, int xArista, int yArista) {
 
 		boolean aux = false;
-		if( fil-1==i && col-1==j && j<columnas && i<filas)
-			aux = mat[i][j+1] || mat[i+1][j];
+		if( xArista+1==xNodo && yArista+1==yNodo && xNodo>=0 && yNodo>=0)
+			aux = mat[xNodo-1][yNodo]	|| 	mat[xNodo][yNodo-1];
 		
-		if( fil-1==i && col+1==j && i<filas && j>=0)
-			aux =  mat[i][j-1] || mat[i+1][j];
+		if( xArista+1==xNodo && yArista-1==yNodo && xNodo>=0 && yNodo<columnas)
+			aux = mat[xNodo-1][yNodo] ||mat[xNodo][yNodo+1]	;
 		
-		if( fil+1==i && col-1==j && i>=0 && j>=0)
-			aux =  mat[i-1][j] || mat[i][j-1];
+		if( xArista-1==xNodo && yArista+1==yNodo && xNodo<filas && yNodo>=0){
+			aux =  mat[xNodo+1][yNodo] 	|| 	mat[xNodo][yNodo-1];
+
+		}
 		
-		if( fil-1==i && col+1==j && i>=0 && j<columnas)
-			aux =  mat[i-1][j] || mat[i][j+1];
+		if( xArista-1==xNodo && yArista-1==yNodo && xNodo<filas && yNodo<columnas)
+			aux =  mat[xNodo+1][yNodo] 	||	mat[xNodo][yNodo+1];
 		return aux;
 	}
 	public boolean esPosicionValida(int pos_f, int pos_c) {

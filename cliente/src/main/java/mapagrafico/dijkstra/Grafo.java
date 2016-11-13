@@ -25,7 +25,7 @@ public class Grafo {
 		nodosVistados = new Nodo[obstaculos.getFilas()][obstaculos.getColumnas()];
 		Nodo actual;
 		for (int i = 0; i < obstaculos.getFilas(); i++) {    	// Recorro la matriz (filas)
-			for (int j = 0; j < obstaculos.getFilas(); j++) {	// Recorro la matriz (columna)
+			for (int j = 0; j < obstaculos.getColumnas(); j++) {	// Recorro la matriz (columna)
 
 				if( obstaculos.get(i,j) )
 					continue; // es un goto :v 
@@ -39,7 +39,14 @@ public class Grafo {
 				nodos.add(actual); 
 			}	
 		}
-		nodosVistados = null;
+	
+		/*for (int i = 0; i < obstaculos.getFilas(); i++) {
+			for (int j = 0; j < obstaculos.getColumnas(); j++) {
+				System.out.print("("+i+" " +j+")"+obstaculos.get(i, j)+"\t");
+			}
+			System.out.println("\n");
+		}*/
+		nodosVistados = null; // libero memoria :D 
 	}
 
 	public Nodo getNodoVisitante(int i, int j) {
