@@ -1,22 +1,16 @@
 package juego;
 
 public class Camara {
-	public final int xOffCamara;
-	public final int yOffCamara; 
-	public final int alto;
-	public final int ancho;
-	public int getxOffCamara() {
-		return xOffCamara;
-	}
+	private final int xOffCamara;
+	private final int yOffCamara; 
+	private final int alto;
+	private final int ancho;
 
-	public int getyOffCamara() {
-		return yOffCamara;
-	}
-
-	public Camara(int ancho, int alto, int xCamara, int yCamara) {
-
-		int x0 = xCamara; //ancho/2
-		int y0 = yCamara;
+	public Camara(int ancho, int alto) {
+	//	int xCamara= ancho/2 - (ancho/2)%32;
+	//	int yCamara = alto/2 - (alto/2)%32;
+		int x0 = 320; //ancho/2
+		int y0 = 320;
 		this.alto = alto;
 		this.ancho = ancho;
 		int auxX = y0 + (x0 / 2);
@@ -30,9 +24,21 @@ public class Camara {
 		xOffCamara = auxX+1; 
 		yOffCamara = auxY+1;
 	}
+	
+	public int getxOffCamara() {
+		return xOffCamara;
+	}
 
+	public int getyOffCamara() {
+		return yOffCamara;
+	}
+
+	public int getAncho() {
+		return ancho;
+	}
 	public int getAlto() {
 		return alto;
 	}
+
 
 }

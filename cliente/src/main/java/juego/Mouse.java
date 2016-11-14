@@ -2,8 +2,6 @@ package juego;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
-import mapagrafico.MapaGrafico;
 import mapagrafico.Tile;
 
 public class Mouse implements MouseListener{

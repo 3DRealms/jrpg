@@ -14,8 +14,8 @@ import personaje.Personaje;
 @SuppressWarnings("serial")
 public class JuegoPanel extends Component implements Runnable{
 
-	public static final int ANCHO = 800;
-	public static final int ALTO = 600;
+	public static final int ANCHO = 1024;
+	public static final int ALTO = 768;
 	public static final int fps = 60;
 
 
@@ -37,7 +37,7 @@ public class JuegoPanel extends Component implements Runnable{
 		setFocusable(true);
 		requestFocus();
 		mouse 	 = new Mouse();
-		camara = new Camara(ANCHO, ALTO, 320, 320);
+		camara = new Camara(ANCHO, ALTO);
 		addMouseListener(mouse);
 		pjDibujo = new TilePersonaje(spaw,pj,mouse,camara);  
 		mapa 	 = new MapaGrafico(nombre,pjDibujo,camara);

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
@@ -11,9 +12,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import juego.Camara;
-import juego.JuegoPanelTestBatalla;
 import mapa.Mapa;
 import mapagrafico.dijkstra.AlgoritmoDelTacho;
 import mapagrafico.dijkstra.Grafo;
@@ -39,6 +41,7 @@ public class MapaGrafico {
 	protected boolean enMovimiento;
 	protected String sprites;
 	private static Image iluminacion;
+	private static Image hud;
 	private Tile[][] tiles;
 	private TileObstaculo64x64[][]  tilesObstaculo; 
 	private boolean[][] obstaculos; 
@@ -114,6 +117,9 @@ public class MapaGrafico {
 
 	private void cargarSprite() {
 		load(sprites);
+		iluminacion = Sprite.loadImage("src\\main\\resources\\mapas\\99.png").getScaledInstance(camara.getAncho() + 10,camara.getAlto() + 10,Image.SCALE_SMOOTH);
+		hud = 	Sprite.loadImage("src\\main\\resources\\vida.png");
+
 	}
 
 	public boolean EnMovimiento() {
@@ -127,7 +133,6 @@ public class MapaGrafico {
 	private void load(String nombre) {
 		String recursos = "src\\main\\resources\\";
 		Sprite.inicializar(recursos+"mapas\\"+nombre+"\\piso.png");
-		iluminacion = Sprite.loadImage("src\\main\\resources\\mapas\\99.png");
 	}
 
 	public boolean posicionValida(int x, int y){
@@ -191,7 +196,6 @@ public class MapaGrafico {
 		xDestino = -paso.getPunto().getX();
 		yDestino = -paso.getPunto().getY();
 		camino.remove(0);
-
 	}
 
 
@@ -213,12 +217,12 @@ public class MapaGrafico {
 					tilesObstaculo[i][j].dibujar(g2d,xDestino + camara.getxOffCamara(),yDestino + camara.getyOffCamara());	
 			}
 		}
+		g2d.drawImage( iluminacion, 0, 0 , null);
 	}
 
 	public void mover(Graphics2D g2d) {
 		g2d.setBackground(Color.BLACK);
-		g2d.clearRect(0, 0, 810, 610);		
-
+		g2d.clearRect(0, 0, camara.getAncho() + 10, camara.getAlto() + 10);		
 		//Tiene que ser uno por uno entonces si cancelo termino el movimiento (sino se descuajaina todo).
 		x = tiles[0][0].getXIso(); // puedo agarrar el centro. pero por ahora asi.
 		y = tiles[0][0].getYIso();
@@ -239,7 +243,7 @@ public class MapaGrafico {
 
 
 	private void hud(Graphics2D g2d) {
-	//	g2d.drawImage( Sprite.hub, 0, 0, null);
+		g2d.drawImage( hud, 50, 62, null);
 		g2d.setFont(new Font("Verdana", Font.BOLD, 18));
 		g2d.setColor(Color.black);
 		g2d.drawString(pj.getNombre(), 52, 62);

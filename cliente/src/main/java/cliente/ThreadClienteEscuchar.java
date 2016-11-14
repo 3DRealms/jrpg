@@ -1,11 +1,6 @@
 package cliente;
 
-import java.io.DataInputStream;
 import java.io.IOException;
-import java.net.Socket;
-import mensaje.*;
-import com.google.gson.Gson;
-
 
 public class ThreadClienteEscuchar extends Thread{
 	
