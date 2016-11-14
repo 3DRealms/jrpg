@@ -74,17 +74,21 @@ public class SocketCliente {
 		this.enviarMensaje(new MensajeMovimiento(punto, personaje, mapa,sprite));
 	}
 
-	public MensajeInteraccion pedirMensajeInteraccion() throws IOException,SocketException {
+	public MensajeInteraccion pedirMensajeInteraccion() throws IOException {
+		
 		DataInputStream lectura = new DataInputStream(
 				cliente.getInputStream());
 		String leido = lectura.readUTF();
 		Gson gson = new Gson();
+		
 		MensajeInteraccion men = gson.fromJson(leido, MensajeInteraccion.class);
 		if(men.isMovimiento())
 			return gson.fromJson(leido, MensajeMovimiento.class);
 		if(men.isAccion())
 			return men;
 		if(men.isCombate())
+			return men;
+		if(men.isParado())
 			return men;
 		
 		return null;

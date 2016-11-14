@@ -15,6 +15,8 @@ import java.util.Scanner;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+
+import cliente.EnviadorPosicion;
 import juego.Camara;
 import mapa.Mapa;
 import mapagrafico.dijkstra.AlgoritmoDelTacho;
@@ -59,11 +61,13 @@ public class MapaGrafico {
 	private Nodo actual;
 	private Nodo destino;
 	private boolean noEnvieQueTermine;
+	private EnviadorPosicion env;
 
 
-	public MapaGrafico(String nombre,TilePersonaje pj,Camara camara) {
+	public MapaGrafico(String nombre,TilePersonaje pj,Camara camara, EnviadorPosicion env) {
 		File path = new File("src\\main\\resources\\mapas\\"+nombre+".map");
 		this.pj = pj;
+		this.env = env;
 		enMovimiento = false;
 		xDestino = pj.getXDestino();
 		yDestino = pj.getYDestino();
@@ -169,7 +173,9 @@ public class MapaGrafico {
 			dijkstra.calcularDijkstra(grafoDeMapa, actual,destino);
 			camino 		=	dijkstra.obtenerCamino(destino);
 			pj.setNuevoRecorrido(false);
-			Mapa.enviarUbicacionDestino(destino.getPunto());
+			// ACA SE ENVIA POR EL CLIENTE LA POSICION NUEVA DEL PERSONAJE
+			env.enviarPosicion(destino.getPunto());
+			//
 			noEnvieQueTermine = true;
 		}
 
@@ -179,7 +185,9 @@ public class MapaGrafico {
 			pj.mover(xDestino,yDestino);	
 		}
 		if( noEnvieQueTermine && !pj.estaEnMovimiento() && ! hayCamino()){
-			Mapa.enviarQueLlegue();
+			// ACA SE ENVIA POR EL CLIENTE LA POSICION FINAL DEL PERSONAJE
+			env.enviarDetencion();
+			//
 			noEnvieQueTermine = false;
 		}
 	}
@@ -274,4 +282,6 @@ public class MapaGrafico {
 			pj.setEnMovimiento(true);
 
 	}
+	
+
 }

@@ -111,15 +111,18 @@ public class ThreadEscuchar extends Thread{
 			try {
 				
 				MensajeInteraccion mens = cliente.pedirMensajeInteraccion();
+				
+				if(mens.isMovimiento()){
+					can.moverPersonaje(per, ((MensajeMovimiento) mens).getPos());
+					new ThreadEnviarInteraccion(can, mens).start();
+				}
+				
 				if(mens.isParado()){
 					can.detenerPersonaje(per);
 					new ThreadEnviarInteraccion(can, mens).start();
 				}
 					
-				if(mens.isMovimiento()){
-					can.moverPersonaje(per, ((MensajeMovimiento) mens).getPos());
-					new ThreadEnviarInteraccion(can, mens).start();
-				}
+				
 					
 				
 			} catch (IOException e) {				

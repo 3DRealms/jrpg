@@ -5,6 +5,9 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JFrame;
+
+import cliente.Cliente;
+import cliente.EnviadorPosicion;
 import mapa.Punto;
 import mapagrafico.MapaGrafico;
 import mapagrafico.TilePersonaje;
@@ -28,11 +31,16 @@ public class JuegoPanel extends Component implements Runnable{
 	private TilePersonaje pjDibujo;
 	private Camara camara;
 	JFrame padre;
+	Cliente cliente;
+	
+	EnviadorPosicion env;
 
 	private boolean jugar = true;
 
-	public JuegoPanel(JFrame padre,Punto spaw, Personaje pj,String nombre) {
+	public JuegoPanel(JFrame padre,Punto spaw, Personaje pj,String nombreMapa, Cliente cliente) {
 		this.padre = padre;
+		this.cliente = cliente;
+		env = new EnviadorPosicion(cliente, pj.getNombre(),nombreMapa, pj.getSprite());
 		setPreferredSize(new Dimension(ANCHO, ALTO));
 		setFocusable(true);
 		requestFocus();
@@ -40,7 +48,7 @@ public class JuegoPanel extends Component implements Runnable{
 		camara = new Camara(ANCHO, ALTO);
 		addMouseListener(mouse);
 		pjDibujo = new TilePersonaje(spaw,pj,mouse,camara);  
-		mapa 	 = new MapaGrafico(nombre,pjDibujo,camara);
+		mapa 	 = new MapaGrafico(nombreMapa,pjDibujo,camara, env);
 		thread 	 = new Thread(this);
 		thread.start();
 	}

@@ -23,6 +23,7 @@ public class Mapa {
 		this.ancho=ancho;
 		this.alto=alto;
 		this.personajes=new HashMap<String,Personaje>();
+		this.moviendoA = new HashMap<String,Punto>();
 
 	}
 

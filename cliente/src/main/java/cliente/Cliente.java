@@ -66,6 +66,13 @@ public class Cliente {
 		salida.writeUTF(gson.toJson(mensaje));
 	}
 	
+	public void enviarInteraccion(MensajeInteraccion men) throws IOException{
+
+		enviarObjeto(men);
+		
+
+	}
+	
 	public MensajeConfirmacion enviarAutenticacion(String usuario, String clave) throws IOException{
 
 		enviarObjeto(new MensajeAutenticacion(usuario,clave,false));
@@ -137,7 +144,7 @@ public class Cliente {
 	public void abrirJuego(Personaje per){
 		
 		ventana=new JFrame("El señor de los aniloros"); //Ventana comun
-		juego = new JuegoPanel(ventana,per.getUbicacion(),per, "map_test");
+		juego = new JuegoPanel(ventana,per.getUbicacion(),per, "map_test", this);
 		ventana.add(juego); //Dentro de la ventana pongo el juego.
 		ventana.pack(); //hace que el tamaño se ajuste al tamaño preferido y diseños de sus subcomponentes.
 		ventana.setLocationRelativeTo(null); //centro
