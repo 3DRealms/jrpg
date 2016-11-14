@@ -217,5 +217,10 @@ public class TilePersonaje {
 	}
 
 
+	public String getNombre() {
+		return pj.getNombre();
+	}
+
+
 
 }

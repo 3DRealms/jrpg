@@ -14,6 +14,8 @@ public class Sprite {
 	private static final int framesPJ = 6;
 	private static final int dirreciones = 8;
 	private static final int cantidadSprite = 6;
+	public static final BufferedImage click = CargaImagen.cargarImagen("src\\main\\resources\\click.png");
+	public static final BufferedImage hub = CargaImagen.cargarImagen("src\\main\\resources\\hud.png");;
 	/**
 	 * Esto va a ser para las animaciones del pj, todavia no esta listo
 	 */
@@ -22,15 +24,16 @@ public class Sprite {
 
 	public static BufferedImage[] estandar;
 
+
 	public Sprite(String pathPJ) {
 		HojaSprite hojaPJ = new HojaSprite(CargaImagen.cargarImagen(pathPJ));
 		sprite = new BufferedImage[dirreciones][framesPJ];
-		
+
 		for (int i = 0; i < 8; i++) {
 			recortarSprite(hojaPJ,i+1,framesPJ,i,sprite[i]);
 		}	
 	}
-	
+
 	public static void inicializar(String pathPiso){
 		HojaSprite hoja = new HojaSprite(CargaImagen.cargarImagen(pathPiso));
 
@@ -82,6 +85,7 @@ public class Sprite {
 	public static Image loadImage(String path) {
 		return new ImageIcon(path).getImage();
 	}
+
 
 
 }

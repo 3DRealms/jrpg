@@ -3,6 +3,7 @@ package juego;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import mapagrafico.MapaGrafico;
 import mapagrafico.Tile;
 
 public class Mouse implements MouseListener{
@@ -21,6 +22,7 @@ public class Mouse implements MouseListener{
 		x = evento.getX();
 		y = evento.getY();
 		recorrido = true;
+	//	JuegoTest_SinServidor.cursor("click");
 	}
 	
 	

@@ -1,6 +1,7 @@
 package mapagrafico;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.io.File;
@@ -37,7 +38,7 @@ public class MapaGrafico {
 
 	protected boolean enMovimiento;
 	protected String sprites;
-	private static Image iluminacion;	
+	private static Image iluminacion;
 	private Tile[][] tiles;
 	private TileObstaculo64x64[][]  tilesObstaculo; 
 	private boolean[][] obstaculos; 
@@ -231,18 +232,31 @@ public class MapaGrafico {
 					tilesObstaculo[i][j].mover(g2d,xDestino + camara.getxOffCamara(),yDestino + camara.getyOffCamara());
 			}
 		}
-
-		g2d.drawImage( iluminacion, 0, 0 , null);	
+		g2d.drawImage( iluminacion, 0, 0 , null);
+		hud(g2d);
 		termino();
 	}
 
 
+	private void hud(Graphics2D g2d) {
+	//	g2d.drawImage( Sprite.hub, 0, 0, null);
+		g2d.setFont(new Font("Verdana", Font.BOLD, 18));
+		g2d.setColor(Color.black);
+		g2d.drawString(pj.getNombre(), 52, 62);
+		g2d.setColor(Color.white);
+		g2d.drawString(pj.getNombre(), 50, 60);
+	}
+
+
 	private boolean puedoDibujarObstaculo(int i, int j) {
-		return tilesObstaculo[i][j].sprite > 1; // Si es 0 no dibujo y si es uno TAMPOCO, porque seria un obstaculo trasparente.
+		return tilesObstaculo[i][j].sprite > 1; // Si es 0 no dibujo y si es 1 TAMPOCO, porque seria un obstaculo trasparente.
 	}
 
 	private boolean puedoDibujarPJ(int i, int j) {
-		return  i == -xDestino && j == -yDestino || i == xAnterior &&  j == yAnterior || i == -xDestino && j == yAnterior ||  i == xAnterior && j == -yDestino  ; 
+		return  i == -xDestino && j == -yDestino ||
+				i == xAnterior && j == yAnterior ||
+				i == -xDestino && j == yAnterior ||
+				i == xAnterior && j == -yDestino ; 
 	}  
 	/**
 	 * Estrambolico, avisa cuando termino de moverse el personaje. deberia camiarlo ya que utiliza los tiles Graficos.

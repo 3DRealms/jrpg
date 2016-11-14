@@ -1,5 +1,9 @@
 package cliente;
 
+import java.awt.Cursor;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
@@ -140,9 +144,14 @@ public class Cliente {
 		ventana.setResizable(true); // evito que se cambie el tamaño para que no se chanfle todo.
 		ventana.setVisible(true); // uno se mata haciendo los graficos para que ponga false ¬¬
 		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // :c adios amor.
+		ventana.setCursor(cursor());
 		escuchar();
 		
 	}
-
+	private static Cursor cursor() {
+		Image im = Toolkit.getDefaultToolkit().createImage("src\\main\\resources\\cursor.png");
+		Cursor cur = Toolkit.getDefaultToolkit().createCustomCursor(im, new Point(10,10),"WILL");
+		return cur;
+	}
 
 }
