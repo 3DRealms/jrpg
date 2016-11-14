@@ -3,6 +3,7 @@ package cliente;
 import mapagrafico.dijkstra.AlgoritmoDelTacho;
 import mapagrafico.dijkstra.Grafo;
 import mapagrafico.dijkstra.MatrizBoolean;
+import mapagrafico.dijkstra.Nodo;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -24,34 +25,46 @@ public class TestDijkstra {
 	
 	@Test
 	public void prueba(){
-//		0 0 i
-//		0 1 1
-//		0 0 x
-		
+
 		AlgoritmoDelTacho prueba = new AlgoritmoDelTacho();
-		int n = 3;
+		int n = 5;
 		boolean[][] m = new boolean[n][n];
 	
 		MatrizBoolean obstaculos = new MatrizBoolean(m, n, n);
+		m[2][2]= true; 
+		m[1][3]= true; 
+	//	m[2][3] = true;
 		Grafo g = new Grafo(obstaculos);
-		
+	//	System.out.println(obstaculos);
 		/**
 		 * despues hago los asserts no jodas gordo
 		 */
+		Nodo destino = g.getNodo(0, 1);
+		prueba.calcularDijkstra(g, g.getNodo(4,4), destino);
 		
-		prueba.calcularDijkstra(g, g.getNodo(0, 2), g.getNodo(0, 0));
+		Assert.assertNotEquals(null, prueba.obtenerCamino( destino ) );
 		
-		Assert.assertNotEquals(null, prueba.obtenerCamino(g.getNodo(0, 0)));
+	}
+	@Test
+	public void prueba222(){
 		
-		//prueba.mostrarCamino(g.getNodo(2, 2));
+		AlgoritmoDelTacho prueba = new AlgoritmoDelTacho();
+		int n = 5;
+		boolean[][] m = new boolean[n][n];
 		
-		//prueba.obtenerCamino(g.getNodo(0, 0));
+		MatrizBoolean obstaculos = new MatrizBoolean(m, n, n);
+		m[2][2]= true; 
+		m[1][3]= true; 
+		//	m[2][3] = true;
+		Grafo g = new Grafo(obstaculos);
+		//	System.out.println(obstaculos);
+		/**
+		 * despues hago los asserts no jodas gordo
+		 */
+		Nodo destino = g.getNodo(0, 0);
+		prueba.calcularDijkstra(g, g.getNodo(4,4), destino);
 		
-		//System.out.println(prueba.predecesores);
-		
-		//System.out.println(prueba.obtenerCamino(g.getNodo(2, 0)));
-		
-		//System.out.println(g);
+		Assert.assertNotEquals(null, prueba.obtenerCamino( destino ) );
 		
 	}
 	

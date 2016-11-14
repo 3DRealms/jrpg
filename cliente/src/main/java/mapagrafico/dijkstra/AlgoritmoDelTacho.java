@@ -30,7 +30,7 @@ public class AlgoritmoDelTacho {
 		distancias.put(inicial, 0); 
 		pendientes.add(inicial);
 
-		while (pendientes.size() > 0) { 
+		while (pendientes.size() > 0) {
 			actualW = obtenerMinimo(pendientes); 
 			if(actualW == destino) // Ultra optimizacion :) 
 				break;
@@ -56,12 +56,10 @@ public class AlgoritmoDelTacho {
 	}
 
 	public Nodo obtenerMinimo(ArrayList<Nodo> nodosAdy) {
-		Nodo minimo = null;
+		Nodo minimo = nodosAdy.get(0);
 
 		for (Nodo nodo : nodosAdy) {
-			if (minimo == null) {
-				minimo = nodo;
-			} else if (obtenerDistancia(nodo) < obtenerDistancia(minimo))
+			if (obtenerDistancia(nodo) < obtenerDistancia(minimo)) 
 				minimo = nodo;
 		}
 		return minimo;
@@ -71,7 +69,6 @@ public class AlgoritmoDelTacho {
 		Integer distancia = distancias.get(nodo);
 		if (distancia == null)
 			return Integer.MAX_VALUE;
-
 		return distancia;
 	}
 

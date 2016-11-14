@@ -19,31 +19,31 @@ public class MatrizBoolean {
 	 * Verigica que los vecinos de i j sean validos 
 	 * y no hay obstaculo, agrega como adyasente al nodo
 	 * 
-	 * @param fil
-	 * @param col
+	 * @param xNodo
+	 * @param yNodo
 	 */
-	public void obtenerVecinosNodo(int fil, int col,Nodo actual, Grafo g) {
-		int i, j,fila,columna;
+	public void obtenerVecinosNodo(int xNodo, int yNodo,Nodo actual, Grafo g) {
+		int i, j,xArista,yArista;
 		Nodo aux;// recorro matriz de vecinos
 
 		for (i = -1; i < 2; i++) {
-			fila = fil +i;
+			xArista = xNodo +i;
 			for (j = -1; j < 2; j++) {
-				columna = col + j;
-				if ( esPosicionValida(fila, columna)) // descarto fuera de rango
+				yArista = yNodo + j;
+				if ( esPosicionValida(xArista, yArista)) // descarto fuera de rango
 				{
-					if ((fila != fil || columna != col)) // descarto la fila y columna dados
+					if ((xArista != xNodo || yArista != yNodo)) // descarto la fila y columna dados
 
 					{	
-							//Si no hay obstaculo y si no hay alguno cerca (en diagonal) meto :*
-						
-						if( !mat[fila][columna] && !hayObstaculoCerca(fil,col,fila,columna) ){  //Si no hay obstaculo
-						
-							aux = g.getNodoVisitante(fila,columna);
+						//Si no hay obstaculo y si no hay alguno cerca (en diagonal) meto :*
+
+						if( !mat[xArista][yArista] && !hayObstaculoCerca(xNodo,yNodo,xArista,yArista) ){  //Si no hay obstaculo
+
+							aux = g.getNodoVisitante(xArista,yArista);
 							if(aux==null){	
-								aux = new Nodo(new Punto(fila,columna));
+								aux = new Nodo(new Punto(xArista,yArista));
 								actual.agregarConexion( aux ) ;
-								g.setVisitados(aux, fila, columna);
+								g.setVisitados(aux, xArista, yArista);
 							}
 							else{
 								actual.agregarConexion(aux);
@@ -72,15 +72,13 @@ public class MatrizBoolean {
 		boolean aux = false;
 		if( xArista+1==xNodo && yArista+1==yNodo && xNodo>=0 && yNodo>=0)
 			aux = mat[xNodo-1][yNodo]	|| 	mat[xNodo][yNodo-1];
-		
+
 		if( xArista+1==xNodo && yArista-1==yNodo && xNodo>=0 && yNodo<columnas)
 			aux = mat[xNodo-1][yNodo] ||mat[xNodo][yNodo+1]	;
-		
-		if( xArista-1==xNodo && yArista+1==yNodo && xNodo<filas && yNodo>=0){
+
+		if( xArista-1==xNodo && yArista+1==yNodo && xNodo<filas && yNodo>=0)
 			aux =  mat[xNodo+1][yNodo] 	|| 	mat[xNodo][yNodo-1];
 
-		}
-		
 		if( xArista-1==xNodo && yArista-1==yNodo && xNodo<filas && yNodo<columnas)
 			aux =  mat[xNodo+1][yNodo] 	||	mat[xNodo][yNodo+1];
 		return aux;
@@ -97,6 +95,17 @@ public class MatrizBoolean {
 
 	public int getColumnas() {
 		return columnas;
+	}
+	@Override
+	public String toString() {
+		String aux = "";
+		for (int i = 0; i < filas; i++) {
+			for (int j = 0; j < columnas; j++) {
+				aux += this.get(i, j)+" ";
+			}	
+			aux+= "\n";
+		}
+		return aux;
 	}
 
 }

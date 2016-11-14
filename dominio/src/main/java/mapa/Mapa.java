@@ -19,7 +19,6 @@ public class Mapa {
 	protected Map<String,Punto> moviendoA;
 
 	public Mapa(String nombre, int alto, int ancho) {
-		
 		this.nombre = nombre;
 		this.ancho=ancho;
 		this.alto=alto;
@@ -47,6 +46,16 @@ public class Mapa {
 	
 	public Map<String,Personaje> obtenerPersonajes(){
 		return personajes;
+	}
+
+
+	public static void enviarUbicacionDestino(Punto punto) {
+		
+	}
+
+
+	public static void enviarQueLlegue() {
+		
 	}
 
 

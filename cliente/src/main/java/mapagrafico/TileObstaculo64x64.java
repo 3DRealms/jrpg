@@ -4,13 +4,13 @@ import java.awt.Graphics2D;
 
 import sprites.Sprite;
 
-public class TileObstaculo extends Tile{
+public class TileObstaculo64x64 extends Tile{
 
 	protected int anchoImagen = 64;
 	protected int altoImagen = 64;
 
 
-	public TileObstaculo(int x, int y, int sprite) {
+	public TileObstaculo64x64(int x, int y, int sprite) {
 		super(x, y, sprite);
 	}
 

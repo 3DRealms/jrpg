@@ -1,4 +1,4 @@
-	package mapagrafico;
+package mapagrafico;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -13,6 +13,7 @@ import java.util.Scanner;
 import javax.swing.JOptionPane;
 import juego.Camara;
 import juego.JuegoPanelTestBatalla;
+import mapa.Mapa;
 import mapagrafico.dijkstra.AlgoritmoDelTacho;
 import mapagrafico.dijkstra.Grafo;
 import mapagrafico.dijkstra.MatrizBoolean;
@@ -35,34 +36,28 @@ public class MapaGrafico {
 	protected int y;
 
 	protected boolean enMovimiento;
-
-
 	protected String sprites;
-
 	private static Image iluminacion;	
 	private Tile[][] tiles;
-	private TileObstaculo[][]  tilesObstaculo; 
+	private TileObstaculo64x64[][]  tilesObstaculo; 
 	private boolean[][] obstaculos; 
 	private TilePersonaje pj; // cliente
-	
 	private Map<String,Personaje> personajes; // mensaje movimiento: 
-
-	protected Camara cam;
 	private int xDestino;
 	private int yDestino;
 	private int xAnterior;
 	private int yAnterior;
-
+	private Camara camara;
 	private Grafo grafoDeMapa;
 	AlgoritmoDelTacho dijkstra;
-	
 	private List<Nodo> camino;
 	private Nodo paso;
 	private Nodo actual;
 	private Nodo destino;
+	private boolean noEnvieQueTermine;
 
-	
-	public MapaGrafico(String nombre,TilePersonaje pj) {
+
+	public MapaGrafico(String nombre,TilePersonaje pj,Camara camara) {
 		File path = new File("src\\main\\resources\\mapas\\"+nombre+".map");
 		this.pj = pj;
 		enMovimiento = false;
@@ -72,6 +67,7 @@ public class MapaGrafico {
 		yAnterior = -yDestino;
 		dijkstra = new AlgoritmoDelTacho();
 		this.nombre = nombre;
+		this.camara = camara;
 
 		Scanner sc = null;
 		try {
@@ -87,7 +83,7 @@ public class MapaGrafico {
 		cargarSprite();
 
 		this.tiles = new Tile[ancho][alto];
-		this.tilesObstaculo  = new TileObstaculo[ancho][alto];
+		this.tilesObstaculo  = new TileObstaculo64x64[ancho][alto];
 		this.obstaculos = new boolean[ancho][alto];
 		/**
 		 * no hace falta pero para que se entienda
@@ -104,7 +100,7 @@ public class MapaGrafico {
 			for (int j = 0; j < alto; j++) {
 				obstaculo = sc.nextInt();
 				obstaculos[i][j] = obstaculo>=1?true:false;
-				tilesObstaculo[i][j] = new TileObstaculo(i,j,obstaculo);
+				tilesObstaculo[i][j] = new TileObstaculo64x64(i,j,obstaculo);
 			}
 		}
 
@@ -145,11 +141,6 @@ public class MapaGrafico {
 		return x>=0 && y>=0 && x<alto && y<ancho;
 	}
 
-
-	public void agregarPersonaje(Personaje pj){
-		personajes.put(pj.getNombre(), pj);
-	}
-
 	public boolean recibirMensajeMovmiento(MensajeMovimiento men){
 		Personaje aMover = personajes.get(men.getEmisor());
 
@@ -165,10 +156,6 @@ public class MapaGrafico {
 	}
 
 	public void actualizar() {
-
-		/*
-		 * Aca me empeze a mover.
-		 */
 		if( pj.getNuevoRecorrido() && posicionValida(-pj.getXDestino(),-pj.getYDestino()) )	{
 			dijkstra	= 	new AlgoritmoDelTacho();
 			actual 		= 	grafoDeMapa.getNodo(-xDestino, -yDestino);
@@ -176,28 +163,32 @@ public class MapaGrafico {
 			dijkstra.calcularDijkstra(grafoDeMapa, actual,destino);
 			camino 		=	dijkstra.obtenerCamino(destino);
 			pj.setNuevoRecorrido(false);
+			Mapa.enviarUbicacionDestino(destino.getPunto());
+			noEnvieQueTermine = true;
 		}
 
-		if( !pj.enMovimiento() && camino != null && ! camino.isEmpty() ){
+		if( ! pj.estaEnMovimiento() && hayCamino() ){
 			moverUnPaso();	
 			pj.paraDondeVoy(xDestino, yDestino);
 			pj.mover(xDestino,yDestino);	
 		}
-
-
-			
-			
+		if( noEnvieQueTermine && !pj.estaEnMovimiento() && ! hayCamino()){
+			Mapa.enviarQueLlegue();
+			noEnvieQueTermine = false;
+		}
 	}
+
+	private boolean hayCamino() {
+		return camino != null && ! camino.isEmpty();
+	}
+
 
 	private void moverUnPaso() { // Esto tengo que ver, pero lo que hace es mover paso a paso por el camino del DI kjsoihyoas TRAMMMMMMMMMMM
 		paso = camino.get(0);
-		
 		xAnterior = -xDestino;
 		yAnterior = -yDestino;
-
 		xDestino = -paso.getPunto().getX();
 		yDestino = -paso.getPunto().getY();
-		
 		camino.remove(0);
 
 	}
@@ -212,16 +203,13 @@ public class MapaGrafico {
 	 */
 	public void dibujar(Graphics2D g2d) {
 		g2d.setBackground(Color.BLACK);
-		g2d.clearRect(0, 0, 810, 610);		
 		for (int i = 0; i <  alto; i++) { 
 			for (int j = 0; j < ancho ; j++) { 
-				tiles[i][j].dibujar(g2d,xDestino+JuegoPanelTestBatalla.xOffCamara,yDestino+JuegoPanelTestBatalla.yOffCamara);
-				if( puedoDibujarPJ(g2d, i, j))
+				tiles[i][j].dibujar(g2d,xDestino + camara.getxOffCamara(),yDestino + camara.getyOffCamara());
+				if( puedoDibujarPJ(i, j))
 					pj.dibujarCentro(g2d);
-
-				if( puedoDibujarObstaculo(i, j)  ){
-					tilesObstaculo[i][j].dibujar(g2d,xDestino+ JuegoPanelTestBatalla.xOffCamara,yDestino+JuegoPanelTestBatalla.yOffCamara);
-				}
+				if( puedoDibujarObstaculo(i, j)  )
+					tilesObstaculo[i][j].dibujar(g2d,xDestino + camara.getxOffCamara(),yDestino + camara.getyOffCamara());	
 			}
 		}
 	}
@@ -235,13 +223,15 @@ public class MapaGrafico {
 		y = tiles[0][0].getYIso();
 		for (int i = 0; i <  alto; i++) { 
 			for (int j = 0; j < ancho ; j++) { 
-				tiles[i][j].mover(g2d,xDestino + JuegoPanelTestBatalla.xOffCamara,yDestino+JuegoPanelTestBatalla.yOffCamara);
-				if( puedoDibujarPJ(g2d, i, j))
+				tiles[i][j].mover(g2d,xDestino + camara.getxOffCamara(),yDestino+camara.getyOffCamara());
+
+				if( puedoDibujarPJ(i, j) )
 					pj.dibujarCentro(g2d);
-				if( puedoDibujarObstaculo(i, j))
-					tilesObstaculo[i][j].mover(g2d,xDestino+ JuegoPanelTestBatalla.xOffCamara,yDestino+JuegoPanelTestBatalla.yOffCamara);
+				if( puedoDibujarObstaculo(i, j) )
+					tilesObstaculo[i][j].mover(g2d,xDestino + camara.getxOffCamara(),yDestino + camara.getyOffCamara());
 			}
 		}
+
 		g2d.drawImage( iluminacion, 0, 0 , null);	
 		termino();
 	}
@@ -251,8 +241,8 @@ public class MapaGrafico {
 		return tilesObstaculo[i][j].sprite > 1; // Si es 0 no dibujo y si es uno TAMPOCO, porque seria un obstaculo trasparente.
 	}
 
-	private boolean puedoDibujarPJ(Graphics2D g2d, int i, int j) {
-		return  i == -xDestino && j == -yDestino || i == xAnterior &&  j == yAnterior || i == -xDestino && j == yAnterior ||  i == xAnterior && j == -yDestino;
+	private boolean puedoDibujarPJ(int i, int j) {
+		return  i == -xDestino && j == -yDestino || i == xAnterior &&  j == yAnterior || i == -xDestino && j == yAnterior ||  i == xAnterior && j == -yDestino  ; 
 	}  
 	/**
 	 * Estrambolico, avisa cuando termino de moverse el personaje. deberia camiarlo ya que utiliza los tiles Graficos.

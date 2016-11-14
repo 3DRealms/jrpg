@@ -12,6 +12,8 @@ public class Sprite {
 	private static final int altoObjeto = 64;
 	private static final int anchopj = 64, altopj = 64;
 	private static final int framesPJ = 6;
+	private static final int dirreciones = 8;
+	private static final int cantidadSprite = 6;
 	/**
 	 * Esto va a ser para las animaciones del pj, todavia no esta listo
 	 */
@@ -22,7 +24,7 @@ public class Sprite {
 
 	public Sprite(String pathPJ) {
 		HojaSprite hojaPJ = new HojaSprite(CargaImagen.cargarImagen(pathPJ));
-		sprite = new BufferedImage[8][framesPJ];
+		sprite = new BufferedImage[dirreciones][framesPJ];
 		
 		for (int i = 0; i < 8; i++) {
 			recortarSprite(hojaPJ,i+1,framesPJ,i,sprite[i]);
@@ -33,7 +35,7 @@ public class Sprite {
 		HojaSprite hoja = new HojaSprite(CargaImagen.cargarImagen(pathPiso));
 
 
-		piso = new BufferedImage[6];
+		piso = new BufferedImage[cantidadSprite];
 
 		int k = 0;
 

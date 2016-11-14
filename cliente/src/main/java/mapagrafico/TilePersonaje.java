@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+
+import juego.Camara;
 import juego.JuegoPanelTestBatalla;
 import juego.Mouse;
 import mapa.Punto;
@@ -27,7 +29,7 @@ public class TilePersonaje {
 	private int yDestino;
 	// Movimiento Actual
 	private boolean nuevoRecorrido;
-
+	private Camara camara;
 
 	private int movimiento;
 	private boolean enMovimiento;
@@ -38,13 +40,12 @@ public class TilePersonaje {
 
 
 
-	public TilePersonaje(Punto p,Personaje pj,Mouse mouse) {
+	public TilePersonaje(Punto p,Personaje pj,Mouse mouse,Camara camara) {
 		this.xCentro = 320;
 		this.yCentro = 320;
 		//this.sprite = sprite;
-
-		movimiento = 0;
-
+		this.camara = camara;
+		this.movimiento = 0;
 		this.pj = pj;
 		this.nombre = pj.getNombre();	
 		this.xInicio = this.xDestino = -p.getX();  //alta logica wachin.
@@ -81,8 +82,9 @@ public class TilePersonaje {
 
 		if (mouse.getRecorrido()) {
 			setNuevoRecorrido(true);
-			xDestino = xInicio - posMouse[0] + JuegoPanelTestBatalla.xOffCamara;
-			yDestino = yInicio - posMouse[1] + JuegoPanelTestBatalla.yOffCamara;
+
+			xDestino = xInicio - posMouse[0] + camara.getxOffCamara();
+			yDestino = yInicio - posMouse[1] + camara.getyOffCamara();
 			mouse.setRecorrido(false); 
 		}
 
@@ -111,7 +113,7 @@ public class TilePersonaje {
 		Sprite spriteCaminando =  new Sprite(pathPJ);
 		animacionCaminado = new Animacion[8];
 		for (int i = 0; i < animacionCaminado.length; i++) {
-			animacionCaminado[i] = new Animacion(150, spriteCaminando.getVectorSprite(i));
+			animacionCaminado[i] = new Animacion(100, spriteCaminando.getVectorSprite(i));
 		}
 
 	}
@@ -191,7 +193,7 @@ public class TilePersonaje {
 	}
 
 
-	public boolean enMovimiento() {
+	public boolean estaEnMovimiento() {
 		return enMovimiento;
 	}
 
@@ -205,6 +207,14 @@ public class TilePersonaje {
 		parado = true;
 	}
 
+
+
+	public int getXCentro() {
+		return xCentro;
+	}
+	public int getYCentro() {
+		return yCentro;
+	}
 
 
 

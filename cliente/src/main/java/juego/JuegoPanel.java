@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JFrame;
-
 import mapa.Punto;
 import mapagrafico.MapaGrafico;
 import mapagrafico.TilePersonaje;
@@ -27,20 +26,21 @@ public class JuegoPanel extends Component implements Runnable{
 	private double delta = 0;
 	private boolean ejecutando = true;
 	private TilePersonaje pjDibujo;
-
+	private Camara camara;
 	JFrame padre;
 
 	private boolean jugar = true;
-	
+
 	public JuegoPanel(JFrame padre,Punto spaw, Personaje pj,String nombre) {
 		this.padre = padre;
 		setPreferredSize(new Dimension(ANCHO, ALTO));
 		setFocusable(true);
 		requestFocus();
 		mouse 	 = new Mouse();
+		camara = new Camara(ANCHO, ALTO, 320, 320);
 		addMouseListener(mouse);
-		pjDibujo = new TilePersonaje(spaw,pj,mouse);  
-		mapa 	 = new MapaGrafico(nombre,pjDibujo);
+		pjDibujo = new TilePersonaje(spaw,pj,mouse,camara);  
+		mapa 	 = new MapaGrafico(nombre,pjDibujo,camara);
 		thread 	 = new Thread(this);
 		thread.start();
 	}
@@ -52,12 +52,12 @@ public class JuegoPanel extends Component implements Runnable{
 		long now;
 		long lastTime = System.nanoTime();
 
+
 		while(ejecutando) {
 
 			now = System.nanoTime();
 			delta += (now - lastTime)/timePerTick;
 			lastTime = now;
-
 			if(delta >=1){   
 				actualizar();
 				repaint();
@@ -73,7 +73,6 @@ public class JuegoPanel extends Component implements Runnable{
 	}
 
 	public void paint(Graphics g) {
-
 		super.paint(g);
 		Graphics2D g2d = (Graphics2D) g;
 		if(jugar){
@@ -81,6 +80,5 @@ public class JuegoPanel extends Component implements Runnable{
 			jugar = false;
 		}
 		mapa.mover(g2d);
-
 	}
 }
