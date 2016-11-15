@@ -89,4 +89,16 @@ public class JuegoPanel extends Component implements Runnable{
 		}
 		mapa.mover(g2d);
 	}
+	
+	public void nuevoMovimientoPersonajes(String pj, String sprite, Punto point){
+		// aca te envio el nombre de personaje, su sprite y su pungo,
+		// tendrias que fijarte si el personaje no existe agregarlo y si existe 
+		// hacerle dijstra para empezar a moverlo
+	}
+	
+	public void nuevaDetencionPersonaje(String pj){
+		// aca te envio que el personaje llego a su destino, 
+		// si por las dudas no llego todavia moverlo magicamente.
+	}
+	
 }

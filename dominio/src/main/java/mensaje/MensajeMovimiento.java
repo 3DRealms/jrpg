@@ -21,6 +21,10 @@ public class MensajeMovimiento extends MensajeInteraccion{
 	public String getMapa() {
 		return mapa;
 	}
+	
+	public String getSprite(){
+		return sprite;
+	}
 
 	public MensajeMovimiento(Punto pos, String emisor, String mapa, String sprite) {
 		super(emisor,"movimiento");

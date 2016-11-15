@@ -118,7 +118,6 @@ public class Cliente {
 		gsonBuilder.registerTypeAdapter(Equipo.class, new EquipoInstanceCreator()); 
 		Gson gson = gsonBuilder.create();
 		String lect = lectura.readUTF();
-		System.out.println(lect);
 		return gson.fromJson(lect, Personaje.class);
 
 	}
@@ -132,13 +131,31 @@ public class Cliente {
 
 	}
 	
-	public MensajeInteraccion pedirInteraccion() throws IOException{
+	public void pedirInteraccion() throws IOException{
 		DataInputStream lectura = new DataInputStream(
 				cliente.getInputStream());
-		final Gson gson = new Gson();
-		String men = lectura.readUTF();
-		final MensajeInteraccion menInt = gson.fromJson(men, MensajeInteraccion.class);
-		return menInt;
+		String leido = lectura.readUTF();
+		Gson gson = new Gson();
+		
+		MensajeInteraccion men = gson.fromJson(leido, MensajeInteraccion.class);
+		if(men.isMovimiento()){
+			men = gson.fromJson(leido, MensajeMovimiento.class);
+			if(!men.getEmisor().equals(usuario))
+				juego.nuevoMovimientoPersonajes(men.getEmisor(), ((MensajeMovimiento)men).getSprite(), ((MensajeMovimiento)men).getPos());
+		}			
+		if(men.isAccion()){
+			
+		}
+
+		if(men.isCombate()){
+			
+		}
+
+		if(men.isParado()){
+			if(!men.getEmisor().equals(usuario))
+				juego.nuevaDetencionPersonaje(men.getEmisor());
+		}
+
 	}
 	
 	public void abrirJuego(Personaje per){
@@ -148,7 +165,7 @@ public class Cliente {
 		ventana.add(juego); //Dentro de la ventana pongo el juego.
 		ventana.pack(); //hace que el tamaño se ajuste al tamaño preferido y diseños de sus subcomponentes.
 		ventana.setLocationRelativeTo(null); //centro
-		ventana.setResizable(true); // evito que se cambie el tamaño para que no se chanfle todo.
+		ventana.setResizable(false); // evito que se cambie el tamaño para que no se chanfle todo.
 		ventana.setVisible(true); // uno se mata haciendo los graficos para que ponga false ¬¬
 		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // :c adios amor.
 		ventana.setCursor(cursor());

@@ -48,10 +48,10 @@ public class Tile {
 		}
 
 		if(yIsometrica < ny){
-			yIsometrica++;
+			yIsometrica+=1;
 		}
 		if(yIsometrica > ny){
-			yIsometrica--;
+			yIsometrica-=1;
 		}
 		g2d.drawImage( Sprite.getImagePiso(sprite), xIsometrica, yIsometrica , null);	
 	}

@@ -39,7 +39,7 @@ public class JuegoPanelTestBatalla extends Component implements Runnable{
 		requestFocus();
 		mouse = new Mouse();
 		addMouseListener(mouse);
-		mapa = new MapaGrafico("map4",pj, null);
+		mapa = new MapaGrafico("map4",pj, null, null);
 		
 		pj = new TilePersonaje(new Punto(1,2),new PersonajePrueba("wacho"),mouse, null); //Pone las que quiera papu.
 		thread = new Thread(this);
@@ -71,7 +71,7 @@ public class JuegoPanelTestBatalla extends Component implements Runnable{
 			}
 			
 			if (deltaaa > 100) {
-				JuegoPanel a = new JuegoPanel(padre,new Punto(1,1),new PersonajePrueba("hola"),"map_test");
+				JuegoPanel a = new JuegoPanel(padre,new Punto(1,1),new PersonajePrueba("hola"),"map_test", null);
 				padre.add(a);
 				padre.remove(this);
 				padre.revalidate();
