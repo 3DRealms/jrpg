@@ -4,27 +4,20 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
-
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-
 import cliente.EnviadorPosicion;
 import juego.Camara;
-import mapa.Mapa;
+import juego.TilePlayer;
 import mapagrafico.dijkstra.AlgoritmoDelTacho;
 import mapagrafico.dijkstra.Grafo;
 import mapagrafico.dijkstra.MatrizBoolean;
 import mapagrafico.dijkstra.Nodo;
-import mensaje.MensajeMovimiento;
-import personaje.Personaje;
 import sprites.Sprite;
 
 
@@ -48,7 +41,7 @@ public class MapaGrafico {
 	private TileObstaculo64x64[][]  tilesObstaculo; 
 	private boolean[][] obstaculos; 
 	private TilePersonaje pj; // cliente
-	private Map<String,Personaje> personajes; // mensaje movimiento: 
+	private HashMap<String, TilePlayer> personajes; // mensaje movimiento: 
 	private int xDestino;
 	private int yDestino;
 	private int xAnterior;
@@ -64,18 +57,19 @@ public class MapaGrafico {
 	private EnviadorPosicion env;
 
 
-	public MapaGrafico(String nombre,TilePersonaje pj,Camara camara, EnviadorPosicion env) {
+	public MapaGrafico(String nombre,TilePersonaje pj,Camara camara, EnviadorPosicion env, HashMap<String, TilePlayer> personajes) {
 		File path = new File("src\\main\\resources\\mapas\\"+nombre+".map");
 		this.pj = pj;
 		this.env = env;
-		enMovimiento = false;
-		xDestino = pj.getXDestino();
-		yDestino = pj.getYDestino();
-		xAnterior = -xDestino;
-		yAnterior = -yDestino;
-		dijkstra = new AlgoritmoDelTacho();
+		this.enMovimiento = false;
+		this.xDestino = pj.getXDestino();
+		this.yDestino = pj.getYDestino();
+		this.xAnterior = -xDestino;
+		this.yAnterior = -yDestino;
+		this.dijkstra = new AlgoritmoDelTacho();
 		this.nombre = nombre;
 		this.camara = camara;
+		this.personajes = personajes;
 
 		Scanner sc = null;
 		try {
@@ -113,9 +107,8 @@ public class MapaGrafico {
 		}
 
 		sc.close();
-		grafoDeMapa = new Grafo( new MatrizBoolean(obstaculos, ancho, alto) );
-		camino = new LinkedList<Nodo>();
-		this.personajes=new HashMap<String,Personaje>();
+		this.grafoDeMapa = new Grafo( new MatrizBoolean(obstaculos, ancho, alto) );
+		this.camino = new LinkedList<Nodo>();
 	}
 
 
@@ -150,7 +143,7 @@ public class MapaGrafico {
 	private boolean dentroDelMapa(int x, int y) {
 		return x>=0 && y>=0 && x<alto && y<ancho;
 	}
-
+	/*
 	public boolean recibirMensajeMovmiento(MensajeMovimiento men){
 		Personaje aMover = personajes.get(men.getEmisor());
 
@@ -164,7 +157,7 @@ public class MapaGrafico {
 	public Personaje getPersonaje(String per) {
 		return personajes.get(per);
 	}
-
+	 */
 	public void actualizar() {
 		if( pj.getNuevoRecorrido() && posicionValida(-pj.getXDestino(),-pj.getYDestino()) )	{
 			dijkstra	= 	new AlgoritmoDelTacho();
@@ -190,7 +183,15 @@ public class MapaGrafico {
 			//
 			noEnvieQueTermine = false;
 		}
+		actualizarRestoPersonajes();
 	}
+
+	private void actualizarRestoPersonajes() {
+		for (TilePlayer pj : personajes.values()) {
+			pj.actualizar();
+		}		
+	}
+
 
 	private boolean hayCamino() {
 		return camino != null && ! camino.isEmpty();
@@ -221,12 +222,16 @@ public class MapaGrafico {
 				tiles[i][j].dibujar(g2d,xDestino + camara.getxOffCamara(),yDestino + camara.getyOffCamara());
 				if( puedoDibujarPJ(i, j))
 					pj.dibujarCentro(g2d);
+				
 				if( puedoDibujarObstaculo(i, j)  )
 					tilesObstaculo[i][j].dibujar(g2d,xDestino + camara.getxOffCamara(),yDestino + camara.getyOffCamara());	
 			}
 		}
+		dibujarRestoPersonajes(g2d);
+
 		g2d.drawImage( iluminacion, 0, 0 , null);
 	}
+
 
 	public void mover(Graphics2D g2d) {
 		g2d.setBackground(Color.BLACK);
@@ -238,8 +243,11 @@ public class MapaGrafico {
 			for (int j = 0; j < ancho ; j++) { 
 				tiles[i][j].mover(g2d,xDestino + camara.getxOffCamara(),yDestino+camara.getyOffCamara());
 
-				if( puedoDibujarPJ(i, j) )
+				if( puedoDibujarPJ(i, j) ){
 					pj.dibujarCentro(g2d);
+					dibujarRestoPersonajes(g2d);
+				}
+				
 				if( puedoDibujarObstaculo(i, j) )
 					tilesObstaculo[i][j].mover(g2d,xDestino + camara.getxOffCamara(),yDestino + camara.getyOffCamara());
 			}
@@ -282,6 +290,19 @@ public class MapaGrafico {
 			pj.setEnMovimiento(true);
 
 	}
-	
+
+
+	public void moverPlayer(TilePlayer player) {
+		actual 		= 	grafoDeMapa.getNodo(player.getxAnterior(),player.getyAnterior());
+		destino 	=	grafoDeMapa.getNodo( player.getxDestino(), player.getyDestino());			
+		player.calcularDijkstra(grafoDeMapa,actual,destino);
+	}
+
+	private void dibujarRestoPersonajes(Graphics2D g2d) {
+		for (TilePlayer pj : personajes.values()) {
+			pj.mover(g2d);
+		}
+	}
+
 
 }

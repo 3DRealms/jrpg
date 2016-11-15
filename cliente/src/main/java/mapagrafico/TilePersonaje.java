@@ -4,9 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-
 import juego.Camara;
-import juego.JuegoPanelTestBatalla;
 import juego.Mouse;
 import mapa.Punto;
 import personaje.Personaje;
@@ -131,7 +129,7 @@ public class TilePersonaje {
 		parado = false;
 
 		//faltaria parado, estaba rancia
-		/**
+		/*
 		 * Dani, me tiraste cualquier cosa en los nombres, nada se movia para los
 		 * lados que decia -.-
 		 * Se ya se me di cuenta, pero esta la estructura loco :v

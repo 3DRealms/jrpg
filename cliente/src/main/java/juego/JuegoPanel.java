@@ -4,6 +4,8 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.HashMap;
+
 import javax.swing.JFrame;
 
 import cliente.Cliente;
@@ -32,7 +34,7 @@ public class JuegoPanel extends Component implements Runnable{
 	private Camara camara;
 	JFrame padre;
 	Cliente cliente;
-	
+	private HashMap<String, TilePlayer> personajes;
 	EnviadorPosicion env;
 
 	private boolean jugar = true;
@@ -40,6 +42,7 @@ public class JuegoPanel extends Component implements Runnable{
 	public JuegoPanel(JFrame padre,Punto spaw, Personaje pj,String nombreMapa, Cliente cliente) {
 		this.padre = padre;
 		this.cliente = cliente;
+		this.personajes = new HashMap<String, TilePlayer>();
 		env = new EnviadorPosicion(cliente, pj.getNombre(),nombreMapa, pj.getSprite());
 		setPreferredSize(new Dimension(ANCHO, ALTO));
 		setFocusable(true);
@@ -48,7 +51,7 @@ public class JuegoPanel extends Component implements Runnable{
 		camara = new Camara(ANCHO, ALTO);
 		addMouseListener(mouse);
 		pjDibujo = new TilePersonaje(spaw,pj,mouse,camara);  
-		mapa 	 = new MapaGrafico(nombreMapa,pjDibujo,camara, env);
+		mapa 	 = new MapaGrafico(nombreMapa,pjDibujo,camara, env,personajes);
 		thread 	 = new Thread(this);
 		thread.start();
 	}
@@ -66,7 +69,8 @@ public class JuegoPanel extends Component implements Runnable{
 			now = System.nanoTime();
 			delta += (now - lastTime)/timePerTick;
 			lastTime = now;
-			if(delta >=1){   
+			if(delta >=1){  
+
 				actualizar();
 				repaint();
 				delta--;
@@ -89,16 +93,20 @@ public class JuegoPanel extends Component implements Runnable{
 		}
 		mapa.mover(g2d);
 	}
-	
+
 	public void nuevoMovimientoPersonajes(String pj, String sprite, Punto point){
-		// aca te envio el nombre de personaje, su sprite y su pungo,
-		// tendrias que fijarte si el personaje no existe agregarlo y si existe 
-		// hacerle dijstra para empezar a moverlo
+		TilePlayer player = personajes.get(pj);
+		if (player == null){
+			player= new TilePlayer(pj,sprite,point);
+			personajes.put(pj, player );
+		}
+		mapa.moverPlayer(player);
+
 	}
-	
+
 	public void nuevaDetencionPersonaje(String pj){
 		// aca te envio que el personaje llego a su destino, 
 		// si por las dudas no llego todavia moverlo magicamente.
 	}
-	
+
 }
