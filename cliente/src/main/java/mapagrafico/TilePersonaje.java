@@ -71,7 +71,7 @@ public class TilePersonaje {
 		Font fuente=new Font("Arial", Font.BOLD, 16);
 		g.setColor(Color.GREEN);
 		g.setFont(fuente);
-		g.drawString(nombre, xCentro, yCentro);
+		g.drawString(nombre, xCentro, yCentro - 25);
 
 	}
 
