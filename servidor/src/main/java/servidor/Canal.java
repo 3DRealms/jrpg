@@ -34,6 +34,7 @@ public class Canal {
 	public void agregarCliente(SocketCliente cliente, Personaje per) throws IOException{
 		canal.add(cliente);
 		map.agregarPersonaje(per, cliente.getUsuario());
+		new ThreadEnviarInteraccion(this, new MensajeMovimiento(per.getUbicacion(), per.getNombre(), nombre, per.getSprite())).start();
 		//cliente.enviarMensajePosicion(per.getUbicacion(), cliente.getUsuario(), "mapa4");
 
 	}
