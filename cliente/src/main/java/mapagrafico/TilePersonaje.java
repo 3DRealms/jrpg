@@ -67,11 +67,11 @@ public class TilePersonaje {
 	 * @param deltaY
 	 */
 	public void dibujarCentro(Graphics g) {  // Aca puedo dibujar el HUD.
-		g.drawImage( obtenerFrameActual() ,xCentro, yCentro, null);
+		g.drawImage( obtenerFrameActual() ,xCentro-25, yCentro-50, null);
 		Font fuente=new Font("Arial", Font.BOLD, 16);
 		g.setColor(Color.GREEN);
 		g.setFont(fuente);
-		g.drawString(nombre, xCentro+10, yCentro);
+		g.drawString(nombre, xCentro, yCentro);
 
 	}
 
@@ -141,15 +141,15 @@ public class TilePersonaje {
 			return; 
 		}
 		if (xInicio > xDestino2 && yInicio > yDestino2) {// sur
-			movimiento = 0;
+			movimiento = 6;
 			return;
 		}
 		if (xInicio > xDestino2 && yInicio == yDestino2) { // sureste 
-			movimiento = 1;
+			movimiento = 5;
 			return;
 		}
-		if (xInicio > xDestino2 && yInicio < yDestino2) {// este se bugea 
-			movimiento = 2;
+		if (xInicio > xDestino2 && yInicio < yDestino2) {// este
+			movimiento = 4;
 			return;
 		}
 		if (xInicio == xDestino2 && yInicio < yDestino2) {// noreste
@@ -157,11 +157,11 @@ public class TilePersonaje {
 			return;
 		}
 		if (xInicio < xDestino2 && yInicio == yDestino2) {// noroeste
-			movimiento = 5;
+			movimiento = 1;
 			return;
 		}
 		if (xInicio < xDestino2 && yInicio > yDestino2) {// oeste
-			movimiento = 6;
+			movimiento = 0;
 			return;
 		}
 		if (xInicio == xDestino2 && yInicio > yDestino2) {// suroeste
@@ -169,7 +169,7 @@ public class TilePersonaje {
 			return;
 		}
 		if (xInicio < xDestino2 && yInicio < yDestino2) {// norte
-			movimiento = 4;
+			movimiento = 2;
 			return;
 		}
 
@@ -180,7 +180,7 @@ public class TilePersonaje {
 	public BufferedImage obtenerFrameActual() {
 		if (!parado)
 			return animacionCaminado[movimiento].getFrameActual();
-		return animacionCaminado[movimientoAnterior].getFrame(5);
+		return animacionCaminado[movimientoAnterior].getFrame(8);
 	}
 
 

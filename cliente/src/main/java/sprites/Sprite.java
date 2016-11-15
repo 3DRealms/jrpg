@@ -10,8 +10,8 @@ public class Sprite {
 	public static BufferedImage pelado, cubo;
 	private static final int ancho = 64, alto = 32;
 	private static final int altoObjeto = 64;
-	private static final int anchopj = 64, altopj = 64;
-	private static final int framesPJ = 6;
+	private static final int anchopj = 128, altopj = 128;
+	private static final int framesPJ = 9;
 	private static final int dirreciones = 8;
 	private static final int cantidadSprite = 6;
 	public static final BufferedImage click = CargaImagen.cargarImagen("src\\main\\resources\\click.png");
