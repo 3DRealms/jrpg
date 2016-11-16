@@ -55,6 +55,31 @@ public class Tile {
 		}
 		g2d.drawImage( Sprite.getImagePiso(sprite), xIsometrica, yIsometrica , null);	
 	}
+	
+	public void mover2(Graphics2D g2d, int x2, int y2) {
+
+
+		x2+=xLogica;
+		y2+=yLogica;	
+
+		int nx = (x2 - y2) * ( ANCHO / 2);
+		int ny = (x2 + y2) * ( ALTO / 2);
+
+		if(xIsometrica < nx){
+			xIsometrica+=2;
+		}
+		if(xIsometrica > nx){
+			xIsometrica-=2;
+		}
+
+		if(yIsometrica < ny){
+			yIsometrica+=1;
+		}
+		if(yIsometrica > ny){
+			yIsometrica-=1;
+		}
+
+	}
 
 	public int getXIso() {
 		return xIsometrica;

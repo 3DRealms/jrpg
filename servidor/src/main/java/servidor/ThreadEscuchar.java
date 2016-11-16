@@ -67,9 +67,10 @@ public class ThreadEscuchar extends Thread{
 					cliente.enviarMensajeConfirmacion(true, "");
 					cliente.setUsuario(men.getUsername());
 					per = sqcon.getPersonaje(men.getUsername());
-					if(per != null){						
-						jugadores.agregarCliente(cliente, per);					
+					if(per != null){		
 						cliente.enviarMensaje(per);
+						jugadores.agregarCliente(cliente, per);					
+						
 						escuchar(jugadores);						
 						new ThreadEnviarPosicionesIniciales(jugadores, cliente).start();
 					}

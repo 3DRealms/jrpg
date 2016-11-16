@@ -48,6 +48,8 @@ public class TilePersonaje {
 		this.nombre = pj.getNombre();	
 		this.xInicio = this.xDestino = -p.getX();  //alta logica wachin.
 		this.yInicio = this.yDestino =  -p.getY(); 
+		this.camara.setxActualPJ(xInicio);
+		this.camara.setxActualPJ(yInicio);
 		this.mouse = mouse;
 		//Le paso el sprite del personaje :D ( hasta se puede cambiar 8| ) 
 		inicializarAnimaciones("src\\main\\resources\\personajes\\"+pj.getSprite()+".png");

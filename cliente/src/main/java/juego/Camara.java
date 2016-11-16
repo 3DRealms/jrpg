@@ -5,6 +5,8 @@ public class Camara {
 	private final int yOffCamara; 
 	private final int alto;
 	private final int ancho;
+	private int xActualPJ;
+	private int yActualPJ;
 
 	public Camara(int ancho, int alto) {
 	//	int xCamara= ancho/2 - (ancho/2)%32;
@@ -39,6 +41,24 @@ public class Camara {
 	public int getAlto() {
 		return alto;
 	}
+
+	public int getxActualPJ() {
+		return xActualPJ;
+	}
+
+	public void setxActualPJ(int xActualPJ) {
+		this.xActualPJ = xActualPJ;
+	}
+
+	public int getyActualPJ() {
+		return yActualPJ;
+	}
+
+	public void setyActualPJ(int yActualPJ) {
+		this.yActualPJ = yActualPJ;
+	}
+	
+	
 
 
 }

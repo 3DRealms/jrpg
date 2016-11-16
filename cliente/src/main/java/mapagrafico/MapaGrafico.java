@@ -170,6 +170,7 @@ public class MapaGrafico {
 			env.enviarPosicion(destino.getPunto());
 			//
 			noEnvieQueTermine = true;
+			
 		}
 
 		if( ! pj.estaEnMovimiento() && hayCamino() ){
@@ -202,8 +203,11 @@ public class MapaGrafico {
 		paso = camino.get(0);
 		xAnterior = -xDestino;
 		yAnterior = -yDestino;
+		
 		xDestino = -paso.getPunto().getX();
 		yDestino = -paso.getPunto().getY();
+		camara.setxActualPJ(xDestino);
+		camara.setyActualPJ(yDestino);
 		camino.remove(0);
 	}
 
@@ -229,7 +233,7 @@ public class MapaGrafico {
 		}
 		dibujarRestoPersonajes(g2d);
 
-		g2d.drawImage( iluminacion, 0, 0 , null);
+		//g2d.drawImage( iluminacion, 0, 0 , null);
 	}
 
 
@@ -241,18 +245,18 @@ public class MapaGrafico {
 		y = tiles[0][0].getYIso();
 		for (int i = 0; i <  alto; i++) { 
 			for (int j = 0; j < ancho ; j++) { 
-				tiles[i][j].mover(g2d,xDestino + camara.getxOffCamara(),yDestino+camara.getyOffCamara());
+				tiles[i][j].mover2(g2d,xDestino + camara.getxOffCamara(),yDestino+camara.getyOffCamara());
 
 				if( puedoDibujarPJ(i, j) ){
 					pj.dibujarCentro(g2d);
-					dibujarRestoPersonajes(g2d);
+					dibujarRestoPersonajes(g2d);					
 				}
 				
 				if( puedoDibujarObstaculo(i, j) )
 					tilesObstaculo[i][j].mover(g2d,xDestino + camara.getxOffCamara(),yDestino + camara.getyOffCamara());
 			}
 		}
-		g2d.drawImage( iluminacion, 0, 0 , null);
+		//g2d.drawImage( iluminacion, 0, 0 , null);
 		hud(g2d);
 		termino();
 	}

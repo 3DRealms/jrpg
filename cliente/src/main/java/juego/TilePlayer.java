@@ -26,12 +26,18 @@ public class TilePlayer {
 	private Nodo paso;
 	private String nombre;
 	AlgoritmoDelTacho moverGordo;
+	Camara camara;
+	
 
-	public TilePlayer(String nombre,String sprite, Punto point) {
+	public TilePlayer(String nombre,String sprite, Punto point, Camara camara) {
 		xDestino = xActual = xAnterior = point.getX();
 		yDestino = yActual = yAnterior = point.getY();
 		this.nombre = nombre;
 		inicializarAnimaciones("src\\main\\resources\\personajes\\"+sprite+".png");
+		this.camara = camara;
+		xIsometrica = ((xActual+camara.getxActualPJ())+ - (yActual+camara.getyActualPJ()) ) * ( 128 / 2);
+		yIsometrica = ((xActual+camara.getxActualPJ()) + (yActual+camara.getyActualPJ())) * ( 128 / 2);
+		
 	}
 	public void inicializarAnimaciones(String pathPJ) {
 		Sprite spriteCaminando =  new Sprite(pathPJ);
@@ -54,6 +60,8 @@ public class TilePlayer {
 	}
 	public void calcularDijkstra(Grafo grafoDeMapa, Nodo actual, Nodo destino) {
 		moverGordo 	= 	new AlgoritmoDelTacho();
+		//si nnunca calculas el disktstra jamas se va a mover gordo, por eso tiraba error por todos lados
+		moverGordo.calcularDijkstra(grafoDeMapa, actual, destino);
 		camino 		=	moverGordo.obtenerCamino(destino);
 	}
 
@@ -70,12 +78,15 @@ public class TilePlayer {
 
 	public void mover(Graphics2D g2d) {
 		
-		xActual+=xDestino;
-		yActual+=yDestino;	
+		xActual=xDestino;
+		yActual=yDestino;	
+		
+		int deltaX = camara.getxOffCamara()-1 + (xActual-camara.getxActualPJ());
+		int deltaY = camara.getyOffCamara()-2 + (yActual-camara.getyActualPJ());
 
-		int nx = (xActual - yActual) * ( 128 / 2);
-		int ny = (xActual + yActual) * ( 128 / 2);
-
+		int nx = (deltaX - deltaY ) * ( 64 / 2);
+		int ny = (deltaX + deltaY) * ( 32 / 2);
+/*
 		if(xIsometrica < nx)
 			xIsometrica+=2;
 
@@ -87,15 +98,20 @@ public class TilePlayer {
 
 		if(yIsometrica > ny)
 			yIsometrica--;
-
-		g2d.drawImage( animacionCaminado[0].getFrameActual(), xIsometrica, yIsometrica-32 , null);	
+*/
+		//xIsometrica = 100;
+		//yIsometrica = 100;
+		System.out.println(nx +" - " + ny);
+		
+		g2d.drawImage( animacionCaminado[0].getFrameActual(), nx, ny-32 , null);	
 		Font fuente=new Font("Arial", Font.BOLD, 16);
 		g2d.setColor(Color.RED);
 		g2d.setFont(fuente);
-		g2d.drawString(nombre, xIsometrica, yIsometrica - 5);
+		g2d.drawString(nombre, nx, ny - 5);
 	}
 	public void actualizar() {
-		if(xActual==xDestino &&	yActual==yDestino ){
+		// no deberia ser que cunaod no estas en tu destino te tenes qu emover ganzo?
+		if(xActual!=xDestino ||	yActual!=yDestino ){
 			moverUnPaso();
 		}		
 	}
