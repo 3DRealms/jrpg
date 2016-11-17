@@ -14,8 +14,8 @@ import sprites.Sprite;
 public class TilePlayer {
 
 	private Animacion[] animacionCaminado;
-	private int xActual;
-	private int yActual;
+		private int xActual;
+		private int yActual;
 	private int xDestino;
 	private int yDestino;
 	protected int xIsometrica; 	// posicion real que se va dibujar
@@ -27,6 +27,7 @@ public class TilePlayer {
 	private String nombre;
 	AlgoritmoDelTacho moverGordo;
 	Camara camara;
+	private boolean enMovimiento;
 	
 
 	public TilePlayer(String nombre,String sprite, Punto point, Camara camara) {
@@ -64,14 +65,14 @@ public class TilePlayer {
 	}
 	public void calcularDijkstra(Grafo grafoDeMapa, Nodo actual, Nodo destino) {
 		moverGordo 	= 	new AlgoritmoDelTacho();
-		//si nnunca calculas el disktstra jamas se va a mover gordo, por eso tiraba error por todos lados
 		moverGordo.calcularDijkstra(grafoDeMapa, actual, destino);
 		camino 		=	moverGordo.obtenerCamino(destino);
 	}
 
 	private void moverUnPaso() { // Esto tengo que ver, pero lo que hace es mover paso a paso por el camino del DI kjsoihyoas TRAMMMMMMMMMMM
-		if(camino == null || camino.isEmpty() )
+		if(camino == null || camino.isEmpty() ){		
 			return;
+		}
 		paso = camino.get(0);
 		xAnterior = xDestino;
 		yAnterior = yDestino;
@@ -79,14 +80,14 @@ public class TilePlayer {
 		yDestino = paso.getPunto().getY();
 		camino.remove(0);
 	}
-
+	
 	public void mover(Graphics2D g2d) {
 		
 		xActual=xDestino;
 		yActual=yDestino;	
 		
-		int deltaX = camara.getxOffCamara()-camara.getxActualPJ() + xActual - 2;
-		int deltaY = camara.getyOffCamara()-camara.getyActualPJ() + yActual - 1;
+		int deltaX = camara.getxOffCamara()- camara.getxActualPJ() + xDestino -2;
+		int deltaY = camara.getyOffCamara()- camara.getyActualPJ() + yDestino -1;
 
 		int nx = (deltaX - deltaY ) * ( 64 / 2);
 		int ny = (deltaX + deltaY) * ( 32 / 2);
@@ -111,12 +112,16 @@ public class TilePlayer {
 		g2d.drawString(nombre, xIsometrica, yIsometrica - 5);
 	}
 	public void actualizar() {
-		
-		if(xActual==xDestino ||	yActual==yDestino ){
+
 			moverUnPaso();
-		}		
 	}
 
+	private boolean hayCamino() {
+		return 	camino != null && ! camino.isEmpty();
+	}
+	private boolean estaEnMovimiento() {
+		return enMovimiento;
+	}
 	public int getyAnterior() {
 		return yAnterior;
 	}

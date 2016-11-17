@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import cliente.EnviadorPosicion;
 import juego.Camara;
 import juego.TilePlayer;
+import mapa.Punto;
 import mapagrafico.dijkstra.AlgoritmoDelTacho;
 import mapagrafico.dijkstra.Grafo;
 import mapagrafico.dijkstra.MatrizBoolean;
@@ -166,9 +167,11 @@ public class MapaGrafico {
 			dijkstra.calcularDijkstra(grafoDeMapa, actual,destino);
 			camino 		=	dijkstra.obtenerCamino(destino);
 			pj.setNuevoRecorrido(false);
+			
 			// ACA SE ENVIA POR EL CLIENTE LA POSICION NUEVA DEL PERSONAJE
 			env.enviarPosicion(destino.getPunto());
 			//
+			
 			noEnvieQueTermine = true;
 			
 		}
@@ -203,7 +206,6 @@ public class MapaGrafico {
 		paso = camino.get(0);
 		xAnterior = -xDestino;
 		yAnterior = -yDestino;
-		
 		xDestino = -paso.getPunto().getX();
 		yDestino = -paso.getPunto().getY();
 		camara.setxActualPJ(-xDestino);
@@ -296,9 +298,9 @@ public class MapaGrafico {
 	}
 
 
-	public void moverPlayer(TilePlayer player) {
-		actual 		= 	grafoDeMapa.getNodo(player.getxAnterior(),player.getyAnterior());
-		destino 	=	grafoDeMapa.getNodo( player.getxDestino(), player.getyDestino());			
+	public void moverPlayer(TilePlayer player,Punto point) {
+		actual 		= 	grafoDeMapa.getNodo( player.getxAnterior(),player.getyAnterior());
+		destino 	=	grafoDeMapa.getNodo( point.getX(), point.getY() );			
 		player.calcularDijkstra(grafoDeMapa,actual,destino);
 	}
 
