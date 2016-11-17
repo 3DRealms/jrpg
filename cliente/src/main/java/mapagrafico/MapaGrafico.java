@@ -206,8 +206,8 @@ public class MapaGrafico {
 		
 		xDestino = -paso.getPunto().getX();
 		yDestino = -paso.getPunto().getY();
-		camara.setxActualPJ(xDestino);
-		camara.setyActualPJ(yDestino);
+		camara.setxActualPJ(-xDestino);
+		camara.setyActualPJ(-yDestino);
 		camino.remove(0);
 	}
 
