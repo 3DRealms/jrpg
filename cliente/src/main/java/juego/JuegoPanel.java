@@ -5,15 +5,14 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.HashMap;
-
 import javax.swing.JFrame;
-
 import cliente.Cliente;
 import cliente.EnviadorPosicion;
 import mapa.Punto;
 import mapagrafico.MapaGrafico;
-import mapagrafico.TilePersonaje;
 import personaje.Personaje;
+import tiles.TilePersonajeLocal;
+import tiles.TilePersonajeRemoto;
 
 
 @SuppressWarnings("serial")
@@ -22,27 +21,27 @@ public class JuegoPanel extends Component implements Runnable{
 	public static final int ANCHO = 1024;
 	public static final int ALTO = 768;
 	public static final int fps = 60;
-
-
 	public static double timePerTick = 1000000000/fps;
+	
+	protected JFrame padre;
+	protected Cliente cliente;
+	protected EnviadorPosicion env;
+	
 	private MapaGrafico mapa;
 	private Thread thread;
 	private Mouse mouse;
 	private double delta = 0;
 	private boolean ejecutando = true;
-	private TilePersonaje pjDibujo;
+	private TilePersonajeLocal pjDibujo;
 	private Camara camara;
-	JFrame padre;
-	Cliente cliente;
-	private HashMap<String, TilePlayer> personajes;
-	EnviadorPosicion env;
+	private HashMap<String, TilePersonajeRemoto> personajes;
 
 	private boolean jugar = true;
 
 	public JuegoPanel(JFrame padre,Punto spaw, Personaje pj,String nombreMapa, Cliente cliente) {
 		this.padre = padre;
 		this.cliente = cliente;
-		this.personajes = new HashMap<String, TilePlayer>();
+		this.personajes = new HashMap<String, TilePersonajeRemoto>();
 		env = new EnviadorPosicion(cliente, pj.getNombre(),nombreMapa, pj.getSprite());
 		setPreferredSize(new Dimension(ANCHO, ALTO));
 		setFocusable(true);
@@ -50,7 +49,7 @@ public class JuegoPanel extends Component implements Runnable{
 		mouse 	 = new Mouse();
 		camara = new Camara(ANCHO, ALTO);
 		addMouseListener(mouse);
-		pjDibujo = new TilePersonaje(spaw,pj,mouse,camara);  
+		pjDibujo = new TilePersonajeLocal(spaw,pj,mouse,camara);  
 		mapa 	 = new MapaGrafico(nombreMapa,pjDibujo,camara, env,personajes);
 		thread 	 = new Thread(this);
 		thread.start();
@@ -95,10 +94,10 @@ public class JuegoPanel extends Component implements Runnable{
 	}
 
 	public void nuevoMovimientoPersonajes(String pj, String sprite, Punto point){
-		TilePlayer player = personajes.get(pj);
+		TilePersonajeRemoto player = personajes.get(pj);
 		if (player == null){
 			
-			player= new TilePlayer(pj,sprite,point, camara);
+			player= new TilePersonajeRemoto(pj,sprite,point, camara);
 			personajes.put(pj, player );
 		}
 		else{
@@ -106,7 +105,7 @@ public class JuegoPanel extends Component implements Runnable{
 		}
 	}
 
-	public void nuevaDetencionPersonaje(String pj){
+	public void nuevaDetencionPersonaje(String pj){ //estp creo que vuela.
 		// aca te envio que el personaje llego a su destino, 
 		// si por las dudas no llego todavia moverlo magicamente.
 	}

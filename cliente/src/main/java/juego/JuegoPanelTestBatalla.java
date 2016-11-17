@@ -8,8 +8,8 @@ import javax.swing.JFrame;
 
 import mapa.Punto;
 import mapagrafico.MapaGrafico;
-import mapagrafico.TilePersonaje;
 import raza.PersonajePrueba;
+import tiles.TilePersonajeLocal;
 
 
 @SuppressWarnings("serial")
@@ -26,7 +26,7 @@ public class JuegoPanelTestBatalla extends Component implements Runnable{
 	private double delta = 0;
 	private boolean ejecutando = true;
 
-	private TilePersonaje pj;
+	private TilePersonajeLocal pj;
 
 	JFrame padre;
 	
@@ -41,7 +41,7 @@ public class JuegoPanelTestBatalla extends Component implements Runnable{
 		addMouseListener(mouse);
 		mapa = new MapaGrafico("map4",pj, null, null,null);
 		
-		pj = new TilePersonaje(new Punto(1,2),new PersonajePrueba("wacho"),mouse, null); //Pone las que quiera papu.
+		pj = new TilePersonajeLocal(new Punto(1,2),new PersonajePrueba("wacho"),mouse, null); //Pone las que quiera papu.
 		thread = new Thread(this);
 		thread.start();
 	}

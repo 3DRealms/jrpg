@@ -13,13 +13,16 @@ import java.util.Scanner;
 import javax.swing.JOptionPane;
 import cliente.EnviadorPosicion;
 import juego.Camara;
-import juego.TilePlayer;
 import mapa.Punto;
 import mapagrafico.dijkstra.AlgoritmoDelTacho;
 import mapagrafico.dijkstra.Grafo;
 import mapagrafico.dijkstra.MatrizBoolean;
 import mapagrafico.dijkstra.Nodo;
 import sprites.Sprite;
+import tiles.TilePiso;
+import tiles.TileObstaculo64x64;
+import tiles.TilePersonajeLocal;
+import tiles.TilePersonajeRemoto;
 
 
 public class MapaGrafico {
@@ -38,11 +41,11 @@ public class MapaGrafico {
 	protected String sprites;
 	private static Image iluminacion;
 	private static Image hud;
-	private Tile[][] tiles;
+	private TilePiso[][] tiles;
 	private TileObstaculo64x64[][]  tilesObstaculo; 
 	private boolean[][] obstaculos; 
-	private TilePersonaje pj; // cliente
-	private HashMap<String, TilePlayer> personajes; // mensaje movimiento: 
+	private TilePersonajeLocal pj; // cliente
+	private HashMap<String, TilePersonajeRemoto> personajes; // mensaje movimiento: 
 	private int xDestino;
 	private int yDestino;
 	private int xAnterior;
@@ -58,7 +61,7 @@ public class MapaGrafico {
 	private EnviadorPosicion env;
 
 
-	public MapaGrafico(String nombre,TilePersonaje pj,Camara camara, EnviadorPosicion env, HashMap<String, TilePlayer> personajes) {
+	public MapaGrafico(String nombre,TilePersonajeLocal pj,Camara camara, EnviadorPosicion env, HashMap<String, TilePersonajeRemoto> personajes) {
 		File path = new File("src\\main\\resources\\mapas\\"+nombre+".map");
 		this.pj = pj;
 		this.env = env;
@@ -71,7 +74,6 @@ public class MapaGrafico {
 		this.nombre = nombre;
 		this.camara = camara;
 		this.personajes = personajes;
-
 		Scanner sc = null;
 		try {
 			sc = new Scanner(path);
@@ -85,7 +87,7 @@ public class MapaGrafico {
 		this.sprites=sc.next();
 		cargarSprite();
 
-		this.tiles = new Tile[ancho][alto];
+		this.tiles = new TilePiso[ancho][alto];
 		this.tilesObstaculo  = new TileObstaculo64x64[ancho][alto];
 		this.obstaculos = new boolean[ancho][alto];
 		/**
@@ -95,7 +97,7 @@ public class MapaGrafico {
 		for (int i = 0; i < ancho ; i++) {
 			for (int j = 0; j < alto; j++) {
 				sprite = sc.nextInt();
-				tiles[i][j] = new Tile(i,j,sprite);
+				tiles[i][j] = new TilePiso(i,j,sprite);
 			}
 		}
 		int obstaculo;
@@ -167,13 +169,13 @@ public class MapaGrafico {
 			dijkstra.calcularDijkstra(grafoDeMapa, actual,destino);
 			camino 		=	dijkstra.obtenerCamino(destino);
 			pj.setNuevoRecorrido(false);
-			
+
 			// ACA SE ENVIA POR EL CLIENTE LA POSICION NUEVA DEL PERSONAJE
 			env.enviarPosicion(destino.getPunto());
 			//
-			
+
 			noEnvieQueTermine = true;
-			
+
 		}
 
 		if( ! pj.estaEnMovimiento() && hayCamino() ){
@@ -181,6 +183,10 @@ public class MapaGrafico {
 			pj.paraDondeVoy(xDestino, yDestino);
 			pj.mover(xDestino,yDestino);	
 		}
+
+		/** 
+		 * Creo que ni falta hace ya esto.
+		 */
 		if( noEnvieQueTermine && !pj.estaEnMovimiento() && ! hayCamino()){
 			// ACA SE ENVIA POR EL CLIENTE LA POSICION FINAL DEL PERSONAJE
 			env.enviarDetencion();
@@ -191,7 +197,7 @@ public class MapaGrafico {
 	}
 
 	private void actualizarRestoPersonajes() {
-		for (TilePlayer pj : personajes.values()) {
+		for (TilePersonajeRemoto pj : personajes.values()) {
 			pj.actualizar();
 		}		
 	}
@@ -229,7 +235,7 @@ public class MapaGrafico {
 				if( puedoDibujarPJ(i, j))
 					pj.dibujarCentro(g2d);
 				
-				if( puedoDibujarObstaculo(i, j)  )
+				if( tilesObstaculo[i][j].puedoDibujarObstaculo(i, j) ) // Despues lo meto dentro del tile obstaculo dibujar y mover esta validacion.
 					tilesObstaculo[i][j].dibujar(g2d,xDestino + camara.getxOffCamara(),yDestino + camara.getyOffCamara());	
 			}
 		}
@@ -253,8 +259,7 @@ public class MapaGrafico {
 					pj.dibujarCentro(g2d);
 					dibujarRestoPersonajes(g2d);					
 				}
-				
-				if( puedoDibujarObstaculo(i, j) )
+				if( tilesObstaculo[i][j].puedoDibujarObstaculo(i, j) )
 					tilesObstaculo[i][j].mover(g2d,xDestino + camara.getxOffCamara(),yDestino + camara.getyOffCamara());
 			}
 		}
@@ -271,11 +276,6 @@ public class MapaGrafico {
 		g2d.drawString(pj.getNombre(), 52, 62);
 		g2d.setColor(Color.white);
 		g2d.drawString(pj.getNombre(), 50, 60);
-	}
-
-
-	private boolean puedoDibujarObstaculo(int i, int j) {
-		return tilesObstaculo[i][j].sprite > 1; // Si es 0 no dibujo y si es 1 TAMPOCO, porque seria un obstaculo trasparente.
 	}
 
 	private boolean puedoDibujarPJ(int i, int j) {
@@ -298,14 +298,14 @@ public class MapaGrafico {
 	}
 
 
-	public void moverPlayer(TilePlayer player,Punto point) {
+	public void moverPlayer(TilePersonajeRemoto player,Punto point) {
 		actual 		= 	grafoDeMapa.getNodo( player.getxAnterior(),player.getyAnterior());
 		destino 	=	grafoDeMapa.getNodo( point.getX(), point.getY() );			
 		player.calcularDijkstra(grafoDeMapa,actual,destino);
 	}
 
 	private void dibujarRestoPersonajes(Graphics2D g2d) {
-		for (TilePlayer pj : personajes.values()) {
+		for (TilePersonajeRemoto pj : personajes.values()) {
 			pj.mover(g2d);
 		}
 	}

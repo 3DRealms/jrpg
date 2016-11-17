@@ -1,10 +1,10 @@
-package mapagrafico;
+package tiles;
 
 import java.awt.Graphics2D;
 
 import sprites.Sprite;
 
-public class TileObstaculo64x64 extends Tile{
+public class TileObstaculo64x64 extends TilePiso{
 
 	protected int anchoImagen = 64;
 	protected int altoImagen = 64;
@@ -23,7 +23,6 @@ public class TileObstaculo64x64 extends Tile{
 	}
 
 	public void mover(Graphics2D g2d, int x2, int y2) {
-
 
 		x2+=xLogica;
 		y2+=yLogica;	
@@ -46,6 +45,10 @@ public class TileObstaculo64x64 extends Tile{
 		}
 
 		g2d.drawImage( Sprite.getImagePiso(sprite), xIsometrica, yIsometrica-32 , null);	
+	}
+
+	public boolean puedoDibujarObstaculo(int i,int j) {
+		return sprite > 1;
 	}
 
 }

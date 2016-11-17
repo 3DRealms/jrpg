@@ -1,9 +1,9 @@
-package mapagrafico;
+package tiles;
 import java.awt.Graphics2D;
 
 import sprites.Sprite;
 
-public class Tile {
+public class TilePiso {
 
 	public final static int ANCHO = 64;
 	public final static int ALTO = 32;
@@ -16,7 +16,7 @@ public class Tile {
 
 
 
-	public Tile(int x, int y, int sprite) {
+	public TilePiso(int x, int y, int sprite) {
 		this.xLogica = x;
 		this.yLogica = y;
 		this.sprite = sprite;

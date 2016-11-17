@@ -2,7 +2,8 @@ package juego;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import mapagrafico.Tile;
+
+import tiles.TilePiso;
 
 public class Mouse implements MouseListener{
 
@@ -32,7 +33,7 @@ public class Mouse implements MouseListener{
 	}
 	public void actualizar() {
 		
-		int x0 = x - ( Tile.ANCHO / 2 ); //ancho/2
+		int x0 = x - ( TilePiso.ANCHO / 2 ); //ancho/2
 		int y0 = y;
 
 		int auxX = y0 + (x0 / 2);

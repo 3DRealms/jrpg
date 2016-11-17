@@ -1,41 +1,34 @@
-package juego;
+package tiles;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.util.List;
+import juego.Camara;
 import mapa.Punto;
 import mapagrafico.dijkstra.AlgoritmoDelTacho;
 import mapagrafico.dijkstra.Grafo;
 import mapagrafico.dijkstra.Nodo;
-import sprites.Animacion;
-import sprites.Sprite;
 
-public class TilePlayer {
+public class TilePersonajeRemoto extends TilePersonaje {
 
-	private Animacion[] animacionCaminado;
-		private int xActual;
-		private int yActual;
-	private int xDestino;
-	private int yDestino;
-	protected int xIsometrica; 	// posicion real que se va dibujar
-	protected int yIsometrica;
+	private int xIsometrica; 	// posicion real que se va dibujar
+	private int yIsometrica;
+	private int xActual;
+	private int yActual;
 	private List<Nodo> camino;
-	private int xAnterior;
-	private int yAnterior;
 	private Nodo paso;
-	private String nombre;
 	AlgoritmoDelTacho moverGordo;
-	Camara camara;
-	private boolean enMovimiento;
-	
+	private int nx;
+	private int ny;
 
-	public TilePlayer(String nombre,String sprite, Punto point, Camara camara) {
-		xDestino = xActual = xAnterior = point.getX();
-		yDestino = yActual = yAnterior = point.getY();
-		this.nombre = nombre;
-		inicializarAnimaciones("src\\main\\resources\\personajes\\"+sprite+".png");
-		this.camara = camara;
+
+
+	public TilePersonajeRemoto(String nombre,String sprite, Punto point, Camara camara) {
+		super(sprite,nombre,camara);
+		
+		xDestino = xInicio = point.getX();
+		yDestino = yInicio = point.getY();
 		
 		int deltaX = camara.getxOffCamara()-camara.getxActualPJ() + xDestino - 2;
 		int deltaY = camara.getyOffCamara()-camara.getyActualPJ() + yDestino - 1;
@@ -44,18 +37,11 @@ public class TilePlayer {
 		yIsometrica = (deltaX + deltaY) * ( 32 / 2);
 		
 	}
-	public void inicializarAnimaciones(String pathPJ) {
-		Sprite spriteCaminando =  new Sprite(pathPJ);
-		animacionCaminado = new Animacion[8];
-		for (int i = 0; i < animacionCaminado.length; i++) {
-			animacionCaminado[i] = new Animacion(100, spriteCaminando.getVectorSprite(i));
-		}
-	}
 
-	public void actualizarAnimaciones() {
-		for (int i = 0; i < 8; i++) {
-			animacionCaminado[i].actualizar();
-		}
+
+	public void parar() {
+		movimientoAnterior = movimiento;
+		parado = true;
 	}
 	public int getxDestino() {
 		return xDestino;
@@ -74,23 +60,24 @@ public class TilePlayer {
 			return;
 		}
 		paso = camino.get(0);
-		xAnterior = xDestino;
-		yAnterior = yDestino;
+		xInicio = xDestino;
+		yInicio = yDestino;
 		xDestino = paso.getPunto().getX();
 		yDestino = paso.getPunto().getY();
 		camino.remove(0);
+		enMovimiento = false;
 	}
 	
 	public void mover(Graphics2D g2d) {
 		
-		xActual=xDestino;
-		yActual=yDestino;	
+		xInicio=xDestino;
+		yInicio=yDestino;	
 		
-		int deltaX = camara.getxOffCamara()- camara.getxActualPJ() + xDestino -2;
-		int deltaY = camara.getyOffCamara()- camara.getyActualPJ() + yDestino -1;
+		int deltaX = camara.getxOffCamara() - camara.getxActualPJ() + xDestino -2;
+		int deltaY = camara.getyOffCamara() - camara.getyActualPJ() + yDestino -1;
 
-		int nx = (deltaX - deltaY ) * ( 64 / 2);
-		int ny = (deltaX + deltaY) * ( 32 / 2);
+		nx = (deltaX - deltaY ) * ( 64 / 2);
+		ny = (deltaX + deltaY) * ( 32 / 2);
 
 		if(xIsometrica < nx)
 			xIsometrica+=2;
@@ -105,33 +92,35 @@ public class TilePlayer {
 			yIsometrica--;
 
 		
-		g2d.drawImage( animacionCaminado[0].getFrameActual(), xIsometrica, yIsometrica-32 , null);	
+		g2d.drawImage( obtenerFrameActual(), xIsometrica, yIsometrica-32 , null);	
 		Font fuente=new Font("Arial", Font.BOLD, 16);
 		g2d.setColor(Color.RED);
 		g2d.setFont(fuente);
 		g2d.drawString(nombre, xIsometrica, yIsometrica - 5);
+		
 	}
+	
 	public void actualizar() {
-
-			moverUnPaso();
+		System.out.println(xIsometrica+" : " + xDestino);
+		if( ! estaEnMovimiento() && hayCamino() ){
+			moverUnPaso();	
+			paraDondeVoy(xDestino, yDestino);
+		}
+		if(nx == xIsometrica && ny == yIsometrica)
+			enMovimiento = false;
+		else
+			enMovimiento = true;
+		
 	}
-
+	
+	
 	private boolean hayCamino() {
 		return 	camino != null && ! camino.isEmpty();
 	}
 	private boolean estaEnMovimiento() {
 		return enMovimiento;
 	}
-	public int getyAnterior() {
-		return yAnterior;
-	}
-	public int getxAnterior() {
-		return xAnterior;
-	}
 
-	@Override
-	public String toString() {
-		return this.nombre +" "+xDestino+" : "+yDestino;
-	}
+
 
 }
