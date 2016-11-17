@@ -253,16 +253,16 @@ public class MapaGrafico {
 		y = tiles[0][0].getYIso();
 		for (int i = 0; i <  alto; i++) { 
 			for (int j = 0; j < ancho ; j++) { 
-				tiles[i][j].mover2(g2d,xDestino + camara.getxOffCamara(),yDestino+camara.getyOffCamara());
+				tiles[i][j].mover(g2d,xDestino + camara.getxOffCamara(),yDestino+camara.getyOffCamara());
 
 				if( puedoDibujarPJ(i, j) ){
 					pj.dibujarCentro(g2d);
-					dibujarRestoPersonajes(g2d);					
 				}
 				if( tilesObstaculo[i][j].puedoDibujarObstaculo(i, j) )
 					tilesObstaculo[i][j].mover(g2d,xDestino + camara.getxOffCamara(),yDestino + camara.getyOffCamara());
 			}
 		}
+		dibujarRestoPersonajes(g2d);					
 		//g2d.drawImage( iluminacion, 0, 0 , null);
 		hud(g2d);
 		termino();
