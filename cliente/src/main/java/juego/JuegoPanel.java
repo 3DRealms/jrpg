@@ -5,7 +5,9 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.HashMap;
+
 import javax.swing.JFrame;
+
 import cliente.Cliente;
 import cliente.EnviadorPosicion;
 import mapa.Punto;
@@ -81,7 +83,27 @@ public class JuegoPanel extends Component implements Runnable{
 		mouse.actualizar();  // Preguntar porque aveces no me lo agarra :c estupido mouse listener de java ?
 		pjDibujo.actualizar();
 		mapa.actualizar();
+		
+		if(mouse.isInteraccion()){
+			String destino = hayAlguien(mouse.getPosInt());
+			if(destino != null){
+				//enviar mensaje interaccion con servidor
+				
+			}
+			mouse.setInteraccion(false);
+		}
+		
 	}
+
+	private String hayAlguien(Punto posInt) {
+		for (String persona : personajes.keySet()) {
+			personajes.get(persona).getXDestino();
+			personajes.get(persona).getYDestino();
+			
+		}
+		return null;
+	}
+
 
 	public void paint(Graphics g) {
 		super.paint(g);
