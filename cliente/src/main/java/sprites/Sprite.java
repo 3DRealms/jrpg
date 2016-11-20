@@ -6,23 +6,20 @@ import javax.swing.ImageIcon;
 
 public class Sprite {
 	public static BufferedImage[] piso;
-
-	public static BufferedImage pelado, cubo;
-	private static final int ancho = 64, alto = 32;
-	private static final int altoObjeto = 64;
+	public static BufferedImage[] obstaculos;
+	
 	private static final int anchopj = 128, altopj = 128;
 	private static final int framesPJ = 9;
 	private static final int dirreciones = 8;
-	private static final int cantidadSprite = 6;
-	public static final BufferedImage click = CargaImagen.cargarImagen("src\\main\\resources\\click.png");
+	
+	private static final int ancho = 64, alto = 32,altoObjeto64 = 64;
+	private static final int cantidadSpritePiso = 4*8; //<-- Imagenes 256x256 de 64x32 cada tile
+	private static final int cantidadSpriteobstaculos = 4*4; //<-- Imagenes 256x256 de 64x64 cada tile
 	/**
 	 * Esto va a ser para las animaciones del pj, todavia no esta listo
 	 */
 	private BufferedImage[][] sprite;
-	
-
 	public static BufferedImage[] estandar;
-
 
 	public Sprite(String pathPJ) {
 		HojaSprite hojaPJ = new HojaSprite(CargaImagen.cargarImagen(pathPJ));
@@ -33,20 +30,28 @@ public class Sprite {
 		}	
 	}
 
-	public static void inicializar(String pathPiso){
-		HojaSprite hoja = new HojaSprite(CargaImagen.cargarImagen(pathPiso));
+	public static void inicializar(String path){
+		HojaSprite hojaPiso = new HojaSprite(CargaImagen.cargarImagen(path+"piso.png"));
+		HojaSprite hojaObstaculo = new HojaSprite(CargaImagen.cargarImagen(path+"obstaculo.png"));
 
 
-		piso = new BufferedImage[cantidadSprite];
-
+		piso = new BufferedImage[cantidadSpritePiso];
+		obstaculos = new BufferedImage[cantidadSpriteobstaculos];
+		
 		int k = 0;
 
-		for (int i = 0; i <  2 ;i++) {
-			for (int j = 0; j < 3; j++) {
-				if(j<2)
-					piso[k] =  hoja.cortar(ancho*i, alto*j, ancho, alto);
-				else
-					piso[k] =  hoja.cortar(ancho*i, alto*j, ancho, altoObjeto);
+		//Subo las tiles del piso
+		for (int i = 0; i <  4 ;i++) {
+			for (int j = 0; j < 8; j++) {
+					piso[k] =  hojaPiso.cortar(ancho*i, alto*j, ancho, alto);
+				k++;
+			}
+		}
+		k = 0;
+		//Subo los tiles obstaculos ( diferente medidas):
+		for (int i = 0; i <  4 ;i++) {
+			for (int j = 0; j < 4; j++) {
+				obstaculos[k] =  hojaObstaculo.cortar(ancho*i, alto*j, ancho, altoObjeto64);
 				k++;
 			}
 		}
@@ -80,6 +85,9 @@ public class Sprite {
 	}
 	public static Image getImagePiso(int sprite) {
 		return piso[sprite];
+	}
+	public static Image getImageObstaculo(int sprite) {
+		return obstaculos[sprite];
 	}
 	public static Image loadImage(String path) {
 		return new ImageIcon(path).getImage();

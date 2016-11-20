@@ -44,7 +44,7 @@ public class TileObstaculo64x64 extends TilePiso{
 			yIsometrica--;
 		}
 
-		g2d.drawImage( Sprite.getImagePiso(sprite), xIsometrica, yIsometrica-32 , null);	
+		g2d.drawImage( Sprite.getImageObstaculo(sprite), xIsometrica, yIsometrica-32 , null);	
 	}
 
 	public boolean puedoDibujarObstaculo(int i,int j) {

@@ -42,7 +42,7 @@ public class MapaGrafico {
 	private static Image iluminacion;
 	private static Image hud;
 	private TilePiso[][] tiles;
-	private TileObstaculo64x64[][]  tilesObstaculo; 
+	private TileObstaculo64x64[][]  tilesObstaculo;  // Despues se puede crear de todas las medidas pero es para el sabado asi que no hay tiempo para eso asi que gordos del futuro haganlo bien >:( 
 	private boolean[][] obstaculos; 
 	private TilePersonajeLocal pj; // cliente
 	private HashMap<String, TilePersonajeRemoto> personajes; // mensaje movimiento: 
@@ -117,9 +117,8 @@ public class MapaGrafico {
 
 	private void cargarSprite() {
 		load(sprites);
-		iluminacion = Sprite.loadImage("src\\main\\resources\\mapas\\99.png").getScaledInstance(camara.getAncho() + 10,camara.getAlto() + 10,Image.SCALE_SMOOTH);
+		iluminacion = Sprite.loadImage("src\\main\\resources\\mapas\\sombra.png").getScaledInstance(camara.getAncho() + 10,camara.getAlto() + 10,Image.SCALE_SMOOTH);
 		hud = 	Sprite.loadImage("src\\main\\resources\\vida.png");
-
 	}
 
 	public boolean EnMovimiento() {
@@ -132,7 +131,7 @@ public class MapaGrafico {
 	 */
 	private void load(String nombre) {
 		String recursos = "src\\main\\resources\\";
-		Sprite.inicializar(recursos+"mapas\\"+nombre+"\\piso.png");
+		Sprite.inicializar(recursos+"mapas\\"+nombre+"\\");
 	}
 
 	public boolean posicionValida(int x, int y){
@@ -232,18 +231,17 @@ public class MapaGrafico {
 		for (int i = 0; i <  alto; i++) { 
 			for (int j = 0; j < ancho ; j++) { 
 				tiles[i][j].dibujar(g2d,xDestino + camara.getxOffCamara(),yDestino + camara.getyOffCamara());
-				if( puedoDibujarPJ(i, j))
+				if( puedoDibujarPj(i, j))
 					pj.dibujarCentro(g2d);
-				
+				dibujarRestoPersonajes(g2d);
 				if( tilesObstaculo[i][j].puedoDibujarObstaculo(i, j) ) // Despues lo meto dentro del tile obstaculo dibujar y mover esta validacion.
 					tilesObstaculo[i][j].dibujar(g2d,xDestino + camara.getxOffCamara(),yDestino + camara.getyOffCamara());	
+				
 			}
 		}
-		dibujarRestoPersonajes(g2d);
 
 		//g2d.drawImage( iluminacion, 0, 0 , null);
 	}
-
 
 	public void mover(Graphics2D g2d) {
 		g2d.setBackground(Color.BLACK);
@@ -255,15 +253,15 @@ public class MapaGrafico {
 			for (int j = 0; j < ancho ; j++) { 
 				tiles[i][j].mover(g2d,xDestino + camara.getxOffCamara(),yDestino+camara.getyOffCamara());
 
-				if( puedoDibujarPJ(i, j) ){
+				if( puedoDibujarPj(i, j) ){
 					pj.dibujarCentro(g2d);
 				}
 				if( tilesObstaculo[i][j].puedoDibujarObstaculo(i, j) )
 					tilesObstaculo[i][j].mover(g2d,xDestino + camara.getxOffCamara(),yDestino + camara.getyOffCamara());
 			}
 		}
-		dibujarRestoPersonajes(g2d);					
-		//g2d.drawImage( iluminacion, 0, 0 , null);
+		dibujarRestoPersonajes(g2d);
+	//	g2d.drawImage( iluminacion, 0, 0 , null);
 		hud(g2d);
 		termino();
 	}
@@ -278,7 +276,7 @@ public class MapaGrafico {
 		g2d.drawString(pj.getNombre(), 50, 60);
 	}
 
-	private boolean puedoDibujarPJ(int i, int j) {
+	private boolean puedoDibujarPj(int i, int j) {
 		return  i == -xDestino && j == -yDestino ||
 				i == xAnterior && j == yAnterior ||
 				i == -xDestino && j == yAnterior ||
@@ -294,7 +292,6 @@ public class MapaGrafico {
 		}
 		else 
 			pj.setEnMovimiento(true);
-
 	}
 
 
@@ -306,7 +303,7 @@ public class MapaGrafico {
 
 	private void dibujarRestoPersonajes(Graphics2D g2d) {
 		for (TilePersonajeRemoto pj : personajes.values()) {
-			pj.mover(g2d);
+						pj.mover(g2d);						
 		}
 	}
 
