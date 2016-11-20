@@ -117,7 +117,7 @@ public class MapaGrafico {
 
 	private void cargarSprite() {
 		load(sprites);
-		iluminacion = Sprite.loadImage("src\\main\\resources\\mapas\\sombra.png").getScaledInstance(camara.getAncho() + 10,camara.getAlto() + 10,Image.SCALE_SMOOTH);
+		iluminacion = Sprite.loadImage("src\\main\\resources\\sombra.png").getScaledInstance(camara.getAncho() + 10,camara.getAlto() + 10,Image.SCALE_SMOOTH);
 		hud = 	Sprite.loadImage("src\\main\\resources\\vida.png");
 	}
 
@@ -240,7 +240,7 @@ public class MapaGrafico {
 			}
 		}
 
-		//g2d.drawImage( iluminacion, 0, 0 , null);
+		g2d.drawImage( iluminacion, 0, 0 , null);
 	}
 
 	public void mover(Graphics2D g2d) {
@@ -249,8 +249,9 @@ public class MapaGrafico {
 		//Tiene que ser uno por uno entonces si cancelo termino el movimiento (sino se descuajaina todo).
 		x = tiles[0][0].getXIso(); // puedo agarrar el centro. pero por ahora asi.
 		y = tiles[0][0].getYIso();
+		
 		for (int i = 0; i <  alto; i++) { 
-			for (int j = 0; j < ancho ; j++) { 
+			for (int j = 0; j < ancho; j++) { 
 				tiles[i][j].mover(g2d,xDestino + camara.getxOffCamara(),yDestino+camara.getyOffCamara());
 
 				if( puedoDibujarPj(i, j) ){
