@@ -51,7 +51,7 @@ public class Sprite {
 		//Subo los tiles obstaculos ( diferente medidas):
 		for (int i = 0; i <  4 ;i++) {
 			for (int j = 0; j < 4; j++) {
-				obstaculos[k] =  hojaObstaculo.cortar(ancho*i, alto*j, ancho, altoObjeto64);
+				obstaculos[k] =  hojaObstaculo.cortar(ancho*i, altoObjeto64*j, ancho, altoObjeto64);
 				k++;
 			}
 		}
