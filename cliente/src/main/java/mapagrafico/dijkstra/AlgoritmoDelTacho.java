@@ -49,7 +49,10 @@ public class AlgoritmoDelTacho {
 	public void encontrarDistanciasMinimas(Nodo actual) {
 		
 		//esto arreglo el tema de no encontrar camino en un laberinto
+		if(actual==null)
+			return;
 		Nodo aux = graf.getNodo(actual.getPunto().getX(), actual.getPunto().getY());
+		
 		
 		for (Nodo vecino : aux.getNodosAdyacentes()) {
 			if (!yaVisitado(vecino)) {
