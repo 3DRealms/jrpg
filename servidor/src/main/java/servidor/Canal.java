@@ -6,12 +6,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import mapa.Mapa;
 import mapa.Punto;
 import mensaje.*;
 import personaje.Personaje;
-import raza.Humano;
 
 
 public class Canal {
@@ -84,9 +82,8 @@ public class Canal {
 			} catch (IOException e) {
 
 				e.printStackTrace();
-				
 				this.quitarCliente(cliente);
-				
+
 				try {
 					cliente.cerrar();
 				} catch (IOException e1) {

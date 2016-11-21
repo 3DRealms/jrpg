@@ -7,7 +7,7 @@ public class Camara {
 	private final int ancho;
 	private int xActualPJ;
 	private int yActualPJ;
-
+	
 	public Camara(int ancho, int alto) {
 	//	int xCamara= ancho/2 - (ancho/2)%32;
 	//	int yCamara = alto/2 - (alto/2)%32;

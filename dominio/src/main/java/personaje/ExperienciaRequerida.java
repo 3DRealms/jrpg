@@ -5,8 +5,7 @@ public class ExperienciaRequerida {
 	
 	@SuppressWarnings("unused") // BANCA UN CACHO LOCO DEJAME CODEAR EN PAZ
 	private int enQueNivel(int experienciaActual) {
-		int nivel=0;
-		
+		int nivel=0;		
 		return nivel;
 	}
 }

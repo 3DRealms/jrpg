@@ -39,11 +39,8 @@ public class Cliente {
 
 	public Cliente(String usuario) throws UnknownHostException, IOException{
 		this.usuario = usuario;
-
 		loadProperty("cliente.properties");
 		cliente = new Socket(serverIP, puerto);
-
-
 	}
 
 	public void escuchar(){
@@ -161,7 +158,7 @@ public class Cliente {
 	public void abrirJuego(Personaje per){
 		
 		ventana=new JFrame("El señor de los aniloros"); //Ventana comun
-		juego = new JuegoPanel(ventana,per.getUbicacion(),per, "map_test", this);
+		juego = new JuegoPanel(ventana,per.getUbicacion(),per, "map_exterior", this);
 		ventana.add(juego); //Dentro de la ventana pongo el juego.
 		ventana.pack(); //hace que el tamaño se ajuste al tamaño preferido y diseños de sus subcomponentes.
 		ventana.setLocationRelativeTo(null); //centro

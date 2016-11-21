@@ -2,18 +2,14 @@ package batalla;
 
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
-
 import acciones.Accion;
 import personaje.Personaje;
 import interfaces.Equipo;
 
 
 
-@SuppressWarnings("unused") // banca un cacho loco
 public class Batalla  {
 
 	private static final int MAX_JUGADORES = 5;

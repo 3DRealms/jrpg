@@ -254,9 +254,9 @@ public class MapaGrafico {
 			for (int j = 0; j < ancho; j++) { 
 				tiles[i][j].mover(g2d,xDestino + camara.getxOffCamara(),yDestino+camara.getyOffCamara());
 
-				if( puedoDibujarPj(i, j) ){
+				if( puedoDibujarPj(i, j) )
 					pj.dibujarCentro(g2d);
-				}
+				
 				if( tilesObstaculo[i][j].puedoDibujarObstaculo(i, j) )
 					tilesObstaculo[i][j].mover(g2d,xDestino + camara.getxOffCamara(),yDestino + camara.getyOffCamara());
 			}

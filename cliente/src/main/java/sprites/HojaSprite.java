@@ -13,6 +13,5 @@ public class HojaSprite {
 			int ancho, int alto){
 		return hoja.getSubimage(x, y, ancho, alto);
 	}
-	
 
 }
