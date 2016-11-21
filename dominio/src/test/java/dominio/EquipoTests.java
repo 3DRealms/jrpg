@@ -35,9 +35,11 @@ public class EquipoTests {
 
 		dani.equipar( equipables.get("AnilloDragon") );
 		//El anillo aumenta 15 def
-		
-
+	
 		Assert.assertEquals( 15, dani.obtenerPuntosDeDefensaFisica());
+		//AGREGO TESTEO DE .defender()  .sacarDefensa()
+		dani.defenderse();
+		Assert.assertEquals(60, dani.obtenerPuntosDeDefensaFisica());
 
 	}
 
