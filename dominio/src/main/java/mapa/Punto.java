@@ -1,5 +1,6 @@
 package mapa;
 
+
 public class Punto {
 
 	private int x;
@@ -93,5 +94,14 @@ public class Punto {
 	
 	public Punto clone(Punto aux){
 		return new Punto(aux.x,aux.y);
+	}
+	
+	public boolean equals(Object p){
+		Punto p2 = (Punto)p;
+		
+		if(this.getX() == p2.getX()  &&  this.getY() == p2.getY())
+			return true;
+		
+		return false;
 	}
 }

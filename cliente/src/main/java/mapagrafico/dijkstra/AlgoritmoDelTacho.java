@@ -10,8 +10,9 @@ import java.util.Map;
 
 public class AlgoritmoDelTacho {
 	/**
-	 * Bienvenidos al algoritmo de Dijkstra, sin m
-	 * recuestese, sus asientos flotaran suavemente.
+	 * Bienvenidos al algoritmo de Dijkstra, sin m.
+	 * Recuestese, sus asientos flotaran suavemente.
+	 * (Ahora sin bugs, y menos optimo)
 	 * @param
 	 */
 	protected Nodo actualW;
@@ -20,15 +21,17 @@ public class AlgoritmoDelTacho {
 	protected ArrayList<Nodo> pendientes; 
 	protected ArrayList<Nodo> solucion; 
 	private Map<Nodo, Integer> distancias = new HashMap<Nodo, Integer>(); 
+	protected Grafo graf;
 
 	public void calcularDijkstra(Grafo grafo, Nodo inicial,Nodo destino) {
 		predecesores = new HashMap<Nodo,Nodo>();
-
+		this.graf = grafo;
 		pendientes = new ArrayList<Nodo>();
 		solucion = new ArrayList<Nodo>();
 
 		distancias.put(inicial, 0); 
 		pendientes.add(inicial);
+		
 
 		while (pendientes.size() > 0) {
 			actualW = obtenerMinimo(pendientes); 
@@ -39,17 +42,27 @@ public class AlgoritmoDelTacho {
 			encontrarDistanciasMinimas(actualW);  
 
 		}
+		
 
 	}
 
 	public void encontrarDistanciasMinimas(Nodo actual) {
-
-		for (Nodo vecino : actual.nodosAdyacentes) {
+		
+		//esto arreglo el tema de no encontrar camino en un laberinto
+		Nodo aux = graf.getNodo(actual.getPunto().getX(), actual.getPunto().getY());
+		
+		for (Nodo vecino : aux.getNodosAdyacentes()) {
 			if (!yaVisitado(vecino)) {
 				if (obtenerDistancia(vecino) > obtenerDistancia(actual) + actual.getPeso(vecino)) {
-					distancias.put(vecino, obtenerDistancia(actual) + actual.getPeso(vecino));
-					predecesores.put(vecino, actual);
-					pendientes.add(vecino);
+					// CREO QUE ERA ESTOOOO  
+					/**
+					 * AL PARECER SE BORRABAN LAS CONEXIONES CON LOS NODOS DEL GRAFO
+					 */
+					Nodo pendiente  = graf.getNodo(vecino.getPunto().getX(), vecino.getPunto().getY());
+					distancias.put(pendiente, obtenerDistancia(actual) + actual.getPeso(vecino));
+					predecesores.put(pendiente, actual);
+//					pendientes.add(vecino);  ranciooo
+					pendientes.add(pendiente);
 				}
 			}
 		}
@@ -62,6 +75,7 @@ public class AlgoritmoDelTacho {
 			if (obtenerDistancia(nodo) < obtenerDistancia(minimo)) 
 				minimo = nodo;
 		}
+		
 		return minimo;
 	}
 

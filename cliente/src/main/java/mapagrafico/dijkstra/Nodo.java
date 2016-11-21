@@ -62,8 +62,9 @@ public class Nodo {
 
 
 
-	public boolean equals(Nodo n2) {
-
+	public boolean equals(Object n) {
+		Nodo n2  = (Nodo)n;
+		
 		if (this.getPunto().equals(n2.getPunto()))
 			return true;
 
@@ -91,6 +92,16 @@ public class Nodo {
 
 	private boolean noEsDiagonal(Nodo vecino) {
 		return this.getPunto().getX() == vecino.getPunto().getX() || this.getPunto().getY() == vecino.getPunto().getY() ;
+	}
+
+
+	public List<Nodo> getNodosAdyacentes() {
+		return nodosAdyacentes;
+	}
+
+
+	public void setNodosAdyacentes(List<Nodo> nodosAdyacentes) {
+		this.nodosAdyacentes = nodosAdyacentes;
 	}
 	
 
