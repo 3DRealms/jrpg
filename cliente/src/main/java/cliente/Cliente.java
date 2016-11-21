@@ -26,6 +26,7 @@ import interfaces.Equipo;
 import juego.JuegoPanel;
 import mensaje.*;
 import personaje.Personaje;
+import ventana.Combate;
 
 public class Cliente {
 
@@ -35,6 +36,9 @@ public class Cliente {
 	String usuario;
 	JuegoPanel juego;
 	JFrame ventana;
+	JFrame ventanaCombate;
+	Combate combat;
+	ThreadClienteEscuchar listenerInt;
 	
 
 	public Cliente(String usuario) throws UnknownHostException, IOException{
@@ -44,7 +48,8 @@ public class Cliente {
 	}
 
 	public void escuchar(){
-		new ThreadClienteEscuchar(this).start();
+		listenerInt = new ThreadClienteEscuchar(this);
+		listenerInt.start();
 	}
 
 	public void enviar(String mensaje) throws IOException{
@@ -119,6 +124,7 @@ public class Cliente {
 
 	}
 	
+	
 
 	public MensajeConfirmacion enviarRegistro(String user, String pass, String casta, String raza) throws IOException {
 
@@ -145,6 +151,19 @@ public class Cliente {
 		}
 
 		if(men.isCombate()){
+			//aca ARRRRRRRANCO EL COMBATE
+			//listenerInt.parar();
+			men = gson.fromJson(leido, MensajeInicioCombate.class);
+			ventanaCombate=new JFrame("El señor de los aniloros"); //Ventana comun
+			combat = new Combate(((MensajeInicioCombate) men).getEquipo1() , ((MensajeInicioCombate)men).getEquipo2());
+			ventanaCombate.add(combat); //Dentro de la ventana pongo el juego.
+			ventanaCombate.pack(); //hace que el tamaño se ajuste al tamaño preferido y diseños de sus subcomponentes.
+			ventanaCombate.setLocationRelativeTo(null); //centro
+			ventanaCombate.setResizable(false); // evito que se cambie el tamaño para que no se chanfle todo.
+			ventanaCombate.setVisible(true); // uno se mata haciendo los graficos para que ponga false ¬¬
+			ventanaCombate.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // :c adios amor.
+			
+			
 			
 		}
 
@@ -169,6 +188,12 @@ public class Cliente {
 		escuchar();
 		
 	}
+	
+	public void enviarMensajeCombate(String per){
+		
+		new ThreadClienteEnviarInteraccion(this,new MensajeInteraccion(per, MensajeInteraccion.COMBATE)).start();
+	}
+	
 	private static Cursor cursor() {
 		Image im = Toolkit.getDefaultToolkit().createImage("src\\main\\resources\\cursor.png");
 		Cursor cur = Toolkit.getDefaultToolkit().createCustomCursor(im, new Point(10,10),"WILL");

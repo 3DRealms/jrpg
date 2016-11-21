@@ -9,14 +9,19 @@ import mensaje.MensajeInteraccion;
 public class ThreadClienteEscuchar extends Thread{
 	
 private Cliente cliente;
+private boolean conectado;
 	
 	public ThreadClienteEscuchar(Cliente cliente){
 		this.cliente = cliente;
 	}
 	
+	public void parar(){
+		conectado = false;
+	}
+	
 	@Override
 	public void run(){
-		boolean conectado = true;
+		conectado = true;
 		MensajeInteraccion men;
 		while(conectado){
 			

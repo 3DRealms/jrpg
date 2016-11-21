@@ -12,6 +12,7 @@ import cliente.Cliente;
 import cliente.EnviadorPosicion;
 import mapa.Punto;
 import mapagrafico.MapaGrafico;
+import mensaje.MensajeInteraccion;
 import personaje.Personaje;
 import tiles.TilePersonajeLocal;
 import tiles.TilePersonajeRemoto;
@@ -88,6 +89,7 @@ public class JuegoPanel extends Component implements Runnable{
 			String destino = hayAlguien(mouse.getPosInt());
 			if(destino != null){
 				//enviar mensaje interaccion con servidor
+				cliente.enviarMensajeCombate(destino);
 				
 			}
 			mouse.setInteraccion(false);
@@ -97,8 +99,12 @@ public class JuegoPanel extends Component implements Runnable{
 
 	private String hayAlguien(Punto posInt) {
 		for (String persona : personajes.keySet()) {
-			personajes.get(persona).getXDestino();
-			personajes.get(persona).getYDestino();
+			int x = personajes.get(persona).getXDestino();
+			int y = personajes.get(persona).getYDestino();
+			if(x==posInt.getX() && y == posInt.getY())
+			{
+				return persona;
+			}
 			
 		}
 		return null;
