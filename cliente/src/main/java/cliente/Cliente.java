@@ -71,7 +71,7 @@ public class Cliente {
 	public void enviarInteraccion(MensajeInteraccion men) throws IOException{
 
 		enviarObjeto(men);
-		
+			
 
 	}
 	
@@ -177,7 +177,7 @@ public class Cliente {
 	public void abrirJuego(Personaje per){
 		
 		ventana=new JFrame("El señor de los aniloros"); //Ventana comun
-		juego = new JuegoPanel(ventana,per.getUbicacion(),per, "map_exterior", this);
+		juego = new JuegoPanel(ventana,per.getUbicacion(),per, "map_castillo", this);
 		ventana.add(juego); //Dentro de la ventana pongo el juego.
 		ventana.pack(); //hace que el tamaño se ajuste al tamaño preferido y diseños de sus subcomponentes.
 		ventana.setLocationRelativeTo(null); //centro

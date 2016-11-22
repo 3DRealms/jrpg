@@ -4,6 +4,7 @@ package servidor;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import mapa.Mapa;
@@ -14,14 +15,16 @@ import personaje.Personaje;
 
 public class Canal {
 	
-	List<SocketCliente> canal;
+	Map<String,SocketCliente> canal;
 	String nombre;
 	Mapa map;
+	List<CanalCombate> combates;
 	
 	public Canal(String nombre, int alto, int ancho) {
 		this.map = new Mapa(nombre, alto, ancho);
-		this.canal = new ArrayList<SocketCliente>();
+		this.canal = new HashMap<String, SocketCliente>();
 		this.nombre = nombre;
+		combates = new ArrayList<CanalCombate>();
 		
 	}
 	
@@ -30,7 +33,7 @@ public class Canal {
 	}
 	
 	public void agregarCliente(SocketCliente cliente, Personaje per) throws IOException{
-		canal.add(cliente);
+		canal.put(cliente.getUsuario(),cliente);
 		map.agregarPersonaje(per, cliente.getUsuario());
 		new ThreadEnviarInteraccion(this, new MensajeMovimiento(per.getUbicacion(), per.getNombre(), nombre, per.getSprite())).start();
 		//cliente.enviarMensajePosicion(per.getUbicacion(), cliente.getUsuario(), "mapa4");
@@ -48,7 +51,7 @@ public class Canal {
 	
 	public void enviarMensaje(Object men){
 		
-		for(SocketCliente cliente : canal)
+		for(SocketCliente cliente : canal.values())
 		{
 			
 			try {
@@ -99,7 +102,7 @@ public class Canal {
 		
 	public void enviarPosicion(MensajeMovimiento men){
 			
-			for(SocketCliente cliente : canal)
+			for(SocketCliente cliente : canal.values())
 			{
 				
 				try {
@@ -130,6 +133,27 @@ public class Canal {
 	public void detenerPersonaje(Personaje per){
 		map.detenerPersonaje(per);		
 	}
+
+	public void empezarCombate(String desafiador, String desafiado) {
+		CanalCombate combat = new CanalCombate();
+		if(map.quitarPersonaje(desafiado) == null)
+			return;
+		if(map.quitarPersonaje(desafiador)== null){
+			//la cague y lat engo que arreglar en algun momneto
+		}
+		
+		//aca tengo que armar los equipos mandarlos a los clientes, y arrancar el combate
+		
+		
+		
+	}
+
+	public void terminarCombate(String nombre2, String emisor) {
+		// TODO Auto-generated method stub
+		// aca tengo que volver a poner a los personajes en el mapa, y el que murio supongo que lo revivo en el spawn 
+		
+	}
+	
 	
 	
 	

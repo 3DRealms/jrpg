@@ -37,6 +37,13 @@ public class Mapa {
 		moviendoA.put(nombre, per.getUbicacion());
 	}
 	
+	public Personaje quitarPersonaje(String nombre){
+		Personaje per = personajes.remove(nombre);
+		moviendoA.remove(nombre);		
+		return per;
+	}
+	
+	
 	public void moverPersonaje(Personaje per, Punto point){
 		moviendoA.put(per.getNombre(), point);
 	}

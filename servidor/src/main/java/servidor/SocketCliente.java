@@ -7,6 +7,7 @@ import java.net.Socket;
 import com.google.gson.Gson;
 import mapa.Punto;
 import mensaje.*;
+import personaje.Personaje;
 
 
 
@@ -15,7 +16,16 @@ public class SocketCliente {
 	
 	String usuario;
 	Socket cliente;
+	private Personaje per;
 	
+	public Personaje getPer() {
+		return per;
+	}
+
+	public void setPer(Personaje per) {
+		this.per = per;
+	}
+
 	public SocketCliente(Socket cliente){
 		this.cliente = cliente;
 	}

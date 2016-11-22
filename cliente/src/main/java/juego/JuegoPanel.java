@@ -8,14 +8,17 @@ import java.util.HashMap;
 
 import javax.swing.JFrame;
 
+import batalla.EquipoSimple;
 import cliente.Cliente;
 import cliente.EnviadorPosicion;
 import mapa.Punto;
 import mapagrafico.MapaGrafico;
+import mensaje.MensajeInicioCombate;
 import mensaje.MensajeInteraccion;
 import personaje.Personaje;
 import tiles.TilePersonajeLocal;
 import tiles.TilePersonajeRemoto;
+import ventana.Combate;
 
 
 @SuppressWarnings("serial")
@@ -86,10 +89,22 @@ public class JuegoPanel extends Component implements Runnable{
 		mapa.actualizar();
 		
 		if(mouse.isInteraccion()){
+			
 			String destino = hayAlguien(mouse.getPosInt());
 			if(destino != null){
 				//enviar mensaje interaccion con servidor
-				cliente.enviarMensajeCombate(destino);
+				//cliente.enviarMensajeCombate(destino);
+				
+				EquipoSimple eq1 = new EquipoSimple();
+				eq1.agregarPersonaje("Lightray", 500, 200, 352, 180, "ninguno");
+				Combate combat = new Combate(eq1 ,eq1);
+				
+				padre.add(combat);
+				padre.remove(this);
+				padre.revalidate();
+				repaint();
+				combat.repaint();
+				ejecutando = false;
 				
 			}
 			mouse.setInteraccion(false);
@@ -98,12 +113,16 @@ public class JuegoPanel extends Component implements Runnable{
 	}
 
 	private String hayAlguien(Punto posInt) {
+		int deltaX = posInt.getX() - camara.getxOffCamara() + camara.getxActualPJ();
+		int deltaY = posInt.getY() - camara.getyOffCamara() + camara.getyActualPJ();
+
+
 		for (String persona : personajes.keySet()) {
 			int x = personajes.get(persona).getXDestino();
 			int y = personajes.get(persona).getYDestino();
-			if(x==posInt.getX() && y == posInt.getY())
+			if(x==deltaX	 && y == deltaY)
 			{
-				return persona;
+				return persona;				
 			}
 			
 		}
@@ -127,6 +146,8 @@ public class JuegoPanel extends Component implements Runnable{
 			
 			player= new TilePersonajeRemoto(pj,sprite,point, camara);
 			personajes.put(pj, player );
+			repaint();
+			
 		}
 		else{
 			mapa.moverPlayer(player,point);

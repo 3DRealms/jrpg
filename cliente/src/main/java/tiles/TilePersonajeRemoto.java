@@ -100,8 +100,27 @@ public class TilePersonajeRemoto extends TilePersonaje {
 		
 	}
 	
+	public void dibujar(Graphics2D g2d) {
+		
+		xInicio=xDestino;
+		yInicio=yDestino;	
+		
+		int deltaX = camara.getxOffCamara() - camara.getxActualPJ() + xDestino -2;
+		int deltaY = camara.getyOffCamara() - camara.getyActualPJ() + yDestino -1;
+
+		nx = (deltaX - deltaY ) * ( 64 / 2);
+		ny = (deltaX + deltaY) * ( 32 / 2);
+		
+		g2d.drawImage( obtenerFrameActual(), nx, ny-32 , null);	
+		Font fuente=new Font("Arial", Font.BOLD, 16);
+		g2d.setColor(Color.RED);
+		g2d.setFont(fuente);
+		g2d.drawString(nombre, nx, ny - 5);
+		
+	}
+	
 	public void actualizar() {
-		System.out.println(xIsometrica+" : " + xDestino);
+
 		if( ! estaEnMovimiento() && hayCamino() ){
 			moverUnPaso();	
 			paraDondeVoy(xDestino, yDestino);

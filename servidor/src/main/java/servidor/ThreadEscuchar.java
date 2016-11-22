@@ -20,7 +20,7 @@ public class ThreadEscuchar extends Thread{
 	private Canal jugadores;
 	private SocketCliente cliente;
 	SQLiteJDBC sqcon;
-	private Personaje per;
+	
 	
 	public ThreadEscuchar(Canal jugadores, SocketCliente cliente){
 		this.jugadores = jugadores;
@@ -66,13 +66,19 @@ public class ThreadEscuchar extends Thread{
 					//si el mensaje era para loguearse y cumple la autenticacion lo uno al juego
 					cliente.enviarMensajeConfirmacion(true, "");
 					cliente.setUsuario(men.getUsername());
-					per = sqcon.getPersonaje(men.getUsername());
+					Personaje per = sqcon.getPersonaje(men.getUsername());
 					if(per != null){		
 						cliente.enviarMensaje(per);
-						jugadores.agregarCliente(cliente, per);					
-						
-						escuchar(jugadores);						
+						cliente.setPer(per);
+						jugadores.agregarCliente(cliente, per);		
+						try {
+							sleep(1000);
+						} catch (InterruptedException e) {
+							System.out.println("Error al entrar el personaje al mundo");
+						}
 						new ThreadEnviarPosicionesIniciales(jugadores, cliente).start();
+						escuchar(jugadores);						
+						
 					}
 					else{
 						cliente.enviarMensajeConfirmacion(false, "Hay un error con su cuenta.");
@@ -107,6 +113,7 @@ public class ThreadEscuchar extends Thread{
 
 	private void escuchar(Canal can){
 		boolean conetado = true;
+		
 		while(conetado){
 			
 			try {
@@ -114,13 +121,19 @@ public class ThreadEscuchar extends Thread{
 				MensajeInteraccion mens = cliente.pedirMensajeInteraccion();
 				
 				if(mens.isMovimiento()){
-					can.moverPersonaje(per, ((MensajeMovimiento) mens).getPos());
+					can.moverPersonaje(cliente.getPer(), ((MensajeMovimiento) mens).getPos());
 					new ThreadEnviarInteraccion(can, mens).start();
 				}
 				
 				if(mens.isParado()){
-					can.detenerPersonaje(per);
+					can.detenerPersonaje(cliente.getPer());
 					new ThreadEnviarInteraccion(can, mens).start();
+				}
+				
+				if(mens.isCombate()){
+					can.empezarCombate(cliente.getPer().getNombre(), mens.getEmisor());
+					escucharCombate();
+					can.terminarCombate(cliente.getPer().getNombre(), mens.getEmisor());
 				}
 					
 				
@@ -128,7 +141,7 @@ public class ThreadEscuchar extends Thread{
 				
 			} catch (IOException e) {				
 				can.quitarCliente(cliente);
-				if(!sqcon.guardarPersonaje(per)){
+				if(!sqcon.guardarPersonaje(cliente.getPer())){
 					System.out.println("No se pudo guardar el personaje " + cliente.getUsuario());
 				}
 				try {
@@ -143,6 +156,11 @@ public class ThreadEscuchar extends Thread{
 			}
 			
 		}
+	}
+
+	private void escucharCombate() {
+		// TODO Auto-generated method stub
+		// aca tengo que empezar a escuchar las acciones del combate y actuar en funcion de eso
 	}
 	
 	
