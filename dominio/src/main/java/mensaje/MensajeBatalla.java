@@ -53,8 +53,8 @@ public class MensajeBatalla {
 	
 	public MensajeBatalla(String emisor, String tipo) {
 		this.emisor = emisor;
-		this.objetivo = "";
-		this.accion = "";
+		this.objetivo = null;
+		this.accion = null;
 		this.tipo = tipo;
 	}
 	

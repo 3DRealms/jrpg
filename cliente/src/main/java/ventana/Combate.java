@@ -11,6 +11,8 @@ import javax.swing.border.EmptyBorder;
 
 import batalla.EquipoSimple;
 import batalla.PersonajeSimple;
+import habilidad.Habilidad;
+import item.ItemLanzable;
 import mensaje.MensajeBatalla;
 import musica.AudioFilePlayer;
 import personaje.Personaje;
@@ -34,6 +36,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -250,7 +253,9 @@ public class Combate extends JFrame {
 			public void mouseClicked(MouseEvent arg1) {
 				if(puedoElegir){
 					men.setObjetivo(player1.getNombre());
-					JOptionPane.showMessageDialog(null, men);
+					men.setAccion(llavesListModel.get(lista.getSelectedIndex()));
+					if(men.getAccion()!=null)
+						JOptionPane.showMessageDialog(null, men);
 				}
 			}
 		});
@@ -286,8 +291,7 @@ public class Combate extends JFrame {
 		men = new MensajeBatalla(pjPropio.getNombre(),MensajeBatalla.HABILIDAD);
 		mensajesScroll.setVisible(false);
 		listaPanel.setVisible(true);
-		listModel.clear();
-		listModel.addElement("Piroexplosion");
+		cargarHabilidades();
 		//tengo que elegir la habilidad y luego el objetivo
 		
 	}
@@ -312,8 +316,7 @@ public class Combate extends JFrame {
 		men = new MensajeBatalla(pjPropio.getNombre(),MensajeBatalla.OBJETO);
 		mensajesScroll.setVisible(false);
 		listaPanel.setVisible(true);
-		listModel.clear();
-		listModel.addElement("Pocion de Salud");
+		cargarMochila();
 		//tengo que elegir la habilidad y luego el objetivo
 	}
 	
@@ -327,6 +330,28 @@ public class Combate extends JFrame {
 		btnDefender.setBackground(fondo);
 		mensajesScroll.setVisible(true);
 		listaPanel.setVisible(false);
+	}
+	
+	private void cargarHabilidades(){
+		listModel.clear();
+		llavesListModel.clear();
+		
+		Map<String,Habilidad> hab = pjPropio.getHabilidades();
+		for (String habilidad : hab.keySet()) {
+			listModel.addElement(hab.get(habilidad).getNombre());
+			llavesListModel.add(habilidad);
+		}
+	}
+	
+	private void cargarMochila(){
+		listModel.clear();
+		llavesListModel.clear();
+		
+		Map<String,ItemLanzable> items = pjPropio.getMochilaItemLanzable();
+		for (String item : items.keySet()) {
+			listModel.addElement(items.get(item).getNombre());
+			llavesListModel.add(item);
+		}
 	}
 	
 

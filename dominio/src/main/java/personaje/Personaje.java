@@ -1,7 +1,9 @@
 package personaje;
 
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import acciones.Accion;
@@ -345,6 +347,11 @@ public abstract class Personaje implements Atacable {
 			habilidades += key + "\n";
 		}
 		return habilidades;
+	}
+	
+	public Map<String,Habilidad> getHabilidades() {
+
+		return casta.getHabilidades();
 	}
 
 
@@ -722,6 +729,10 @@ public abstract class Personaje implements Atacable {
 	}
 	public String getNombre() {
 		return this.nombre;
+	}
+	
+	public Map<String, ItemLanzable> getMochilaItemLanzable() {
+		return mochilaItemLanzable;
 	}
 	public String getSprite() {
 		return this.sprite;
