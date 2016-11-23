@@ -93,18 +93,16 @@ public class JuegoPanel extends Component implements Runnable{
 			String destino = hayAlguien(mouse.getPosInt());
 			if(destino != null){
 				//enviar mensaje interaccion con servidor
-				//cliente.enviarMensajeCombate(destino);
+				cliente.enviarMensajeCombate(destino);
 				
-				EquipoSimple eq1 = new EquipoSimple();
-				eq1.agregarPersonaje("Lightray", 500, 200, 352, 180, "ninguno");
-				Combate combat = new Combate(eq1 ,eq1);
 				
+				/*
 				padre.add(combat);
 				padre.remove(this);
 				padre.revalidate();
 				repaint();
 				combat.repaint();
-				ejecutando = false;
+				ejecutando = false;*/
 				
 			}
 			mouse.setInteraccion(false);

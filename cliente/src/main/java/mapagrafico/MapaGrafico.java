@@ -251,14 +251,28 @@ public class MapaGrafico {
 		y = tiles[0][0].getYIso();
 		
 		for (int i = 0; i <  alto; i++) { 
-			for (int j = 0; j < ancho; j++) { 
-				tiles[i][j].mover(g2d,xDestino + camara.getxOffCamara(),yDestino+camara.getyOffCamara());
-
+			for (int j = 0; j < ancho ; j++) { 
+				tiles[i][j].mover(xDestino + camara.getxOffCamara(),yDestino+camara.getyOffCamara());
+			
+				if( tilesObstaculo[i][j].puedoDibujarObstaculo(i, j) )
+					tilesObstaculo[i][j].mover(xDestino + camara.getxOffCamara(),yDestino + camara.getyOffCamara());
+			}
+		}
+		int xInicial = Math.max(0, LimiteXInf());
+		int xFinal = Math.min(ancho, LimiteXSup()); 
+		int yInicial = Math.max(0, LimiteYInf());
+		int yFinal = Math.min(alto, LimiteYSup());
+		
+		
+		for (int i = xInicial; i <  xFinal; i++) { 
+			for (int j = yInicial; j < yFinal; j++) { 
+				tiles[i][j].dibujar(g2d);
+				
 				if( puedoDibujarPj(i, j) )
 					pj.dibujarCentro(g2d);
 				
 				if( tilesObstaculo[i][j].puedoDibujarObstaculo(i, j) )
-					tilesObstaculo[i][j].mover(g2d,xDestino + camara.getxOffCamara(),yDestino + camara.getyOffCamara());
+					tilesObstaculo[i][j].dibujar(g2d);
 			}
 		}
 		dibujarRestoPersonajes(g2d);
@@ -266,6 +280,23 @@ public class MapaGrafico {
 		hud(g2d);
 		termino();
 	}
+	
+	private int LimiteXInf(){
+		return camara.getxActualPJ()-15;
+	}
+	
+	private int LimiteXSup(){
+		return camara.getxActualPJ()+15;
+	}
+	
+	private int LimiteYInf(){
+		return camara.getyActualPJ()-15;
+	}
+	
+	private int LimiteYSup(){
+		return camara.getyActualPJ()+15;
+	}
+
 
 
 	private void hud(Graphics2D g2d) {
@@ -307,6 +338,7 @@ public class MapaGrafico {
 						pj.mover(g2d);						
 		}
 	}
+	
 
 
 }

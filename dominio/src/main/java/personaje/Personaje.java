@@ -3,9 +3,11 @@ package personaje;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import acciones.Accion;
 import acciones.FactoriaAcciones;
 import batalla.EquipoJugadores;
+import batalla.PersonajeSimple;
 import casta.Casta;
 import casta.Guerrero;
 import casta.LoroMaster;
@@ -16,7 +18,6 @@ import item.ItemEquipo;
 import item.ItemLanzable;
 import mapa.Punto;
 import mensaje.MensajeBatalla;
-
 import habilidad.Habilidad;
 
 public abstract class Personaje implements Atacable {
@@ -725,6 +726,9 @@ public abstract class Personaje implements Atacable {
 	}
 	public String getItemEquipables() {
 		return itemEquipado.toString();
+	}
+	public PersonajeSimple getSimplificado() {
+		return new PersonajeSimple(this.nombre, this.calcularSaludTotal(),this.calcularEnergiaTotal() , this.saludActual, this.energiaActual, this.sprite);
 	}
 
 

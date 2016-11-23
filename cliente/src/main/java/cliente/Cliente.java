@@ -154,14 +154,14 @@ public class Cliente {
 			//aca ARRRRRRRANCO EL COMBATE
 			//listenerInt.parar();
 			men = gson.fromJson(leido, MensajeInicioCombate.class);
-			ventanaCombate=new JFrame("El señor de los aniloros"); //Ventana comun
+
 			combat = new Combate(((MensajeInicioCombate) men).getEquipo1() , ((MensajeInicioCombate)men).getEquipo2());
-			ventanaCombate.add(combat); //Dentro de la ventana pongo el juego.
-			ventanaCombate.pack(); //hace que el tamaño se ajuste al tamaño preferido y diseños de sus subcomponentes.
-			ventanaCombate.setLocationRelativeTo(null); //centro
-			ventanaCombate.setResizable(false); // evito que se cambie el tamaño para que no se chanfle todo.
-			ventanaCombate.setVisible(true); // uno se mata haciendo los graficos para que ponga false ¬¬
-			ventanaCombate.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // :c adios amor.
+	
+			
+			combat.setLocationRelativeTo(null); //centro
+			combat.setResizable(false); // evito que se cambie el tamaño para que no se chanfle todo.
+			combat.setVisible(true); // uno se mata haciendo los graficos para que ponga false ¬¬
+			combat.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // :c adios amor.
 			
 			
 			
@@ -177,7 +177,7 @@ public class Cliente {
 	public void abrirJuego(Personaje per){
 		
 		ventana=new JFrame("El señor de los aniloros"); //Ventana comun
-		juego = new JuegoPanel(ventana,per.getUbicacion(),per, "map_castillo", this);
+		juego = new JuegoPanel(ventana,per.getUbicacion(),per, "map_exterior", this);
 		ventana.add(juego); //Dentro de la ventana pongo el juego.
 		ventana.pack(); //hace que el tamaño se ajuste al tamaño preferido y diseños de sus subcomponentes.
 		ventana.setLocationRelativeTo(null); //centro

@@ -185,7 +185,7 @@ public class Combate extends JFrame {
 
 	}
 
-	private void agregarInteraccion(SpriteCombate player1) {
+	private void agregarInteraccion(final SpriteCombate player1) {
 		player1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent arg0) {

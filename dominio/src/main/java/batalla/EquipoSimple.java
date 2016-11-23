@@ -19,4 +19,9 @@ public class EquipoSimple {
 		return personajes;
 	}
 
+	public void agregarPersonaje(PersonajeSimple simplificado) {
+		personajes.add(simplificado);
+		
+	}
+
 }

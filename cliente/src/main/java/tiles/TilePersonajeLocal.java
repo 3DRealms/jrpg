@@ -16,6 +16,11 @@ public class TilePersonajeLocal extends TilePersonaje {
 	private boolean nuevoRecorrido;
 	private Personaje pj;
 
+	public Personaje getPj() {
+		return pj;
+	}
+
+
 	public TilePersonajeLocal(Punto point,Personaje pj,Mouse mouse,Camara camara) {
 		super(pj.getSprite(),pj.getNombre(),camara);
 		

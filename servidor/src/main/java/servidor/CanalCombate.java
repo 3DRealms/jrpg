@@ -20,7 +20,13 @@ public class CanalCombate {
 	public void agregarEquipo2(SocketCliente client){
 		equipo2.add(client);
 	}
+
+	public List<SocketCliente> getEq1() {
+		return equipo1;
+	}
 	
-	
+	public List<SocketCliente> getEq2() {
+		return equipo2;
+	}	
 
 }

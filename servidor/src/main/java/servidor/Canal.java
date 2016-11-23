@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import batalla.EquipoSimple;
 import mapa.Mapa;
 import mapa.Punto;
 import mensaje.*;
@@ -142,10 +144,58 @@ public class Canal {
 			//la cague y lat engo que arreglar en algun momneto
 		}
 		
+		EquipoSimple eq1 = new EquipoSimple();
+		EquipoSimple eq2 = new EquipoSimple();
+		CanalCombate can = new CanalCombate();
+		
+		eq1.agregarPersonaje(canal.get(desafiador).getPer().getSimplificado());
+		can.agregarEquipo1(canal.get(desafiador));
+		
+		eq2.agregarPersonaje(canal.get(desafiado).getPer().getSimplificado());
+		can.agregarEquipo2(canal.get(desafiado));
+		
+		MensajeInicioCombate men = new MensajeInicioCombate(desafiador, eq1, eq2);
+		
+		this.enviarMensajeInicioCombate(men, can);
+		
+		
+		
 		//aca tengo que armar los equipos mandarlos a los clientes, y arrancar el combate
 		
 		
 		
+	}
+
+	private void enviarMensajeInicioCombate(MensajeInicioCombate men, CanalCombate can) {
+		for(SocketCliente cliente : can.getEq1())
+		{
+			try {
+				cliente.enviarMensaje(men);
+			} catch (IOException e) {
+				e.printStackTrace();
+				this.quitarCliente(cliente);
+				try {
+					cliente.cerrar();
+				} catch (IOException e1) {
+					//e1.printStackTrace();
+				}
+			}
+		}
+		
+		for(SocketCliente cliente : can.getEq2())
+		{
+			try {
+				cliente.enviarMensaje(men);
+			} catch (IOException e) {
+				e.printStackTrace();
+				this.quitarCliente(cliente);
+				try {
+					cliente.cerrar();
+				} catch (IOException e1) {
+					//e1.printStackTrace();
+				}
+			}
+		}
 	}
 
 	public void terminarCombate(String nombre2, String emisor) {

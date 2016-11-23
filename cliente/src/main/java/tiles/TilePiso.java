@@ -31,7 +31,7 @@ public class TilePiso {
 		g2d.drawImage( Sprite.getImagePiso(sprite), 0, 0 , null);			
 	}
 
-	public void mover(Graphics2D g2d, int x2, int y2) {
+	public void mover(int x2, int y2) {
 
 
 		x2+=xLogica;
@@ -53,6 +53,8 @@ public class TilePiso {
 		if(yIsometrica > ny){
 			yIsometrica-=1;
 		}
+	}
+	public void dibujar(Graphics2D g2d) {
 		g2d.drawImage( Sprite.getImagePiso(sprite), xIsometrica, yIsometrica , null);	
 	}
 	

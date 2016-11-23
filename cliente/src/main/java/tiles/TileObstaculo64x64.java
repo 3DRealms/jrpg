@@ -22,7 +22,7 @@ public class TileObstaculo64x64 extends TilePiso{
 		g2d.drawImage( Sprite.getImagePiso(sprite), 0, 0 , null);			
 	}
 
-	public void mover(Graphics2D g2d, int x2, int y2) {
+	public void mover(int x2, int y2) {
 
 		x2+=xLogica;
 		y2+=yLogica;	
@@ -44,6 +44,8 @@ public class TileObstaculo64x64 extends TilePiso{
 			yIsometrica--;
 		}
 
+	}
+	public void dibujar(Graphics2D g2d) {
 		g2d.drawImage( Sprite.getImageObstaculo(sprite), xIsometrica, yIsometrica-32 , null);	
 	}
 
