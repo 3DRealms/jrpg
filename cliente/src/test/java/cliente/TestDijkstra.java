@@ -12,65 +12,32 @@ import org.junit.Test;
 public class TestDijkstra {
 	
 	/**
-	 * Testeos rancios
-	 * 1 -> obstaculo
-	 * 0 -> puede pasar
-	 * x-> destino
-	 * i-> salida
-	 * Todavia no esta contemplado el caso de pasos en diagonal cerca de obstaculos
-	 * en todo caso puedo crear un normalizador de obstaculos de mapa
-	 * algun dia
+	 * Ver documentacion
 	 * @param
 	 */
 	
 	@Test
-	public void prueba(){
+	public void quePuedoIrDeUnPuntoAOtroSinObstaculos(){
 
 		AlgoritmoDelTacho prueba = new AlgoritmoDelTacho();
 		int n = 5;
 		boolean[][] m = new boolean[n][n];
 	
 		MatrizBoolean obstaculos = new MatrizBoolean(m, n, n);
-		m[2][2]= true; 
-		m[1][3]= true; 
-	//	m[2][3] = true;
+		
 		Grafo g = new Grafo(obstaculos);
-	//	System.out.println(obstaculos);
-		/**
-		 * despues hago los asserts no jodas gordo
-		 */
-		Nodo destino = g.getNodo(0, 1);
-		prueba.calcularDijkstra(g, g.getNodo(4,4), destino);
-		
-		Assert.assertNotEquals(null, prueba.obtenerCamino( destino ) );
-		
-	}
-	@Test
-	public void prueba222(){
-		
-		AlgoritmoDelTacho prueba = new AlgoritmoDelTacho();
-		int n = 5;
-		boolean[][] m = new boolean[n][n];
-		
-		MatrizBoolean obstaculos = new MatrizBoolean(m, n, n);
-		m[2][2]= true; 
-		m[1][3]= true; 
-		//	m[2][3] = true;
-		Grafo g = new Grafo(obstaculos);
-		//	System.out.println(obstaculos);
-		/**
-		 * despues hago los asserts no jodas gordo
-		 */
+
+		Nodo origen =  g.getNodo(4,4);
 		Nodo destino = g.getNodo(0, 0);
-		prueba.calcularDijkstra(g, g.getNodo(4,4), destino);
+		prueba.calcularDijkstra(g, origen, destino);
 		
 		Assert.assertNotEquals(null, prueba.obtenerCamino( destino ) );
 		
 	}
 	
-	/*
+
 	@Test
-	public void prueba2(){
+	public void quePuedoSalirDelLaberintoS(){
 		
 //		i 0 0 0 0
 //		1 1 1 1 0
@@ -92,21 +59,15 @@ public class TestDijkstra {
 		
 		MatrizBoolean obstaculos = new MatrizBoolean(m, n, n);
 		Grafo g = new Grafo(obstaculos);
-		
-		prueba.calcularDijkstra(g, g.getNodo(0, 0));
-		//prueba.mostrarCamino(g.getNodo(4, 4));
-		
-		//System.out.println(prueba.predecesores);
-		
-		//System.out.println(prueba.obtenerCamino(g.getNodo(4, 4)));
-		
-		//System.out.println(g);
-		
+		Nodo origen =  g.getNodo(0,0);
+		Nodo destino = g.getNodo(4, 4);
+		prueba.calcularDijkstra(g, origen, destino);
+
 	}
-	
+
 	
 	@Test
-	public void prueba3(){
+	public void quePuedoEsquivarObstaculosYLlegarADestino(){
 		
 //		i 0 0 0 0 0
 //		0 0 0 1 1 0
@@ -129,20 +90,15 @@ public class TestDijkstra {
 		
 		MatrizBoolean obstaculos = new MatrizBoolean(m, n, n);
 		Grafo g = new Grafo(obstaculos);
-		
-		prueba.calcularDijkstra(g, g.getNodo(0, 3));
-		System.out.println(prueba.mostrarCamino(g.getNodo(3, 3)));
-		
-		//System.out.println(prueba.predecesores);
-		
-		//System.out.println(prueba.obtenerCamino(g.getNodo(4, 4)));
-		
-		//System.out.println(g);
+		Nodo origen =  g.getNodo(0,0);
+		Nodo destino = g.getNodo(5, 5);
+		prueba.calcularDijkstra(g, origen, destino);
+		Assert.assertNotEquals(null, prueba.obtenerCamino( destino ) );
 		
 	}
-	
+
 	@Test
-	public void prueba4(){
+	public void quePuedoSalirdeLaberintoComplejo(){
 		AlgoritmoDelTacho prueba = new AlgoritmoDelTacho();
 		int n = 11;
 //		1 1 1 1 1 1 1 1 1 1 1
@@ -249,17 +205,43 @@ public class TestDijkstra {
 		
 		MatrizBoolean obstaculos = new MatrizBoolean(m, n, n);
 		Grafo g = new Grafo(obstaculos);
+		Nodo origen =  g.getNodo(9,1);
+		Nodo destino = g.getNodo(1, 9);
+		prueba.calcularDijkstra(g, origen, destino);
+		Assert.assertNotEquals(null, prueba.obtenerCamino( destino ) );
+	}
+	
+	
+	@Test
+	public void quePuedoPasarPorMapasGrandes(){
+
+		AlgoritmoDelTacho prueba = new AlgoritmoDelTacho();
+		int n = 100;
+		boolean[][] m = new boolean[n][n];
+	
+		MatrizBoolean obstaculos = new MatrizBoolean(m, n, n);
 		
-		prueba.calcularDijkstra(g, g.getNodo(9, 1));
-		prueba.mostrarCamino(g.getNodo(9, 9));
+		Grafo g = new Grafo(obstaculos);
+
+		Nodo origen =  g.getNodo(0,0);
+		Nodo destino = g.getNodo(99, 99);
 		
-		//System.out.println(prueba.predecesores);
+		long lastTime = System.nanoTime();
 		
-		//System.out.println(prueba.obtenerCamino(g.getNodo(4, 4)));
+		prueba.calcularDijkstra(g, origen, destino);
 		
-		//System.out.println(g);
+		Assert.assertNotEquals(null, prueba.obtenerCamino( destino ) );
+		
+		long now = System.nanoTime();
+		/**
+		 * Esto depende de la pc, pero al parecer un mapa de 100x100 puede 
+		 * resolverlo en un tiempo menor a 1,5 segundos.
+		 * Más no le pidan pobrecito, se verá cuando implemente la cola de prioridades
+		 * en un futuro, o haga un A*
+		 */
+		Assert.assertTrue(1.5>(now-lastTime)/1000000000);
+
 		
 	}
 
-*/
 }
