@@ -24,8 +24,9 @@ import database.SQLiteJDBC;
 
 public class Servidor extends Thread{
 
-	private Canal jugadores = new Canal("General", 200,200);
+	public static String mensaje;
 	private int puerto;
+	private Canal jugadores;
 	private JFrame ventanaServidor;
 	private JPanel contentPane;
 	private JTextField textField;
@@ -34,8 +35,9 @@ public class Servidor extends Thread{
 	private String sTexto;
 
 	Servidor() throws IOException, ClassNotFoundException, SQLException{
+		jugadores = new Canal("General", 200,200,this.textArea);
 		loadProperty("server.properties");
-		SQLiteJDBC sqcon = SQLiteJDBC.getInstance();
+		SQLiteJDBC sqcon = SQLiteJDBC.getInstance(textArea);
 		ventanaServidor = new JFrame();
 		ventanaServidor.setTitle("Servidor de Loro of ring's");
 		ventanaServidor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -102,7 +104,7 @@ public class Servidor extends Thread{
 				//cliente.enviarMensajeServidor("Conectado!");
 				this.textArea.append("Cliente Conectado.\n");
 				//clientes.add(cliente);
-				new ThreadEscuchar(jugadores,cliente).start();
+				new ThreadEscuchar(jugadores,cliente,this.textArea).start();
 				cliente = null;
 			}
 
@@ -133,16 +135,13 @@ public class Servidor extends Thread{
 			escuchar.sTexto = "hackIP";
 			boolean conectado = true;
 			while(! escuchar.compararEntrada("FIN") && conectado) {		  
-
 				//	System.out.println(escuchar.sTexto);  No entiendo si pongo el println funciona el comando sino no :( 
-
 				//aca hago comandos locos
 				/**
 				 * if(  escuchar.sTexto.equals("comando loco") )
 				 * 		comer a marta.
 				 * 	matar a lucas.
 				 */
-
 			}
 			escuchar.textArea.append("Adios!");
 			System.exit(0);

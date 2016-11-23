@@ -24,8 +24,8 @@ import ventana.Combate;
 @SuppressWarnings("serial")
 public class JuegoPanel extends Component implements Runnable{
 
-	public static final int ANCHO = 1024;
-	public static final int ALTO = 768;
+	public static final int ANCHO = 800;
+	public static final int ALTO = 600;
 	public static final int fps = 60;
 	public static double timePerTick = 1000000000/fps;
 	

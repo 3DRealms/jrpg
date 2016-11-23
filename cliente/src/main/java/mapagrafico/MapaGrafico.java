@@ -276,7 +276,7 @@ public class MapaGrafico {
 			}
 		}
 		dibujarRestoPersonajes(g2d);
-	//	g2d.drawImage( iluminacion, 0, 0 , null);
+//		g2d.drawImage( iluminacion, 0, 0 , null);
 		hud(g2d);
 		termino();
 	}

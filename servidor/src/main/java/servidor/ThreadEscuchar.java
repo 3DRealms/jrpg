@@ -1,17 +1,15 @@
 package servidor;
 
 import java.io.IOException;
-import java.net.SocketException;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Map;
+
+import javax.swing.JFrame;
+import javax.swing.JTextArea;
 
 import database.SQLiteJDBC;
-import mapa.Punto;
 import mensaje.*;
 import personaje.FactoriaPersonaje;
 import personaje.Personaje;
-import raza.Humano;
 
 
 
@@ -19,16 +17,17 @@ public class ThreadEscuchar extends Thread{
 	
 	private Canal jugadores;
 	private SocketCliente cliente;
-	SQLiteJDBC sqcon;
+	private SQLiteJDBC sqcon;
+	private JTextArea textArea;
 	
-	
-	public ThreadEscuchar(Canal jugadores, SocketCliente cliente){
+	public ThreadEscuchar(Canal jugadores, SocketCliente cliente,JTextArea textArea){
 		this.jugadores = jugadores;
 		this.cliente = cliente;
+		this.textArea = textArea; // Para escribir los mensaje de error; solo es una referencia :v ultra cho optimo mama
 		try {
 			sqcon = SQLiteJDBC.getInstance();
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+			textArea.append("Error con la base de datos.\nDetalle:  "+e.toString()+"\n");
 		}
 	}
 	
@@ -56,7 +55,6 @@ public class ThreadEscuchar extends Thread{
 						cliente.enviarMensajeConfirmacion(false, "Error al crear el personaje, intentelo nuevamente");
 				}
 				else{
-					//sino le digo el nombre de usuario ya existe
 					cliente.enviarMensajeConfirmacion(false, "El usuario ya existe");
 				}
 			}
@@ -74,7 +72,7 @@ public class ThreadEscuchar extends Thread{
 						try {
 							sleep(1000);
 						} catch (InterruptedException e) {
-							System.out.println("Error al entrar el personaje al mundo");
+							textArea.append("Error al entrar el personaje al mundo");
 						}
 						new ThreadEnviarPosicionesIniciales(jugadores, cliente).start();
 						escuchar(jugadores);						
@@ -97,7 +95,7 @@ public class ThreadEscuchar extends Thread{
 			try {
 				cliente.cerrar();
 			} catch (IOException e1) {
-				System.out.println("No se pudo cerrar el cliente");
+				textArea.append("No se pudo cerrar el cliente.\n");
 			}
 		}
 		
@@ -137,17 +135,16 @@ public class ThreadEscuchar extends Thread{
 			} catch (IOException e) {				
 				can.quitarCliente(cliente);
 				if(!sqcon.guardarPersonaje(cliente.getPer())){
-					System.out.println("No se pudo guardar el personaje " + cliente.getUsuario());
+					textArea.append("No se pudo guardar el personaje " + cliente.getUsuario());
 				}
 				try {
 					cliente.cerrar();
 				} catch (IOException e1) {
-					System.out.println("No se pudo cerrar al cliente");
+					textArea.append("No se pudo cerrar al cliente");
 				}
 				
 				conetado = false;
-				
-				System.out.println("Servidor:Cliente Desconectado!");
+				textArea.append("Cliente Desconectado.");
 			}
 			
 		}

@@ -76,10 +76,8 @@ public class Cliente {
 	}
 	
 	public MensajeConfirmacion enviarAutenticacion(String usuario, String clave) throws IOException{
-
 		enviarObjeto(new MensajeAutenticacion(usuario,clave,false));
 		return this.pedirConfirmacion();
-
 	}
 	
 	
@@ -127,11 +125,8 @@ public class Cliente {
 	
 
 	public MensajeConfirmacion enviarRegistro(String user, String pass, String casta, String raza) throws IOException {
-
 		enviarObjeto(new MensajeAutenticacion(usuario,pass,true,casta,raza));
 		return this.pedirConfirmacion();
-
-
 	}
 	
 	public void pedirInteraccion() throws IOException{

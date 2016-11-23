@@ -1,10 +1,5 @@
 package servidor;
 
-import java.io.IOException;
-import java.util.List;
-import mensaje.*;
-
-
 public class ThreadEnviarPosicionesIniciales extends Thread{
 	
 	private Canal clientes;
