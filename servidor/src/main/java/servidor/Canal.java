@@ -71,9 +71,7 @@ public class Canal {
 					//e1.printStackTrace();
 				}
 			}
-			
-		
-		
+
 	}
 	}
 	
@@ -118,13 +116,9 @@ public class Canal {
 					try {
 						cliente.cerrar();
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
 						//e1.printStackTrace();
 					}
-				}
-				
-			
-			
+				}	
 		}
 	}
 	
@@ -144,25 +138,15 @@ public class Canal {
 			//la cague y lat engo que arreglar en algun momneto
 		}
 		
-		EquipoSimple eq1 = new EquipoSimple();
-		EquipoSimple eq2 = new EquipoSimple();
+		EquipoSimple eq1 = new EquipoSimple(canal.get(desafiador).getPer().getEquipo().obtenerEquipoSimple());
+		EquipoSimple eq2 = new EquipoSimple(canal.get(desafiado).getPer().getEquipo().obtenerEquipoSimple());
 		CanalCombate can = new CanalCombate();
-		
-		eq1.agregarPersonaje(canal.get(desafiador).getPer().getSimplificado());
-		can.agregarEquipo1(canal.get(desafiador));
-		
-		eq2.agregarPersonaje(canal.get(desafiado).getPer().getSimplificado());
-		can.agregarEquipo2(canal.get(desafiado));
-		
+				
 		MensajeInicioCombate men = new MensajeInicioCombate(desafiador, eq1, eq2);
 		
 		this.enviarMensajeInicioCombate(men, can);
-		
-		
-		
+
 		//aca tengo que armar los equipos mandarlos a los clientes, y arrancar el combate
-		
-		
 		
 	}
 

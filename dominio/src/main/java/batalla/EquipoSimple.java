@@ -1,14 +1,13 @@
 package batalla;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class EquipoSimple {
 	
 	List<PersonajeSimple> personajes;
 	
-	public EquipoSimple(){
-		personajes = new ArrayList<PersonajeSimple>();
+	public EquipoSimple(List<PersonajeSimple> equipoSimple){
+		personajes = equipoSimple;
 	}
 	
 	public void agregarPersonaje(String nombre, int vida, int energia, int vidaAct, int energiaAct, String sprite){

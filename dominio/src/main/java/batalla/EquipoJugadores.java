@@ -23,9 +23,9 @@ public class EquipoJugadores implements Equipo{
 
 	public EquipoJugadores() {
 		equipo = new ArrayList<Personaje>();
-		
+
 	}
-	
+
 	/**
 	 * Agregar personaje, por ahora pense que puede tener un lider
 	 * que es el que decide las batallas.
@@ -117,7 +117,7 @@ public class EquipoJugadores implements Equipo{
 		}
 		return nivelPromedio/equipo.size();
 	}
-	
+
 	public Personaje getPersonaje(String nombre) {
 		for (Personaje pj : equipo){
 			if(pj.toString().equals(nombre)){
@@ -141,8 +141,8 @@ public class EquipoJugadores implements Equipo{
 
 	@Override
 	public void repartirBotin(int oro) {
-		
-		
+
+
 	}
 
 	@Override
@@ -153,7 +153,7 @@ public class EquipoJugadores implements Equipo{
 
 	@Override
 	public List<Personaje> clonarLista() {
-		
+
 		return new ArrayList<Personaje>(equipo);
 	}
 
@@ -167,5 +167,14 @@ public class EquipoJugadores implements Equipo{
 			acciones.add(accion);
 			i++;
 		}
-		return acciones;	}
+		return acciones;	
+	}
+
+	@Override
+	public List<PersonajeSimple> obtenerEquipoSimple() {
+		List<PersonajeSimple> personajesSimples = new ArrayList<>();
+		for (Personaje pj : equipo) 
+			personajesSimples.add(pj.getSimplificado());
+		return personajesSimples;
+	}
 }

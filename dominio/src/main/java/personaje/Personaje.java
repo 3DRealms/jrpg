@@ -85,7 +85,6 @@ public abstract class Personaje implements Atacable {
 		this.nombre = nombre;
 		mochilaItemLanzable = new HashMap<String, ItemLanzable>();
 		itemEquipado = new HashMap<String, ItemEquipo>();
-		
 		itemEquipado.put("anillo", new ItemEquipo());
 		itemEquipado.put("armaDer", new ItemEquipo());
 		itemEquipado.put("armaIzq", new ItemEquipo());
@@ -684,6 +683,9 @@ public abstract class Personaje implements Atacable {
 	}
 	public void salirEquipo(){
 		this.equipo = new EquipoJugadores();
+	}
+	public Equipo getEquipo(){
+		return this.equipo;
 	}
 	public Punto getUbicacion() {
 		return ubicacion;

@@ -81,9 +81,6 @@ public class Batalla  {
 		}
 
 		finalizarBatalla(obtenerGanador());
-
-
-
 	}
 
 	private void turnoPorVelocidad(List <Accion> accEquipo1, List <Accion> accEquipo2){

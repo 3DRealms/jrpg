@@ -1,23 +1,17 @@
 package servidor;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.sql.SQLException;
 import java.util.Properties;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -45,7 +39,8 @@ public class Servidor extends Thread{
 		ventanaServidor = new JFrame();
 		ventanaServidor.setTitle("Servidor de Loro of ring's");
 		ventanaServidor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		ventanaServidor.setBounds(100, 100, 450, 300);
+		ventanaServidor.setBounds(100, 100, 500, 400);
+		ventanaServidor.setResizable(false);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -70,7 +65,6 @@ public class Servidor extends Thread{
 			public void actionPerformed(ActionEvent arg0) {
 				agregarTexto();
 			}
-
 
 		});
 		panel_1.add(btnEnviar);
@@ -100,7 +94,6 @@ public class Servidor extends Thread{
 	public void run(){
 
 		try{
-
 			ServerSocket server = new ServerSocket(puerto);
 			SocketCliente cliente;
 			this.textArea.append("¡Arranco el servidor!\n");
@@ -158,7 +151,6 @@ public class Servidor extends Thread{
 			escuchar.textArea.append("Error: "+e.toString()+"\n");
 		}
 	}
-
 
 	private boolean compararEntrada(String string) {
 		return sTexto.equals(string);

@@ -93,11 +93,6 @@ public class ThreadEscuchar extends Thread{
 				
 			}
 
-			
-
-
-
-
 		} catch (IOException e) {
 			try {
 				cliente.cerrar();

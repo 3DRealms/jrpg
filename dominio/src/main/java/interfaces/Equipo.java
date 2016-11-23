@@ -2,6 +2,7 @@ package interfaces;
 
 import java.util.List;
 import acciones.Accion;
+import batalla.PersonajeSimple;
 import personaje.Personaje;
 
 /**
@@ -30,4 +31,5 @@ public interface Equipo {
 	public void darExperiencia(int experiencia);
 	public void quitar(Personaje personaje);
 	public List<Personaje> clonarLista();
+	public List<PersonajeSimple> obtenerEquipoSimple();
 }

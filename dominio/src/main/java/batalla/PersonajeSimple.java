@@ -15,7 +15,6 @@ public class PersonajeSimple {
 		this.energia = energia;
 		this.vidaAct = vidaAct;
 		this.energiaAct = energiaAct;
-		
 		this.sprite = sprite;
 	}
 

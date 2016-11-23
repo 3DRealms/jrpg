@@ -9,9 +9,6 @@ import mapa.Punto;
 import mensaje.*;
 import personaje.Personaje;
 
-
-
-
 public class SocketCliente {
 	
 	String usuario;
