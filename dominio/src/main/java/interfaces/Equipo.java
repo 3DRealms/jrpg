@@ -32,4 +32,6 @@ public interface Equipo {
 	public void quitar(Personaje personaje);
 	public List<Personaje> clonarLista();
 	public List<PersonajeSimple> obtenerEquipoSimple();
+	public void agregar(Personaje pj);
+
 }

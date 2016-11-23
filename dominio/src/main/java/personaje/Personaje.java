@@ -92,9 +92,8 @@ public abstract class Personaje implements Atacable {
 		itemEquipado.put("armaIzq", new ItemEquipo());
 		itemEquipado.put("armadura", new ItemEquipo());
 		itemEquipado.put("casco", new ItemEquipo());
-		
 		ubicacion = new Punto(1,1); // esto tiene que ser seteado por el servidor, posiblemente en el costructor. 
-		this.equipo = new EquipoJugadores();
+		equipo = new EquipoJugadores();
 	}
 	
 	public Personaje(Personaje pj) {
@@ -687,9 +686,11 @@ public abstract class Personaje implements Atacable {
 
 	public void setEquipo(Equipo equipo) {
 		this.equipo = equipo;
+		equipo.agregar(this);
 	}
 	public void salirEquipo(){
 		this.equipo = new EquipoJugadores();
+		autoAgregarce();
 	}
 	public Equipo getEquipo(){
 		return this.equipo;
@@ -742,6 +743,9 @@ public abstract class Personaje implements Atacable {
 	}
 	public PersonajeSimple getSimplificado() {
 		return new PersonajeSimple(this.nombre, this.calcularSaludTotal(),this.calcularEnergiaTotal() , this.saludActual, this.energiaActual, this.sprite);
+	}
+	public void autoAgregarce() {
+		this.equipo.agregar(this);
 	}
 
 

@@ -58,6 +58,7 @@ public class HabilidadTests {
 	public void queUnaHabilidadEscaleConIntelecto() throws ClassNotFoundException, SQLException {
 		SQLiteJDBC.getInstance();
 		Map<String, Habilidad> habilidades = SQLiteJDBC.obtenerHabilidades();
+		
 		Mognatal dani = new Mognatal("dani");
 		dani.setCastaMago();
 		dani.agregarHabilidad("piroexplosion", habilidades.get("piroexplosion"));
@@ -76,7 +77,7 @@ public class HabilidadTests {
 
 		// Piro Explosion quita 40 puntos de vida, al tener mas intelecto, pega 20 pntos mas (aguante la PiroExplosion).
 		//Perdon dani _:, nerfie piroexplosion, I'm sorry man, I'm sorry, ahora solo sube un punto mas
-		Assert.assertEquals(alexSalud-51, alex.getSaludActual());
+		Assert.assertEquals(alexSalud-52, alex.getSaludActual());
 	}
 	@Test
 	public void lanzoUnaHabilidadQueNoTengo() {
