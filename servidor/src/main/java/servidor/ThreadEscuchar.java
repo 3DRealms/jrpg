@@ -33,21 +33,17 @@ public class ThreadEscuchar extends Thread{
 
 	@Override
 	public void run(){
-
-
 		try {
 			intro();
 		} catch (SQLException e) {
 			textArea.append("Error en la base de datos: " + e.toString()+"\n");
 		}
-
 	}
 
 	private void intro() throws SQLException{
 		try {
 
 			MensajeAutenticacion men = cliente.pedirAutenticacion();
-
 			if(men.isRegistro()){
 				if(sqcon.crearUsuario(men.getUsername(), men.getPassword())){
 					//si los datos son para un nuevo registro sigo con el mismo
@@ -79,6 +75,7 @@ public class ThreadEscuchar extends Thread{
 							textArea.append("Error al entrar el personaje al mundo");
 						}
 						new ThreadEnviarPosicionesIniciales(jugadores, cliente).start();
+						textArea.append("Envio del personaje: "+per.getNombre()+"\n");
 						escuchar(jugadores);						
 
 					}
@@ -89,7 +86,7 @@ public class ThreadEscuchar extends Thread{
 				}
 				else{
 					//le muestro un error que los datos son incorrectos
-					cliente.enviarMensajeConfirmacion(false, "Nombre de usuario y contraseña no coinciden");
+					cliente.enviarMensajeConfirmacion(false, "Nombre de usuario y contraseña no coinciden.");
 				}
 			}
 
