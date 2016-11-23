@@ -7,6 +7,7 @@ import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine.Info;
+import javax.sound.sampled.FloatControl;
 import javax.swing.JOptionPane;
 
 import mensaje.MensajeInteraccion;
@@ -21,9 +22,15 @@ import static javax.sound.sampled.AudioFormat.Encoding.PCM_SIGNED;
 public class AudioFilePlayer extends Thread{
 	
 	final File file;
+	float volumen;
 	
 	public AudioFilePlayer(String filePath){
 		file = new File(filePath);
+		volumen = 80;
+	}
+	public AudioFilePlayer(String filePath, float volumen){
+		file = new File(filePath);
+		this.volumen = volumen;
 	}
 
  
@@ -44,7 +51,12 @@ public class AudioFilePlayer extends Thread{
                      (SourceDataLine) AudioSystem.getLine(info)) {
  
                 if (line != null) {
+                	
                     line.open(outFormat);
+                    if (line.isControlSupported(FloatControl.Type.MASTER_GAIN)) {
+                        FloatControl volume = (FloatControl) line.getControl(FloatControl.Type.MASTER_GAIN);
+                       volume.setValue(calcularVol());
+                    }
                     line.start();
                     stream(getAudioInputStream(outFormat, in), line);
                     line.drain();
@@ -59,7 +71,10 @@ public class AudioFilePlayer extends Thread{
         }
 	}
  
-    private AudioFormat getOutFormat(AudioFormat inFormat) {
+    private float calcularVol() {
+		return volumen - 80;
+	}
+	private AudioFormat getOutFormat(AudioFormat inFormat) {
         final int ch = inFormat.getChannels();
         final float rate = inFormat.getSampleRate();
         return new AudioFormat(PCM_SIGNED, rate, 16, ch, ch * 2, rate, false);

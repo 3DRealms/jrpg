@@ -18,6 +18,8 @@ public class SpriteCombate extends JPanel{
 	
 	String nombre;
 	int vidaBase;
+	
+
 	int manaBase;
 	int vida;
 	int mana;
@@ -91,6 +93,9 @@ public class SpriteCombate extends JPanel{
 	
 	public void escribirMana(int manaAct){
 		playerMana.setText("MP:"+manaAct+"/"+manaBase);
+	}
+	public String getNombre() {
+		return nombre;
 	}
 
 }

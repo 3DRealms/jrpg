@@ -30,15 +30,15 @@ import ventana.Combate;
 
 public class Cliente {
 
-	Socket cliente;
-	String serverIP;
-	Integer puerto;
-	String usuario;
-	JuegoPanel juego;
-	JFrame ventana;
-	JFrame ventanaCombate;
-	Combate combat;
-	ThreadClienteEscuchar listenerInt;
+	private Socket cliente;
+	private String serverIP;
+	private Integer puerto;
+	private String usuario;
+	private JuegoPanel juego;
+	private JFrame ventana;
+	private Combate combat;
+	private ThreadClienteEscuchar listenerInt;
+	private Personaje pj;
 	
 
 	public Cliente(String usuario) throws UnknownHostException, IOException{
@@ -155,13 +155,12 @@ public class Cliente {
 			//listenerInt.parar();
 			men = gson.fromJson(leido, MensajeInicioCombate.class);
 
-			combat = new Combate(((MensajeInicioCombate) men).getEquipo1() , ((MensajeInicioCombate)men).getEquipo2());
-	
-			
+			combat = new Combate(((MensajeInicioCombate) men).getEquipo1() , ((MensajeInicioCombate)men).getEquipo2(),pj);
 			combat.setLocationRelativeTo(null); //centro
 			combat.setResizable(false); // evito que se cambie el tamaño para que no se chanfle todo.
 			combat.setVisible(true); // uno se mata haciendo los graficos para que ponga false ¬¬
 			combat.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // :c adios amor.
+			ventana.setVisible(false);
 			
 			
 			
@@ -176,6 +175,7 @@ public class Cliente {
 	
 	public void abrirJuego(Personaje per){
 		
+		this.pj = per;
 		ventana=new JFrame("El señor de los aniloros"); //Ventana comun
 		juego = new JuegoPanel(ventana,per.getUbicacion(),per, "map_exterior", this);
 		ventana.add(juego); //Dentro de la ventana pongo el juego.
