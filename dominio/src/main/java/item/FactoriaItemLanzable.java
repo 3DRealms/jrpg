@@ -18,6 +18,10 @@ public class FactoriaItemLanzable {
 					 cantidad,  velociad);
 		}
 
+		if(efecto.equals("energica")){
+			return new ItemEnergico(key, nivel, nombre, descripcion,  cantidadDeEfecto,  efecto,
+					 cantidad,  velociad);
+		}
 		return null;
 	}
 
