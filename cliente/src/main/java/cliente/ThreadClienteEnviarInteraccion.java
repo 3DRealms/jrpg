@@ -18,15 +18,11 @@ private MensajeInteraccion men;
 	
 	@Override
 	public void run(){
-		
-
 			try {
 				cliente.enviarInteraccion(men);
 			} catch (IOException e) {
 				JOptionPane.showMessageDialog(null, "El servidor se ha desconectado");
 				System.exit(0);
-			
-			
 		}
 	}
 

@@ -22,6 +22,7 @@ import casta.Casta;
 import gson.CastaInstanceCreator;
 import gson.EquipoInstanceCreator;
 import gson.PersonajeInstanceCreator;
+import habilidad.Habilidad;
 import interfaces.Equipo;
 import juego.JuegoPanel;
 import mensaje.*;
@@ -39,7 +40,6 @@ public class Cliente {
 	private Combate combat;
 	private ThreadClienteEscuchar listenerInt;
 	private Personaje pj;
-
 
 	public Cliente(String usuario) throws UnknownHostException, IOException{
 		this.usuario = usuario;
@@ -69,10 +69,7 @@ public class Cliente {
 	}
 
 	public void enviarInteraccion(MensajeInteraccion men) throws IOException{
-
 		enviarObjeto(men);
-
-
 	}
 
 	public MensajeConfirmacion enviarAutenticacion(String usuario, String clave) throws IOException{
@@ -111,10 +108,10 @@ public class Cliente {
 		gsonBuilder.registerTypeAdapter(Casta.class, new CastaInstanceCreator()); 
 		gsonBuilder.registerTypeAdapter(Personaje.class, new PersonajeInstanceCreator()); 
 		gsonBuilder.registerTypeAdapter(Equipo.class, new EquipoInstanceCreator()); 
+		gsonBuilder.registerTypeHierarchyAdapter(Habilidad.class,new HabilidadInstanceCreator());
 		Gson gson = gsonBuilder.create();
 		String lect = lectura.readUTF();
 		return gson.fromJson(lect, Personaje.class);
-
 	}
 
 

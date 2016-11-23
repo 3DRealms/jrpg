@@ -5,6 +5,7 @@ import java.awt.Font;
 
 import javax.swing.JButton;
 
+@SuppressWarnings("serial")
 public class CombatButton extends JButton{
 	
 	public CombatButton(String texto){

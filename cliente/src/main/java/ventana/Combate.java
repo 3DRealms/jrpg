@@ -17,28 +17,22 @@ import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
-
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.event.ListSelectionEvent;
 
 
 
+
+@SuppressWarnings("serial")
 public class Combate extends JFrame {
 
 	private JPanel contentPane;

@@ -141,7 +141,6 @@ public class ThreadEscuchar extends Thread{
 				} catch (IOException e1) {
 					textArea.append("No se pudo cerrar al cliente");
 				}
-
 				conetado = false;
 				textArea.append("Cliente Desconectado.");
 			}

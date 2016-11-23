@@ -1,19 +1,14 @@
 package ventana;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import cliente.Cliente;
-import juego.JuegoPanel;
-import mapa.Punto;
 import mensaje.MensajeConfirmacion;
 import personaje.Personaje;
-import raza.PersonajePrueba;
-
 import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.BoxLayout;
@@ -25,6 +20,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
 
+@SuppressWarnings("serial") // Dejame en paz
 public class Autenticar extends JFrame {
 
 	private JPanel contentPane;
@@ -37,7 +33,7 @@ public class Autenticar extends JFrame {
 	 * Create the frame.
 	 */
 	public Autenticar() {
-		setTitle("Super Awesome Game (No Minecraft)");
+		setTitle("LAUCHER LORO");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
