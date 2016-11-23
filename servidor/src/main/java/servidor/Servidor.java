@@ -135,14 +135,15 @@ public class Servidor extends Thread{
 			escuchar.ventanaServidor.setVisible(true);
 			escuchar.start();
 			//BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-			escuchar.sTexto = "hackIP";
+			escuchar.sTexto = "";
 			boolean conectado = true;
 			while(! escuchar.compararEntrada("FIN") && conectado) {		  
 				//	 No entiendo si pongo una salida de pantalla funciona el comando sino no :( 
 				//aca hago comandos locos
-				System.out.println(escuchar.sTexto);
-				if(  escuchar.sTexto.equals("kick") )
+				if( escuchar.sTexto.equals("kick") ){
 					escuchar.textArea.append("comer a marta.\nmatar a lucas.");
+					escuchar.sTexto = "";
+				}
 			}
 			escuchar.textArea.append("Adios!");
 			System.exit(0);

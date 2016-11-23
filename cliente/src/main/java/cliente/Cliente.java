@@ -21,6 +21,7 @@ import com.google.gson.GsonBuilder;
 import casta.Casta;
 import gson.CastaInstanceCreator;
 import gson.EquipoInstanceCreator;
+import gson.HabilidadInstanceCreator;
 import gson.PersonajeInstanceCreator;
 import habilidad.Habilidad;
 import interfaces.Equipo;
@@ -108,7 +109,7 @@ public class Cliente {
 		gsonBuilder.registerTypeAdapter(Casta.class, new CastaInstanceCreator()); 
 		gsonBuilder.registerTypeAdapter(Personaje.class, new PersonajeInstanceCreator()); 
 		gsonBuilder.registerTypeAdapter(Equipo.class, new EquipoInstanceCreator()); 
-		gsonBuilder.registerTypeHierarchyAdapter(Habilidad.class,new HabilidadInstanceCreator());
+		gsonBuilder.registerTypeAdapter(Habilidad.class,new HabilidadInstanceCreator());
 		Gson gson = gsonBuilder.create();
 		String lect = lectura.readUTF();
 		return gson.fromJson(lect, Personaje.class);

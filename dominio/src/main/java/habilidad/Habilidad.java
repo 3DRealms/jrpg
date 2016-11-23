@@ -17,7 +17,15 @@ public abstract class Habilidad {
 	// solo un estado modifica la habilidad. Pero ahora tambien el ataque magico o fisico del personaje.
 	public abstract void afectar(Personaje personaje, int estado, int ataque);
 
-
+	public Habilidad() {
+		this.nombre = null;
+		this.efecto = null;
+		this.descripcion = null;
+		this.costo = 0;
+		this.nivel = 0;
+		this.cantEfecto = 0;
+		this.velocidad = 0;
+	}
 	public Habilidad(String nombre, String efecto, String descripcion, int costo, int nivel, int cantEfecto,
 			int velocidad) {
 

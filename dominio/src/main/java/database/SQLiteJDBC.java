@@ -10,6 +10,7 @@ import com.google.gson.GsonBuilder;
 import casta.Casta;
 import gson.CastaInstanceCreator;
 import gson.EquipoInstanceCreator;
+import gson.HabilidadInstanceCreator;
 import gson.PersonajeInstanceCreator;
 import habilidad.*;
 import interfaces.Equipo;
@@ -196,6 +197,7 @@ public class SQLiteJDBC
 			gsonBuilder.registerTypeAdapter(Casta.class, new CastaInstanceCreator()); 
 			gsonBuilder.registerTypeAdapter(Personaje.class, new PersonajeInstanceCreator()); 
 			gsonBuilder.registerTypeAdapter(Equipo.class, new EquipoInstanceCreator()); 
+			gsonBuilder.registerTypeAdapter(Habilidad.class,new HabilidadInstanceCreator());
 			Gson gson = gsonBuilder.create();
 			String stringRes = rs.getString("json");
 

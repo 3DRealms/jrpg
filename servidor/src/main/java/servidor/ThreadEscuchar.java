@@ -2,11 +2,13 @@ package servidor;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Map;
 
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 
 import database.SQLiteJDBC;
+import habilidad.Habilidad;
 import mensaje.*;
 import personaje.FactoriaPersonaje;
 import personaje.Personaje;
@@ -42,7 +44,6 @@ public class ThreadEscuchar extends Thread{
 
 	private void intro() throws SQLException{
 		try {
-
 			MensajeAutenticacion men = cliente.pedirAutenticacion();
 			if(men.isRegistro()){
 				if(sqcon.crearUsuario(men.getUsername(), men.getPassword())){
@@ -65,7 +66,9 @@ public class ThreadEscuchar extends Thread{
 					cliente.enviarMensajeConfirmacion(true, "");
 					cliente.setUsuario(men.getUsername());
 					Personaje per = sqcon.getPersonaje(men.getUsername());
-					if(per != null){		
+					Map<String, Habilidad> h = SQLiteJDBC.obtenerHabilidades();
+					if(per != null){
+					//	per.agregarHabilidad("curar", h.get("curar"));
 						cliente.enviarMensaje(per);
 						cliente.setPer(per);
 						jugadores.agregarCliente(cliente, per);		
