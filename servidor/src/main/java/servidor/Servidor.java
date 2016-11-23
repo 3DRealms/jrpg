@@ -3,6 +3,7 @@ package servidor;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -48,12 +49,12 @@ public class Servidor extends Thread{
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		ventanaServidor.setContentPane(contentPane);
-		
+
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.SOUTH);
 		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		textField = new JTextField();
-		
+
 		textField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent ke) {
@@ -61,7 +62,7 @@ public class Servidor extends Thread{
 					agregarTexto();				
 			}
 		});
-		
+
 		panel_1.add(textField);
 		textField.setColumns(30);
 		btnEnviar = new JButton("Enviar");
@@ -139,11 +140,9 @@ public class Servidor extends Thread{
 			while(! escuchar.compararEntrada("FIN") && conectado) {		  
 				//	 No entiendo si pongo una salida de pantalla funciona el comando sino no :( 
 				//aca hago comandos locos
-				/**
-				 * if(  escuchar.sTexto.equals("comando loco") )
-				 * 		comer a marta.
-				 * 	matar a lucas.
-				 */
+				System.out.println(escuchar.sTexto);
+				if(  escuchar.sTexto.equals("kick") )
+					escuchar.textArea.append("comer a marta.\nmatar a lucas.");
 			}
 			escuchar.textArea.append("Adios!");
 			System.exit(0);
