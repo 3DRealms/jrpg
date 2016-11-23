@@ -39,7 +39,7 @@ public class Cliente {
 	private Combate combat;
 	private ThreadClienteEscuchar listenerInt;
 	private Personaje pj;
-	
+
 
 	public Cliente(String usuario) throws UnknownHostException, IOException{
 		this.usuario = usuario;
@@ -60,35 +60,30 @@ public class Cliente {
 		salida.writeUTF(gson.toJson(men));
 
 	}
-	
+
 	private void enviarObjeto(Object mensaje) throws IOException{
 		DataOutputStream salida = new DataOutputStream(
 				cliente.getOutputStream());
 		final Gson gson = new Gson();
 		salida.writeUTF(gson.toJson(mensaje));
 	}
-	
+
 	public void enviarInteraccion(MensajeInteraccion men) throws IOException{
 
 		enviarObjeto(men);
-			
+
 
 	}
-	
+
 	public MensajeConfirmacion enviarAutenticacion(String usuario, String clave) throws IOException{
 		enviarObjeto(new MensajeAutenticacion(usuario,clave,false));
 		return this.pedirConfirmacion();
 	}
-	
-	
 
 
-	public void cerrar(){
-		try {
-			cliente.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+
+	public void cerrar() throws IOException{
+		cliente.close();
 	}
 
 	private void loadProperty(String dir) throws IOException{
@@ -100,7 +95,7 @@ public class Cliente {
 		String puertoString = propiedades.getProperty("port");
 		puerto =  Integer.parseInt(puertoString);
 	}
-	
+
 	public MensajeConfirmacion pedirConfirmacion() throws IOException{
 		DataInputStream lectura = new DataInputStream(
 				cliente.getInputStream());
@@ -121,20 +116,20 @@ public class Cliente {
 		return gson.fromJson(lect, Personaje.class);
 
 	}
-	
-	
+
+
 
 	public MensajeConfirmacion enviarRegistro(String user, String pass, String casta, String raza) throws IOException {
 		enviarObjeto(new MensajeAutenticacion(usuario,pass,true,casta,raza));
 		return this.pedirConfirmacion();
 	}
-	
+
 	public void pedirInteraccion() throws IOException{
 		DataInputStream lectura = new DataInputStream(
 				cliente.getInputStream());
 		String leido = lectura.readUTF();
 		Gson gson = new Gson();
-		
+
 		MensajeInteraccion men = gson.fromJson(leido, MensajeInteraccion.class);
 		if(men.isMovimiento()){
 			men = gson.fromJson(leido, MensajeMovimiento.class);
@@ -142,7 +137,7 @@ public class Cliente {
 				juego.nuevoMovimientoPersonajes(men.getEmisor(), ((MensajeMovimiento)men).getSprite(), ((MensajeMovimiento)men).getPos());
 		}			
 		if(men.isAccion()){
-			
+
 		}
 
 		if(men.isCombate()){
@@ -156,9 +151,9 @@ public class Cliente {
 			combat.setVisible(true); // uno se mata haciendo los graficos para que ponga false ¬¬
 			combat.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // :c adios amor.
 			ventana.setVisible(false);
-			
-			
-			
+
+
+
 		}
 
 		if(men.isParado()){
@@ -167,9 +162,9 @@ public class Cliente {
 		}
 
 	}
-	
+
 	public void abrirJuego(Personaje per){
-		
+
 		this.pj = per;
 		ventana=new JFrame("El señor de los aniloros"); //Ventana comun
 		juego = new JuegoPanel(ventana,per.getUbicacion(),per, "map_exterior", this);
@@ -181,14 +176,14 @@ public class Cliente {
 		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // :c adios amor.
 		ventana.setCursor(cursor());
 		escuchar();
-		
+
 	}
-	
+
 	public void enviarMensajeCombate(String per){
-		
+
 		new ThreadClienteEnviarInteraccion(this,new MensajeInteraccion(per, MensajeInteraccion.COMBATE)).start();
 	}
-	
+
 	private static Cursor cursor() {
 		Image im = Toolkit.getDefaultToolkit().createImage("src\\main\\resources\\cursor.png");
 		Cursor cur = Toolkit.getDefaultToolkit().createCustomCursor(im, new Point(10,10),"WILL");

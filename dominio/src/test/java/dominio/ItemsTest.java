@@ -24,7 +24,7 @@ public class ItemsTest {
 		coffee.guardarItem("bomba",  lanzables.get("bomba"));//balaMagicaDePasty
 		Assert.assertEquals(1, coffee.cantidadItems());
 	}
-	@Test
+	@Test	
 	public void quePuedoLanzarUnItem() throws ClassNotFoundException, SQLException {
 		SQLiteJDBC.getInstance();
 		Map<String, ItemLanzable> lanzables = SQLiteJDBC.obtenerLanzables();

@@ -40,12 +40,6 @@ public class Grafo {
 			}	
 		}
 	
-		/*for (int i = 0; i < obstaculos.getFilas(); i++) {
-			for (int j = 0; j < obstaculos.getColumnas(); j++) {
-				System.out.print("("+i+" " +j+")"+obstaculos.get(i, j)+"\t");
-			}
-			System.out.println("\n");
-		}*/
 		nodosVistados = null; // libero memoria :D 
 	}
 

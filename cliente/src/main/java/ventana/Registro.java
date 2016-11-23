@@ -173,8 +173,7 @@ public class Registro extends JDialog {
 					JOptionPane.showMessageDialog(null, men.getMensaje());
 				}
 			} catch (IOException e) {
-				e.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Error de conexion");
+				JOptionPane.showMessageDialog(null, "Error de conexion, que pena <:)");
 			}
 		
 		}

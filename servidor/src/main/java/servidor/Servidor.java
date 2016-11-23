@@ -37,7 +37,7 @@ public class Servidor extends Thread{
 	Servidor() throws IOException, ClassNotFoundException, SQLException{
 		jugadores = new Canal("General", 200,200,this.textArea);
 		loadProperty("server.properties");
-		SQLiteJDBC sqcon = SQLiteJDBC.getInstance(textArea);
+		SQLiteJDBC sqcon = SQLiteJDBC.getInstance();
 		ventanaServidor = new JFrame();
 		ventanaServidor.setTitle("Servidor de Loro of ring's");
 		ventanaServidor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -135,7 +135,7 @@ public class Servidor extends Thread{
 			escuchar.sTexto = "hackIP";
 			boolean conectado = true;
 			while(! escuchar.compararEntrada("FIN") && conectado) {		  
-				//	System.out.println(escuchar.sTexto);  No entiendo si pongo el println funciona el comando sino no :( 
+				//	 No entiendo si pongo una salida de pantalla funciona el comando sino no :( 
 				//aca hago comandos locos
 				/**
 				 * if(  escuchar.sTexto.equals("comando loco") )

@@ -114,8 +114,8 @@ public class Autenticar extends JFrame {
 				JOptionPane.showMessageDialog(null, men.getMensaje());
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Error de conexion");
+			JOptionPane.showMessageDialog(null, "Error de conexion, no se puede conectar. Anda a estudiar.");
+			System.exit(0);
 		}
 
 

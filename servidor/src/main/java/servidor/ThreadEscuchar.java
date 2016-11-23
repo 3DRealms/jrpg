@@ -14,12 +14,12 @@ import personaje.Personaje;
 
 
 public class ThreadEscuchar extends Thread{
-	
+
 	private Canal jugadores;
 	private SocketCliente cliente;
 	private SQLiteJDBC sqcon;
 	private JTextArea textArea;
-	
+
 	public ThreadEscuchar(Canal jugadores, SocketCliente cliente,JTextArea textArea){
 		this.jugadores = jugadores;
 		this.cliente = cliente;
@@ -30,20 +30,24 @@ public class ThreadEscuchar extends Thread{
 			textArea.append("Error con la base de datos.\nDetalle:  "+e.toString()+"\n");
 		}
 	}
-	
+
 	@Override
 	public void run(){
-		
-		
-		intro();
-		
+
+
+		try {
+			intro();
+		} catch (SQLException e) {
+			textArea.append("Error en la base de datos: " + e.toString()+"\n");
+		}
+
 	}
-	
-	private void intro(){
+
+	private void intro() throws SQLException{
 		try {
 
 			MensajeAutenticacion men = cliente.pedirAutenticacion();
-			
+
 			if(men.isRegistro()){
 				if(sqcon.crearUsuario(men.getUsername(), men.getPassword())){
 					//si los datos son para un nuevo registro sigo con el mismo
@@ -60,7 +64,7 @@ public class ThreadEscuchar extends Thread{
 			}
 			else{
 				if(sqcon.autenticarUsuario(men.getUsername(), men.getPassword())){
-					
+
 					//si el mensaje era para loguearse y cumple la autenticacion lo uno al juego
 					cliente.enviarMensajeConfirmacion(true, "");
 					cliente.setUsuario(men.getUsername());
@@ -76,19 +80,17 @@ public class ThreadEscuchar extends Thread{
 						}
 						new ThreadEnviarPosicionesIniciales(jugadores, cliente).start();
 						escuchar(jugadores);						
-						
+
 					}
 					else{
 						cliente.enviarMensajeConfirmacion(false, "Hay un error con su cuenta.");
 					}
-					
+
 				}
 				else{
 					//le muestro un error que los datos son incorrectos
 					cliente.enviarMensajeConfirmacion(false, "Nombre de usuario y contraseña no coinciden");
 				}
-				
-				
 			}
 
 		} catch (IOException e) {
@@ -98,40 +100,40 @@ public class ThreadEscuchar extends Thread{
 				textArea.append("No se pudo cerrar el cliente.\n");
 			}
 		}
-		
+
 
 	}
-	
 
 
-	private void escuchar(Canal can){
+
+	private void escuchar(Canal can) throws SQLException{
 		boolean conetado = true;
-		
+
 		while(conetado){
-			
+
 			try {
-				
+
 				MensajeInteraccion mens = cliente.pedirMensajeInteraccion();
-				
+
 				if(mens.isMovimiento()){
 					can.moverPersonaje(cliente.getPer(), ((MensajeMovimiento) mens).getPos());
 					new ThreadEnviarInteraccion(can, mens).start();
 				}
-				
+
 				if(mens.isParado()){
 					can.detenerPersonaje(cliente.getPer());
 					new ThreadEnviarInteraccion(can, mens).start();
 				}
-				
+
 				if(mens.isCombate()){
 					can.empezarCombate(cliente.getPer().getNombre(), mens.getEmisor());
 					escucharCombate();
 					can.terminarCombate(cliente.getPer().getNombre(), mens.getEmisor());
 				}
-					
-				
-					
-				
+
+
+
+
 			} catch (IOException e) {				
 				can.quitarCliente(cliente);
 				if(!sqcon.guardarPersonaje(cliente.getPer())){
@@ -142,11 +144,11 @@ public class ThreadEscuchar extends Thread{
 				} catch (IOException e1) {
 					textArea.append("No se pudo cerrar al cliente");
 				}
-				
+
 				conetado = false;
 				textArea.append("Cliente Desconectado.");
 			}
-			
+
 		}
 	}
 
@@ -154,7 +156,7 @@ public class ThreadEscuchar extends Thread{
 		// TODO Auto-generated method stub
 		// aca tengo que empezar a escuchar las acciones del combate y actuar en funcion de eso
 	}
-	
-	
+
+
 
 }
