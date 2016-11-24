@@ -18,7 +18,9 @@ import personaje.Personaje;
 import interfaces.Equipo;
 import mensaje.Mensaje;
 import mensaje.MensajeActualizacionCobate;
+import mensaje.MensajeBatalla;
 import mensaje.MensajeInicioCombate;
+import mensaje.MensajeInteraccion;
 
 
 
@@ -74,7 +76,8 @@ public class Batalla extends Thread  {
 		// Peleo mientras no haya ganador
 		List<Accion> accionesEquipo1;
 		List<Accion> accionesEquipo2;
-
+		
+		int turno = 1;
 		while( obtenerGanador() == null ){
 
 			accionesEquipo1 = pedirAcciones(socketEquipo1);
@@ -82,7 +85,9 @@ public class Batalla extends Thread  {
 
 			turnoPorVelocidad( accionesEquipo1 , accionesEquipo2 ); // Las ejecuto.
 			// Despues se cargarian las Accion en una lista?
+			turno ++;
 		}
+		
 
 		//	finalizarBatalla(obtenerGanador());
 	}
@@ -90,18 +95,17 @@ public class Batalla extends Thread  {
 
 	private List<Accion> pedirAcciones(List<SocketCliente> eq ) {
 		Accion acc;
+		MensajeBatalla men;
 
-		String json;
+
 		List<Accion> acciones = new ArrayList<>();
 		for(SocketCliente cliente : eq){
 			if(cliente.getPer().estaMuerto())
 				continue; //saltea el pj
 			try {
 
-				Gson gson = new Gson();
-				json = cliente.pedirMensajeBatalla().toString();
-				acc = gson.fromJson(json , AccionGenerica.class);
-				acc = FactoriaAcciones.getAccion(acc);
+				men = cliente.pedirMensajeBatalla();
+				acc = FactoriaAcciones.getAccion(buscarPJ(men.getEmisor()),buscarPJ(men.getObjetivo()),men.getAccion(),men.getTipo());
 
 				acciones.add( acc );
 			} catch (IOException e) {
@@ -127,24 +131,48 @@ public class Batalla extends Thread  {
 		for (Accion accion : acciones) {
 			accion.ejecutar();
 			
-			pjAux = buscarPJ(accion.getEmisor());
+			pjAux = accion.getEmisor();
 			emisor = new MensajeActualizacionCobate( pjAux.getNombre()  , MensajeInicioCombate.ACTBATALLA, pjAux.getSaludActual(), pjAux.getEnergia(), "TOMA WACHO" );
 			
-			pjAux = buscarPJ(accion.getObjetivo());
+			pjAux = accion.getObjetivo();
 			objetivo = new MensajeActualizacionCobate( pjAux.getNombre()  , MensajeInicioCombate.ACTBATALLA, pjAux.getSaludActual(), pjAux.getEnergia(), "TOMA WACHO" );
 			
 			enviarMensajes(emisor,objetivo);	
 			sleep(4000);
 		}
+		
+		perdirAccionesClientes();
+		
 	}
 
-	private Personaje buscarPJ(Personaje emisor) {
+	private void perdirAccionesClientes() {
+		MensajeActualizacionCobate men = new MensajeActualizacionCobate("", MensajeInteraccion.PEDIRACCION, 0, 0, "");
+		
 		for(SocketCliente cliente : socketEquipo1){
-			if( emisor.equals(cliente.getPer().getNombre()))
+			try {
+				cliente.enviarMensaje(men);
+			} catch (IOException e) {
+			//	e.printStackTrace(); // Cambiemos
+			}
+		}		
+		for(SocketCliente cliente : socketEquipo2){
+			try {
+				cliente.enviarMensaje(men);
+			} catch (IOException e) {
+				//	e.printStackTrace(); // Cambiemos
+			}
+		}
+		
+	}
+
+
+	private Personaje buscarPJ(String string) {
+		for(SocketCliente cliente : socketEquipo1){
+			if( string.equals(cliente.getPer().getNombre()))
 				return cliente.getPer();
 		}		
 		for(SocketCliente cliente : socketEquipo2){
-			if( emisor.equals(cliente.getPer().getNombre()))
+			if( string.equals(cliente.getPer().getNombre()))
 				return cliente.getPer();
 		}		
 		return null;

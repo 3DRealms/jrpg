@@ -257,7 +257,7 @@ public class Combate extends JFrame {
 					enviarMensajeBatalla();
 					//if(men.getAccion()!=null)
 						
-					JOptionPane.showMessageDialog(null, men);
+					//JOptionPane.showMessageDialog(null, men);
 				}
 			}
 		});

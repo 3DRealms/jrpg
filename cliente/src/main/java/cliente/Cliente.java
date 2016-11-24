@@ -149,6 +149,8 @@ public class Cliente {
 			combat.setVisible(true); // uno se mata haciendo los graficos para que ponga false ¬¬
 			combat.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // :c adios amor.
 			ventana.setVisible(false);
+			new ThreadClienteEnviarInteraccion(this,new MensajeInteraccion(pj.getNombre(), MensajeInteraccion.ARRANCOCOMBATE)).start();
+			
 		}
 
 		if(men.isParado()){
@@ -197,7 +199,7 @@ public class Cliente {
 			e.printStackTrace();
 		}
 			
-		new ThreadClienteEscucharBatalla(this,combat);
+		new ThreadClienteEscucharBatalla(this,combat).start();
 		
 		
 	}

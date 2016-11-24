@@ -139,7 +139,7 @@ public class ThreadEscuchar extends Thread{
 							break;
 						}
 					}
-					while(auxCanalCombate!=null){
+					while(true /*auxCanalCombate!=null*/){
 						try {
 							sleep(1000);
 						} catch (InterruptedException e) {
@@ -168,9 +168,12 @@ public class ThreadEscuchar extends Thread{
 	}
 
 	private void escucharCombate(CanalCombate canalCombate) {
+		
 		try {
+			MensajeInteraccion mens = cliente.pedirMensajeInteraccion();
+			sleep(4000);
 			new Batalla(canalCombate).batallar();
-		} catch (InterruptedException e) {
+		} catch (InterruptedException | IOException e) {
 			textArea.append("Error en el Combate.\nDetalle: "+e.toString()+"\n");
 		}
 	}
