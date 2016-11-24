@@ -15,10 +15,12 @@ import batalla.EquipoSimple;
 import personaje.Personaje;
 import interfaces.Equipo;
 import mensaje.Mensaje;
+import mensaje.MensajeActualizacionCobate;
+import mensaje.MensajeInicioCombate;
 
 
 
-public class Batalla  {
+public class Batalla extends Thread  {
 
 	private List  <Personaje> equipo1Original;
 	private List  <Personaje> equipo2Original;
@@ -52,10 +54,10 @@ public class Batalla  {
 	}
 
 
-	public Batalla(CanalCombate canalCombate) {
+	public Batalla(CanalCombate canalCombate)  {
 		this.socketEquipo1 = canalCombate.getEq1();
 		this.socketEquipo2 = canalCombate.getEq2();
-		
+
 	}
 
 
@@ -64,8 +66,9 @@ public class Batalla  {
 	 * Al finalizar la batalla se reparte el botin, oro y experiencia.
 	 *
 	 * Con un par de if, podemos hacer que la batalla sea distinta :D (por velocidad, o por otro parametro).
+	 * @throws InterruptedException 
 	 */	
-	public void batallar(){
+	public void batallar() throws InterruptedException{
 		// Peleo mientras no haya ganador
 		List<Accion> accionesEquipo1;
 		List<Accion> accionesEquipo2;
@@ -74,12 +77,12 @@ public class Batalla  {
 
 			accionesEquipo1 = pedirAcciones(socketEquipo1);
 			accionesEquipo2 = pedirAcciones(socketEquipo2);
-					
+
 			turnoPorVelocidad( accionesEquipo1 , accionesEquipo2 ); // Las ejecuto.
 			// Despues se cargarian las Accion en una lista?
 		}
 
-	//	finalizarBatalla(obtenerGanador());
+		//	finalizarBatalla(obtenerGanador());
 	}
 
 
@@ -88,8 +91,10 @@ public class Batalla  {
 		String json;
 		List<Accion> acciones = new ArrayList<>();
 		for(SocketCliente cliente : eq){
+			if(cliente.getPer().estaMuerto())
+				continue; //saltea el pj
 			try {
-				
+
 				Gson gson = new Gson();
 				json = cliente.pedirMensajeBatalla().toString();
 				acc = gson.fromJson(json , Accion.class);
@@ -102,7 +107,7 @@ public class Batalla  {
 		return acciones;
 	}
 
-	private void turnoPorVelocidad(List <Accion> accEquipo1, List <Accion> accEquipo2){
+	private void turnoPorVelocidad(List <Accion> accEquipo1, List <Accion> accEquipo2) throws InterruptedException{
 		//ejecuto las Accion y voy mandando lo que pasa al cliente
 
 		//Uno las listas:
@@ -111,11 +116,56 @@ public class Batalla  {
 
 		//Ordeno por velocidad:
 		Collections.sort(acciones, Accion.AccVelComparator);//Ordeno por velocidad.
+		MensajeActualizacionCobate emisor;
+		MensajeActualizacionCobate objetivo;
+		Personaje pjAux;
 		
 		for (Accion accion : acciones) {
 			accion.ejecutar();
+			
+			pjAux = buscarPJ(accion.getEmisor());
+			emisor = new MensajeActualizacionCobate( pjAux.getNombre()  , MensajeInicioCombate.ACTBATALLA, pjAux.getSaludActual(), pjAux.getEnergia(), "TOMA WACHO" );
+			
+			pjAux = buscarPJ(accion.getObjetivo());
+			objetivo = new MensajeActualizacionCobate( pjAux.getNombre()  , MensajeInicioCombate.ACTBATALLA, pjAux.getSaludActual(), pjAux.getEnergia(), "TOMA WACHO" );
+			
+			enviarMensajes(emisor,objetivo);	
+			sleep(4000);
 		}
 	}
+
+	private Personaje buscarPJ(Personaje emisor) {
+		for(SocketCliente cliente : socketEquipo1){
+			if( emisor.equals(cliente.getPer().getNombre()))
+				return cliente.getPer();
+		}		
+		for(SocketCliente cliente : socketEquipo2){
+			if( emisor.equals(cliente.getPer().getNombre()))
+				return cliente.getPer();
+		}		
+		return null;
+	}
+
+
+	private void enviarMensajes(MensajeActualizacionCobate emisor, MensajeActualizacionCobate objetivo) {
+		for(SocketCliente cliente : socketEquipo1){
+			try {
+				cliente.enviarMensaje(emisor);
+				cliente.enviarMensaje(objetivo);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}		
+		for(SocketCliente cliente : socketEquipo2){
+			try {
+				cliente.enviarMensaje(emisor);
+				cliente.enviarMensaje(objetivo);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}		
+	}
+
 
 	/**
 	 * Devuelve si hay ganador.(osea el equipo contrario muere);
@@ -153,8 +203,8 @@ public class Batalla  {
 	}
 
 	private void finalizarBatalla(Equipo ganador){
-	//	if( ganador == socketEquipo1)
-			//darBotin(socketEquipo1,socketEquipo2);
+		//	if( ganador == socketEquipo1)
+		//darBotin(socketEquipo1,socketEquipo2);
 		//else
 		//	darBotin(socketEquipo2,socketEquipo1);
 

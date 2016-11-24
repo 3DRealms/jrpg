@@ -161,7 +161,11 @@ public class ThreadEscuchar extends Thread{
 	}
 
 	private void escucharCombate(CanalCombate canalCombate) {
-		Batalla batalla = new Batalla(canalCombate);
+		try {
+			new Batalla(canalCombate).batallar();
+		} catch (InterruptedException e) {
+			textArea.append("Error en el Combate.\nDetalle: "+e.toString()+"\n");
+		}
 	}
 
 

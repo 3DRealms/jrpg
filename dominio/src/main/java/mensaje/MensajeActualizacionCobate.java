@@ -19,11 +19,13 @@ public class MensajeActualizacionCobate extends MensajeInteraccion{
 		return mensaje;
 	}
 
-	public MensajeActualizacionCobate(String emisor, String tipo) {
+	public MensajeActualizacionCobate(String emisor, String tipo, int vida, int energia, String mensaje) {
 		super(emisor, tipo);
-		// TODO Auto-generated constructor stub
+		this.vida = vida;
+		this.energia = energia;
+		this.mensaje = mensaje;
 	}
-	
+
 	
 
 }

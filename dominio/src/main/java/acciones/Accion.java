@@ -27,6 +27,18 @@ public abstract class Accion {
 	}
 
 
+	public Personaje getEmisor() {
+		return emisor;
+	}
+	public Personaje getObjetivo() {
+		return objetivo;
+	}
+
+	public static Comparator<Accion> getAccVelComparator() {
+		return AccVelComparator;
+	}
+
+
 	/**
 	 * Comparador entre dos Acciones.
 	 * Compara las velocidades. Si la accion 1 es mas veloz que la accion 2 es positivo
