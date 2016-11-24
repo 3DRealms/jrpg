@@ -2,11 +2,14 @@ package servidor;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 
+import acciones.Accion;
 import database.SQLiteJDBC;
 import habilidad.Habilidad;
 import mensaje.*;
@@ -127,12 +130,16 @@ public class ThreadEscuchar extends Thread{
 					new ThreadEnviarInteraccion(can, mens).start();
 				}
 
-				if(mens.isCombate()){
-					can.empezarCombate(cliente.getPer().getNombre(), mens.getEmisor());
-					escucharCombate();
-					can.terminarCombate(cliente.getPer().getNombre(), mens.getEmisor());
+				if( mens.isCombate() ){
+					CanalCombate canalCombate  = can.empezarCombate(cliente.getPer().getNombre(), mens.getEmisor());
+					escucharCombate(canalCombate);
+				
+				
 				}
+				if( mens.isArrancoCombate() ){
+					can.terminarCombate(cliente.getPer().getNombre(), mens.getEmisor());
 
+				}
 
 
 
@@ -153,9 +160,8 @@ public class ThreadEscuchar extends Thread{
 		}
 	}
 
-	private void escucharCombate() {
-		// TODO Auto-generated method stub
-		// aca tengo que empezar a escuchar las acciones del combate y actuar en funcion de eso
+	private void escucharCombate(CanalCombate canalCombate) {
+		Batalla batalla = new Batalla(canalCombate);
 	}
 
 

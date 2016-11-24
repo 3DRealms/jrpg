@@ -1,28 +1,33 @@
-package batalla;
+package servidor;
 
 
+import java.io.DataInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import acciones.Accion;
+import batalla.EquipoSimple;
 import personaje.Personaje;
 import interfaces.Equipo;
+import mensaje.Mensaje;
 
 
 
 public class Batalla  {
 
-	private static final int MAX_JUGADORES = 5;
-
 	private List  <Personaje> equipo1Original;
 	private List  <Personaje> equipo2Original;
 
-	private Equipo equipo1;
-	private Equipo equipo2;
-	private Equipo equipoEmpate;
-
-	/**
-	 * Para test (segun Lucas)
+	private List<SocketCliente> socketEquipo1;
+	private List<SocketCliente> socketEquipo2;
+	private EquipoSimple equipo1;
+	private EquipoSimple equipo2;
+	/** Para test (segun Lucas)
 	 * @param e1
 	 * @param e2
 	 * @return
@@ -47,16 +52,12 @@ public class Batalla  {
 	}
 
 
-	/**
-	 * Constructor de la clase batalla. 
-	 * @param equipo1
-	 * @param equipo2
-	 */
-	public Batalla(Equipo equipo1, Equipo equipo2){
-		this.equipo1 = equipo1;
-		this.equipo2 = equipo2;
-		this.equipo1Original = equipo1.clonarLista();
+	public Batalla(CanalCombate canalCombate) {
+		this.socketEquipo1 = canalCombate.getEq1();
+		this.socketEquipo2 = canalCombate.getEq2();
+		
 	}
+
 
 	/**
 	 * Batallar, es el combate por turnos, pero se ordena segun la velocidad de la accion elegida.
@@ -71,16 +72,34 @@ public class Batalla  {
 
 		while( obtenerGanador() == null ){
 
-			accionesEquipo1 = equipo1.pedirAccion(equipo2); //Les pido las acciones al equipo1 de esta batalla.
-			accionesEquipo2 = equipo2.pedirAccion(equipo1); //Les pido las acciones al equipo2 de esta batalla.
-
+			accionesEquipo1 = pedirAcciones(socketEquipo1);
+			accionesEquipo2 = pedirAcciones(socketEquipo2);
+					
 			turnoPorVelocidad( accionesEquipo1 , accionesEquipo2 ); // Las ejecuto.
-
 			// Despues se cargarian las Accion en una lista?
-
 		}
 
-		finalizarBatalla(obtenerGanador());
+	//	finalizarBatalla(obtenerGanador());
+	}
+
+
+	private List<Accion> pedirAcciones(List<SocketCliente> eq ) {
+		Accion acc;
+		String json;
+		List<Accion> acciones = new ArrayList<>();
+		for(SocketCliente cliente : eq){
+			try {
+				
+				Gson gson = new Gson();
+				json = cliente.pedirMensajeBatalla().toString();
+				acc = gson.fromJson(json , Accion.class);
+
+				acciones.add( acc );
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return acciones;
 	}
 
 	private void turnoPorVelocidad(List <Accion> accEquipo1, List <Accion> accEquipo2){
@@ -102,11 +121,11 @@ public class Batalla  {
 	 * Devuelve si hay ganador.(osea el equipo contrario muere);
 	 * @return
 	 */
-	private Equipo obtenerGanador(){
-		if( equipo2.isEmpty() ){
+	private EquipoSimple obtenerGanador(){
+		if( socketEquipo2.isEmpty() ){
 			return equipo1;
 		}
-		if( equipo1.isEmpty() ){
+		if( socketEquipo1.isEmpty() ){
 			return equipo2;
 		}
 		return null;
@@ -134,10 +153,10 @@ public class Batalla  {
 	}
 
 	private void finalizarBatalla(Equipo ganador){
-		if( ganador == equipo1)
-			darBotin(equipo1,equipo2);
-		else
-			darBotin(equipo2,equipo1);
+	//	if( ganador == socketEquipo1)
+			//darBotin(socketEquipo1,socketEquipo2);
+		//else
+		//	darBotin(socketEquipo2,socketEquipo1);
 
 	}
 

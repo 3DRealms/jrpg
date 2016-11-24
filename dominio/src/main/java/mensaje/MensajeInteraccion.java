@@ -7,6 +7,7 @@ public class MensajeInteraccion {
 	public static final String MOVIMIENTO = "movimiento";
 	public static final String ACCION = "accion";
 	public static final String COMBATE = "combate";
+	public static final String ARRANCOCOMBATE = "arrancoCombate";
 	public static final String PARADO = "parado";
 	
 	protected String emisor;
@@ -36,6 +37,9 @@ public class MensajeInteraccion {
 	
 	public boolean isCombate(){
 		return tipo.equals(MensajeInteraccion.COMBATE);
+	}
+	public boolean isArrancoCombate(){
+		return tipo.equals(MensajeInteraccion.ARRANCOCOMBATE);
 	}
 	
 	public boolean isParado(){

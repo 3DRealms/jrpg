@@ -126,10 +126,10 @@ public class Canal {
 		map.detenerPersonaje(per);		
 	}
 
-	public void empezarCombate(String desafiador, String desafiado) {
-
+	public CanalCombate empezarCombate(String desafiador, String desafiado) {
+		
 		if(map.quitarPersonaje(desafiado) == null)
-			return;
+			return null; // roto
 		if(map.quitarPersonaje(desafiador)== null){
 			//la cague y lat engo que arreglar en algun momneto
 		}
@@ -147,9 +147,9 @@ public class Canal {
 		MensajeInicioCombate men = new MensajeInicioCombate(desafiador, eq1, eq2);
 
 		this.enviarMensajeInicioCombate(men, can);
-
+		
+		return can;
 		//aca tengo que armar los equipos mandarlos a los clientes, y arrancar el combate
-
 	}
 
 	private void enviarMensajeInicioCombate(MensajeInicioCombate men, CanalCombate can) {

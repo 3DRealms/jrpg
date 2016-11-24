@@ -655,16 +655,6 @@ public abstract class Personaje implements Atacable {
 		return itemEquipado.get(key);
 	}
 
-	/**
-	 * Le pide una accion al personaje.
-	 * @param equipoJugadores
-	 * @return
-	 */
-	public Accion pedirAccion(Equipo elemigo) {		
-
-
-		return FactoriaAcciones.getAccion(this,this,"","huir");
-	}
 	public Accion pedirAccionTest(Equipo elemigo,MensajeBatalla mensaje) {		
 		
 		

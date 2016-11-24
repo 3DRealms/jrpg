@@ -3,7 +3,6 @@ package batallonNPC;
 import java.util.List;
 
 import acciones.Accion;
-import batalla.Batalla;
 import interfaces.Atacable;
 import interfaces.Equipo;
 import personaje.Personaje;
@@ -49,12 +48,12 @@ public abstract class EquipoNPC implements Equipo {
 	public List<Personaje> clonar() {
 		return null;
 	}
-
+/*
 	public List<Accion> pedirAccion(Batalla batalla) {
 		
 		return null;
 	}
-
+*/
 
 	public List<Equipo> perderItemsEquipo() {
 		

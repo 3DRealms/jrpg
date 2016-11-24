@@ -97,6 +97,15 @@ public class SocketCliente {
 		
 		return null;
 	}
+
+	public MensajeBatalla pedirMensajeBatalla() throws IOException {
+		DataInputStream lectura = new DataInputStream(
+				cliente.getInputStream());
+		String leido = lectura.readUTF();
+		Gson gson = new Gson();
+		MensajeBatalla men = gson.fromJson(leido, MensajeBatalla.class);
+		return men;
+	}
 	
 	
 

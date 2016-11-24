@@ -1,5 +1,6 @@
 package servidor;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +28,5 @@ public class CanalCombate {
 	
 	public List<SocketCliente> getEq2() {
 		return equipo2;
-	}	
-
+	}
 }

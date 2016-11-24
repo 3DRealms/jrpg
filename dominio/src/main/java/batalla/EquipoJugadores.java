@@ -34,7 +34,7 @@ public class EquipoJugadores implements Equipo{
 	 * @author DrCoffee84
 	 */
 	public void agregar(Personaje pj){
-	//	pj.setEquipo(this);
+		//	pj.setEquipo(this);
 		equipo.add(pj);
 	}
 
@@ -83,7 +83,7 @@ public class EquipoJugadores implements Equipo{
 	 * @param equipo
 	 * @return
 	 */
-
+/*
 	public List<Accion> pedirAccion(Equipo equipoElemigo) {
 		Accion accion;
 		List<Accion> acciones = new ArrayList<Accion>();
@@ -95,7 +95,7 @@ public class EquipoJugadores implements Equipo{
 		}
 		return acciones;	
 	}
-
+*/
 
 	/**
 	 * 
@@ -176,5 +176,11 @@ public class EquipoJugadores implements Equipo{
 		for (Personaje pj : equipo) 
 			personajesSimples.add(pj.getSimplificado());
 		return personajesSimples;
+	}
+
+	@Override
+	public List<Accion> pedirAccion(Equipo equipoElemigo) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

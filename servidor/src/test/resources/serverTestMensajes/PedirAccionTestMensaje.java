@@ -1,4 +1,4 @@
-package dominio;
+package serverTestMensajes;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import mensaje.MensajeBatalla;
 import personaje.Personaje;
 import raza.PersonajePrueba;
 
-public class PedirAccionTest {
+public class PedirAccionTestMensaje {
 
 	@Test
 	public void peronsajePideAccion() throws ClassNotFoundException, SQLException {

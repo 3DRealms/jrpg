@@ -15,9 +15,7 @@ public abstract class Casta  {
 	}
 	
 	
-//	public abstract void libroHabilidades();
-	
-	
+	//	public abstract void libroHabilidades();
 	///ESTAS dos pueden volar, si ya vienen cargado y el unico filtro es el nivel,
 	// amenos que pueda elegir por nivel que habilidad quiero, en ese caso 
 	// si necesito el agregar. Asi puedo hacerlo mas variado el juego.
