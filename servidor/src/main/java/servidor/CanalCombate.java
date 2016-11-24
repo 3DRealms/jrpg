@@ -29,4 +29,16 @@ public class CanalCombate {
 	public List<SocketCliente> getEq2() {
 		return equipo2;
 	}
+
+	public boolean estoyAca(SocketCliente clienteYo) {
+		for(SocketCliente cliente : equipo1){
+			if( clienteYo.equals(cliente.getPer().getNombre()))
+				return true;
+		}		
+		for(SocketCliente cliente : equipo2){
+			if( clienteYo.equals(cliente.getPer().getNombre()))
+				return true;
+		}		
+		return false;
+	}
 }

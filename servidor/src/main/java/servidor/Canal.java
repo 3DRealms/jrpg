@@ -34,6 +34,10 @@ public class Canal {
 
 	}
 
+	public List<CanalCombate> getCombates() {
+		return combates;
+	}
+
 	public boolean esMiNombre(String nombre){
 		return nombre.equals(this.nombre);
 	}
@@ -185,10 +189,10 @@ public class Canal {
 		}
 	}
 
-	public void terminarCombate(String nombre2, String emisor) {
+	public boolean terminarCombate(String nombre2, String emisor) {
 		// TODO Auto-generated method stub
 		// aca tengo que volver a poner a los personajes en el mapa, y el que murio supongo que lo revivo en el spawn 
-
+		return false;
 	}
 
 }

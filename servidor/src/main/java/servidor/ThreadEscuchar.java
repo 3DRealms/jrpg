@@ -2,14 +2,8 @@ package servidor;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
-
-import javax.swing.JFrame;
 import javax.swing.JTextArea;
-
-import acciones.Accion;
 import database.SQLiteJDBC;
 import habilidad.Habilidad;
 import mensaje.*;
@@ -133,12 +127,25 @@ public class ThreadEscuchar extends Thread{
 				if( mens.isCombate() ){
 					CanalCombate canalCombate  = can.empezarCombate(cliente.getPer().getNombre(), mens.getEmisor());
 					escucharCombate(canalCombate);
-				
-				
-				}
-				if( mens.isArrancoCombate() ){
-					can.terminarCombate(cliente.getPer().getNombre(), mens.getEmisor());
+					//	can.terminarCombate(cliente.getPer().getNombre(), mens.getEmisor());
 
+				}
+				
+				if( mens.isArrancoCombate() ){
+					CanalCombate auxCanalCombate = null;
+					for (CanalCombate cc : can.getCombates()) {
+						if(cc.estoyAca(cliente)){
+							auxCanalCombate =cc;
+							break;
+						}
+					}
+					while(auxCanalCombate!=null){
+						try {
+							sleep(1000);
+						} catch (InterruptedException e) {
+							textArea.append("Error en la batalla: "+e.toString()+"\n");
+						}
+					}
 				}
 
 

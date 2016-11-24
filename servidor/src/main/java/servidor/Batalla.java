@@ -105,7 +105,7 @@ public class Batalla extends Thread  {
 
 				acciones.add( acc );
 			} catch (IOException e) {
-				e.printStackTrace();
+				//e.printStackTrace(); Cambiemos.
 			}
 		}
 		return acciones;
@@ -157,7 +157,7 @@ public class Batalla extends Thread  {
 				cliente.enviarMensaje(emisor);
 				cliente.enviarMensaje(objetivo);
 			} catch (IOException e) {
-				e.printStackTrace();
+			//	e.printStackTrace(); // Cambiemos
 			}
 		}		
 		for(SocketCliente cliente : socketEquipo2){
@@ -165,7 +165,7 @@ public class Batalla extends Thread  {
 				cliente.enviarMensaje(emisor);
 				cliente.enviarMensaje(objetivo);
 			} catch (IOException e) {
-				e.printStackTrace();
+				//	e.printStackTrace(); // Cambiemos
 			}
 		}		
 	}
