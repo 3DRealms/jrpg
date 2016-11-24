@@ -9,6 +9,7 @@ import batalla.PersonajeSimple;
 import cliente.Cliente;
 import habilidad.Habilidad;
 import item.ItemLanzable;
+import mensaje.MensajeActualizacionCobate;
 import mensaje.MensajeBatalla;
 import musica.AudioFilePlayer;
 import personaje.Personaje;
@@ -373,6 +374,30 @@ public class Combate extends JFrame {
 	
 	private void mostrarMenu(){
 		menuAcciones.setVisible(true);
+	}
+
+	public void actualizarEstado(MensajeActualizacionCobate men2) {
+
+		for (SpriteCombate player : equipo1) {
+			if(player.getNombre().equals(men2.getEmisor())){
+				player.actualizarEstado(men2.getVida(),men2.getEnergia());
+				textArea.append(men2.getMensaje()+"\n");
+				return;
+			}
+		}
+
+		for (SpriteCombate player : equipo2) {
+			if(player.getNombre().equals(men2.getEmisor())){
+				player.actualizarEstado(men2.getVida(),men2.getEnergia());
+				textArea.append(men2.getMensaje()+"\n");
+				return;
+			}
+		}
+		
+	}
+
+	public void pedirAccion() {
+		mostrarMenu();	
 	}
 	
 

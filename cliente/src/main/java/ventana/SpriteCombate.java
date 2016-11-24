@@ -98,4 +98,10 @@ public class SpriteCombate extends JPanel{
 		return nombre;
 	}
 
+	public void actualizarEstado(int vida2, int energia) {
+		this.escribirVida(vida2);
+		this.escribirMana(energia);
+		
+	}
+
 }

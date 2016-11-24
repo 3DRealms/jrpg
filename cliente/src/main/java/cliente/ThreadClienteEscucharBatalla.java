@@ -25,11 +25,15 @@ public class ThreadClienteEscucharBatalla extends Thread{
 		
 		try {
 			men = cliente.pedirActualizacionBatlla();
-			while(!men.isPedirAccion()){
+			while(men.isActuliazacionBatalla()){
 				combat.actualizarEstado(men);
 				men = cliente.pedirActualizacionBatlla();
 			}
-				
+			if(men.isPedirAccion())
+				combat.pedirAccion();
+			if(men.isFinBatalla())
+				cliente.terminarCombate();	
+			
 			
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, "El servidor se ha desconectado");

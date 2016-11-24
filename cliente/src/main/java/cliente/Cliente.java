@@ -202,4 +202,19 @@ public class Cliente {
 		
 	}
 
+	public MensajeActualizacionCobate pedirActualizacionBatlla() throws IOException {
+		DataInputStream lectura = new DataInputStream(
+				cliente.getInputStream());
+		String leido = lectura.readUTF();
+		Gson gson = new Gson();
+
+		MensajeActualizacionCobate men = gson.fromJson(leido, MensajeActualizacionCobate.class);
+		return men;
+	}
+
+	public void terminarCombate() {
+		// Aca tengo que cerrar el combate, alertar el ganador, 
+		
+	}
+
 }

@@ -12,6 +12,7 @@ public class MensajeInteraccion {
 	
 	public static final String ACTBATALLA = "actualizar";
 	public static final String PEDIRACCION = "pediroAccion";
+	public static final String FINBATALLA = "finBatalla";
 	
 	protected String emisor;
 	
@@ -55,6 +56,10 @@ public class MensajeInteraccion {
 	
 	public boolean isPedirAccion(){
 		return tipo.equals(MensajeInteraccion.PEDIRACCION);
+	}
+	
+	public boolean isFinBatalla(){
+		return tipo.equals(MensajeInteraccion.FINBATALLA);
 	}
 
 
