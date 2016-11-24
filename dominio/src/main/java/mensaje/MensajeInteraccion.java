@@ -10,6 +10,9 @@ public class MensajeInteraccion {
 	public static final String ARRANCOCOMBATE = "arrancoCombate";
 	public static final String PARADO = "parado";
 	
+	public static final String ACTBATALLA = "actualizar";
+	public static final String PEDIRACCION = "pediroAccion";
+	
 	protected String emisor;
 	
 	protected String tipo;

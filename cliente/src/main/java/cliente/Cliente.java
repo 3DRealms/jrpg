@@ -140,7 +140,7 @@ public class Cliente {
 
 		if(men.isCombate()){
 			//aca ARRRRRRRANCO EL COMBATE
-			//listenerInt.parar();
+			listenerInt.parar();
 			men = gson.fromJson(leido, MensajeInicioCombate.class);
 
 			combat = new Combate(((MensajeInicioCombate) men).getEquipo1() , ((MensajeInicioCombate)men).getEquipo2(),this);
@@ -196,8 +196,8 @@ public class Cliente {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+			
+		//new ThreadClienteEscucharBatalla(this,combat);
 		
 		
 	}
