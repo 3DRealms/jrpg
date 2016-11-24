@@ -25,10 +25,6 @@ public interface Equipo {
 	public Personaje getPersonaje(String i);
 	public List<Personaje> getEquipo();
 	public List<Accion> pedirAccion(Equipo equipoElemigo);
-	public List<Equipo> perderItemsEquipo();
-	public int quitarOro();
-	public void repartirBotin( int oro );
-	public void darExperiencia(int experiencia);
 	public void quitar(Personaje personaje);
 	public List<Personaje> clonarLista();
 	public List<PersonajeSimple> obtenerEquipoSimple();

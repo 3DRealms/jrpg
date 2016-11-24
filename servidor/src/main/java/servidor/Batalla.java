@@ -8,7 +8,6 @@ import java.util.List;
 
 import acciones.Accion;
 import acciones.FactoriaAcciones;
-import batalla.EquipoSimple;
 import personaje.Personaje;
 import interfaces.Equipo;
 import mensaje.MensajeActualizacionCobate;
@@ -25,26 +24,26 @@ public class Batalla extends Thread  {
 	private List<SocketCliente> socketEquipo2;
 	private List<Personaje> equipo1;
 	private List<Personaje> equipo2;
-	
-	
-	
+
+
+
 	public Batalla(CanalCombate canalCombate)  {
 		this.socketEquipo1 = canalCombate.getEq1();
 		this.socketEquipo2 = canalCombate.getEq2();
 		equipo1 = new ArrayList<>();
 		equipo2 = new ArrayList<>();
-		
+
 		for (SocketCliente c : socketEquipo1) {
 			equipo1.add(c.getPer());
 		}
-		
+
 		for (SocketCliente c : socketEquipo2) {
 			equipo2.add(c.getPer());
 		}
 	}
-	
-	
-	
+
+
+
 	/** Para test (segun Lucas)
 	 * @param e1
 	 * @param e2
@@ -93,9 +92,9 @@ public class Batalla extends Thread  {
 
 			turnoPorVelocidad( accionesEquipo1 , accionesEquipo2 ); // Las ejecuto.
 		}
-		
-		//mandarPersonajes();
-		//finalizarBatalla(obtenerGanador());
+
+		mandarPersonajes();
+		finalizarBatalla(obtenerGanador());
 	}
 
 
@@ -110,7 +109,7 @@ public class Batalla extends Thread  {
 		}		
 		for(SocketCliente cliente : socketEquipo2){
 			try {
-				cliente.enviarMensaje(cliente.getPer());//RANCIO <_
+				cliente.enviarMensaje(cliente.getPer());//RANCIO  re loco >
 			} catch (IOException e) {
 				socketEquipo1.remove(cliente); 
 				cliente.cerrar();
@@ -133,8 +132,8 @@ public class Batalla extends Thread  {
 				acc = FactoriaAcciones.getAccion(buscarPJ(men.getEmisor()),buscarPJ(men.getObjetivo()),men.getAccion(),men.getTipo());
 				acciones.add( acc );
 			} catch (IOException e) {
-					socketEquipo1.remove(cliente); 
-					cliente.cerrar(); // Si no puede enviar mensaje, y bue que se ponga a estudiar base de datos.
+				socketEquipo1.remove(cliente); 
+				cliente.cerrar(); // Si no puede enviar mensaje, y bue que se ponga a estudiar base de datos.
 			}
 		}
 		return acciones;
@@ -168,7 +167,6 @@ public class Batalla extends Thread  {
 			enviarMensajes(emisor,objetivo);	
 			sleep(4000);
 		}
-		
 		perdirAccionesClientes();
 
 	}
@@ -246,35 +244,63 @@ public class Batalla extends Thread  {
 	private boolean estanMuertos(List<Personaje> equipo){
 		for (Personaje personaje : equipo) {
 			if(!personaje.estaMuerto())
-				return true;
+				return false;
 		}
-	return true;
+		return true;
 	}
 
-	private void darBotin(Equipo ganador, Equipo perdedor){
+	private void darBotin(List<Personaje> ganador, List<Personaje> perdedor){
 
 		//	List<Equipo> equipo;
 		int oro; 
 		int experiencia;
 		//le quito el botin al equipo perdedor y se lo doy al ganador
 		//equipo = perdedor.perderItemsEquipo(); 
-		oro = perdedor.quitarOro();	
-		experiencia = calcularExperencia();
-
-		ganador.repartirBotin(oro);
-		ganador.darExperiencia(experiencia);
+		oro = quitarOro(perdedor);	
+		experiencia = calcularExperencia(perdedor);
+		repartirBotin(oro,ganador,perdedor);
+		darExperiencia(experiencia,ganador);
 	}
 
-	private int calcularExperencia() {
-		return 0; //esto puede ser por la duracion, o por la cantidad de turnos, o que se yoxDD.
+	
+	private int quitarOro(List<Personaje> perdedor) {
+		return 0;
+	}
+	private void repartirBotin(int oro, List<Personaje> ganador, List<Personaje> perdedor) {
+
+		
 	}
 
-	private void finalizarBatalla(Equipo ganador){
-		//	if( ganador == socketEquipo1)
-		//darBotin(socketEquipo1,socketEquipo2);
-		//else
-		//	darBotin(socketEquipo2,socketEquipo1);
+	private int calcularExperencia(List<Personaje> perdedor) {
+		int nivelPromedio = 0;
+		for (Personaje pj : perdedor) {
+			nivelPromedio += pj.getNivel();
+		}
+		return ( nivelPromedio/perdedor.size() ) * 100; //QUE SE YO SON NUMEROS!
+	}
+
+	private void finalizarBatalla(List<Personaje> ganador){
+		if( ganador == equipo1)
+			darBotin(equipo1,equipo2);
+		else 
+			darBotin(equipo2,equipo1);
 
 	}
+	private void darExperiencia(int experiencia, List<Personaje> ganador){
+		// y le doy la experiencia al cada personaje del equipo ganador
+		int expGanador = experiencia / getNivelPromedio(ganador);
+		for (Personaje pj : ganador) {
+			pj.subirExperencia(expGanador);
+		}
+	}
+
+	private int getNivelPromedio(List<Personaje> ganador) {
+		int nivelPromedio = 0;
+		for (Personaje pj : ganador) {
+			nivelPromedio += pj.getNivel();
+		}
+		return nivelPromedio/ganador.size();
+	}
+
 
 }

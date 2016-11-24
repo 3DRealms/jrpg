@@ -97,26 +97,7 @@ public class EquipoJugadores implements Equipo{
 	}
 */
 
-	/**
-	 * 
-	 */
 
-	public void darExperiencia(int experiencia){
-		// y le doy la experiencia al cada personaje del equipo ganador
-		int expGanador = experiencia * getNivelPromedio();
-		expGanador /= equipo.size();
-		for (Personaje pj : equipo) {
-			pj.subirExperencia(expGanador);
-		}
-	}
-
-	private int getNivelPromedio() {
-		int nivelPromedio = 0;
-		for (Personaje pj : equipo) {
-			nivelPromedio += pj.getNivel();
-		}
-		return nivelPromedio/equipo.size();
-	}
 
 	public Personaje getPersonaje(String nombre) {
 		for (Personaje pj : equipo){
@@ -125,24 +106,6 @@ public class EquipoJugadores implements Equipo{
 			}
 		}
 		return null;
-	}
-
-
-	public List<Equipo> perderItemsEquipo() {
-		return null;
-	}
-
-	public int quitarOro() {
-		return 0;
-	}
-
-	public void repartirBotin(List<Equipo> equipo, int oro) {
-	}
-
-	@Override
-	public void repartirBotin(int oro) {
-
-
 	}
 
 	@Override
