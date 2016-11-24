@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.swing.JTextArea;
 
 import batalla.EquipoSimple;
+import batalla.PersonajeSimple;
 import mapa.Mapa;
 import mapa.Punto;
 import mensaje.*;
@@ -136,8 +137,12 @@ public class Canal {
 		EquipoSimple eq1 = new EquipoSimple(canal.get(desafiador).getPer().obtenerEquipoSimple());
 		EquipoSimple eq2 = new EquipoSimple(canal.get(desafiado).getPer().obtenerEquipoSimple());
 		CanalCombate can = new CanalCombate();
-		can.agregarEquipo2(canal.get(desafiado));
-		can.agregarEquipo1(canal.get(desafiador));
+		for (PersonajeSimple pj : eq1.getPersonajes()) {
+			can.agregarEquipo1(canal.get(pj.getNombre()));
+		}
+		for (PersonajeSimple pj : eq2.getPersonajes()) {
+			can.agregarEquipo2(canal.get(pj.getNombre()));
+		}
 
 		MensajeInicioCombate men = new MensajeInicioCombate(desafiador, eq1, eq2);
 
