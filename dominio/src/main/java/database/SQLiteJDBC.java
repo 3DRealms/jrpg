@@ -138,34 +138,44 @@ public class SQLiteJDBC
 		return equipables;
 	}
 
-	public  boolean crearUsuario(String username, String password) throws SQLException{
+	public  boolean crearUsuario(String username, String password) {
 
 		Statement stmt = null;
 		username = username.toLowerCase();
-		stmt = c.createStatement();
-		String sql = "INSERT INTO jugadores (username,password) " +
-				"VALUES ('"+username+"', '"+password+"');"; 
-		stmt.executeUpdate(sql);
+		try {
+			stmt = c.createStatement();
 
-		stmt.close();
-		c.commit();
+			String sql = "INSERT INTO jugadores (username,password) " +
+					"VALUES ('"+username+"', '"+password+"');"; 
+			stmt.executeUpdate(sql);
+
+			stmt.close();
+			c.commit();
+		} catch (SQLException e) {
+			return false;
+		}
 		return true;
 	}
 
-	public boolean guardarPersonaje(Personaje per) throws SQLException{
+	public boolean guardarPersonaje(Personaje per) {
 		Statement stmt = null;
 
 		final Gson gson = new Gson();		
 
-		stmt = c.createStatement();
+		try {
+			stmt = c.createStatement();
+	
 		String sql = "UPDATE jugadores SET json = '" +
 				gson.toJson(per) +
-				"' WHERE username = '"+per.getNombre()+"';"; 
+				"' WHERE username = '"+per.getNombre().toLowerCase()+"';"; 
 
 		stmt.executeUpdate(sql);
 
 		stmt.close();
-		c.commit();
+		c.commit();	
+		} catch (SQLException e) {
+			return false;
+		}
 
 		return true;
 
