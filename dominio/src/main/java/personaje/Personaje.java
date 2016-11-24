@@ -35,14 +35,7 @@ public abstract class Personaje implements Atacable {
 
 	protected String tipoCasta;
 	protected String tipoRaza;
-	
-	public String getTipoCasta() {
-		return tipoCasta;
-	}
-	public String getTipoRaza() {
-		return tipoRaza;
-	}
-	
+
 	
 	//Aca esta todo el manejo de habilidades, depende la casta tendra un libro distinto.
 	protected Casta casta;
@@ -64,7 +57,7 @@ public abstract class Personaje implements Atacable {
 	protected int ataqueMagico;  
 	protected int defensaFisica;
 	protected int defensaMagica;
-
+	protected boolean estaMUERTO;
 	//Estados, inicialmente todo personaje nuevo tiene 0  y se van escalando a "gusto".
 	protected int fuerza = 0;  
 	protected int intelecto = 0;
@@ -357,16 +350,7 @@ public abstract class Personaje implements Atacable {
 	}
 
 
-	/** 
-	 * El atacar es generico para todos. 
-	 * Es un ataque fisico simple que depende del ataque fisico.
-	 * No consume energia. ( pobre maguito D:)
-	 * The Lore of Destiny v0.72
-	 * @param atacado
-	 */
-	public void atacar(Atacable atacado) {
-		atacado.serAtacadoFisico(obtenerPuntosDeAtaqueFisico());
-	}
+
 
 	/**
 	 * 	Lanzar habilidad[algun conjuro del libro, ya sea una "superPatada" o "piroExplosion" o "pitulin"].
@@ -479,7 +463,9 @@ public abstract class Personaje implements Atacable {
 	 */
 	public void serAtacadoFisico(int danio) {
 		this.saludActual -=  (int) danio - (danio*obtenerPuntosDeDefensaFisica())/100;
+		verSiSeMurio();
 	}
+
 
 	/**
 	 *  1% del daño es reducido por cada punto de defensa Magica.
@@ -487,6 +473,7 @@ public abstract class Personaje implements Atacable {
 	 */
 	public void serAtacadoMagico(int danio){
 		this.saludActual -=  (int) danio - (danio*obtenerPuntosDeDefensaMagica())/100;
+		verSiSeMurio();
 	}
 
 	/**
@@ -495,13 +482,21 @@ public abstract class Personaje implements Atacable {
 	 */
 	public void serAtacadoDanioPuro(int danio){
 		this.saludActual -=  (int) danio;
+		verSiSeMurio();
 	}
 
+	private void verSiSeMurio() {
+		if ( this.saludActual <= 0 ){
+			estaMUERTO = true;
+			saludActual = 0;			
+		}
+	}
 	/** 
 	 * Cura toda la vida.
 	 */
 	public void serCurado() {
 		this.saludActual = calcularSaludTotal();
+		
 	}
 
 	/**
@@ -539,13 +534,15 @@ public abstract class Personaje implements Atacable {
 
 	/**
 	 * Dice si el personaje esta muerto.
-	 * 
-	 * 
 	 */
 	public boolean estaMuerto() {
-		return saludActual <= 0;
+		return estaMUERTO;
 	}
-
+	
+	public void revivir(){
+		estaMUERTO = true;
+	}
+	
 	public int getSaludActual(){
 		return this.saludActual;
 	}
@@ -745,6 +742,11 @@ public abstract class Personaje implements Atacable {
 		return equipoSimple;
 	}
 
-
+	public String getTipoCasta() {
+		return tipoCasta;
+	}
+	public String getTipoRaza() {
+		return tipoRaza;
+	}
 }
 

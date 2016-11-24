@@ -20,7 +20,5 @@ public class EquipoSimple {
 
 	public void agregarPersonaje(PersonajeSimple simplificado) {
 		personajes.add(simplificado);
-		
-	}
-
+	}	
 }

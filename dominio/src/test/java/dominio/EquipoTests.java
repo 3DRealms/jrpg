@@ -102,7 +102,7 @@ public class EquipoTests {
 		dani.equipar( equipables.get("AnilloDragon")  );
 		Personaje alex = new PersonajePrueba("Loco del tacho");
 		int salud = alex.getSaludActual();
-		dani.atacar(alex);
+	//	dani.atacar(alex);
 		//El anillo aumenta el ataque en 15, y la fuerza( que tambien aumenta el ataque) en 5, osea 10 puntos mas de fuerza
 		// en total tengo 15 + 10 + 15 = 40.
 		Assert.assertEquals(salud - 40 , alex.getSaludActual());

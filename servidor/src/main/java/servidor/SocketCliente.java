@@ -107,7 +107,8 @@ public class SocketCliente {
 		MensajeBatalla men = gson.fromJson(leido, MensajeBatalla.class);
 		return men;
 	}
-	
-	
 
+
+	
+	
 }

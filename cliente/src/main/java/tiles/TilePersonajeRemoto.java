@@ -59,6 +59,7 @@ public class TilePersonajeRemoto extends TilePersonaje {
 
 	private void moverUnPaso() { // Esto tengo que ver, pero lo que hace es mover paso a paso por el camino del DI kjsoihyoas TRAMMMMMMMMMMM
 		if(camino == null || camino.isEmpty() ){		
+			parado = true;
 			return;
 		}
 		paso = camino.get(0);
@@ -120,8 +121,7 @@ public class TilePersonajeRemoto extends TilePersonaje {
 		g2d.drawString(nombre, nx, ny - 5);
 		
 	}
-	
-	
+
 	
 	public void actualizar() {
 
@@ -136,11 +136,6 @@ public class TilePersonajeRemoto extends TilePersonaje {
 		for (Animacion animacion : animacionCaminado) {
 			animacion.actualizar();
 		}
-	}
-	public BufferedImage obtenerFrameActual() {
-		if (!parado)
-			return animacionCaminado[movimiento].getFrameActual();
-		return animacionCaminado[movimientoAnterior].getFrame(8);
 	}
 	
 	

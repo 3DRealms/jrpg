@@ -1,22 +1,16 @@
 package servidor;
 
 
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import acciones.Accion;
-import acciones.AccionGenerica;
 import acciones.FactoriaAcciones;
 import batalla.EquipoSimple;
 import personaje.Personaje;
 import interfaces.Equipo;
-import mensaje.Mensaje;
 import mensaje.MensajeActualizacionCobate;
 import mensaje.MensajeBatalla;
 import mensaje.MensajeInicioCombate;
@@ -26,13 +20,31 @@ import mensaje.MensajeInteraccion;
 
 public class Batalla extends Thread  {
 
-	private List  <Personaje> equipo1Original;
-	private List  <Personaje> equipo2Original;
 
 	private List<SocketCliente> socketEquipo1;
 	private List<SocketCliente> socketEquipo2;
-	private EquipoSimple equipo1;
-	private EquipoSimple equipo2;
+	private List<Personaje> equipo1;
+	private List<Personaje> equipo2;
+	
+	
+	
+	public Batalla(CanalCombate canalCombate)  {
+		this.socketEquipo1 = canalCombate.getEq1();
+		this.socketEquipo2 = canalCombate.getEq2();
+		equipo1 = new ArrayList<>();
+		equipo2 = new ArrayList<>();
+		
+		for (SocketCliente c : socketEquipo1) {
+			equipo1.add(c.getPer());
+		}
+		
+		for (SocketCliente c : socketEquipo2) {
+			equipo2.add(c.getPer());
+		}
+	}
+	
+	
+	
 	/** Para test (segun Lucas)
 	 * @param e1
 	 * @param e2
@@ -58,11 +70,7 @@ public class Batalla extends Thread  {
 	}
 
 
-	public Batalla(CanalCombate canalCombate)  {
-		this.socketEquipo1 = canalCombate.getEq1();
-		this.socketEquipo2 = canalCombate.getEq2();
 
-	}
 
 
 	/**
@@ -71,51 +79,68 @@ public class Batalla extends Thread  {
 	 *
 	 * Con un par de if, podemos hacer que la batalla sea distinta :D (por velocidad, o por otro parametro).
 	 * @throws InterruptedException 
+	 * @throws IOException 
 	 */	
-	public void batallar() throws InterruptedException{
+	public void batallar() throws InterruptedException, IOException{
 		// Peleo mientras no haya ganador
 		List<Accion> accionesEquipo1;
 		List<Accion> accionesEquipo2;
-		
-		int turno = 1;
+
 		while( obtenerGanador() == null ){
 
 			accionesEquipo1 = pedirAcciones(socketEquipo1);
 			accionesEquipo2 = pedirAcciones(socketEquipo2);
 
 			turnoPorVelocidad( accionesEquipo1 , accionesEquipo2 ); // Las ejecuto.
-			// Despues se cargarian las Accion en una lista?
-			turno ++;
 		}
 		
-
-		//	finalizarBatalla(obtenerGanador());
+		//mandarPersonajes();
+		//finalizarBatalla(obtenerGanador());
 	}
 
 
-	private List<Accion> pedirAcciones(List<SocketCliente> eq ) {
+	private void mandarPersonajes() throws IOException {
+		for(SocketCliente cliente : socketEquipo1){
+			try {
+				cliente.enviarMensaje(cliente.getPer()); //RANCIO <_
+			} catch (IOException e) {
+				socketEquipo1.remove(cliente); 
+				cliente.cerrar();
+			}
+		}		
+		for(SocketCliente cliente : socketEquipo2){
+			try {
+				cliente.enviarMensaje(cliente.getPer());//RANCIO <_
+			} catch (IOException e) {
+				socketEquipo1.remove(cliente); 
+				cliente.cerrar();
+			}
+		}		
+	}
+
+
+	private List<Accion> pedirAcciones(List<SocketCliente> eq ) throws IOException{
 		Accion acc;
 		MensajeBatalla men;
-
 
 		List<Accion> acciones = new ArrayList<>();
 		for(SocketCliente cliente : eq){
 			if(cliente.getPer().estaMuerto())
 				continue; //saltea el pj
-			try {
 
+			try {
 				men = cliente.pedirMensajeBatalla();
 				acc = FactoriaAcciones.getAccion(buscarPJ(men.getEmisor()),buscarPJ(men.getObjetivo()),men.getAccion(),men.getTipo());
-
 				acciones.add( acc );
 			} catch (IOException e) {
-				//e.printStackTrace(); Cambiemos.
+					socketEquipo1.remove(cliente); 
+					cliente.cerrar(); // Si no puede enviar mensaje, y bue que se ponga a estudiar base de datos.
 			}
 		}
 		return acciones;
 	}
 
-	private void turnoPorVelocidad(List <Accion> accEquipo1, List <Accion> accEquipo2) throws InterruptedException{
+	private void turnoPorVelocidad(List <Accion> accEquipo1, List <Accion> accEquipo2) throws InterruptedException, IOException{
 		//ejecuto las Accion y voy mandando lo que pasa al cliente
 
 		//Uno las listas:
@@ -127,42 +152,46 @@ public class Batalla extends Thread  {
 		MensajeActualizacionCobate emisor;
 		MensajeActualizacionCobate objetivo;
 		Personaje pjAux;
-		
+
 		for (Accion accion : acciones) {
+			if(accion.getEmisor().estaMuerto())
+				continue; // salta una iteracion del fo
+
 			accion.ejecutar();
-			
+
 			pjAux = accion.getEmisor();
 			emisor = new MensajeActualizacionCobate( pjAux.getNombre()  , MensajeInicioCombate.ACTBATALLA, pjAux.getSaludActual(), pjAux.getEnergia(), "TOMA WACHO" );
-			
+
 			pjAux = accion.getObjetivo();
 			objetivo = new MensajeActualizacionCobate( pjAux.getNombre()  , MensajeInicioCombate.ACTBATALLA, pjAux.getSaludActual(), pjAux.getEnergia(), "TOMA WACHO" );
-			
+
 			enviarMensajes(emisor,objetivo);	
 			sleep(4000);
 		}
 		
 		perdirAccionesClientes();
-		
+
 	}
 
-	private void perdirAccionesClientes() {
+	private void perdirAccionesClientes() throws IOException {
 		MensajeActualizacionCobate men = new MensajeActualizacionCobate("", MensajeInteraccion.PEDIRACCION, 0, 0, "");
-		
+
 		for(SocketCliente cliente : socketEquipo1){
 			try {
 				cliente.enviarMensaje(men);
 			} catch (IOException e) {
-			//	e.printStackTrace(); // Cambiemos
+				socketEquipo1.remove(cliente);
+				cliente.cerrar();
 			}
 		}		
 		for(SocketCliente cliente : socketEquipo2){
 			try {
 				cliente.enviarMensaje(men);
 			} catch (IOException e) {
-				//	e.printStackTrace(); // Cambiemos
+				socketEquipo1.remove(cliente); 
+				cliente.cerrar();
 			}
 		}
-		
 	}
 
 
@@ -179,13 +208,13 @@ public class Batalla extends Thread  {
 	}
 
 
-	private void enviarMensajes(MensajeActualizacionCobate emisor, MensajeActualizacionCobate objetivo) {
+	private void enviarMensajes(MensajeActualizacionCobate emisor, MensajeActualizacionCobate objetivo) throws IOException {
 		for(SocketCliente cliente : socketEquipo1){
 			try {
 				cliente.enviarMensaje(emisor);
 				cliente.enviarMensaje(objetivo);
 			} catch (IOException e) {
-			//	e.printStackTrace(); // Cambiemos
+				socketEquipo1.remove(cliente); cliente.cerrar();
 			}
 		}		
 		for(SocketCliente cliente : socketEquipo2){
@@ -193,7 +222,8 @@ public class Batalla extends Thread  {
 				cliente.enviarMensaje(emisor);
 				cliente.enviarMensaje(objetivo);
 			} catch (IOException e) {
-				//	e.printStackTrace(); // Cambiemos
+				socketEquipo1.remove(cliente);
+				cliente.cerrar(); // Que se vaya  a la ******* de su tia :).-
 			}
 		}		
 	}
@@ -203,18 +233,23 @@ public class Batalla extends Thread  {
 	 * Devuelve si hay ganador.(osea el equipo contrario muere);
 	 * @return
 	 */
-	private EquipoSimple obtenerGanador(){
-		if( socketEquipo2.isEmpty() ){
-			return equipo1;
-		}
-		if( socketEquipo1.isEmpty() ){
+	private List<Personaje> obtenerGanador(){
+		if( estanMuertos(equipo1) ){
 			return equipo2;
+		}
+		if( estanMuertos(equipo2) ){
+			return equipo1;
 		}
 		return null;
 	}
 
-
-
+	private boolean estanMuertos(List<Personaje> equipo){
+		for (Personaje personaje : equipo) {
+			if(!personaje.estaMuerto())
+				return true;
+		}
+	return true;
+	}
 
 	private void darBotin(Equipo ganador, Equipo perdedor){
 

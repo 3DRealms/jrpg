@@ -25,6 +25,13 @@ public class Canal {
 	private Mapa map;
 	private List<CanalCombate> combates;
 	private JTextArea textArea;
+	
+	
+	
+	public void addCombate(CanalCombate combate) {
+		this.combates.add(combate);
+	}
+
 	public Canal(String nombre, int alto, int ancho,JTextArea textArea) {
 		this.textArea = textArea;
 		this.map = new Mapa(nombre, alto, ancho);

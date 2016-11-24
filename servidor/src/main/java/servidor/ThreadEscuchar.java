@@ -63,11 +63,9 @@ public class ThreadEscuchar extends Thread{
 					cliente.enviarMensajeConfirmacion(true, "");
 					cliente.setUsuario(men.getUsername());
 					Personaje per = sqcon.getPersonaje(men.getUsername());
-					Map<String, Habilidad> h = SQLiteJDBC.obtenerHabilidades();
+					
 					if(per != null){
-						per.autoAgregarce();
-						//per.agregarHabilidad("curar", h.get("curar"));
-						
+						per.autoAgregarce();					
 						cliente.enviarMensaje(per);
 						cliente.setPer(per);
 						jugadores.agregarCliente(cliente, per);		
@@ -126,6 +124,7 @@ public class ThreadEscuchar extends Thread{
 
 				if( mens.isCombate() ){
 					CanalCombate canalCombate  = can.empezarCombate(cliente.getPer().getNombre(), mens.getEmisor());
+					can.addCombate(canalCombate);
 					escucharCombate(canalCombate);
 					//	can.terminarCombate(cliente.getPer().getNombre(), mens.getEmisor());
 
@@ -139,7 +138,8 @@ public class ThreadEscuchar extends Thread{
 							break;
 						}
 					}
-					while(true /*auxCanalCombate!=null*/){
+					
+					while( auxCanalCombate != null ){ // retengo al jugador hasta que temrina la batalla, ahora lo va a escuhcar el thread que genero la batalla. ESto es espetacular!
 						try {
 							sleep(1000);
 						} catch (InterruptedException e) {
@@ -173,6 +173,7 @@ public class ThreadEscuchar extends Thread{
 			MensajeInteraccion mens = cliente.pedirMensajeInteraccion();
 			sleep(4000);
 			new Batalla(canalCombate).batallar();
+			canalCombate.setTermino(true);
 		} catch (InterruptedException | IOException e) {
 			textArea.append("Error en el Combate.\nDetalle: "+e.toString()+"\n");
 		}
