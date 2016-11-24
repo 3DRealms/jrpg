@@ -60,7 +60,7 @@ public class JuegoPanel extends Component implements Runnable{
 		pjDibujo = new TilePersonajeLocal(spaw,pj,mouse,camara);  
 		mapa 	 = new MapaGrafico(nombreMapa,pjDibujo,camara, env,personajes);
 		
-		playerMusic = new AudioFilePlayer ("src/main/resources/sound/mapsong2.ogg",80);
+		playerMusic = new AudioFilePlayer ("src/main/resources/sound/mapsong2.ogg",80,true);
 		playerMusic.start();
 		
 		thread 	 = new Thread(this);
@@ -73,6 +73,7 @@ public class JuegoPanel extends Component implements Runnable{
 
 		long now;
 		long lastTime = System.nanoTime();
+		long primeravez = System.nanoTime();
 
 
 		while(ejecutando) {
@@ -161,6 +162,13 @@ public class JuegoPanel extends Component implements Runnable{
 	public void nuevaDetencionPersonaje(String pj){ //estp creo que vuela.
 		// aca te envio que el personaje llego a su destino, 
 		// si por las dudas no llego todavia moverlo magicamente.
+	}
+
+
+	public void detener() {
+		ejecutando = false;
+		playerMusic.detener();
+		
 	}
 
 }

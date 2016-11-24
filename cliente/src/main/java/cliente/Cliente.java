@@ -14,6 +14,7 @@ import java.net.UnknownHostException;
 import java.util.Properties;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -148,7 +149,8 @@ public class Cliente {
 			combat.setResizable(false); // evito que se cambie el tamaño para que no se chanfle todo.
 			combat.setVisible(true); // uno se mata haciendo los graficos para que ponga false ¬¬
 			combat.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // :c adios amor.
-			ventana.setVisible(false);
+			juego.detener();
+			ventana.dispose();
 			new ThreadClienteEnviarInteraccion(this,new MensajeInteraccion(pj.getNombre(), MensajeInteraccion.ARRANCOCOMBATE)).start();
 			
 		}
@@ -215,7 +217,13 @@ public class Cliente {
 	}
 
 	public void terminarCombate() {
-		// Aca tengo que cerrar el combate, alertar el ganador, 
+		try {
+			combat.cerrar();
+			abrirJuego(pedirPersonaje());
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, "El servidor se ha desconectado");
+			System.exit(0);
+		}
 		
 	}
 

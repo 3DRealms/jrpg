@@ -29,10 +29,14 @@ public class ThreadClienteEscucharBatalla extends Thread{
 				combat.actualizarEstado(men);
 				men = cliente.pedirActualizacionBatlla();
 			}
-			if(men.isPedirAccion())
+			if(men.isPedirAccion()){
 				combat.pedirAccion();
-			if(men.isFinBatalla())
-				cliente.terminarCombate();	
+			}	
+			if(men.isFinBatalla()){
+				cliente.terminarCombate();
+				JOptionPane.showMessageDialog(null, men.getMensaje());
+			}
+				
 			
 			
 		} catch (IOException e) {

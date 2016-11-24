@@ -25,7 +25,7 @@ public class SpriteCombate extends JPanel{
 	int mana;
 	
 	
-	SpriteCombate(String spritePath,String nombre,int vidaBase,int manaBase,int vida,int mana, boolean invertido){
+	SpriteCombate(String spritePath,String nombre,int vidaBase,int manaBase,int vida,int mana, boolean invertido, boolean esPrincipal){
 		this.setOpaque(false);
 		this.setLayout(null);
 		
@@ -57,7 +57,10 @@ public class SpriteCombate extends JPanel{
 		
 		
 		lblPlayername = new JLabel(nombre);
-		lblPlayername.setForeground(Color.WHITE);
+		if(esPrincipal)
+			lblPlayername.setForeground(Color.YELLOW);
+		else
+			lblPlayername.setForeground(Color.WHITE);
 		lblPlayername.setBounds(0, 3, 96, 20);
 		cuadro.add(lblPlayername);
 		lblPlayername.setHorizontalAlignment(SwingConstants.CENTER);

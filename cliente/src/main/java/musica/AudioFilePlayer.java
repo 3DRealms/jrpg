@@ -19,52 +19,64 @@ public class AudioFilePlayer extends Thread{
 	
 	final File file;
 	float volumen;
+	boolean loop;
+	boolean detener = false;
 	
 	public AudioFilePlayer(String filePath){
 		file = new File(filePath);
 		volumen = 80;
+		this.loop = false;
 	}
 	public AudioFilePlayer(String filePath, float volumen){
 		file = new File(filePath);
 		this.volumen = volumen;
+		this.loop = false;
+	}
+	public AudioFilePlayer(String filePath, float volumen, boolean loop){
+		file = new File(filePath);
+		this.volumen = volumen;
+		this.loop = loop;
 	}
 
  
-    public void play() {
-        
- 
-        
+    public void detener() {
+    	detener = true;
     }
     
     @Override
 	public void run(){
-    	try (final AudioInputStream in = getAudioInputStream(file)) {
-            
-            final AudioFormat outFormat = getOutFormat(in.getFormat());
-            final Info info = new Info(SourceDataLine.class, outFormat);
- 
-            try (final SourceDataLine line =
-                     (SourceDataLine) AudioSystem.getLine(info)) {
- 
-                if (line != null) {
-                	
-                    line.open(outFormat);
-                    if (line.isControlSupported(FloatControl.Type.MASTER_GAIN)) {
-                        FloatControl volume = (FloatControl) line.getControl(FloatControl.Type.MASTER_GAIN);
-                       volume.setValue(calcularVol());
-                    }
-                    line.start();
-                    stream(getAudioInputStream(outFormat, in), line);
-                    line.drain();
-                    line.stop();
-                }
-            }
- 
-        } catch (UnsupportedAudioFileException 
-               | LineUnavailableException 
-               | IOException e) {
-            throw new IllegalStateException(e);
-        }
+    	
+
+    	do{
+    		try (final AudioInputStream in = getAudioInputStream(file)) {
+
+    			final AudioFormat outFormat = getOutFormat(in.getFormat());
+    			final Info info = new Info(SourceDataLine.class, outFormat);
+
+    			try (final SourceDataLine line =
+    					(SourceDataLine) AudioSystem.getLine(info)) {
+
+    				if (line != null) {
+
+    					line.open(outFormat);
+    					if (line.isControlSupported(FloatControl.Type.MASTER_GAIN)) {
+    						FloatControl volume = (FloatControl) line.getControl(FloatControl.Type.MASTER_GAIN);
+    						volume.setValue(calcularVol());
+    					}
+    					line.start();
+    					stream(getAudioInputStream(outFormat, in), line);
+    					line.drain();
+    					line.stop();
+    				}
+    			}
+
+    		} catch (UnsupportedAudioFileException 
+    				| LineUnavailableException 
+    				| IOException e) {
+    			throw new IllegalStateException(e);
+    		}
+    	}
+    	while(loop && !detener);
 	}
  
     private float calcularVol() {
@@ -79,8 +91,10 @@ public class AudioFilePlayer extends Thread{
     private void stream(AudioInputStream in, SourceDataLine line) 
         throws IOException {
         final byte[] buffer = new byte[65536];
-        for (int n = 0; n != -1; n = in.read(buffer, 0, buffer.length)) {
+        int n = 0;
+        while(n != -1 && !detener) {
             line.write(buffer, 0, n);
+            n = in.read(buffer, 0, buffer.length);
         }
     }
 }

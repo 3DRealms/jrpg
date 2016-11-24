@@ -74,6 +74,8 @@ public class Combate extends JFrame {
 	DefaultListModel<String> listModel;
 	List<String> llavesListModel;
 
+	
+	AudioFilePlayer playerMusic;
 
 	/**
 	 * Create the frame.
@@ -82,7 +84,7 @@ public class Combate extends JFrame {
 		
 		this.client = client;
 		
-		AudioFilePlayer playerMusic = new AudioFilePlayer (pathSounds+"battle1.ogg",70);
+		playerMusic = new AudioFilePlayer (pathSounds+"battle1.ogg",70,true);
 		playerMusic.start();
 		this.pjPropio = client.getPj();
 
@@ -116,7 +118,7 @@ public class Combate extends JFrame {
 		
 		int i = 0;
 		for (PersonajeSimple person : equipoS1.getPersonajes()) {
-			SpriteCombate player1 = new SpriteCombate(pathSprite+"actor1.png", person.getNombre(), person.getVida(), person.getEnergia(), person.getVidaAct(), person.getEnergiaAct(), true);
+			SpriteCombate player1 = new SpriteCombate(pathSprite+"actor1.png", person.getNombre(), person.getVida(), person.getEnergia(), person.getVidaAct(), person.getEnergiaAct(), true, person.getNombre().equals(pjPropio.getNombre()));
 			agregarInteraccion(player1);
 			player1.setLocation(posEquipo1.get(i));
 			fondoBatalla.add(player1);
@@ -125,7 +127,7 @@ public class Combate extends JFrame {
 		}
 		i = 0;
 		for (PersonajeSimple person : equipoS2.getPersonajes()) {
-			SpriteCombate player1 = new SpriteCombate(pathSprite+"actor1.png", person.getNombre(), person.getVida(), person.getEnergia(), person.getVidaAct(), person.getEnergiaAct(), false);
+			SpriteCombate player1 = new SpriteCombate(pathSprite+"actor1.png", person.getNombre(), person.getVida(), person.getEnergia(), person.getVidaAct(), person.getEnergiaAct(), false, person.getNombre().equals(pjPropio.getNombre()));
 			agregarInteraccion(player1);
 			player1.setLocation(posEquipo2.get(i));
 			fondoBatalla.add(player1);
@@ -328,7 +330,7 @@ public class Combate extends JFrame {
 	
 	
 	private void resetearMenu(){
-		new AudioFilePlayer("sound.ogg").start();
+		new AudioFilePlayer(pathSounds+"sound.ogg").start();
 		atacarElegido = false;
 		puedoElegir = false;
 		Color fondo = new Color(0,120,255);
@@ -347,8 +349,11 @@ public class Combate extends JFrame {
 		
 		Map<String,Habilidad> hab = pjPropio.getHabilidades();
 		for (String habilidad : hab.keySet()) {
-			listModel.addElement(hab.get(habilidad).getNombre());
-			llavesListModel.add(habilidad);
+			if(!habilidad.equals("atacar")){
+				listModel.addElement(hab.get(habilidad).getNombre());
+				llavesListModel.add(habilidad);
+			}
+			
 		}
 	}
 	
@@ -400,6 +405,12 @@ public class Combate extends JFrame {
 
 	public void pedirAccion() {
 		mostrarMenu();	
+	}
+
+	public void cerrar() {
+		playerMusic.detener();
+		this.dispose();
+		
 	}
 	
 
