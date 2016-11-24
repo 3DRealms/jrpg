@@ -149,9 +149,6 @@ public class Cliente {
 			combat.setVisible(true); // uno se mata haciendo los graficos para que ponga false ¬¬
 			combat.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // :c adios amor.
 			ventana.setVisible(false);
-
-
-
 		}
 
 		if(men.isParado()){

@@ -51,7 +51,6 @@ public class Canal {
 
 	public void quitarCliente(SocketCliente cliente){
 		canal.remove(cliente);
-
 	}
 
 	public void enviarMensaje(Object men){
@@ -134,8 +133,8 @@ public class Canal {
 			//la cague y lat engo que arreglar en algun momneto
 		}
 
-		EquipoSimple eq1 = new EquipoSimple(canal.get(desafiador).getPer().getEquipo().obtenerEquipoSimple());
-		EquipoSimple eq2 = new EquipoSimple(canal.get(desafiado).getPer().getEquipo().obtenerEquipoSimple());
+		EquipoSimple eq1 = new EquipoSimple(canal.get(desafiador).getPer().obtenerEquipoSimple());
+		EquipoSimple eq2 = new EquipoSimple(canal.get(desafiado).getPer().obtenerEquipoSimple());
 		CanalCombate can = new CanalCombate();
 
 		MensajeInicioCombate men = new MensajeInicioCombate(desafiador, eq1, eq2);
@@ -157,7 +156,8 @@ public class Canal {
 				try {
 					cliente.cerrar();
 				} catch (IOException e1) {
-					textArea.append("Error al cerrar cliente\nDetalle: "+e1.toString()+"\n");				this.quitarCliente(cliente);
+					textArea.append("Error al cerrar cliente\nDetalle: "+e1.toString()+"\n");				
+					this.quitarCliente(cliente);
 				}
 			}
 		}

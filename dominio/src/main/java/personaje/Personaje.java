@@ -1,7 +1,7 @@
 package personaje;
 
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -81,6 +81,7 @@ public abstract class Personaje implements Atacable {
 	protected final int NIVELMAX = 100; // El algoritmo no tiene limite.xD.
 	protected int experiencia = 0;
 	protected int puntosDeEstados = 0;
+	private List<PersonajeSimple> equipoSimple;
 
 	//Constructor:
 	public Personaje(String nombre) {
@@ -93,7 +94,8 @@ public abstract class Personaje implements Atacable {
 		itemEquipado.put("armadura", new ItemEquipo());
 		itemEquipado.put("casco", new ItemEquipo());
 		ubicacion = new Punto(1,1); // esto tiene que ser seteado por el servidor, posiblemente en el costructor. 
-		equipo = new EquipoJugadores();
+		//equipo = new EquipoJugadores();
+		equipoSimple = new ArrayList<>();
 	}
 	
 	public Personaje(Personaje pj) {
@@ -110,7 +112,8 @@ public abstract class Personaje implements Atacable {
 		this.sprite = pj.sprite;
 		this.mochilaItemLanzable = pj.mochilaItemLanzable;
 		this.mochilaEquipo = pj.mochilaEquipo;
-		this.equipo = pj.equipo;
+		//this.equipo = pj.equipo;
+		this.equipoSimple = pj.equipoSimple;
 		this.ataqueFisico = pj.ataqueFisico;
 		this.ataqueMagico = pj.ataqueMagico;
 		this.defensaFisica = pj.defensaFisica;
@@ -745,7 +748,11 @@ public abstract class Personaje implements Atacable {
 		return new PersonajeSimple(this.nombre, this.calcularSaludTotal(),this.calcularEnergiaTotal() , this.saludActual, this.energiaActual, this.sprite);
 	}
 	public void autoAgregarce() {
-		this.equipo.agregar(this);
+		equipoSimple = new ArrayList<>(); // Por cada vez que te conectas vas a estar solito en este mundo olvidado.
+		equipoSimple.add(getSimplificado()); //:)
+	}
+	public List<PersonajeSimple> obtenerEquipoSimple() {
+		return equipoSimple;
 	}
 
 

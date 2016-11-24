@@ -34,7 +34,7 @@ public class EquipoJugadores implements Equipo{
 	 * @author DrCoffee84
 	 */
 	public void agregar(Personaje pj){
-		pj.setEquipo(this);
+	//	pj.setEquipo(this);
 		equipo.add(pj);
 	}
 

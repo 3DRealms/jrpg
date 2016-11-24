@@ -66,9 +66,11 @@ public class ThreadEscuchar extends Thread{
 					cliente.enviarMensajeConfirmacion(true, "");
 					cliente.setUsuario(men.getUsername());
 					Personaje per = sqcon.getPersonaje(men.getUsername());
-					Map<String, Habilidad> h = SQLiteJDBC.obtenerHabilidades();
+					//Map<String, Habilidad> h = SQLiteJDBC.obtenerHabilidades();
 					if(per != null){
-					//	per.agregarHabilidad("curar", h.get("curar"));
+						per.autoAgregarce();
+						
+						
 						cliente.enviarMensaje(per);
 						cliente.setPer(per);
 						jugadores.agregarCliente(cliente, per);		
