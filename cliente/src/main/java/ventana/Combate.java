@@ -45,6 +45,7 @@ public class Combate extends JFrame {
 
 	boolean puedoAccionar;
 	boolean puedoElegir;
+	boolean atacarElegido;
 	
 	MensajeBatalla men;
 	
@@ -74,9 +75,10 @@ public class Combate extends JFrame {
 		
 		
 		AudioFilePlayer playerMusic = new AudioFilePlayer ("battle1.ogg",70);
+		playerMusic.start();
 		this.pjPropio = pjPropio;
 
-		playerMusic.start();
+		
         
         
 		establecerPosiciones();
@@ -240,10 +242,11 @@ public class Combate extends JFrame {
 			}
 			@Override
 			public void mouseClicked(MouseEvent arg1) {
-				if(puedoElegir){
+				if(puedoElegir && (lista.getSelectedIndex()!=-1 || atacarElegido)){
 					men.setObjetivo(player1.getNombre());
-					men.setAccion(llavesListModel.get(lista.getSelectedIndex()));
-					if(men.getAccion()!=null)
+					if(men.getAccion()==null)
+						men.setAccion(llavesListModel.get(lista.getSelectedIndex()));
+					//if(men.getAccion()!=null)
 						JOptionPane.showMessageDialog(null, men);
 				}
 			}
@@ -266,6 +269,7 @@ public class Combate extends JFrame {
 	
 	private void accionAtacar(){
 		resetearMenu();
+		atacarElegido = true;
 		btnAtacar.setBackground(Color.gray);
 		puedoElegir = true;
 		men = new MensajeBatalla(pjPropio.getNombre(),MensajeBatalla.HABILIDAD);
@@ -285,6 +289,17 @@ public class Combate extends JFrame {
 		
 	}
 	
+	private void accionMochila(){
+		resetearMenu();
+		puedoElegir = true;
+		btnMochila.setBackground(Color.gray);
+		men = new MensajeBatalla(pjPropio.getNombre(),MensajeBatalla.OBJETO);
+		mensajesScroll.setVisible(false);
+		listaPanel.setVisible(true);
+		cargarMochila();
+		//tengo que elegir la habilidad y luego el objetivo
+	}
+	
 	private void accionHuir(){
 		resetearMenu();
 		btnHuir.setBackground(Color.gray);
@@ -298,18 +313,11 @@ public class Combate extends JFrame {
 		//Ya lo podria mandar
 	}
 	
-	private void accionMochila(){
-		resetearMenu();
-		puedoElegir = true;
-		btnMochila.setBackground(Color.gray);
-		men = new MensajeBatalla(pjPropio.getNombre(),MensajeBatalla.OBJETO);
-		mensajesScroll.setVisible(false);
-		listaPanel.setVisible(true);
-		cargarMochila();
-		//tengo que elegir la habilidad y luego el objetivo
-	}
+	
 	
 	private void resetearMenu(){
+		new AudioFilePlayer("sound.ogg").start();
+		atacarElegido = false;
 		puedoElegir = false;
 		Color fondo = new Color(0,120,255);
 		btnHuir.setBackground(fondo);

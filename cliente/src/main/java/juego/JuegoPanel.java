@@ -15,6 +15,7 @@ import mapa.Punto;
 import mapagrafico.MapaGrafico;
 import mensaje.MensajeInicioCombate;
 import mensaje.MensajeInteraccion;
+import musica.AudioFilePlayer;
 import personaje.Personaje;
 import tiles.TilePersonajeLocal;
 import tiles.TilePersonajeRemoto;
@@ -41,6 +42,7 @@ public class JuegoPanel extends Component implements Runnable{
 	private TilePersonajeLocal pjDibujo;
 	private Camara camara;
 	private HashMap<String, TilePersonajeRemoto> personajes;
+	AudioFilePlayer playerMusic;
 
 	private boolean jugar = true;
 
@@ -57,6 +59,10 @@ public class JuegoPanel extends Component implements Runnable{
 		addMouseListener(mouse);
 		pjDibujo = new TilePersonajeLocal(spaw,pj,mouse,camara);  
 		mapa 	 = new MapaGrafico(nombreMapa,pjDibujo,camara, env,personajes);
+		
+		playerMusic = new AudioFilePlayer ("src/main/resources/sound/mapsong.ogg",80);
+		playerMusic.start();
+		
 		thread 	 = new Thread(this);
 		thread.start();
 	}
