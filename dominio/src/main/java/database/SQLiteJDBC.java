@@ -202,7 +202,7 @@ public class SQLiteJDBC
 			String stringRes = rs.getString("json");
 
 			resultado = gson.fromJson(stringRes, Personaje.class);
-			//resultado = FactoriaPersonaje.reconstruirPersonaje(resultado);
+			////resultado = FactoriaPersonaje.reconstruirPersonaje(resultado);
 
 
 		}
