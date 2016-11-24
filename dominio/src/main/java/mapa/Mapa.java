@@ -2,10 +2,6 @@ package mapa;
 
 import java.util.HashMap;
 import java.util.Map;
-
-
-
-import mensaje.MensajeMovimiento;
 import personaje.Personaje;
 
 
