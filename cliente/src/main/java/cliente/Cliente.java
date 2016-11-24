@@ -197,7 +197,7 @@ public class Cliente {
 			e.printStackTrace();
 		}
 			
-		//new ThreadClienteEscucharBatalla(this,combat);
+		new ThreadClienteEscucharBatalla(this,combat);
 		
 		
 	}

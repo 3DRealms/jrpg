@@ -48,6 +48,14 @@ public class MensajeInteraccion {
 	public boolean isParado(){
 		return tipo.equals(MensajeInteraccion.PARADO);
 	}
+	
+	public boolean isActuliazacionBatalla(){
+		return tipo.equals(MensajeInteraccion.ACTBATALLA);
+	}
+	
+	public boolean isPedirAccion(){
+		return tipo.equals(MensajeInteraccion.PEDIRACCION);
+	}
 
 
 	
