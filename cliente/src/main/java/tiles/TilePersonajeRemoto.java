@@ -3,12 +3,14 @@ package tiles;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.util.List;
 import juego.Camara;
 import mapa.Punto;
 import mapagrafico.dijkstra.AlgoritmoDelTacho;
 import mapagrafico.dijkstra.Grafo;
 import mapagrafico.dijkstra.Nodo;
+import sprites.Animacion;
 
 public class TilePersonajeRemoto extends TilePersonaje {
 
@@ -119,6 +121,8 @@ public class TilePersonajeRemoto extends TilePersonaje {
 		
 	}
 	
+	
+	
 	public void actualizar() {
 
 		if( ! estaEnMovimiento() && hayCamino() ){
@@ -129,7 +133,14 @@ public class TilePersonajeRemoto extends TilePersonaje {
 			enMovimiento = false;
 		else
 			enMovimiento = true;
-		
+		for (Animacion animacion : animacionCaminado) {
+			animacion.actualizar();
+		}
+	}
+	public BufferedImage obtenerFrameActual() {
+		if (!parado)
+			return animacionCaminado[movimiento].getFrameActual();
+		return animacionCaminado[movimientoAnterior].getFrame(8);
 	}
 	
 	
@@ -139,7 +150,50 @@ public class TilePersonajeRemoto extends TilePersonaje {
 	private boolean estaEnMovimiento() {
 		return enMovimiento;
 	}
+	/**
+	 * Son distintas  a la del personaje local:
+	 */
+	public void paraDondeVoy(int xDestino2, int yDestino2) {
+		movimiento = 0;
+		parado = false;
 
-
+		if (xInicio == xDestino2 && yInicio == yDestino2) { // parado
+			parado = true;
+			return; 
+		}
+		
+		if (xInicio > xDestino2 && yInicio > yDestino2) {// sur
+			movimiento = 2;
+			return;
+		}
+		if (xInicio > xDestino2 && yInicio == yDestino2) { // sureste 
+			movimiento = 1;
+			return;
+		}
+		if (xInicio > xDestino2 && yInicio < yDestino2) {// este
+			movimiento = 0;
+			return;
+		}
+		if (xInicio == xDestino2 && yInicio < yDestino2) {// noreste
+			movimiento = 7;
+			return;
+		}
+		if (xInicio < xDestino2 && yInicio == yDestino2) {// noroeste
+			movimiento = 5;
+			return;
+		}
+		if (xInicio < xDestino2 && yInicio > yDestino2) {// oeste
+			movimiento = 4;
+			return;
+		}
+		if (xInicio == xDestino2 && yInicio > yDestino2) {// suroeste
+			movimiento = 3;
+			return;
+		}
+		if (xInicio < xDestino2 && yInicio < yDestino2) {// norte
+			movimiento = 6;
+			return;
+		}
+	}
 
 }
