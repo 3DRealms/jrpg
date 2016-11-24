@@ -11,6 +11,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import acciones.Accion;
+import acciones.AccionGenerica;
+import acciones.FactoriaAcciones;
 import batalla.EquipoSimple;
 import personaje.Personaje;
 import interfaces.Equipo;
@@ -88,6 +90,7 @@ public class Batalla extends Thread  {
 
 	private List<Accion> pedirAcciones(List<SocketCliente> eq ) {
 		Accion acc;
+
 		String json;
 		List<Accion> acciones = new ArrayList<>();
 		for(SocketCliente cliente : eq){
@@ -97,7 +100,8 @@ public class Batalla extends Thread  {
 
 				Gson gson = new Gson();
 				json = cliente.pedirMensajeBatalla().toString();
-				acc = gson.fromJson(json , Accion.class);
+				acc = gson.fromJson(json , AccionGenerica.class);
+				acc = FactoriaAcciones.getAccion(acc);
 
 				acciones.add( acc );
 			} catch (IOException e) {

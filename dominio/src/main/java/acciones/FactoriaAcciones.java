@@ -21,4 +21,20 @@ public class FactoriaAcciones {
 		return null;
 	}
 
+	public static Accion getAccion(Accion acc) {
+		if (acc.getTipo().equals(MensajeBatalla.DEFENDER)) {
+			return new AccionDefender(  acc.getEmisor(),	 acc.getObjetivo(), acc.getAccion(), acc.getTipo());
+		}
+		if(acc.getTipo().equals(MensajeBatalla.HABILIDAD)){
+			return new AccionHabilidad( acc.getEmisor(),  acc.getObjetivo(), acc.getAccion(), acc.getTipo());
+		}
+		if(acc.getTipo().equals(MensajeBatalla.OBJETO)){
+			return new AccionObjeto( acc.getEmisor(),  acc.getObjetivo(), acc.getAccion(), acc.getTipo());
+		}
+		if(acc.getTipo().equals(MensajeBatalla.HUIR)){
+			return new AccionHuir( acc.getEmisor(),  acc.getObjetivo(), acc.getAccion(), acc.getTipo());
+		}
+		return null;
+	}
+
 }

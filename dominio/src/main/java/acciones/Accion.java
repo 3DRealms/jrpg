@@ -14,6 +14,15 @@ public abstract class Accion {
 
 
 
+	public int getVelocidad() {
+		return velocidad;
+	}
+	public String getAccion() {
+		return accion;
+	}
+	public String getTipo() {
+		return tipo;
+	}
 	public Accion(Personaje emisor,	Personaje objetivo,String accion,String tipo){
 		this.emisor = emisor;
 		this.objetivo = objetivo;
