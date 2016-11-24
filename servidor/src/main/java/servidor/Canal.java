@@ -126,7 +126,7 @@ public class Canal {
 	}
 
 	public void empezarCombate(String desafiador, String desafiado) {
-		CanalCombate combat = new CanalCombate();
+
 		if(map.quitarPersonaje(desafiado) == null)
 			return;
 		if(map.quitarPersonaje(desafiador)== null){
@@ -136,6 +136,8 @@ public class Canal {
 		EquipoSimple eq1 = new EquipoSimple(canal.get(desafiador).getPer().obtenerEquipoSimple());
 		EquipoSimple eq2 = new EquipoSimple(canal.get(desafiado).getPer().obtenerEquipoSimple());
 		CanalCombate can = new CanalCombate();
+		can.agregarEquipo2(canal.get(desafiado));
+		can.agregarEquipo1(canal.get(desafiador));
 
 		MensajeInicioCombate men = new MensajeInicioCombate(desafiador, eq1, eq2);
 
