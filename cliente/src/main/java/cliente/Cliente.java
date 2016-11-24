@@ -143,7 +143,7 @@ public class Cliente {
 			//listenerInt.parar();
 			men = gson.fromJson(leido, MensajeInicioCombate.class);
 
-			combat = new Combate(((MensajeInicioCombate) men).getEquipo1() , ((MensajeInicioCombate)men).getEquipo2(),pj);
+			combat = new Combate(((MensajeInicioCombate) men).getEquipo1() , ((MensajeInicioCombate)men).getEquipo2(),this);
 			combat.setLocationRelativeTo(null); //centro
 			combat.setResizable(false); // evito que se cambie el tamaño para que no se chanfle todo.
 			combat.setVisible(true); // uno se mata haciendo los graficos para que ponga false ¬¬
@@ -183,6 +183,23 @@ public class Cliente {
 		Image im = Toolkit.getDefaultToolkit().createImage("src\\main\\resources\\cursor.png");
 		Cursor cur = Toolkit.getDefaultToolkit().createCustomCursor(im, new Point(10,10),"WILL");
 		return cur;
+	}
+
+	public Personaje getPj() {
+		return pj;
+	}
+
+	public void enviarMensajeDuranteBatalla(MensajeBatalla men) {
+		try {
+			enviarObjeto(men);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
 	}
 
 }

@@ -6,6 +6,7 @@ import javax.swing.border.EmptyBorder;
 
 import batalla.EquipoSimple;
 import batalla.PersonajeSimple;
+import cliente.Cliente;
 import habilidad.Habilidad;
 import item.ItemLanzable;
 import mensaje.MensajeBatalla;
@@ -47,6 +48,10 @@ public class Combate extends JFrame {
 	boolean puedoElegir;
 	boolean atacarElegido;
 	
+	Cliente client;
+	
+	JPanel menuAcciones;
+	
 	MensajeBatalla men;
 	
 	private Personaje pjPropio;
@@ -70,13 +75,13 @@ public class Combate extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Combate(EquipoSimple equipoS1, EquipoSimple equipoS2,Personaje pjPropio) {
+	public Combate(EquipoSimple equipoS1, EquipoSimple equipoS2, Cliente client) {
 		
-		
+		this.client = client;
 		
 		AudioFilePlayer playerMusic = new AudioFilePlayer ("battle1.ogg",70);
 		playerMusic.start();
-		this.pjPropio = pjPropio;
+		this.pjPropio = client.getPj();
 
 		
         
@@ -131,11 +136,11 @@ public class Combate extends JFrame {
 		contentPane.add(fondoMenu);
 		fondoMenu.setLayout(null);
 		
-		JPanel acciones = new JPanel();
-		acciones.setBounds(0, 0, 256, 200);
-		fondoMenu.add(acciones);
-		acciones.setLayout(null);
-		acciones.setOpaque(false);
+		menuAcciones = new JPanel();
+		menuAcciones.setBounds(0, 0, 256, 200);
+		fondoMenu.add(menuAcciones);
+		menuAcciones.setLayout(null);
+		menuAcciones.setOpaque(false);
 		
 		btnHuir = new CombatButton("HUIR");
 		btnHuir.setFocusPainted(false); 
@@ -145,7 +150,7 @@ public class Combate extends JFrame {
 			}
 		});
 		btnHuir.setBounds(28, 158, 200, 28);
-		acciones.add(btnHuir);
+		menuAcciones.add(btnHuir);
 		
 		btnMochila = new CombatButton("MOCHILA");
 		btnMochila.setFocusPainted(false); 
@@ -155,7 +160,7 @@ public class Combate extends JFrame {
 			}
 		});
 		btnMochila.setBounds(28, 86, 200, 28);
-		acciones.add(btnMochila);
+		menuAcciones.add(btnMochila);
 		
 		btnDefender = new CombatButton("DEFENDER");
 		btnDefender.setFocusPainted(false); 
@@ -165,7 +170,7 @@ public class Combate extends JFrame {
 			}
 		});
 		btnDefender.setBounds(28, 122, 200, 28);
-		acciones.add(btnDefender);
+		menuAcciones.add(btnDefender);
 		
 		btnHabilidades = new CombatButton("HABILIDADES");
 		btnHabilidades.setFocusPainted(false); 
@@ -175,7 +180,7 @@ public class Combate extends JFrame {
 			}
 		});
 		btnHabilidades.setBounds(28, 50, 200, 28);
-		acciones.add(btnHabilidades);
+		menuAcciones.add(btnHabilidades);
 		
 		btnAtacar = new CombatButton("ATACAR");
 		btnAtacar.setFocusPainted(false); 
@@ -185,7 +190,7 @@ public class Combate extends JFrame {
 			}
 		});
 		btnAtacar.setBounds(28, 14, 200, 28);
-		acciones.add(btnAtacar);
+		menuAcciones.add(btnAtacar);
 		
 		listaPanel = new JPanel();
 		listaPanel.setBounds(256, 0, 768, 200);
@@ -246,8 +251,10 @@ public class Combate extends JFrame {
 					men.setObjetivo(player1.getNombre());
 					if(men.getAccion()==null)
 						men.setAccion(llavesListModel.get(lista.getSelectedIndex()));
+					enviarMensajeBatalla();
 					//if(men.getAccion()!=null)
-						JOptionPane.showMessageDialog(null, men);
+						
+					JOptionPane.showMessageDialog(null, men);
 				}
 			}
 		});
@@ -303,13 +310,15 @@ public class Combate extends JFrame {
 	private void accionHuir(){
 		resetearMenu();
 		btnHuir.setBackground(Color.gray);
-		men = new MensajeBatalla(pjPropio.getNombre(),MensajeBatalla.HUIR);
+		men = new MensajeBatalla(pjPropio.getNombre(),pjPropio.getNombre(),MensajeBatalla.HUIR,MensajeBatalla.HUIR);
+		enviarMensajeBatalla();
 		//Ya lo podria mandar
 	}
 	private void accionDefender(){
 		resetearMenu();
 		btnDefender.setBackground(Color.gray);
-		men = new MensajeBatalla(pjPropio.getNombre(),MensajeBatalla.DEFENDER);
+		men = new MensajeBatalla(pjPropio.getNombre(),pjPropio.getNombre(),MensajeBatalla.DEFENDER,MensajeBatalla.DEFENDER);
+		enviarMensajeBatalla();
 		//Ya lo podria mandar
 	}
 	
@@ -349,6 +358,21 @@ public class Combate extends JFrame {
 			listModel.addElement(items.get(item).getNombre());
 			llavesListModel.add(item);
 		}
+	}
+	
+	private void enviarMensajeBatalla(){
+		client.enviarMensajeDuranteBatalla(men);
+		resetearMenu();
+		ocultarMenu();
+		
+	}
+	
+	private void ocultarMenu(){
+		menuAcciones.setVisible(false);
+	}
+	
+	private void mostrarMenu(){
+		menuAcciones.setVisible(true);
 	}
 	
 
