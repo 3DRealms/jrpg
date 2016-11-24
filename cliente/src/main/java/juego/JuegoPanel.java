@@ -60,7 +60,7 @@ public class JuegoPanel extends Component implements Runnable{
 		pjDibujo = new TilePersonajeLocal(spaw,pj,mouse,camara);  
 		mapa 	 = new MapaGrafico(nombreMapa,pjDibujo,camara, env,personajes);
 		
-		playerMusic = new AudioFilePlayer ("src/main/resources/sound/mapsong.ogg",80);
+		playerMusic = new AudioFilePlayer ("src/main/resources/sound/mapsong2.ogg",80);
 		playerMusic.start();
 		
 		thread 	 = new Thread(this);

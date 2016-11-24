@@ -43,7 +43,9 @@ public class Combate extends JFrame {
 	private List<Point> posEquipo2 = new ArrayList<Point>();
 	private List <SpriteCombate> equipo1 = new ArrayList<SpriteCombate>();
 	private List <SpriteCombate> equipo2 = new ArrayList<SpriteCombate>();
-	String pathSprite = "src\\main\\resources\\combate\\actor\\";
+	String pathSprite = "src/main/resources/combate/actor/";
+	String pathSounds = "src/main/resources/sound/";
+	String pathCombat = "src/main/resources/combate/";
 
 	boolean puedoAccionar;
 	boolean puedoElegir;
@@ -80,7 +82,7 @@ public class Combate extends JFrame {
 		
 		this.client = client;
 		
-		AudioFilePlayer playerMusic = new AudioFilePlayer ("battle1.ogg",70);
+		AudioFilePlayer playerMusic = new AudioFilePlayer (pathSounds+"battle1.ogg",70);
 		playerMusic.start();
 		this.pjPropio = client.getPj();
 
@@ -106,7 +108,7 @@ public class Combate extends JFrame {
 		listModel = new DefaultListModel<String>();
 		llavesListModel = new ArrayList<String>();
 		
-		JPanel fondoBatalla = new ImagePanel("src\\main\\resources\\combate\\carcel.jpg");		
+		JPanel fondoBatalla = new ImagePanel(pathCombat+"carcel.jpg");		
 		fondoBatalla.setBounds(0, 0, 1024, 520);
 		contentPane.add(fondoBatalla);
 		fondoBatalla.setLayout(null);
@@ -132,7 +134,7 @@ public class Combate extends JFrame {
 		}
 		
 		
-		JPanel fondoMenu = new ImagePanel("src\\main\\resources\\combate\\menu.jpg");		
+		JPanel fondoMenu = new ImagePanel(pathCombat+"menu.jpg");		
 		fondoMenu.setBounds(0, 520, 1024, 200);
 		contentPane.add(fondoMenu);
 		fondoMenu.setLayout(null);
@@ -237,7 +239,7 @@ public class Combate extends JFrame {
 			public void mouseEntered(MouseEvent arg0) {
 				if(puedoElegir){
 					((SpriteCombate) player1).mostrarFlecha(true);
-					new AudioFilePlayer("sound.ogg").start();
+					new AudioFilePlayer(pathSounds+"sound.ogg").start();
 				}
 				
 				
