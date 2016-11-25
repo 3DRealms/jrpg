@@ -126,7 +126,8 @@ public class ThreadEscuchar extends Thread{
 					CanalCombate canalCombate  = can.empezarCombate(cliente.getPer().getNombre(), mens.getEmisor());
 					can.addCombate(canalCombate);
 					escucharCombate(canalCombate);
-					//	can.terminarCombate(cliente.getPer().getNombre(), mens.getEmisor());
+					reinsetarPersonaje();
+					
 
 				}
 				
@@ -146,6 +147,10 @@ public class ThreadEscuchar extends Thread{
 							textArea.append("Error en la batalla: "+e.toString()+"\n");
 						}
 					}
+					
+					reinsetarPersonaje();
+					
+					
 				}
  
 
@@ -173,10 +178,28 @@ public class ThreadEscuchar extends Thread{
 			MensajeInteraccion mens = cliente.pedirMensajeInteraccion();
 			sleep(4000);
 			new Batalla(canalCombate).batallar();
-			canalCombate.setTermino(true);
+			sleep(4000);
+			canalCombate.enviarFin();
 		} catch (InterruptedException | IOException e) {
 			textArea.append("Error en el Combate.\nDetalle: "+e.toString()+"\n");
 		}
+	}
+	
+	private void reinsetarPersonaje(){
+		try {
+			cliente.enviarMensaje(cliente.getPer());
+			jugadores.reagregarCliente(cliente);		
+			try {
+				sleep(1000);
+			} catch (InterruptedException e) {
+				textArea.append("Error al entrar el personaje al mundo");
+			}
+			new ThreadEnviarPosicionesIniciales(jugadores, cliente).start();
+		} catch (IOException e1) {
+			// cerrar al cliente
+		}
+		
+		
 	}
 
 

@@ -202,4 +202,9 @@ public class Canal {
 		return false;
 	}
 
+	public void reagregarCliente(SocketCliente cliente) {
+		map.agregarPersonaje(cliente.getPer(), cliente.getUsuario());
+		
+	}
+
 }
