@@ -113,10 +113,6 @@ public class Autenticar extends JFrame {
 			JOptionPane.showMessageDialog(null, "Error de conexion, no se puede conectar al servidor.");
 			System.exit(0);
 		}
-
-
-
-
 	}
 
 	private void abrirJuego(Personaje per, Cliente client){

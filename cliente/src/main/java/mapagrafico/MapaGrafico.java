@@ -306,8 +306,11 @@ public class MapaGrafico {
 		g2d.drawString(pj.getNombre(), 52, 62);
 		g2d.setColor(Color.white);
 		g2d.drawString(pj.getNombre(), 50, 60);
+		g2d.setColor(new Color(200, 0, 0));
+		g2d.fillRect(66, 64 , 238*calcularBarra(), 11);
 	}
-
+	private int calcularBarra() {
+	}
 	private boolean puedoDibujarPj(int i, int j) {
 		return  i == -xDestino && j == -yDestino ||
 				i == xAnterior && j == yAnterior ||
@@ -339,6 +342,4 @@ public class MapaGrafico {
 		}
 	}
 	
-
-
 }

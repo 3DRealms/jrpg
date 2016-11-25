@@ -7,19 +7,14 @@ import java.awt.Graphics2D;
 import java.util.HashMap;
 
 import javax.swing.JFrame;
-
-import batalla.EquipoSimple;
 import cliente.Cliente;
 import cliente.EnviadorPosicion;
 import mapa.Punto;
 import mapagrafico.MapaGrafico;
-import mensaje.MensajeInicioCombate;
-import mensaje.MensajeInteraccion;
 import musica.AudioFilePlayer;
 import personaje.Personaje;
 import tiles.TilePersonajeLocal;
 import tiles.TilePersonajeRemoto;
-import ventana.Combate;
 
 
 @SuppressWarnings("serial")
