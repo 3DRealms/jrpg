@@ -40,7 +40,7 @@ public class MapaGrafico {
 	protected boolean enMovimiento;
 	protected String sprites;
 	private static Image iluminacion;
-	private static Image hud;
+	private static Image hudVida;
 	private TilePiso[][] tiles;
 	private TileObstaculo64x64[][]  tilesObstaculo;  // Despues se puede crear de todas las medidas pero es para el sabado asi que no hay tiempo para eso asi que gordos del futuro haganlo bien >:( 
 	private boolean[][] obstaculos; 
@@ -118,7 +118,7 @@ public class MapaGrafico {
 	private void cargarSprite() {
 		load(sprites);
 		iluminacion = Sprite.loadImage("src\\main\\resources\\sombra.png").getScaledInstance(camara.getAncho() + 10,camara.getAlto() + 10,Image.SCALE_SMOOTH);
-		hud = 	Sprite.loadImage("src\\main\\resources\\vida.png");
+		hudVida = 	Sprite.loadImage("src\\main\\resources\\vida.png");
 	}
 
 	public boolean EnMovimiento() {
@@ -300,16 +300,18 @@ public class MapaGrafico {
 
 
 	private void hud(Graphics2D g2d) {
-		g2d.drawImage( hud, 50, 62, null);
+		g2d.drawImage( hudVida, 50, 62, null);
 		g2d.setFont(new Font("Verdana", Font.BOLD, 18));
 		g2d.setColor(Color.black);
 		g2d.drawString(pj.getNombre(), 52, 62);
 		g2d.setColor(Color.white);
 		g2d.drawString(pj.getNombre(), 50, 60);
 		g2d.setColor(new Color(200, 0, 0));
-		g2d.fillRect(66, 64 , 238*calcularBarra(), 11);
+		g2d.fillRect(66, 64 , calcularBarra(238), 11);
 	}
-	private int calcularBarra() {
+	private int calcularBarra(int w) {
+		double aux = (double)pj.getPj().getSaludActual()/(double)pj.getPj().calcularSaludTotal();
+		return  (int)(w * aux);
 	}
 	private boolean puedoDibujarPj(int i, int j) {
 		return  i == -xDestino && j == -yDestino ||
