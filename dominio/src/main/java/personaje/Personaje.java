@@ -540,8 +540,9 @@ public abstract class Personaje implements Atacable {
 	}
 	
 	public void revivir(){
-		
 		estaMUERTO = false;
+		this.saludActual = calcularSaludTotal();
+		ubicacion = new Punto(6, 6);
 	}
 	
 	public int getSaludActual(){

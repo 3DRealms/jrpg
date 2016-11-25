@@ -63,10 +63,11 @@ public class ThreadEscuchar extends Thread{
 					cliente.enviarMensajeConfirmacion(true, "");
 					cliente.setUsuario(men.getUsername());
 					Personaje per = sqcon.getPersonaje(men.getUsername());
-					per.revivir();
-					
+
 					if(per != null){
-						per.autoAgregarce();					
+						per.autoAgregarce();
+						if(  per.estaMuerto())
+							per.revivir();
 						cliente.enviarMensaje(per);
 						cliente.setPer(per);
 						jugadores.agregarCliente(cliente, per);		
@@ -129,7 +130,7 @@ public class ThreadEscuchar extends Thread{
 					escucharCombate(canalCombate,can);
 					reinsetarPersonaje();
 				}
-				
+
 				if( mens.isArrancoCombate() ){
 					CanalCombate auxCanalCombate = null;
 					for (CanalCombate cc : can.getCombates()) {
@@ -138,7 +139,7 @@ public class ThreadEscuchar extends Thread{
 							break;
 						}
 					}
-					
+
 					while(! auxCanalCombate.isTermino()){ // retengo al jugador hasta que temrina la batalla, ahora lo va a escuhcar el thread que genero la batalla. ESto es espetacular!
 						try {
 							sleep(1000);
@@ -146,12 +147,12 @@ public class ThreadEscuchar extends Thread{
 							textArea.append("Error en la batalla: "+e.toString()+"\n");
 						}
 					}
-					
+
 					reinsetarPersonaje();
-					
-					
+
+
 				}
- 
+
 
 
 			} catch (IOException e) {				
@@ -165,6 +166,9 @@ public class ThreadEscuchar extends Thread{
 					textArea.append("No se pudo cerrar al cliente");
 				}
 				conetado = false;
+
+				// ACA MANDAR MENSAJE QUE ESTE CLIENTE ESTA DESCONECTADO A TODOS LOS USUARIOS CONECTADOS:
+
 				textArea.append("Cliente Desconectado.");
 			}
 
@@ -172,7 +176,7 @@ public class ThreadEscuchar extends Thread{
 	}
 
 	private void escucharCombate(CanalCombate canalCombate, Canal can) {
-		
+
 		try {
 			MensajeInteraccion mens = cliente.pedirMensajeInteraccion();
 			sleep(4000);
@@ -182,14 +186,16 @@ public class ThreadEscuchar extends Thread{
 			sleep(2000);
 			canalCombate.setTermino(true);
 			can.removerCombate(canalCombate);
-			
+
 		} catch (InterruptedException | IOException e) {
 			textArea.append("Error en el Combate.\nDetalle: "+e.toString()+"\n");
 		}
 	}
-	
-	private void reinsetarPersonaje(){
+
+	private void reinsetarPersonaje() throws IOException{
 		try {
+			if(cliente.getPer().estaMuerto() )
+				cliente.getPer().revivir();
 			cliente.enviarMensaje(cliente.getPer());
 			jugadores.reagregarCliente(cliente);		
 			try {
@@ -199,10 +205,10 @@ public class ThreadEscuchar extends Thread{
 			}
 			new ThreadEnviarPosicionesIniciales(jugadores, cliente).start();
 		} catch (IOException e1) {
-			// cerrar al cliente
+			cliente.cerrar();
 		}
-		
-		
+
+
 	}
 
 

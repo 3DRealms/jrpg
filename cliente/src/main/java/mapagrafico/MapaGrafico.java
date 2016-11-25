@@ -240,7 +240,7 @@ public class MapaGrafico {
 				dibujarRestoPersonajes(g2d);
 				if( tilesObstaculo[i][j].puedoDibujarObstaculo(i, j) ) // Despues lo meto dentro del tile obstaculo dibujar y mover esta validacion.
 					tilesObstaculo[i][j].dibujar(g2d,xDestino + camara.getxOffCamara(),yDestino + camara.getyOffCamara());	
-				
+
 			}
 		}
 
@@ -253,11 +253,11 @@ public class MapaGrafico {
 		//Tiene que ser uno por uno entonces si cancelo termino el movimiento (sino se descuajaina todo).
 		x = tiles[0][0].getXIso(); // puedo agarrar el centro. pero por ahora asi.
 		y = tiles[0][0].getYIso();
-		
+
 		for (int i = 0; i <  alto; i++) { 
 			for (int j = 0; j < ancho ; j++) { 
 				tiles[i][j].mover(xDestino + camara.getxOffCamara(),yDestino+camara.getyOffCamara());
-			
+
 				if( tilesObstaculo[i][j].puedoDibujarObstaculo(i, j) )
 					tilesObstaculo[i][j].mover(xDestino + camara.getxOffCamara(),yDestino + camara.getyOffCamara());
 			}
@@ -266,15 +266,15 @@ public class MapaGrafico {
 		int xFinal = Math.min(ancho, LimiteXSup()); 
 		int yInicial = Math.max(0, LimiteYInf());
 		int yFinal = Math.min(alto, LimiteYSup());
-		
-		
+
+
 		for (int i = xInicial; i <  xFinal; i++) { 
 			for (int j = yInicial; j < yFinal; j++) { 
 				tiles[i][j].dibujar(g2d);
-				
+
 				if( puedoDibujarPj(i, j) )
 					pj.dibujarCentro(g2d);
-				
+
 				if( tilesObstaculo[i][j].puedoDibujarObstaculo(i, j) )
 					tilesObstaculo[i][j].dibujar(g2d);
 			}
@@ -284,25 +284,31 @@ public class MapaGrafico {
 		hud(g2d);
 		termino();
 	}
-	
+
 	private int LimiteXInf(){
 		return camara.getxActualPJ()-15;
 	}
-	
+
 	private int LimiteXSup(){
 		return camara.getxActualPJ()+15;
 	}
-	
+
 	private int LimiteYInf(){
 		return camara.getyActualPJ()-15;
 	}
-	
+
 	private int LimiteYSup(){
 		return camara.getyActualPJ()+15;
 	}
 
 
-
+	/**
+	 * Esto se puede ultra optimizar que solo los string los calcule una vez
+	 * y despues solo mostrar.
+	 * Y solo actualizar cuando subis de nivel.
+	 * Esto quedan en su manos Gordos del Futuro.
+	 * @param g2d
+	 */
 	private void hud(Graphics2D g2d) {
 		g2d.setFont( font );
 		g2d.drawImage( hudVida, 50, 62, null);
@@ -316,13 +322,13 @@ public class MapaGrafico {
 		g2d.setColor(new Color(0, 0, 200));
 		g2d.drawImage( hud, 5, 510, null);
 		g2d.fillRect(66, 88 , calcularBarraEnergia(238), 11);
-		
+
 		g2d.setColor(new Color(0, 0, 0));
 		g2d.drawString("Nvl: " +pj.getPj().getNivel(), 500,552);
 		g2d.drawString("Exp: " +pj.getPj().getExperiencia(), 500,572);
 		g2d.drawString(pj.getPj().getTipoRaza(), 650,552);
 		g2d.drawString(pj.getPj().getCasta().toString(), 650,572);
-		
+
 		g2d.setColor(new Color(255, 255, 170));
 		g2d.drawString("Nvl: " +pj.getPj().getNivel(), 500,550);
 		g2d.drawString("Exp: " +pj.getPj().getExperiencia(), 500,570);
@@ -334,7 +340,7 @@ public class MapaGrafico {
 		double aux = (double)pj.getPj().getEnergia()/(double)pj.getPj().calcularEnergiaTotal();
 		return  (int)(w * aux);
 	}
-	
+
 	private int calcularBarraVida(int w) {
 		double aux = (double)pj.getPj().getSaludActual()/(double)pj.getPj().calcularSaludTotal();
 		return  (int)(w * aux);
@@ -366,8 +372,7 @@ public class MapaGrafico {
 
 	private void dibujarRestoPersonajes(Graphics2D g2d) {
 		for (TilePersonajeRemoto pj : personajes.values()) {
-						pj.mover(g2d);						
+			pj.mover(g2d);						
 		}
 	}
-	
 }

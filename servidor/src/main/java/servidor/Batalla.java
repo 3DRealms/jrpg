@@ -246,7 +246,7 @@ public class Batalla extends Thread  {
 
 	private Personaje buscarPJ(String string) {
 		for(SocketCliente cliente : socketEquipo1){
-			if( string.equals(cliente.getPer().getNombre()))
+		if( string.equals(cliente.getPer().getNombre()))
 				return cliente.getPer();
 		}		
 		for(SocketCliente cliente : socketEquipo2){
@@ -323,12 +323,12 @@ public class Batalla extends Thread  {
 	}
 
 	private int calcularExperencia(List<Personaje> perdedor) {
-		int nivelPromedio = 0;
+		int nivelPromedio = 1;
 		for (Personaje pj : perdedor) {
 			nivelPromedio += pj.getNivel();
 		}
 		//return ( nivelPromedio/perdedor.size() ) * 100; //QUE SE YO SON NUMEROS!
-		return 1;
+		return 100;
 	}
 
 	private void finalizarBatalla(List<Personaje> ganador){
@@ -345,6 +345,7 @@ public class Batalla extends Thread  {
 		for (Personaje pj : ganador) {
 			pj.subirExperencia(expGanador);
 		}
+		System.out.println("ADENTRO");
 	}
 
 	private int getNivelPromedio(List<Personaje> ganador) {
