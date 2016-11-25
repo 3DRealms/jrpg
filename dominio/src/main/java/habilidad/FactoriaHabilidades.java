@@ -2,6 +2,11 @@ package habilidad;
 
 
 public class FactoriaHabilidades {
+	
+	public static String CURATIVA = "curativa";
+	public static String FISICA = "fisica";
+	public static String MAGICA = "magica";
+	public static String TRUEDAMAGE = "truedamage";
 
 	public static Habilidad getHabilidad(String nombre, String efecto, String descripcion, int costo, int nivel, int cantEfecto,
 			int velocidad){

@@ -156,13 +156,17 @@ public class Batalla extends Thread  {
 			if(accion.getEmisor().estaMuerto())
 				continue; // salta una iteracion del fo
 
+			int vida = accion.getObjetivo().getSaludActual();
+			int mana = accion.getObjetivo().getEnergia();
+			
 			accion.ejecutar();
 
 			pjAux = accion.getEmisor();
-			emisor = new MensajeActualizacionCobate( pjAux.getNombre()  , MensajeInicioCombate.ACTBATALLA, pjAux.getSaludActual(), pjAux.getEnergia(), "TOMA WACHO" );
-
+			String aux = armarMensajeLanzar(accion.getEmisor().getNombre(),accion.getObjetivo().getNombre(),accion.getTipo(),accion.getAccion());
+			emisor = new MensajeActualizacionCobate( pjAux.getNombre()  , MensajeInicioCombate.ACTBATALLA, pjAux.getSaludActual(), pjAux.getEnergia(), aux);
+			String aux2 = armarMensajeEfecto(vida,mana,accion.getObjetivo().getVitalidad(),accion.getObjetivo().getEnergia(),accion.getObjetivo().getNombre());
 			pjAux = accion.getObjetivo();
-			objetivo = new MensajeActualizacionCobate( pjAux.getNombre()  , MensajeInicioCombate.ACTBATALLA, pjAux.getSaludActual(), pjAux.getEnergia(), "TOMA WACHO" );
+			objetivo = new MensajeActualizacionCobate( pjAux.getNombre()  , MensajeInicioCombate.ACTBATALLA, pjAux.getSaludActual(), pjAux.getEnergia(), aux2 );
 
 			enviarMensajes(emisor,objetivo);	
 			sleep(4000);
@@ -171,6 +175,52 @@ public class Batalla extends Thread  {
 			perdirAccionesClientes();
 
 	}
+
+	private String armarMensajeEfecto(int vidaI, int manaI, int vidaF, int manaF, String nombre) {
+		String aux = nombre;
+		int deltaVida = (vidaI-vidaF);
+		int deltaMana = (manaI-manaF);
+		if(deltaVida>0){
+			aux+=" perdio "+deltaVida+" puntos de Vida";
+		}else if(deltaVida<0){
+			aux+=" gano "+Math.abs(deltaVida)+" puntos de Vida";
+		}
+		if(deltaMana>0){
+			if(deltaVida!=0)
+				aux+=" y";
+			aux+=" perdio "+deltaMana+" puntos de Energia";
+		}else if(deltaMana<0){
+			if(deltaVida!=0)
+				aux+=" y";
+			aux+=" gano "+Math.abs(deltaMana)+" puntos de Energia";
+		}
+		
+		
+		
+		
+		return aux;
+	}
+
+
+
+	private String armarMensajeLanzar(String emisor, String objetivo, String tipo, String accion) {
+		String aux = emisor;
+		if(accion.equals("atacar")){
+			aux += " ataco a "+objetivo;
+		}
+		else if(tipo.equals(MensajeBatalla.HABILIDAD)){
+			aux += " lanzo "+accion+" sobre "+objetivo;
+		}
+		else if(tipo.equals(MensajeBatalla.DEFENDER)){
+			aux += " se defendio";
+		}
+		else if(tipo.equals(MensajeBatalla.OBJETO)){
+			aux += " utilizo "+accion+" sobre "+objetivo;
+		}
+		return aux;
+	}
+
+
 
 	private void perdirAccionesClientes() throws IOException {
 		MensajeActualizacionCobate men = new MensajeActualizacionCobate("", MensajeInteraccion.PEDIRACCION, 0, 0, "");
