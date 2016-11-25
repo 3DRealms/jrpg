@@ -63,6 +63,7 @@ public class ThreadEscuchar extends Thread{
 					cliente.enviarMensajeConfirmacion(true, "");
 					cliente.setUsuario(men.getUsername());
 					Personaje per = sqcon.getPersonaje(men.getUsername());
+					per.revivir();
 					
 					if(per != null){
 						per.autoAgregarce();					

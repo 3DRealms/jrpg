@@ -540,7 +540,8 @@ public abstract class Personaje implements Atacable {
 	}
 	
 	public void revivir(){
-		estaMUERTO = true;
+		
+		estaMUERTO = false;
 	}
 	
 	public int getSaludActual(){
@@ -748,5 +749,7 @@ public abstract class Personaje implements Atacable {
 	public String getTipoRaza() {
 		return tipoRaza;
 	}
+	
+
 }
 
