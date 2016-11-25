@@ -207,4 +207,9 @@ public class Canal {
 		
 	}
 
+	public void removerCombate(CanalCombate canalCombate) {
+		combates.remove(canalCombate);
+		
+	}
+
 }

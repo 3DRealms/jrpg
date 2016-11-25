@@ -126,7 +126,7 @@ public class ThreadEscuchar extends Thread{
 				if( mens.isCombate() ){
 					CanalCombate canalCombate  = can.empezarCombate(cliente.getPer().getNombre(), mens.getEmisor());
 					can.addCombate(canalCombate);
-					escucharCombate(canalCombate);
+					escucharCombate(canalCombate,can);
 					reinsetarPersonaje();
 				}
 				
@@ -139,7 +139,7 @@ public class ThreadEscuchar extends Thread{
 						}
 					}
 					
-					while( auxCanalCombate != null ){ // retengo al jugador hasta que temrina la batalla, ahora lo va a escuhcar el thread que genero la batalla. ESto es espetacular!
+					while(! auxCanalCombate.isTermino()){ // retengo al jugador hasta que temrina la batalla, ahora lo va a escuhcar el thread que genero la batalla. ESto es espetacular!
 						try {
 							sleep(1000);
 						} catch (InterruptedException e) {
@@ -171,14 +171,18 @@ public class ThreadEscuchar extends Thread{
 		}
 	}
 
-	private void escucharCombate(CanalCombate canalCombate) {
+	private void escucharCombate(CanalCombate canalCombate, Canal can) {
 		
 		try {
 			MensajeInteraccion mens = cliente.pedirMensajeInteraccion();
 			sleep(4000);
 			new Batalla(canalCombate).batallar();
-			sleep(4000);
+			sleep(2000);
 			canalCombate.enviarFin();
+			sleep(2000);
+			canalCombate.setTermino(true);
+			can.removerCombate(canalCombate);
+			
 		} catch (InterruptedException | IOException e) {
 			textArea.append("Error en el Combate.\nDetalle: "+e.toString()+"\n");
 		}

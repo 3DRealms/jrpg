@@ -93,8 +93,8 @@ public class Batalla extends Thread  {
 			turnoPorVelocidad( accionesEquipo1 , accionesEquipo2 ); // Las ejecuto.
 		}
 
-		mandarPersonajes();
-		finalizarBatalla(obtenerGanador());
+		//mandarPersonajes();
+		//finalizarBatalla(obtenerGanador());
 	}
 
 
@@ -167,7 +167,8 @@ public class Batalla extends Thread  {
 			enviarMensajes(emisor,objetivo);	
 			sleep(4000);
 		}
-		perdirAccionesClientes();
+		if( obtenerGanador() == null)
+			perdirAccionesClientes();
 
 	}
 
@@ -276,7 +277,8 @@ public class Batalla extends Thread  {
 		for (Personaje pj : perdedor) {
 			nivelPromedio += pj.getNivel();
 		}
-		return ( nivelPromedio/perdedor.size() ) * 100; //QUE SE YO SON NUMEROS!
+		//return ( nivelPromedio/perdedor.size() ) * 100; //QUE SE YO SON NUMEROS!
+		return 1;
 	}
 
 	private void finalizarBatalla(List<Personaje> ganador){
@@ -288,7 +290,8 @@ public class Batalla extends Thread  {
 	}
 	private void darExperiencia(int experiencia, List<Personaje> ganador){
 		// y le doy la experiencia al cada personaje del equipo ganador
-		int expGanador = experiencia / getNivelPromedio(ganador);
+		//int expGanador = experiencia / getNivelPromedio(ganador);
+		int expGanador = 100;
 		for (Personaje pj : ganador) {
 			pj.subirExperencia(expGanador);
 		}
