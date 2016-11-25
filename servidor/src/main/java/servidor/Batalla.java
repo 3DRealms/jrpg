@@ -159,7 +159,7 @@ public class Batalla extends Thread  {
 			int mana = accion.getObjetivo().getEnergia();
 			
 			accion.ejecutar();
-
+			vida -= accion.getObjetivo().getSaludActual();
 			pjAux = accion.getEmisor();
 			String aux = armarMensajeLanzar(accion.getEmisor().getNombre(),accion.getObjetivo().getNombre(),accion.getTipo(),accion.getAccion());
 			emisor = new MensajeActualizacionCobate( pjAux.getNombre()  , MensajeInicioCombate.ACTBATALLA, pjAux.getSaludActual(), pjAux.getEnergia(), aux);
