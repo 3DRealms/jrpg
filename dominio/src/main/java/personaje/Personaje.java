@@ -70,7 +70,7 @@ public abstract class Personaje implements Atacable {
 	protected Map<String, ItemEquipo> itemEquipado;
 
 	//Progreso del personaje.
-	protected int nivel = 0;
+	protected int nivel = 1;
 	protected final int NIVELMAX = 100; // El algoritmo no tiene limite.xD.
 	protected int experiencia = 0;
 	protected int puntosDeEstados = 0;

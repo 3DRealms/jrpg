@@ -15,5 +15,8 @@ public class Guerrero extends Casta{
 			int fuerza = pj.getFuerza(); 
 			return fuerza;
 		}
-		
+		@Override
+		public String toString() {
+		return "Guerrero";
+		}
 }

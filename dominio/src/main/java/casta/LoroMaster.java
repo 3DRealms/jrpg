@@ -19,5 +19,9 @@ public class LoroMaster  extends Casta{
 		return fuerza;
 		
 	}
+	@Override
+	public String toString() {
+		return "Loro Master";
+	}
 }
 	

@@ -41,6 +41,7 @@ public class MapaGrafico {
 	protected String sprites;
 	private static Image iluminacion;
 	private static Image hudVida;
+	private static Image hud;
 	private TilePiso[][] tiles;
 	private TileObstaculo64x64[][]  tilesObstaculo;  // Despues se puede crear de todas las medidas pero es para el sabado asi que no hay tiempo para eso asi que gordos del futuro haganlo bien >:( 
 	private boolean[][] obstaculos; 
@@ -52,13 +53,14 @@ public class MapaGrafico {
 	private int yAnterior;
 	private Camara camara;
 	private Grafo grafoDeMapa;
-	AlgoritmoDelTacho dijkstra;
+	private AlgoritmoDelTacho dijkstra;
 	private List<Nodo> camino;
 	private Nodo paso;
 	private Nodo actual;
 	private Nodo destino;
 	private boolean noEnvieQueTermine;
 	private EnviadorPosicion env;
+	private static final Font font = new Font("Copperplate Gothic Light", Font.BOLD, 16);
 
 
 	public MapaGrafico(String nombre,TilePersonajeLocal pj,Camara camara, EnviadorPosicion env, HashMap<String, TilePersonajeRemoto> personajes) {
@@ -117,8 +119,9 @@ public class MapaGrafico {
 
 	private void cargarSprite() {
 		load(sprites);
-		iluminacion = Sprite.loadImage("src\\main\\resources\\sombra.png").getScaledInstance(camara.getAncho() + 10,camara.getAlto() + 10,Image.SCALE_SMOOTH);
-		hudVida = 	Sprite.loadImage("src\\main\\resources\\vida.png");
+		iluminacion = Sprite.loadImage("src\\main\\resources\\hud\\sombra.png").getScaledInstance(camara.getAncho() + 10,camara.getAlto() + 10,Image.SCALE_SMOOTH);
+		hudVida = 	Sprite.loadImage("src\\main\\resources\\hud\\vida.png");
+		hud = 	Sprite.loadImage("src\\main\\resources\\hud\\hud.png");
 	}
 
 	public boolean EnMovimiento() {
@@ -228,6 +231,7 @@ public class MapaGrafico {
 	 */
 	public void dibujar(Graphics2D g2d) {
 		g2d.setBackground(Color.BLACK);
+
 		for (int i = 0; i <  alto; i++) { 
 			for (int j = 0; j < ancho ; j++) { 
 				tiles[i][j].dibujar(g2d,xDestino + camara.getxOffCamara(),yDestino + camara.getyOffCamara());
@@ -276,7 +280,7 @@ public class MapaGrafico {
 			}
 		}
 		dibujarRestoPersonajes(g2d);
-//		g2d.drawImage( iluminacion, 0, 0 , null);
+		g2d.drawImage( iluminacion, 0, 0 , null);
 		hud(g2d);
 		termino();
 	}
@@ -300,16 +304,38 @@ public class MapaGrafico {
 
 
 	private void hud(Graphics2D g2d) {
+		g2d.setFont( font );
 		g2d.drawImage( hudVida, 50, 62, null);
-		g2d.setFont(new Font("Verdana", Font.BOLD, 18));
 		g2d.setColor(Color.black);
 		g2d.drawString(pj.getNombre(), 52, 62);
 		g2d.setColor(Color.white);
 		g2d.drawString(pj.getNombre(), 50, 60);
 		g2d.setColor(new Color(200, 0, 0));
-		g2d.fillRect(66, 64 , calcularBarra(238), 11);
+		g2d.fillRect(66, 64 , calcularBarraVida(238), 11);
+		g2d.drawImage( hudVida, 50, 85, null);
+		g2d.setColor(new Color(0, 0, 200));
+		g2d.drawImage( hud, 5, 510, null);
+		g2d.fillRect(66, 88 , calcularBarraEnergia(238), 11);
+		
+		g2d.setColor(new Color(0, 0, 0));
+		g2d.drawString("Nvl: " +pj.getPj().getNivel(), 500,552);
+		g2d.drawString("Exp: " +pj.getPj().getExperiencia(), 500,572);
+		g2d.drawString(pj.getPj().getTipoRaza(), 650,552);
+		g2d.drawString(pj.getPj().getCasta().toString(), 650,572);
+		
+		g2d.setColor(new Color(255, 255, 170));
+		g2d.drawString("Nvl: " +pj.getPj().getNivel(), 500,550);
+		g2d.drawString("Exp: " +pj.getPj().getExperiencia(), 500,570);
+		g2d.drawString(pj.getPj().getTipoRaza(), 650,550);
+		g2d.drawString(pj.getPj().getCasta().toString(), 650,570);
+
 	}
-	private int calcularBarra(int w) {
+	private int calcularBarraEnergia(int w) {
+		double aux = (double)pj.getPj().getEnergia()/(double)pj.getPj().calcularEnergiaTotal();
+		return  (int)(w * aux);
+	}
+	
+	private int calcularBarraVida(int w) {
 		double aux = (double)pj.getPj().getSaludActual()/(double)pj.getPj().calcularSaludTotal();
 		return  (int)(w * aux);
 	}

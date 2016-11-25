@@ -18,6 +18,9 @@ public class Mago extends Casta {
 	public int getEstado(Personaje pj){
 		int intelecto = pj.getIntelecto(); 
 		return intelecto;
-		
+	}
+	@Override
+	public String toString() {
+		return "Mago";
 	}
 }

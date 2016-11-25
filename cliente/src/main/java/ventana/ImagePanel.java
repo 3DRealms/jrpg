@@ -51,9 +51,6 @@ public class ImagePanel extends JPanel{
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		// Flip the image horizontally
-
-
-
 		g.drawImage(image, 0, 0, this); // see javadoc for more info on the parameters            
 	}
 

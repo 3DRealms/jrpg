@@ -184,7 +184,7 @@ public class Cliente {
 	}
 
 	private static Cursor cursor() {
-		Image im = Toolkit.getDefaultToolkit().createImage("src\\main\\resources\\cursor.png");
+		Image im = Toolkit.getDefaultToolkit().createImage("src\\main\\resources\\hud\\cursor.png");
 		Cursor cur = Toolkit.getDefaultToolkit().createCustomCursor(im, new Point(10,10),"WILL");
 		return cur;
 	}
