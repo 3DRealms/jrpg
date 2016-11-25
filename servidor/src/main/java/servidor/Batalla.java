@@ -93,8 +93,7 @@ public class Batalla extends Thread  {
 			turnoPorVelocidad( accionesEquipo1 , accionesEquipo2 ); // Las ejecuto.
 		}
 
-		//mandarPersonajes();
-		//finalizarBatalla(obtenerGanador());
+		finalizarBatalla(obtenerGanador());
 	}
 
 
@@ -309,26 +308,34 @@ public class Batalla extends Thread  {
 		//equipo = perdedor.perderItemsEquipo(); 
 		oro = quitarOro(perdedor);	
 		experiencia = calcularExperencia(perdedor);
-		repartirBotin(oro,ganador,perdedor);
-		darExperiencia(experiencia,ganador);
+		repartirBotin(oro,ganador,experiencia);
+
 	}
 
 	
 	private int quitarOro(List<Personaje> perdedor) {
-		return 0;
+		int cantOro = 0;
+		for (Personaje personaje : perdedor) {
+			cantOro += personaje.quitarOroPerder();
+		}
+		return cantOro;
 	}
-	private void repartirBotin(int oro, List<Personaje> ganador, List<Personaje> perdedor) {
-
+	private void repartirBotin(int oro, List<Personaje> ganador, int experiencia) {
+		oro /= ganador.size();
+		experiencia /= ganador.size();
+		for (Personaje personaje : ganador) {
+			personaje.darOro(oro);
+			personaje.subirExperencia(experiencia);
+		}
 		
 	}
 
 	private int calcularExperencia(List<Personaje> perdedor) {
-		int nivelPromedio = 1;
+		int cantExp = 0;
 		for (Personaje pj : perdedor) {
-			nivelPromedio += pj.getNivel();
+			cantExp += pj.getNivel()*59; // pongo 59 porqiu eestoy re locooo
 		}
-		//return ( nivelPromedio/perdedor.size() ) * 100; //QUE SE YO SON NUMEROS!
-		return 100;
+		return cantExp;
 	}
 
 	private void finalizarBatalla(List<Personaje> ganador){
@@ -338,15 +345,7 @@ public class Batalla extends Thread  {
 			darBotin(equipo2,equipo1);
 
 	}
-	private void darExperiencia(int experiencia, List<Personaje> ganador){
-		// y le doy la experiencia al cada personaje del equipo ganador
-		//int expGanador = experiencia / getNivelPromedio(ganador);
-		int expGanador = 100;
-		for (Personaje pj : ganador) {
-			pj.subirExperencia(expGanador);
-		}
-		System.out.println("ADENTRO");
-	}
+
 
 	private int getNivelPromedio(List<Personaje> ganador) {
 		int nivelPromedio = 0;

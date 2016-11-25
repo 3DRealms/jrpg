@@ -324,14 +324,16 @@ public class MapaGrafico {
 		g2d.fillRect(66, 88 , calcularBarraEnergia(238), 11);
 
 		g2d.setColor(new Color(0, 0, 0));
-		g2d.drawString("Nvl: " +pj.getPj().getNivel(), 500,552);
-		g2d.drawString("Exp: " +pj.getPj().getExperiencia(), 500,572);
+		g2d.drawString("Nvl: " +pj.getPj().getNivel(), 500,542);
+		g2d.drawString("Exp: " +pj.getPj().getExperiencia(), 500,562);
+		g2d.drawString("Oro: " +pj.getPj().getCantOro(), 500,582);
 		g2d.drawString(pj.getPj().getTipoRaza(), 650,552);
 		g2d.drawString(pj.getPj().getCasta().toString(), 650,572);
 
 		g2d.setColor(new Color(255, 255, 170));
-		g2d.drawString("Nvl: " +pj.getPj().getNivel(), 500,550);
-		g2d.drawString("Exp: " +pj.getPj().getExperiencia(), 500,570);
+		g2d.drawString("Nvl: " +pj.getPj().getNivel(), 500,540);
+		g2d.drawString("Exp: " +pj.getPj().getExperiencia(), 500,560);
+		g2d.drawString("Oro: " +pj.getPj().getCantOro(), 500,580);
 		g2d.drawString(pj.getPj().getTipoRaza(), 650,550);
 		g2d.drawString(pj.getPj().getCasta().toString(), 650,570);
 

@@ -12,6 +12,7 @@ import javax.swing.JTextArea;
 
 import batalla.EquipoSimple;
 import batalla.PersonajeSimple;
+import database.SQLiteJDBC;
 import mapa.Mapa;
 import mapa.Punto;
 import mensaje.*;
@@ -25,6 +26,7 @@ public class Canal {
 	private Mapa map;
 	private List<CanalCombate> combates;
 	private JTextArea textArea;
+	SQLiteJDBC sqcon;
 	
 	
 	
@@ -32,12 +34,13 @@ public class Canal {
 		this.combates.add(combate);
 	}
 
-	public Canal(String nombre, int alto, int ancho,JTextArea textArea) {
+	public Canal(String nombre, int alto, int ancho,JTextArea textArea, SQLiteJDBC sqcon) {
 		this.textArea = textArea;
 		this.map = new Mapa(nombre, alto, ancho);
 		this.canal = new HashMap<String, SocketCliente>();
 		this.nombre = nombre;
 		combates = new ArrayList<CanalCombate>();
+		this.sqcon = sqcon;
 
 	}
 
@@ -62,7 +65,20 @@ public class Canal {
 	}
 
 	public void quitarCliente(SocketCliente cliente){
+		
 		canal.remove(cliente);
+		if(!sqcon.guardarPersonaje(cliente.getPer())){
+			textArea.append("No se pudo guardar el personaje " + cliente.getUsuario());
+		}
+		try {
+			cliente.cerrar();
+		} catch (IOException e1) {
+			textArea.append("No se pudo cerrar al cliente");
+		}
+		
+		// ACA MANDAR MENSAJE QUE ESTE CLIENTE ESTA DESCONECTADO A TODOS LOS USUARIOS CONECTADOS:
+
+		textArea.append("Cliente Desconectado.");
 	}
 
 	public void enviarMensaje(Object men){
@@ -76,12 +92,6 @@ public class Canal {
 				textArea.append("Error al enviar mensaje\nDetalle: "+e.toString()+"\n");
 
 				this.quitarCliente(cliente);
-
-				try {
-					cliente.cerrar();
-				} catch (IOException e1) {
-					textArea.append("Error al cerrar cliente\nDetalle: "+e1.toString()+"\n");
-				}
 			}
 
 		}
@@ -97,11 +107,7 @@ public class Canal {
 			} catch (IOException e) {
 				textArea.append("Error al enviar mensaje\nDetalle: "+e.toString()+"\n");		
 				this.quitarCliente(cliente);		 // Se trata el error.
-				try {
-					cliente.cerrar();
-				} catch (IOException e1) {
-					textArea.append("Error al cerrar cliente\nDetalle: "+e1.toString()+"\n");
-				}
+				
 			}
 
 
@@ -119,12 +125,6 @@ public class Canal {
 			} catch (IOException e) {
 				textArea.append("Error al enviar mensaje\nDetalle: "+e.toString()+"\n");							
 				this.quitarCliente(cliente);
-
-				try {
-					cliente.cerrar();
-				} catch (IOException e1) {
-					textArea.append("Error al cerrar cliente\nDetalle: "+e1.toString()+"\n");
-				}
 			}	
 		}
 	}
@@ -170,13 +170,8 @@ public class Canal {
 				cliente.enviarMensaje(men);
 			} catch (IOException e) {
 				textArea.append("Error al enviar mensaje\nDetalle: "+e.toString()+"\n");							
-
-				try {
-					cliente.cerrar();
-				} catch (IOException e1) {
-					textArea.append("Error al cerrar cliente\nDetalle: "+e1.toString()+"\n");				
-					this.quitarCliente(cliente);
-				}
+				this.quitarCliente(cliente);
+				
 			}
 		}
 
@@ -187,11 +182,7 @@ public class Canal {
 			} catch (IOException e) {
 				textArea.append("Error al enviar mensaje\nDetalle: "+e.toString()+"\n");							
 				this.quitarCliente(cliente);
-				try {
-					cliente.cerrar();
-				} catch (IOException e1) {
-					textArea.append("Error al cerrar cliente\nDetalle: "+e1.toString()+"\n");
-				}
+				
 			}
 		}
 	}
@@ -210,6 +201,10 @@ public class Canal {
 	public void removerCombate(CanalCombate canalCombate) {
 		combates.remove(canalCombate);
 		
+	}
+
+	public boolean estaCliente(SocketCliente cliente) {
+		return canal.containsValue(cliente);
 	}
 
 }

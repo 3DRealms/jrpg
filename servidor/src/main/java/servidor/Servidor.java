@@ -37,9 +37,10 @@ public class Servidor extends Thread{
 	private String sTexto;
 
 	public Servidor() throws IOException, ClassNotFoundException, SQLException{
-		jugadores = new Canal("General", 200,200,this.textArea);
-		loadProperty("server.properties");
 		SQLiteJDBC sqcon = SQLiteJDBC.getInstance();
+		jugadores = new Canal("General", 200,200,this.textArea,sqcon);
+		loadProperty("server.properties");
+		
 		ventanaServidor = new JFrame();
 		ventanaServidor.setTitle("Servidor de Loro of ring's");
 		ventanaServidor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

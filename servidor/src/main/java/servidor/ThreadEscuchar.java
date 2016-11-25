@@ -18,6 +18,7 @@ public class ThreadEscuchar extends Thread{
 	private SocketCliente cliente;
 	private SQLiteJDBC sqcon;
 	private JTextArea textArea;
+	boolean conetado = true;
 
 	public ThreadEscuchar(Canal jugadores, SocketCliente cliente,JTextArea textArea){
 		this.jugadores = jugadores;
@@ -106,7 +107,7 @@ public class ThreadEscuchar extends Thread{
 
 
 	private void escuchar(Canal can) throws SQLException{
-		boolean conetado = true;
+		
 
 		while(conetado){
 
@@ -155,21 +156,11 @@ public class ThreadEscuchar extends Thread{
 
 
 
-			} catch (IOException e) {				
-				can.quitarCliente(cliente);
-				if(!sqcon.guardarPersonaje(cliente.getPer())){
-					textArea.append("No se pudo guardar el personaje " + cliente.getUsuario());
-				}
-				try {
-					cliente.cerrar();
-				} catch (IOException e1) {
-					textArea.append("No se pudo cerrar al cliente");
-				}
-				conetado = false;
-
-				// ACA MANDAR MENSAJE QUE ESTE CLIENTE ESTA DESCONECTADO A TODOS LOS USUARIOS CONECTADOS:
-
-				textArea.append("Cliente Desconectado.");
+			} catch (IOException e) {
+				if(can.estaCliente(cliente))
+					can.quitarCliente(cliente);
+				detener();
+				
 			}
 
 		}
@@ -205,10 +196,14 @@ public class ThreadEscuchar extends Thread{
 			}
 			new ThreadEnviarPosicionesIniciales(jugadores, cliente).start();
 		} catch (IOException e1) {
-			cliente.cerrar();
+			jugadores.quitarCliente(cliente);
 		}
 
 
+	}
+	
+	public void detener(){
+		this.conetado = false;
 	}
 
 

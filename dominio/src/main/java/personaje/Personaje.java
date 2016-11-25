@@ -73,6 +73,7 @@ public abstract class Personaje implements Atacable {
 	protected int nivel = 1;
 	protected final int NIVELMAX = 100; // El algoritmo no tiene limite.xD.
 	protected int experiencia = 0;
+	protected int cantOro = 100;
 	protected int puntosDeEstados = 0;
 	private List<PersonajeSimple> equipoSimple;
 
@@ -749,6 +750,21 @@ public abstract class Personaje implements Atacable {
 	}
 	public String getTipoRaza() {
 		return tipoRaza;
+	}
+
+	public int quitarOroPerder() {
+		int cantOro = (this.cantOro * 5)/100;
+		this.cantOro -= cantOro;
+		return cantOro;
+	}
+
+	public void darOro(int oro) {
+		this.cantOro+=oro;
+		
+	}
+
+	public int getCantOro() {
+		return this.cantOro;
 	}
 	
 

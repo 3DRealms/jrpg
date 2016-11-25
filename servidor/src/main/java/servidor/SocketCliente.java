@@ -103,7 +103,7 @@ public class SocketCliente {
 				cliente.getInputStream());
 		String leido = lectura.readUTF();
 		Gson gson = new Gson();
-		System.out.println(leido);
+
 		MensajeBatalla men = gson.fromJson(leido, MensajeBatalla.class);
 		return men;
 	}
