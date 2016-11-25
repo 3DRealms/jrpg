@@ -127,8 +127,6 @@ public class ThreadEscuchar extends Thread{
 					can.addCombate(canalCombate);
 					escucharCombate(canalCombate);
 					reinsetarPersonaje();
-					
-
 				}
 				
 				if( mens.isArrancoCombate() ){
