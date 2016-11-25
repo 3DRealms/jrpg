@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import mensaje.MensajeActualizacionCobate;
+import mensaje.MensajeBatalla;
+import mensaje.MensajeInteraccion;
+
 public class CanalCombate {
 
 	private List<SocketCliente> equipo1;
@@ -46,5 +50,22 @@ public class CanalCombate {
 			return true;		
 		
 		return false;
+	}
+	public void enviarFin() {
+		for (SocketCliente cliente : equipo1) {
+			try {
+				cliente.enviarMensaje(new MensajeActualizacionCobate("",MensajeInteraccion.FINBATALLA,0,0,"Gano alguien"));
+			} catch (IOException e) {
+				//debo desconectar a este cliente
+			}
+		}
+		for (SocketCliente cliente : equipo2) {
+			try {
+				cliente.enviarMensaje(new MensajeActualizacionCobate("",MensajeInteraccion.FINBATALLA,0,0,"Gano alguien"));
+			} catch (IOException e) {
+				//debo desconectar a este cliente
+			}
+		}
+		
 	}
 }
