@@ -35,10 +35,10 @@ public class Servidor extends Thread{
 	private JTextArea textArea;
 	private JButton btnEnviar;
 	private String sTexto;
-
+	
 	public Servidor() throws IOException, ClassNotFoundException, SQLException{
 		SQLiteJDBC sqcon = SQLiteJDBC.getInstance();
-		
+		ItemsEquipo itemsEquipables = ItemsEquipo.getInstance();
 		loadProperty("server.properties");
 		
 		ventanaServidor = new JFrame();
@@ -50,7 +50,6 @@ public class Servidor extends Thread{
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		ventanaServidor.setContentPane(contentPane);
-
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.SOUTH);
 		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));

@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.swing.JTextArea;
 import database.SQLiteJDBC;
 import habilidad.Habilidad;
+import item.ItemEquipo;
 import mensaje.*;
 import personaje.FactoriaPersonaje;
 import personaje.Personaje;
@@ -17,6 +18,7 @@ public class ThreadEscuchar extends Thread{
 	private Canal jugadores;
 	private SocketCliente cliente;
 	private SQLiteJDBC sqcon;
+	private ItemsEquipo itemsEquipables;
 	private JTextArea textArea;
 	boolean conetado = true;
 
@@ -26,6 +28,7 @@ public class ThreadEscuchar extends Thread{
 		this.textArea = textArea; // Para escribir los mensaje de error; solo es una referencia :v ultra cho optimo mama
 		try {
 			sqcon = SQLiteJDBC.getInstance();
+			itemsEquipables = ItemsEquipo.getInstance();
 		} catch (ClassNotFoundException | SQLException e) {
 			textArea.append("Error con la base de datos.\nDetalle:  "+e.toString()+"\n");
 		}
@@ -123,6 +126,11 @@ public class ThreadEscuchar extends Thread{
 				if(mens.isParado()){
 					can.detenerPersonaje(cliente.getPer());
 					new ThreadEnviarInteraccion(can, mens).start();
+				}
+				if(mens.isItem()){					
+					ItemEquipo i = itemsEquipables.getHabilidad(mens.getEmisor());
+					
+				//	new ThreadEnviarInteraccion(can, new MensajeInteraccion(/, tipo)).start();
 				}
 
 				if( mens.isCombate() ){

@@ -139,6 +139,11 @@ public class Cliente {
 
 		}
 		
+		if(men.isItem()){
+			men = gson.fromJson(leido, MensajeItem.class);
+			
+		}
+		
 		if(men.isDesconexion()){
 			men.getEmisor();
 			// ACA DANI usa este nombre.
@@ -232,6 +237,7 @@ public class Cliente {
 	}
 
 	public void pedirItem(String itemE) {
+		new ThreadClienteEnviarInteraccion(this,new MensajeInteraccion(itemE, MensajeInteraccion.ITEM)).start();
 
 	
 		//pj.agregarAMochila(itemE, itemE);

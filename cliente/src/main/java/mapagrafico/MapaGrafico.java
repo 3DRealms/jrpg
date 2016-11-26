@@ -351,6 +351,9 @@ public class MapaGrafico {
 		g2d.drawString("Oro: " +pj.getPj().getCantOro(), 500,580);
 		g2d.drawString(pj.getPj().getTipoRaza(), 650,550);
 		g2d.drawString(pj.getPj().getCasta().toString(), 650,570);
+		
+		
+		
 
 	}
 	private int calcularBarraEnergia(int w) {

@@ -9,6 +9,7 @@ public class MensajeInteraccion {
 	public static final String COMBATE = "combate";
 	public static final String ARRANCOCOMBATE = "arrancoCombate";
 	public static final String PARADO = "parado";
+	public static final String ITEM = "item";
 	
 	public static final String ACTBATALLA = "actualizar";
 	public static final String PEDIRACCION = "pediroAccion";
@@ -19,8 +20,8 @@ public class MensajeInteraccion {
 	
 	protected String tipo;
 
-	public MensajeInteraccion(String emisor, String tipo) {
-		this.emisor = emisor;
+	public MensajeInteraccion(String que, String tipo) {
+		this.emisor = que;
 		this.tipo = tipo;
 	}
 
@@ -67,9 +68,8 @@ public class MensajeInteraccion {
 		return tipo.equals(MensajeInteraccion.DESCONECTADO);
 	}
 
-
-	
-	
-	
+	public boolean isItem() {
+		return tipo.equals(MensajeInteraccion.ITEM);
+	}
 
 }
