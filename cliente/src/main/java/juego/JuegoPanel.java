@@ -9,8 +9,10 @@ import java.util.HashMap;
 import javax.swing.JFrame;
 import cliente.Cliente;
 import cliente.EnviadorPosicion;
+import item.ItemEquipo;
 import mapa.Punto;
 import mapagrafico.MapaGrafico;
+import mapagrafico.TileCofre;
 import musica.AudioFilePlayer;
 import personaje.Personaje;
 import tiles.TilePersonajeLocal;
@@ -37,6 +39,7 @@ public class JuegoPanel extends Component implements Runnable{
 	private TilePersonajeLocal pjDibujo;
 	private Camara camara;
 	private HashMap<String, TilePersonajeRemoto> personajes;
+	private HashMap<String, TileCofre > itemEquipo;
 	AudioFilePlayer playerMusic;
 
 	private boolean jugar = true;
@@ -53,8 +56,7 @@ public class JuegoPanel extends Component implements Runnable{
 		camara = new Camara(ANCHO, ALTO);
 		addMouseListener(mouse);
 		pjDibujo = new TilePersonajeLocal(spaw,pj,mouse,camara);  
-		mapa 	 = new MapaGrafico(nombreMapa,pjDibujo,camara, env,personajes);
-		
+		mapa 	 = new MapaGrafico(nombreMapa,pjDibujo,camara, env,personajes,itemEquipo);
 		playerMusic = new AudioFilePlayer ("src/main/resources/sound/mapsong2.ogg",80,true);
 		playerMusic.start();
 		
@@ -86,30 +88,25 @@ public class JuegoPanel extends Component implements Runnable{
 	}
 
 	public void actualizar() {
-		mouse.actualizar();  // Preguntar porque aveces no me lo agarra :c estupido mouse listener de java ?
+		mouse.actualizar();  
 		pjDibujo.actualizar();
 		mapa.actualizar();
-		
+		mouseInteracion();
+	}
+
+
+	private void mouseInteracion() {
 		if(mouse.isInteraccion()){
 			
-			String destino = hayAlguien(mouse.getPosInt());
-			if(destino != null){
-				//enviar mensaje interaccion con servidor
-				cliente.enviarMensajeCombate(destino);
+			String alguien = hayAlguien(mouse.getPosInt());
+			if(alguien != null)
+				cliente.enviarMensajeCombate(alguien);
+			String itemE = hayAlgo(mouse.getPosInt());
+			if(itemE != null)
+				//cliente.pedirItem(itemE);
 				
-				
-				/*
-				padre.add(combat);
-				padre.remove(this);
-				padre.revalidate();
-				repaint();
-				combat.repaint();
-				ejecutando = false;*/
-				
-			}
 			mouse.setInteraccion(false);
 		}
-		
 	}
 
 	private String hayAlguien(Punto posInt) {
@@ -125,6 +122,19 @@ public class JuegoPanel extends Component implements Runnable{
 				return persona;				
 			}
 			
+		}
+		return null;
+	}
+	private String hayAlgo(Punto posInt) {
+		int deltaX = posInt.getX() - camara.getxOffCamara() + camara.getxActualPJ();
+		int deltaY = posInt.getY() - camara.getyOffCamara() + camara.getyActualPJ();
+		
+		
+		for (String itemE : itemEquipo.keySet()) {
+			int x = personajes.get(itemE).getXDestino();
+			int y = personajes.get(itemE).getYDestino();
+			if(x==deltaX	 && y == deltaY)
+				return itemE;							
 		}
 		return null;
 	}

@@ -7,7 +7,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="lib" path="jgoodies-forms-1.8.0.jar" sourcepath="jgoodies-forms-1.8.0-sources.jar"/>
 	<classpathentry kind="lib" path="miglayout15-swing.jar" sourcepath="miglayout-src.zip"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/dominio"/>
 	<classpathentry kind="lib" path="/dominio/gson-2.8.0.jar"/>
 	<classpathentry kind="lib" path="jogg-0.0.7.jar"/>
 	<classpathentry kind="lib" path="jorbis-0.0.15.jar"/>
@@ -16,5 +15,6 @@
 	<classpathentry kind="lib" path="jgoodies-forms-1.8.0-sources.jar"/>
 	<classpathentry kind="lib" path="tritonus_share.jar"/>
 	<classpathentry kind="lib" path="vorbisspi1.0.3.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/dominio"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

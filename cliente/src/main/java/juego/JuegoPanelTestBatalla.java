@@ -39,7 +39,7 @@ public class JuegoPanelTestBatalla extends Component implements Runnable{
 		requestFocus();
 		mouse = new Mouse();
 		addMouseListener(mouse);
-		mapa = new MapaGrafico("map4",pj, null, null,null);
+		mapa = new MapaGrafico("map4",pj, null, null,null,null);
 		
 		pj = new TilePersonajeLocal(new Punto(1,2),new PersonajePrueba("wacho"),mouse, null); //Pone las que quiera papu.
 		thread = new Thread(this);

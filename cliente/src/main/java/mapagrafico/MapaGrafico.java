@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
 import cliente.EnviadorPosicion;
+import item.ItemEquipo;
 import juego.Camara;
 import mapa.Punto;
 import mapagrafico.dijkstra.AlgoritmoDelTacho;
@@ -47,6 +48,7 @@ public class MapaGrafico {
 	private boolean[][] obstaculos; 
 	private TilePersonajeLocal pj; // cliente
 	private HashMap<String, TilePersonajeRemoto> personajes; // mensaje movimiento: 
+	private HashMap<String, TileCofre > itemEquipo;
 	private int xDestino;
 	private int yDestino;
 	private int xAnterior;
@@ -63,7 +65,7 @@ public class MapaGrafico {
 	private static final Font font = new Font("Copperplate Gothic Light", Font.BOLD, 16);
 
 
-	public MapaGrafico(String nombre,TilePersonajeLocal pj,Camara camara, EnviadorPosicion env, HashMap<String, TilePersonajeRemoto> personajes) {
+	public MapaGrafico(String nombre,TilePersonajeLocal pj,Camara camara, EnviadorPosicion env, HashMap<String, TilePersonajeRemoto> personajes, HashMap<String,TileCofre> itemE) {
 		File path = new File("src\\main\\resources\\mapas\\"+nombre+".map");
 		this.pj = pj;
 		this.env = env;
@@ -76,6 +78,7 @@ public class MapaGrafico {
 		this.nombre = nombre;
 		this.camara = camara;
 		this.personajes = personajes;
+		this.itemEquipo = itemE;
 		Scanner sc = null;
 		try {
 			sc = new Scanner(path);
@@ -110,7 +113,17 @@ public class MapaGrafico {
 				tilesObstaculo[i][j] = new TileObstaculo64x64(i,j,obstaculo);
 			}
 		}
-
+		int cofres = sc.nextInt();
+		String nombreItem;
+		int x;
+		int y;
+		for (int i = 0; i < cofres; i++) {
+			nombreItem = sc.nextLine();
+			x = sc.nextInt();
+			y = sc.nextInt();
+			sprite = sc.nextInt();
+			itemEquipo.put(nombreItem, new TileCofre(x,y,sprite,nombreItem));
+		}
 		sc.close();
 		this.grafoDeMapa = new Grafo( new MatrizBoolean(obstaculos, ancho, alto) );
 		this.camino = new LinkedList<Nodo>();
@@ -280,6 +293,7 @@ public class MapaGrafico {
 			}
 		}
 		dibujarRestoPersonajes(g2d);
+		dibujarCofres(g2d);
 		g2d.drawImage( iluminacion, 0, 0 , null);
 		hud(g2d);
 		termino();
@@ -377,4 +391,11 @@ public class MapaGrafico {
 			pj.mover(g2d);						
 		}
 	}
+	private void dibujarCofres(Graphics2D g2d) {
+		for (TileCofre i : itemEquipo.values()) {
+			i.mover(xDestino + camara.getxOffCamara(),yDestino + camara.getyOffCamara());
+			i.dibujar(g2d);
+		}
+	}
+
 }
