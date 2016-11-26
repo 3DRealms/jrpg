@@ -184,7 +184,6 @@ public class Cliente {
 	}
 
 	public void enviarMensajeCombate(String per){
-
 		new ThreadClienteEnviarInteraccion(this,new MensajeInteraccion(per, MensajeInteraccion.COMBATE)).start();
 	}
 
@@ -230,6 +229,12 @@ public class Cliente {
 			System.exit(0);
 		}
 		
+	}
+
+	public void pedirItem(String itemE) {
+
+	
+		//pj.agregarAMochila(itemE, itemE);
 	}
 
 }

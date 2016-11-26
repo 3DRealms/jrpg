@@ -1,18 +1,29 @@
 package mapagrafico;
 
-import tiles.TileObstaculo64x64;
+public class TileCofre{
 
-public class TileCofre extends TileObstaculo64x64{
 
+	public String getItemE() {
+		return itemE;
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
 
 	private boolean cerrado = true;
 	private String itemE;
-
-	public TileCofre(int x, int y, int sprite, String itemE) {
-		super(x,y,sprite);
+	int x;
+	int y;
+	public TileCofre(int x, int y, String itemE) {
+		this.x = x;
+		this.y = y;
 		this.itemE = itemE;
 	} 
-
 	public String abrir() {
 		if( cerrado ){
 			cerrado = false;

@@ -53,4 +53,8 @@ public class TileObstaculo64x64 extends TilePiso{
 		return sprite > 1;
 	}
 
+	public void setSprite(int i) {
+		this.sprite = i;
+	}
+
 }

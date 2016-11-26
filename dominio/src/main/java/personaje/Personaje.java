@@ -81,13 +81,14 @@ public abstract class Personaje implements Atacable {
 	public Personaje(String nombre) {
 		this.nombre = nombre;
 		mochilaItemLanzable = new HashMap<String, ItemLanzable>();
+		mochilaEquipo = new HashMap<String,ItemEquipo>();
 		itemEquipado = new HashMap<String, ItemEquipo>();
 		itemEquipado.put("anillo", new ItemEquipo());
 		itemEquipado.put("armaDer", new ItemEquipo());
 		itemEquipado.put("armaIzq", new ItemEquipo());
 		itemEquipado.put("armadura", new ItemEquipo());
 		itemEquipado.put("casco", new ItemEquipo());
-		ubicacion = new Punto(1,1); // esto tiene que ser seteado por el servidor, posiblemente en el costructor. 
+		ubicacion = new Punto(6,6); // esto tiene que ser seteado por el servidor, posiblemente en el costructor. 
 		//equipo = new EquipoJugadores();
 		equipoSimple = new ArrayList<>();
 	}
@@ -772,7 +773,9 @@ public abstract class Personaje implements Atacable {
 		estaMUERTO=true;
 		
 	}
-	
+	public void agregarAMochila(String key, ItemEquipo itemE) {
+		itemEquipado.put(key, itemE);
+	}
 
 }
 

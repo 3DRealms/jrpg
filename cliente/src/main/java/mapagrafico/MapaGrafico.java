@@ -105,24 +105,26 @@ public class MapaGrafico {
 				tiles[i][j] = new TilePiso(i,j,sprite);
 			}
 		}
-		int obstaculo;
 		for (int i = 0; i < ancho ; i++) {
 			for (int j = 0; j < alto; j++) {
-				obstaculo = sc.nextInt();
-				obstaculos[i][j] = obstaculo>=1?true:false;
-				tilesObstaculo[i][j] = new TileObstaculo64x64(i,j,obstaculo);
+				sprite = sc.nextInt();
+				obstaculos[i][j] = sprite>=1?true:false;
+				tilesObstaculo[i][j] = new TileObstaculo64x64(i,j,sprite);
 			}
 		}
 		int cofres = sc.nextInt();
-		String nombreItem;
-		int x;
-		int y;
-		for (int i = 0; i < cofres; i++) {
-			nombreItem = sc.nextLine();
-			x = sc.nextInt();
-			y = sc.nextInt();
-			sprite = sc.nextInt();
-			itemEquipo.put(nombreItem, new TileCofre(x,y,sprite,nombreItem));
+		String item[];
+		sc.nextLine();
+		int i,j;
+		for (int k = 0; k < cofres; k++) {
+			item = sc.nextLine().split(" ");
+			i = Integer.parseInt(item[1]);
+			j = Integer.parseInt(item[2]);
+			sprite = Integer.parseInt(item[3]);
+			
+			itemEquipo.put(item[0], new TileCofre(i,j,item[0]));
+			tilesObstaculo[i][j] = new TileObstaculo64x64(i,j,sprite); // Pisa si habia un obstaculo ( pero yo como habil diseñardor no pongo un obstaculo)
+
 		}
 		sc.close();
 		this.grafoDeMapa = new Grafo( new MatrizBoolean(obstaculos, ancho, alto) );
@@ -293,7 +295,6 @@ public class MapaGrafico {
 			}
 		}
 		dibujarRestoPersonajes(g2d);
-		dibujarCofres(g2d);
 		g2d.drawImage( iluminacion, 0, 0 , null);
 		hud(g2d);
 		termino();
@@ -391,11 +392,9 @@ public class MapaGrafico {
 			pj.mover(g2d);						
 		}
 	}
-	private void dibujarCofres(Graphics2D g2d) {
-		for (TileCofre i : itemEquipo.values()) {
-			i.mover(xDestino + camara.getxOffCamara(),yDestino + camara.getyOffCamara());
-			i.dibujar(g2d);
-		}
-	}
 
+
+	public void cambiarSprite(int x2, int y2,int sprite) {
+		tilesObstaculo[x2][y2].setSprite(sprite);
+	}
 }

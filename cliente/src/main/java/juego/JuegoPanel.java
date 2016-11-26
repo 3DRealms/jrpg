@@ -48,6 +48,7 @@ public class JuegoPanel extends Component implements Runnable{
 		this.padre = padre;
 		this.cliente = cliente;
 		this.personajes = new HashMap<String, TilePersonajeRemoto>();
+		this.itemEquipo = new HashMap<String, TileCofre>();
 		env = new EnviadorPosicion(cliente, pj.getNombre(),nombreMapa, pj.getSprite());
 		setPreferredSize(new Dimension(ANCHO, ALTO));
 		setFocusable(true);
@@ -102,8 +103,10 @@ public class JuegoPanel extends Component implements Runnable{
 			if(alguien != null)
 				cliente.enviarMensajeCombate(alguien);
 			String itemE = hayAlgo(mouse.getPosInt());
-			if(itemE != null)
-				//cliente.pedirItem(itemE);
+			if(itemE != null){
+				itemEquipo.get(itemE).abrir();
+				cliente.pedirItem(itemE);
+			}
 				
 			mouse.setInteraccion(false);
 		}
@@ -118,10 +121,8 @@ public class JuegoPanel extends Component implements Runnable{
 			int x = personajes.get(persona).getXDestino();
 			int y = personajes.get(persona).getYDestino();
 			if(x==deltaX	 && y == deltaY)
-			{
 				return persona;				
-			}
-			
+					
 		}
 		return null;
 	}
@@ -131,10 +132,12 @@ public class JuegoPanel extends Component implements Runnable{
 		
 		
 		for (String itemE : itemEquipo.keySet()) {
-			int x = personajes.get(itemE).getXDestino();
-			int y = personajes.get(itemE).getYDestino();
-			if(x==deltaX	 && y == deltaY)
+			int x = itemEquipo.get(itemE).getX();
+			int y = itemEquipo.get(itemE).getY();
+			if(x==deltaX	 && y == deltaY){
+				mapa.cambiarSprite(x,y,5);
 				return itemE;							
+			}
 		}
 		return null;
 	}
