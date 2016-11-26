@@ -22,7 +22,9 @@ La batalla sigue de igual manera hasta que un equipo muera todos los integrantes
 
 ##Clases principales 
 *Juego: main del client, acá es donde se lanza la pantalla del login.
+
 *JuegoPanel: acá es donde pasa todo lo central del juego, las actualizaciones de mouse, gráficos, y el juego en sí.
+
 *Mapa gráfico: aquí es donde se calcula todo lo central a lo gráfico.
 
 ###El constructor del mapa, funciona así: 
