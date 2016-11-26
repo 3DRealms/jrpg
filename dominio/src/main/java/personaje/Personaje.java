@@ -468,6 +468,9 @@ public abstract class Personaje implements Atacable {
 	 */
 	public void serAtacadoFisico(int danio) {
 		this.saludActual -=  (int) danio - (danio*obtenerPuntosDeDefensaFisica())/100;
+		if(enDefensa){
+			sacarDefenderse();
+		}
 		verSiSeMurio();
 	}
 
@@ -478,6 +481,9 @@ public abstract class Personaje implements Atacable {
 	 */
 	public void serAtacadoMagico(int danio){
 		this.saludActual -=  (int) danio - (danio*obtenerPuntosDeDefensaMagica())/100;
+		if(enDefensa){
+			sacarDefenderse();
+		}
 		verSiSeMurio();
 	}
 
@@ -487,6 +493,9 @@ public abstract class Personaje implements Atacable {
 	 */
 	public void serAtacadoDanioPuro(int danio){
 		this.saludActual -=  (int) danio;
+		if(enDefensa){
+			sacarDefenderse();
+		}
 		verSiSeMurio();
 	}
 
