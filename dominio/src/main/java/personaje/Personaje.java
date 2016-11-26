@@ -774,7 +774,15 @@ public abstract class Personaje implements Atacable {
 		
 	}
 	public void agregarAMochila(String key, ItemEquipo itemE) {
-		itemEquipado.put(key, itemE);
+		mochilaEquipo.put(key, itemE);
+	}
+
+	public String verItemsEquipablesEnMochila(){
+		String Items= "Items:\n";
+		for ( String key : mochilaEquipo.keySet() ) {
+			Items += key + "\n";
+		}
+		return Items;
 	}
 
 }

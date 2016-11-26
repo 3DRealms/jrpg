@@ -4,9 +4,16 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.HashMap;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+
 import cliente.Cliente;
 import cliente.EnviadorPosicion;
 import item.ItemEquipo;
@@ -17,6 +24,7 @@ import musica.AudioFilePlayer;
 import personaje.Personaje;
 import tiles.TilePersonajeLocal;
 import tiles.TilePersonajeRemoto;
+import ventana.CombatButton;
 
 
 @SuppressWarnings("serial")
@@ -28,9 +36,10 @@ public class JuegoPanel extends Component implements Runnable{
 	public static double timePerTick = 1000000000/fps;
 	
 	protected JFrame padre;
+	protected Opciones opciones;
 	protected Cliente cliente;
 	protected EnviadorPosicion env;
-	
+	protected ControlPanel controlPanel;
 	private MapaGrafico mapa;
 	private Thread thread;
 	private Mouse mouse;
@@ -41,7 +50,6 @@ public class JuegoPanel extends Component implements Runnable{
 	private HashMap<String, TilePersonajeRemoto> personajes;
 	private HashMap<String, TileCofre > itemEquipo;
 	AudioFilePlayer playerMusic;
-
 	private boolean jugar = true;
 
 	public JuegoPanel(JFrame padre,Punto spaw, Personaje pj,String nombreMapa, Cliente cliente) {
@@ -53,11 +61,13 @@ public class JuegoPanel extends Component implements Runnable{
 		setPreferredSize(new Dimension(ANCHO, ALTO));
 		setFocusable(true);
 		requestFocus();
-		mouse 	 = new Mouse();
+		opciones = new Opciones(pj);
+		mouse  = new Mouse();
 		camara = new Camara(ANCHO, ALTO);
 		addMouseListener(mouse);
 		pjDibujo = new TilePersonajeLocal(spaw,pj,mouse,camara);  
 		mapa 	 = new MapaGrafico(nombreMapa,pjDibujo,camara, env,personajes,itemEquipo);
+	
 		playerMusic = new AudioFilePlayer ("src/main/resources/sound/mapsong2.ogg",80,true);
 		playerMusic.start();
 		
@@ -89,7 +99,7 @@ public class JuegoPanel extends Component implements Runnable{
 	}
 
 	public void actualizar() {
-		mouse.actualizar();  
+		mouse.actualizar();
 		pjDibujo.actualizar();
 		mapa.actualizar();
 		mouseInteracion();
@@ -102,13 +112,19 @@ public class JuegoPanel extends Component implements Runnable{
 			String alguien = hayAlguien(mouse.getPosInt());
 			if(alguien != null)
 				cliente.enviarMensajeCombate(alguien);
+		
 			String itemE = hayAlgo(mouse.getPosInt());
+
 			if(itemE != null){
 				itemEquipo.get(itemE).abrir();
 				cliente.pedirItem(itemE);
 			}
 				
 			mouse.setInteraccion(false);
+		}
+		if(mouse.isMenu()){
+			opciones.setVisible(true);
+			mouse.setMenu(false);
 		}
 	}
 

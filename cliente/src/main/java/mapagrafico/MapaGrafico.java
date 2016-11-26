@@ -10,9 +10,10 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
+
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import cliente.EnviadorPosicion;
-import item.ItemEquipo;
 import juego.Camara;
 import mapa.Punto;
 import mapagrafico.dijkstra.AlgoritmoDelTacho;
@@ -192,9 +193,8 @@ public class MapaGrafico {
 			//
 
 			noEnvieQueTermine = true;
-
 		}
-
+		
 		if( ! pj.estaEnMovimiento() && hayCamino() ){
 			moverUnPaso();	
 			pj.paraDondeVoy(xDestino, yDestino);

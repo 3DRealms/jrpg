@@ -16,6 +16,7 @@ public class Mouse implements MouseListener{
 	private int yInt;
 	private boolean recorrido;
 	private boolean interaccion;
+	private boolean menu;
 
 	public Mouse() {
 		pos = new int[2];
@@ -36,6 +37,8 @@ public class Mouse implements MouseListener{
 			xInt = evento.getX();
 			yInt = evento.getY();
 			interaccion = true;
+		}else if(evento.getButton() == MouseEvent.BUTTON2){
+			menu = true;
 		}
 		
 	//	JuegoTest_SinServidor.cursor("click");
@@ -123,5 +126,12 @@ public class Mouse implements MouseListener{
 
 	@Override
 	public void mouseReleased(MouseEvent evento) {}
+	
+	public boolean isMenu() {
+		return menu;
+	}
+	public void setMenu(boolean menu) {
+		this.menu = menu;
+	}
 
 }

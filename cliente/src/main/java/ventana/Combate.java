@@ -22,7 +22,6 @@ import java.awt.Point;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
