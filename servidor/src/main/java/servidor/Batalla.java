@@ -159,14 +159,28 @@ public class Batalla extends Thread  {
 			int mana = accion.getObjetivo().getEnergia();
 			
 			accion.ejecutar();
-			vida -= accion.getObjetivo().getSaludActual();
+			
+			 vida -=accion.getObjetivo().getSaludActual();
+			 mana -= accion.getObjetivo().getEnergia();
+			 if(vida<0){
+				 vida=accion.getObjetivo().getVitalidad();
+			 }
+			
+			pjAux = accion.getEmisor();
+			String aux = armarMensajeLanzar(accion.getEmisor().getNombre(),accion.getObjetivo().getNombre(),accion.getTipo(),accion.getAccion());
+			emisor = new MensajeActualizacionCobate( pjAux.getNombre()  , MensajeInicioCombate.ACTBATALLA, pjAux.getSaludActual(), pjAux.getEnergia(), aux);
+			String aux2 = armarMensajeEfecto(vida,mana,accion.getObjetivo().getNombre());
+			pjAux = accion.getObjetivo();
+			objetivo = new MensajeActualizacionCobate( pjAux.getNombre()  , MensajeInicioCombate.ACTBATALLA, pjAux.getSaludActual(), pjAux.getEnergia(), aux2 );
+
+			/*vida -= accion.getObjetivo().getSaludActual();
 			pjAux = accion.getEmisor();
 			String aux = armarMensajeLanzar(accion.getEmisor().getNombre(),accion.getObjetivo().getNombre(),accion.getTipo(),accion.getAccion());
 			emisor = new MensajeActualizacionCobate( pjAux.getNombre()  , MensajeInicioCombate.ACTBATALLA, pjAux.getSaludActual(), pjAux.getEnergia(), aux);
 			String aux2 = armarMensajeEfecto(vida,mana,accion.getObjetivo().getVitalidad(),accion.getObjetivo().getEnergia(),accion.getObjetivo().getNombre());
 			pjAux = accion.getObjetivo();
 			objetivo = new MensajeActualizacionCobate( pjAux.getNombre()  , MensajeInicioCombate.ACTBATALLA, pjAux.getSaludActual(), pjAux.getEnergia(), aux2 );
-
+*/
 			enviarMensajes(emisor,objetivo);	
 			sleep(4000);
 		}
@@ -175,10 +189,11 @@ public class Batalla extends Thread  {
 
 	}
 
-	private String armarMensajeEfecto(int vidaI, int manaI, int vidaF, int manaF, String nombre) {
+	//private String armarMensajeEfecto(int vidaI, int manaI, int vidaF, int manaF, String nombre) {
+	private String armarMensajeEfecto(int deltaVida, int deltaMana, String nombre) {
 		String aux = nombre;
-		int deltaVida = (vidaI-vidaF);
-		int deltaMana = (manaI-manaF);
+		//int deltaVida = (vidaI-vidaF);
+		//int deltaMana = (manaI-manaF);
 		if(deltaVida>0){
 			aux+=" perdio "+deltaVida+" puntos de Vida";
 		}else if(deltaVida<0){
