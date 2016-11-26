@@ -21,10 +21,11 @@ Dentro del combate parecen todos los jugadores de ambas alianzas, (lo cual la al
 La batalla sigue de igual manera hasta que un equipo muera todos los integrantes, dando así un ganador. 
 
 ##Clases principales 
-Juego: main del client, acá es donde se lanza la pantalla del login.
-JuegoPanel: acá es donde pasa todo lo central del juego, las actualizaciones de mouse, gráficos, y el juego en sí.
-Mapa gráfico: aquí es donde se calcula todo lo central a lo gráfico.
-El constructor del mapa, funciona así: 
+*Juego: main del client, acá es donde se lanza la pantalla del login.
+*JuegoPanel: acá es donde pasa todo lo central del juego, las actualizaciones de mouse, gráficos, y el juego en sí.
+*Mapa gráfico: aquí es donde se calcula todo lo central a lo gráfico.
+
+###El constructor del mapa, funciona así: 
 Primero abre el “.map”, lee la primeras líneas que son ID, las dimensiones , y el nombre de la hoja de sprite a usar, luego levanta en una matriz todos los tiles del piso, (que en el archivo de mapa está representado como número, el sprite para usar). Luego sigue una matriz de obstáculos, que si hay:
 *0 significa que no hay obstáculo.
 *1 hay obstáculo pero no se dibuja nada(trasparente).
