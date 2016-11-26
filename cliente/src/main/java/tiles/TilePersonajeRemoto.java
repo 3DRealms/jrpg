@@ -3,7 +3,9 @@ package tiles;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.util.List;
+
 import juego.Camara;
 import mapa.Punto;
 import mapagrafico.dijkstra.AlgoritmoDelTacho;
@@ -188,6 +190,16 @@ public class TilePersonajeRemoto extends TilePersonaje {
 			movimiento = 6;
 			return;
 		}
+	}
+	
+	@Override
+	public BufferedImage obtenerFrameActual() {
+		movimientoAnterior = movimiento;
+		
+		if (hayCamino())
+			return animacionCaminado[movimiento].getFrameActual();
+		
+		return animacionCaminado[movimientoAnterior].getFrame(8);
 	}
 
 }
