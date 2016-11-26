@@ -23,10 +23,13 @@ import casta.Casta;
 import gson.CastaInstanceCreator;
 import gson.EquipoInstanceCreator;
 import gson.HabilidadInstanceCreator;
+import gson.ItemInstanceCreator;
+import gson.LanzableInstanceCreator;
 import gson.PersonajeInstanceCreator;
 import habilidad.Habilidad;
 import interfaces.Equipo;
 import item.ItemEquipo;
+import item.ItemLanzable;
 import juego.JuegoPanel;
 import mensaje.*;
 import personaje.Personaje;
@@ -112,6 +115,7 @@ public class Cliente {
 		gsonBuilder.registerTypeAdapter(Personaje.class, new PersonajeInstanceCreator()); 
 		gsonBuilder.registerTypeAdapter(Equipo.class, new EquipoInstanceCreator()); 
 		gsonBuilder.registerTypeAdapter(Habilidad.class,new HabilidadInstanceCreator());
+		gsonBuilder.registerTypeAdapter(ItemLanzable.class, new LanzableInstanceCreator()); 
 		Gson gson = gsonBuilder.create();
 		String lect = lectura.readUTF();
 		return gson.fromJson(lect, Personaje.class);
@@ -141,6 +145,8 @@ public class Cliente {
 		}
 		
 		if(men.isItem()){
+			GsonBuilder gsonBuilder = new GsonBuilder();
+			gsonBuilder.registerTypeAdapter(ItemEquipo.class, new ItemInstanceCreator()); 
 			men = gson.fromJson(leido, MensajeItem.class);
 			ItemEquipo aux = ((MensajeItem) men).getItem();
 			pj.agregarAMochila(aux.getNombre(), aux);
@@ -148,7 +154,8 @@ public class Cliente {
 		}
 		
 		if(men.isDesconexion()){
-			men.getEmisor();
+			juego.quitarPersonaje(men.getEmisor());
+			
 			// ACA DANI usa este nombre.
 		}
 

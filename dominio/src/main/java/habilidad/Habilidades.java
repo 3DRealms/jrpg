@@ -1,4 +1,4 @@
-package servidor;
+package habilidad;
 
 
 import java.sql.SQLException;
@@ -16,9 +16,14 @@ public class Habilidades {
 		habilidades = SQLiteJDBC.obtenerHabilidades();
 	}
 
-	public static Habilidades getInstance() throws SQLException {
+	public static Habilidades getInstance(){
 		if(instance == null) {
-			instance = new Habilidades();
+			try {
+				instance = new Habilidades();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return instance;
 	}

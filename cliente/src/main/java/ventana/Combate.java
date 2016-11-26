@@ -154,7 +154,7 @@ public class Combate extends JFrame {
 			}
 		});
 		btnHuir.setBounds(28, 158, 200, 28);
-		menuAcciones.add(btnHuir);
+		//menuAcciones.add(btnHuir);
 		
 		btnMochila = new CombatButton("MOCHILA");
 		btnMochila.setFocusPainted(false); 

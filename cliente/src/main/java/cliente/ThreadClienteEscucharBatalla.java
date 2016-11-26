@@ -29,6 +29,9 @@ public class ThreadClienteEscucharBatalla extends Thread{
 				combat.actualizarEstado(men);
 				men = cliente.pedirActualizacionBatlla();
 			}
+			if(men.isDesconexion()){
+				men = cliente.pedirActualizacionBatlla();
+			}
 			if(men.isPedirAccion()){
 				combat.pedirAccion();
 			}	

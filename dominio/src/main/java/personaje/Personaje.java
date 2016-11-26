@@ -126,6 +126,9 @@ public abstract class Personaje implements Atacable {
 	}
 	
 	public Personaje() {
+		mochilaItemLanzable = new HashMap<String, ItemLanzable>();
+		itemEquipado = new HashMap<String, ItemEquipo>();
+		mochilaEquipo = new HashMap<String, ItemEquipo>();
 /*
 		mochilaItemLanzable = new HashMap<String, ItemLanzable>();
 		itemEquipado = new HashMap<String, ItemEquipo>();

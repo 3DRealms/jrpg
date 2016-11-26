@@ -7,6 +7,7 @@ import javax.swing.JTextArea;
 import database.SQLiteJDBC;
 import habilidad.Habilidad;
 import item.ItemEquipo;
+import item.ItemsLanzables;
 import mensaje.*;
 import personaje.FactoriaPersonaje;
 import personaje.Personaje;
@@ -50,6 +51,8 @@ public class ThreadEscuchar extends Thread{
 				if(sqcon.crearUsuario(men.getUsername(), men.getPassword())){
 					//si los datos son para un nuevo registro sigo con el mismo
 					Personaje newper = FactoriaPersonaje.getPersonaje(men.getUsername(), men.getRaza(), men.getCasta());
+					ItemsLanzables items = ItemsLanzables.getInstance();
+					newper.guardarItem("pocionVida", items.getLanzable("pocionVida"));
 					newper.setUbicacion(6, 6);
 					if(sqcon.guardarPersonaje(newper))
 						cliente.enviarMensajeConfirmacion(true, "");

@@ -195,4 +195,10 @@ public class JuegoPanel extends Component implements Runnable{
 		
 	}
 
+
+	public void quitarPersonaje(String emisor) {
+		personajes.remove(emisor);
+		
+	}
+
 }

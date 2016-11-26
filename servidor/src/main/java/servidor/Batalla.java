@@ -98,11 +98,11 @@ public class Batalla extends Thread  {
 			accionesEquipo1 = pedirAcciones(socketEquipo1);
 			accionesEquipo2 = pedirAcciones(socketEquipo2);
 			
-			//sleep(2000);
+			sleep(2000);
 			while((accionesEquipo1.size() + accionesEquipo2.size()) < (socketEquipo1.size() + socketEquipo2.size())){
 				limpiarCanal(socketEquipo1);
 				limpiarCanal(socketEquipo2);
-				//sleep(500);
+				sleep(500);
 			}
 				
 			turnoPorVelocidad( accionesEquipo1 , accionesEquipo2 ); // Las ejecuto.
@@ -133,10 +133,10 @@ public class Batalla extends Thread  {
 */
 
 	private void limpiarCanal(List<SocketCliente> socketEquipo12) {
-		System.out.println("entre a limpiar");
+
 		for (SocketCliente cliente : socketEquipo12) {
 			if(cliente.isCerrado()){
-				System.out.println("limpie");
+
 				socketEquipo12.remove(cliente);
 				cliente.getPer().matar();
 				canal.quitarCliente(cliente);

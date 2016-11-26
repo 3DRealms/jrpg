@@ -21,6 +21,9 @@ public class PersonajePrueba extends Personaje{
 		this.saludActual = calcularSaludTotal();
 		this.energiaActual = calcularEnergiaTotal();
 	}
+	public PersonajePrueba() {
+		super();
+	}
 	@Override
 	public  int calcularSaludTotal(){
 		return saludBase+getVitalidad()*4; // cada 5 puntos da 20 de vida.

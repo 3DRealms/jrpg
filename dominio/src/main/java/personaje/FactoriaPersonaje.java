@@ -1,5 +1,6 @@
 package personaje;
 
+import habilidad.Habilidades;
 import raza.Humano;
 import raza.Mognatal;
 import raza.Orco;
@@ -25,16 +26,20 @@ public class FactoriaPersonaje {
 	}
 	
 	private static Personaje ponerCasta(Personaje per, String casta){
+		Habilidades habs = Habilidades.getInstance();
 		if (casta.equals("guerrero")) {
 			per.setCastaGuerrero();
+			per.agregarHabilidad("espadazo", habs.getHabilidad("espadazo"));
 			return per;
 		}
 		if(casta.equals("loromaster")){
 			per.setCastaLoroMaster();
+			per.agregarHabilidad("curar", habs.getHabilidad("curar"));
 			return per;
 		}
 		if(casta.equals("mago")){
 			per.setCastaMago();
+			per.agregarHabilidad("piroexplosion", habs.getHabilidad("piroexplosion"));
 			return per;
 		}
 		return null;

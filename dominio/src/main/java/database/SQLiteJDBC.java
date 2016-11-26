@@ -12,6 +12,7 @@ import gson.CastaInstanceCreator;
 import gson.EquipoInstanceCreator;
 import gson.HabilidadDeserialiser;
 import gson.HabilidadInstanceCreator;
+import gson.LanzableInstanceCreator;
 import gson.PersonajeInstanceCreator;
 import habilidad.*;
 import interfaces.Equipo;
@@ -208,6 +209,7 @@ public class SQLiteJDBC
 			gsonBuilder.registerTypeAdapter(Casta.class, new CastaInstanceCreator()); 
 			gsonBuilder.registerTypeAdapter(Personaje.class, new PersonajeInstanceCreator()); 
 			gsonBuilder.registerTypeAdapter(Equipo.class, new EquipoInstanceCreator()); 
+			gsonBuilder.registerTypeAdapter(ItemLanzable.class, new LanzableInstanceCreator()); 
 			gsonBuilder.registerTypeAdapter(Habilidad.class, new HabilidadDeserialiser()).create();
 			Gson gson = gsonBuilder.create();
 			String stringRes = rs.getString("json");
