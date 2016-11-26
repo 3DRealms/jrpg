@@ -136,6 +136,18 @@ public class Canal {
 
 	public void detenerPersonaje(Personaje per){
 		map.detenerPersonaje(per);		
+	}	
+	public void subirEstado(Personaje per, MensajeInteraccion mens) {
+		if(mens.getEmisor().equals("intelecto"))
+			per.subirIntelecto();
+		if(mens.getEmisor().equals("vitalidad"))
+			per.subirVitalidad();
+		if(mens.getEmisor().equals("destreza"))
+			per.subirDestreza();
+		if(mens.getEmisor().equals("fuerza"))
+			per.subirFuerza();
+		if(mens.getEmisor().equals("velocidad"))
+			per.subirVelocidad();
 	}
 
 	public CanalCombate empezarCombate(String desafiador, String desafiado) {
@@ -207,5 +219,7 @@ public class Canal {
 	public boolean estaCliente(SocketCliente cliente) {
 		return canal.containsValue(cliente);
 	}
+
+
 
 }

@@ -10,6 +10,7 @@ public class MensajeInteraccion {
 	public static final String ARRANCOCOMBATE = "arrancoCombate";
 	public static final String PARADO = "parado";
 	public static final String ITEM = "item";
+	public static final String ESTADO = "estado";
 	
 	public static final String ACTBATALLA = "actualizar";
 	public static final String PEDIRACCION = "pediroAccion";
@@ -70,6 +71,10 @@ public class MensajeInteraccion {
 
 	public boolean isItem() {
 		return tipo.equals(MensajeInteraccion.ITEM);
+	}
+
+	public boolean isEstado() {
+		return tipo.equals(MensajeInteraccion.ESTADO);
 	}
 
 }

@@ -134,7 +134,9 @@ public class ThreadEscuchar extends Thread{
 					ItemEquipo i = itemsEquipables.getHabilidad(mens.getEmisor());
 					new ThreadEnviarInteraccion(can, new MensajeItem("", MensajeInteraccion.ITEM,i)).start();
 				}
-
+				if(mens.isEstado()){
+					can.subirEstado(cliente.getPer(), mens);
+				}
 				if( mens.isCombate() ){
 					CanalCombate canalCombate  = can.empezarCombate(cliente.getPer().getNombre(), mens.getEmisor());
 					can.addCombate(canalCombate);

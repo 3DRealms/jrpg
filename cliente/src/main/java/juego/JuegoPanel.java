@@ -39,7 +39,6 @@ public class JuegoPanel extends Component implements Runnable{
 	protected Opciones opciones;
 	protected Cliente cliente;
 	protected EnviadorPosicion env;
-	protected ControlPanel controlPanel;
 	private MapaGrafico mapa;
 	private Thread thread;
 	private Mouse mouse;
@@ -61,7 +60,7 @@ public class JuegoPanel extends Component implements Runnable{
 		setPreferredSize(new Dimension(ANCHO, ALTO));
 		setFocusable(true);
 		requestFocus();
-		opciones = new Opciones(pj);
+		opciones = new Opciones(pj,cliente);
 		mouse  = new Mouse();
 		camara = new Camara(ANCHO, ALTO);
 		addMouseListener(mouse);
