@@ -744,8 +744,8 @@ public abstract class Personaje implements Atacable {
 	public String getSprite() {
 		return this.sprite;
 	}
-	public String getItemEquipables() {
-		return itemEquipado.toString();
+	public Map<String,ItemEquipo> getItemEquipables() {
+		return itemEquipado;
 	}
 	public PersonajeSimple getSimplificado() {
 		return new PersonajeSimple(this.nombre, this.calcularSaludTotal(),this.calcularEnergiaTotal() , this.saludActual, this.energiaActual, this.sprite);

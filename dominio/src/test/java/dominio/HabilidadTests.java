@@ -47,7 +47,6 @@ public class HabilidadTests {
 		int alexSalud = alex.getSaludActual();
 		
 		dani.lanzarHabilidad("piroexplosion", alex); 
-		//System.out.println(alexSalud + " - " + alex.getSaludActual());
 		// Piro Explosion quita 20 puntos de vida. 
 		Assert.assertEquals( alexSalud - 50, alex.getSaludActual());
 		

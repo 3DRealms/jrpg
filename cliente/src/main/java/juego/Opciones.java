@@ -1,23 +1,53 @@
 package juego;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import cliente.Cliente;
+import item.ItemEquipo;
 import mensaje.MensajeInteraccion;
 import personaje.Personaje;
 
 @SuppressWarnings("serial")
 public class Opciones extends JFrame {
+	private JPanel listaPanel;
+	private DefaultListModel<String> listModel;
+	private List<String> llavesListModel;
+	private Cliente cliente;
+	private Personaje pj;
+	private JScrollPane listaScroll;
+	private JList<String> lista;
 
 	public Opciones(Personaje pj, Cliente cliente) {
+		this.cliente = cliente;
+		this.pj = pj;
+		listModel = new DefaultListModel<String>();
+		llavesListModel = new ArrayList<String>();
+		listaPanel = new JPanel();
+		listaScroll = new JScrollPane();
+		listaScroll.setBounds(20, 20, 728, 160);
+		listaPanel.add(listaScroll);
+		lista = new JList<String>(listModel);
+		lista.setBounds(0, 0, 728, 160);
+		lista.setBackground(Color.LIGHT_GRAY);
+		listaScroll.setViewportView(lista);
+		cargarItems();
+		
 		setVisible(false);
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(null);
@@ -59,7 +89,7 @@ public class Opciones extends JFrame {
 				if( pj.subirIntelecto() ){
 					lblIntelecto.setText(""+pj.getIntelecto());
 					lblPuntos.setText("Puntos: "+pj.getPuntosDeEstados());
-					enviarMensaje(cliente,"intelecto");
+					enviarMensajeSubirEstado("intelecto");
 				}
 			}
 
@@ -73,7 +103,7 @@ public class Opciones extends JFrame {
 				if( pj.subirVitalidad() ){
 					lblVitalidad.setText(""+pj.getVitalidad());
 					lblPuntos.setText("Puntos: "+pj.getPuntosDeEstados());
-					enviarMensaje(cliente,"vitalidad");
+					enviarMensajeSubirEstado("vitalidad");
 				}
 			}
 
@@ -88,7 +118,7 @@ public class Opciones extends JFrame {
 				if( pj.subirDestreza() ){
 					lblDestreza.setText(""+pj.getDestreza());
 					lblPuntos.setText("Puntos: "+pj.getPuntosDeEstados());
-					enviarMensaje(cliente,"destreza");
+					enviarMensajeSubirEstado("destreza");
 				}
 			}
 		});
@@ -101,7 +131,7 @@ public class Opciones extends JFrame {
 				if( pj.subirFuerza() ){
 					lblFuerza.setText(""+pj.getFuerza());
 					lblPuntos.setText("Puntos: "+pj.getPuntosDeEstados());
-					enviarMensaje(cliente,"fuerza");
+					enviarMensajeSubirEstado("fuerza");
 				}
 			}
 		});
@@ -114,13 +144,11 @@ public class Opciones extends JFrame {
 				if( pj.subirVelocidad() ){
 					lblVelocidad.setText(""+pj.getVelocidad());
 					lblPuntos.setText("Puntos: "+pj.getPuntosDeEstados());
-					enviarMensaje(cliente,"velocidad");
+					enviarMensajeSubirEstado("velocidad");
 				}
 			}
 		});
 		getContentPane().add(btnVelocidad);
-
-
 		JPanel panel = new JPanel();
 		panel.setBounds(157, 29, 109, 156);
 		getContentPane().add(panel);
@@ -129,9 +157,10 @@ public class Opciones extends JFrame {
 		lblEquipo.setBounds(157, 11, 46, 14);
 		getContentPane().add(lblEquipo);
 
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(331, 29, 93, 156);
-		getContentPane().add(panel_1);
+		JPanel mochilaPanel = new JPanel();
+		mochilaPanel.setBounds(331, 29, 93, 156);
+		getContentPane().add(mochilaPanel);
+		mochilaPanel.add(listaPanel);
 
 		JLabel lblEquipo_1 = new JLabel("Equipo");
 		lblEquipo_1.setBounds(331, 11, 46, 14);
@@ -141,11 +170,25 @@ public class Opciones extends JFrame {
 		btnEquipar.setBounds(276, 63, 45, 57);
 		getContentPane().add(btnEquipar);
 	}
-	private static void enviarMensaje(Cliente cliente,String estado) {
+
+
+	private void enviarMensajeSubirEstado(String estado) {
 		try {
 			cliente.enviarInteraccion(new MensajeInteraccion(estado, MensajeInteraccion.ESTADO));
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, "Error en actualizar datos.\nDetalles: "+e.toString());
 		}
 	}
+
+	private void cargarItems(){
+		llavesListModel.clear();
+		Map<String,ItemEquipo> equipables = pj.getItemEquipables();
+		for (String equipo : equipables.keySet()) {
+			listModel.addElement(equipables.get(equipo).getNombre());
+			llavesListModel.add(equipo);
+		}
+	}
 }
+
+
+

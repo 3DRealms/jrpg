@@ -3,6 +3,7 @@ package cliente;
 import java.awt.Cursor;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.TextArea;
 import java.awt.Toolkit;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -216,12 +217,10 @@ public class Cliente {
 		try {
 			enviarObjeto(men);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error al enviar mensaje.\nDetalles: "+e.toString());
 		}
 			
 		new ThreadClienteEscucharBatalla(this,combat).start();
-		
 		
 	}
 

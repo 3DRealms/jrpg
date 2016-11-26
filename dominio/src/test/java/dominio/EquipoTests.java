@@ -52,9 +52,6 @@ public class EquipoTests {
 		//Equipo los dos anillos:
 		dani.equipar( equipables.get("AnilloDragon")  );	//	| 15+
 		dani.equipar( equipables.get("EscudoMadera")   );	// 	|  5
-		
-		System.out.println(dani.getItemEquipables());
-
 		Assert.assertEquals( 20 , dani.obtenerPuntosDeDefensaFisica());
 	}
 

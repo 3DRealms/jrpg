@@ -10,7 +10,6 @@ public class Grafo {
 
 	private ArrayList<Nodo> nodos;
 	private Nodo[][] nodosVistados;
-	//	private AlgoritmoDelTacho d;
 
 	/*
 	 *  00 	01	02	03	04
@@ -66,48 +65,9 @@ public class Grafo {
 		return aux;
 	}
 
-
-
-	/**	
-	 * 	c = comienzo.
-	 *  x = destino.
-	 * 
-	 *		0 - 0 - 0 - 0 
-	 * 		| X | X | X |
-	 * 		0 - 0 - 0 - 0 
-	 * 		| X | X | X |
-	 *		0 - 0 - 0 - 0 
-	 * 		| X | X | X |
-	 * 		0 - 0 - 0 - 0 
-	 */
-
-	/*public static void main(String[] args) {
-		int n = 5;
-		boolean[][] m = new boolean[n][n];
-		m[2][2]= true; //hay ostaculo
-		m[1][1]= true;
-		m[1][2]= true;
-		m[1][3]= true;
-
-		m[3][1]= true;
-		m[3][2]= true;
-		m[3][3]= true;
-		m[3][4]= true;
-		MatrizBoolean obstaculos = new MatrizBoolean(m, n, n);
-
-		Grafo g = new Grafo(obstaculos);
-
-		System.out.println(g);
-	}*/
-
-
-
 	public List<Nodo> getListaNodos() {
 		return this.nodos;
 	}
-
-
-
 
 }
 
