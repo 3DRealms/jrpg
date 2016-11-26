@@ -24,7 +24,8 @@ public class TilePersonajeRemoto extends TilePersonaje {
 	AlgoritmoDelTacho moverGordo;
 	private int nx;
 	private int ny;
-
+	protected double distancia;
+	protected Punto desti;
 
 
 	public TilePersonajeRemoto(String nombre,String sprite, Punto point, Camara camara) {
@@ -56,6 +57,10 @@ public class TilePersonajeRemoto extends TilePersonaje {
 		moverGordo 	= 	new AlgoritmoDelTacho();
 		moverGordo.calcularDijkstra(grafoDeMapa, actual, destino);
 		camino 		=	moverGordo.obtenerCamino(destino);
+		camino.add(destino); //Solucion provisoria xD
+		camino.add(destino);
+
+		desti = destino.getPunto();
 	}
 
 	private void moverUnPaso() { // Esto tengo que ver, pero lo que hace es mover paso a paso por el camino del DI kjsoihyoas TRAMMMMMMMMMMM
@@ -69,8 +74,11 @@ public class TilePersonajeRemoto extends TilePersonaje {
 		xDestino = paso.getPunto().getX();
 		yDestino = paso.getPunto().getY();
 		camino.remove(0);
+		distancia = desti.calcularDistancia(paso.getPunto());
+		
 		enMovimiento = false;
 	}
+
 	
 	public void mover(Graphics2D g2d) {
 		
@@ -194,7 +202,8 @@ public class TilePersonajeRemoto extends TilePersonaje {
 	
 	@Override
 	public BufferedImage obtenerFrameActual() {
-		movimientoAnterior = movimiento;
+		if(distancia != 0)
+			movimientoAnterior = movimiento;
 		
 		if (hayCamino())
 			return animacionCaminado[movimiento].getFrameActual();
