@@ -148,7 +148,7 @@ public class Canal {
 
 		EquipoSimple eq1 = new EquipoSimple(canal.get(desafiador).getPer().obtenerEquipoSimple());
 		EquipoSimple eq2 = new EquipoSimple(canal.get(desafiado).getPer().obtenerEquipoSimple());
-		CanalCombate can = new CanalCombate();
+		CanalCombate can = new CanalCombate(this);
 		for (PersonajeSimple pj : eq1.getPersonajes()) {
 			can.agregarEquipo1(canal.get(pj.getNombre()));
 		}

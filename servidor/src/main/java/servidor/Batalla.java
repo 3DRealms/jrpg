@@ -161,7 +161,7 @@ public class Batalla extends Thread  {
 		}
 		}
 		catch (ConcurrentModificationException e) {
-			// TODO: handle exception
+			// Superposicion de acciones? NO TENGO NI IDEA QUE AVISAR ACA!
 		}
 		return acciones;
 	}

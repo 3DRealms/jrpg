@@ -12,7 +12,8 @@ public class CanalCombate {
 
 	private List<SocketCliente> equipo1;
 	private List<SocketCliente> equipo2;
-	private boolean termino = false; // por eso de las moscas	
+	private boolean termino = false; // por eso de las moscas
+	private Canal canal;
 
 
 	public boolean isTermino() {
@@ -22,9 +23,10 @@ public class CanalCombate {
 		termino = b;
 	}
 
-	public CanalCombate(){
+	public CanalCombate(Canal canal){
 		equipo1 = new ArrayList<SocketCliente>();
 		equipo2 = new ArrayList<SocketCliente>();
+		this.canal = canal;
 	}
 
 	public void agregarEquipo1(SocketCliente client){
@@ -56,14 +58,14 @@ public class CanalCombate {
 			try {
 				cliente.enviarMensaje(new MensajeActualizacionCobate("",MensajeInteraccion.FINBATALLA,0,0,"Gano alguien"));
 			} catch (IOException e) {
-				//debo desconectar a este cliente
+				canal.quitarCliente(cliente);
 			}
 		}
 		for (SocketCliente cliente : equipo2) {
 			try {
 				cliente.enviarMensaje(new MensajeActualizacionCobate("",MensajeInteraccion.FINBATALLA,0,0,"Gano alguien"));
 			} catch (IOException e) {
-				//debo desconectar a este cliente
+				canal.quitarCliente(cliente);
 			}
 		}
 		
