@@ -26,6 +26,7 @@ import gson.HabilidadInstanceCreator;
 import gson.PersonajeInstanceCreator;
 import habilidad.Habilidad;
 import interfaces.Equipo;
+import item.ItemEquipo;
 import juego.JuegoPanel;
 import mensaje.*;
 import personaje.Personaje;
@@ -141,6 +142,8 @@ public class Cliente {
 		
 		if(men.isItem()){
 			men = gson.fromJson(leido, MensajeItem.class);
+			ItemEquipo aux = ((MensajeItem) men).getItem();
+			pj.agregarAMochila(aux.getNombre(), aux);
 			
 		}
 		

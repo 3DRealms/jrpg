@@ -66,7 +66,7 @@ public class Canal {
 
 	public void quitarCliente(SocketCliente cliente){
 		
-		canal.remove(cliente);
+		canal.remove(cliente.getUsuario());
 		map.quitarPersonaje(cliente.getUsuario());
 		if(!sqcon.guardarPersonaje(cliente.getPer())){
 			textArea.append("No se pudo guardar el personaje " + cliente.getUsuario());
@@ -90,7 +90,7 @@ public class Canal {
 			try {
 				cliente.enviarMensaje(men);
 			} catch (IOException e) {
-				textArea.append("Error al enviar mensaje\nDetalle: "+e.toString()+"\n");
+				//textArea.append("Error al enviar mensaje\nDetalle: "+e.toString()+"\n");
 
 				this.quitarCliente(cliente);
 			}
@@ -106,7 +106,7 @@ public class Canal {
 			try {
 				cliente.enviarMensaje(new MensajeMovimiento(personajes.get(key).getUbicacion(), key, nombre, personajes.get(key).getSprite()));
 			} catch (IOException e) {
-				textArea.append("Error al enviar mensaje\nDetalle: "+e.toString()+"\n");		
+				//textArea.append("Error al enviar mensaje\nDetalle: "+e.toString()+"\n");		
 				this.quitarCliente(cliente);		 // Se trata el error.
 				
 			}
@@ -124,7 +124,7 @@ public class Canal {
 			try {
 				cliente.enviarMensaje(men);
 			} catch (IOException e) {
-				textArea.append("Error al enviar mensaje\nDetalle: "+e.toString()+"\n");							
+				//textArea.append("Error al enviar mensaje\nDetalle: "+e.toString()+"\n");							
 				this.quitarCliente(cliente);
 			}	
 		}
@@ -170,7 +170,7 @@ public class Canal {
 			try {
 				cliente.enviarMensaje(men);
 			} catch (IOException e) {
-				textArea.append("Error al enviar mensaje\nDetalle: "+e.toString()+"\n");							
+				//textArea.append("Error al enviar mensaje\nDetalle: "+e.toString()+"\n");							
 				this.quitarCliente(cliente);
 				
 			}
@@ -181,7 +181,7 @@ public class Canal {
 			try {
 				cliente.enviarMensaje(men);
 			} catch (IOException e) {
-				textArea.append("Error al enviar mensaje\nDetalle: "+e.toString()+"\n");							
+				//textArea.append("Error al enviar mensaje\nDetalle: "+e.toString()+"\n");							
 				this.quitarCliente(cliente);
 				
 			}

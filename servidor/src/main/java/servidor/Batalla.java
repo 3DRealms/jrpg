@@ -9,6 +9,7 @@ import java.util.List;
 
 import acciones.Accion;
 import acciones.FactoriaAcciones;
+
 import personaje.Personaje;
 import interfaces.Equipo;
 import mensaje.MensajeActualizacionCobate;
@@ -88,12 +89,22 @@ public class Batalla extends Thread  {
 		// Peleo mientras no haya ganador
 		List<Accion> accionesEquipo1;
 		List<Accion> accionesEquipo2;
+		long timeout;
 
 		while( obtenerGanador() == null ){
-
+			
+			//timeout = System.currentTimeMillis();
+			
 			accionesEquipo1 = pedirAcciones(socketEquipo1);
 			accionesEquipo2 = pedirAcciones(socketEquipo2);
-
+			
+			//sleep(2000);
+			while((accionesEquipo1.size() + accionesEquipo2.size()) < (socketEquipo1.size() + socketEquipo2.size())){
+				limpiarCanal(socketEquipo1);
+				limpiarCanal(socketEquipo2);
+				//sleep(500);
+			}
+				
 			turnoPorVelocidad( accionesEquipo1 , accionesEquipo2 ); // Las ejecuto.
 		}
 
@@ -121,25 +132,32 @@ public class Batalla extends Thread  {
 	}
 */
 
+	private void limpiarCanal(List<SocketCliente> socketEquipo12) {
+		System.out.println("entre a limpiar");
+		for (SocketCliente cliente : socketEquipo12) {
+			if(cliente.isCerrado()){
+				System.out.println("limpie");
+				socketEquipo12.remove(cliente);
+				cliente.getPer().matar();
+				canal.quitarCliente(cliente);
+				
+			}
+				
+		}
+
+	}
+
+
+
 	private List<Accion> pedirAcciones(List<SocketCliente> eq ) throws IOException{
-		Accion acc;
-		MensajeBatalla men;
+		
 
 		List<Accion> acciones = new ArrayList<>();
 		try{
 		for(SocketCliente cliente : eq){
 			if(cliente.getPer().estaMuerto())
 				continue; //saltea el pj
-
-			try {
-				men = cliente.pedirMensajeBatalla();
-				acc = FactoriaAcciones.getAccion(buscarPJ(men.getEmisor()),buscarPJ(men.getObjetivo()),men.getAccion(),men.getTipo());
-				acciones.add( acc );
-			} catch (IOException e) {
-				eq.remove(cliente);
-				cliente.getPer().matar();
-				canal.quitarCliente(cliente);
-			}
+			new ThreadEscucharBatalla(cliente,acciones,this).start();
 		}
 		}
 		catch (ConcurrentModificationException e) {
@@ -270,7 +288,7 @@ public class Batalla extends Thread  {
 	}
 
 
-	private Personaje buscarPJ(String string) {
+	public Personaje buscarPJ(String string) {
 		for(SocketCliente cliente : socketEquipo1){
 		if( string.equals(cliente.getPer().getNombre()))
 				return cliente.getPer();
@@ -377,12 +395,15 @@ public class Batalla extends Thread  {
 	}
 
 
-	private int getNivelPromedio(List<Personaje> ganador) {
-		int nivelPromedio = 0;
-		for (Personaje pj : ganador) {
-			nivelPromedio += pj.getNivel();
-		}
-		return nivelPromedio/ganador.size();
+
+
+
+	public void quitarCliente(SocketCliente cliente) {
+		if(!socketEquipo1.remove(cliente))
+			socketEquipo2.remove(cliente);
+		cliente.getPer().matar();
+		canal.quitarCliente(cliente);
+		
 	}
 
 

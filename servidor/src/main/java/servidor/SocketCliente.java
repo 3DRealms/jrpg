@@ -108,6 +108,10 @@ public class SocketCliente {
 		return men;
 	}
 
+	public boolean isCerrado() {
+		return cliente.isClosed();
+	}
+
 
 	
 	

@@ -129,8 +129,7 @@ public class ThreadEscuchar extends Thread{
 				}
 				if(mens.isItem()){					
 					ItemEquipo i = itemsEquipables.getHabilidad(mens.getEmisor());
-					
-				//	new ThreadEnviarInteraccion(can, new MensajeInteraccion(/, tipo)).start();
+					new ThreadEnviarInteraccion(can, new MensajeItem("", MensajeInteraccion.ITEM,i)).start();
 				}
 
 				if( mens.isCombate() ){
