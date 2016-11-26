@@ -4,6 +4,7 @@ package servidor;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 
 import acciones.Accion;
@@ -24,10 +25,13 @@ public class Batalla extends Thread  {
 	private List<SocketCliente> socketEquipo2;
 	private List<Personaje> equipo1;
 	private List<Personaje> equipo2;
+	
+	private Canal canal;
 
 
 
-	public Batalla(CanalCombate canalCombate)  {
+	public Batalla(CanalCombate canalCombate, Canal canal)  {
+		this.canal = canal;
 		this.socketEquipo1 = canalCombate.getEq1();
 		this.socketEquipo2 = canalCombate.getEq2();
 		equipo1 = new ArrayList<>();
@@ -96,7 +100,7 @@ public class Batalla extends Thread  {
 		finalizarBatalla(obtenerGanador());
 	}
 
-
+/* NO se estaria usando
 	private void mandarPersonajes() throws IOException {
 		for(SocketCliente cliente : socketEquipo1){
 			try {
@@ -115,13 +119,14 @@ public class Batalla extends Thread  {
 			}
 		}		
 	}
-
+*/
 
 	private List<Accion> pedirAcciones(List<SocketCliente> eq ) throws IOException{
 		Accion acc;
 		MensajeBatalla men;
 
 		List<Accion> acciones = new ArrayList<>();
+		try{
 		for(SocketCliente cliente : eq){
 			if(cliente.getPer().estaMuerto())
 				continue; //saltea el pj
@@ -131,9 +136,14 @@ public class Batalla extends Thread  {
 				acc = FactoriaAcciones.getAccion(buscarPJ(men.getEmisor()),buscarPJ(men.getObjetivo()),men.getAccion(),men.getTipo());
 				acciones.add( acc );
 			} catch (IOException e) {
-				socketEquipo1.remove(cliente); 
-				cliente.cerrar(); // Si no puede enviar mensaje, y bue que se ponga a estudiar base de datos.
+				eq.remove(cliente);
+				cliente.getPer().matar();
+				canal.quitarCliente(cliente);
 			}
+		}
+		}
+		catch (ConcurrentModificationException e) {
+			// TODO: handle exception
 		}
 		return acciones;
 	}
@@ -152,8 +162,8 @@ public class Batalla extends Thread  {
 		Personaje pjAux;
 
 		for (Accion accion : acciones) {
-			if(accion.getEmisor().estaMuerto())
-				continue; // salta una iteracion del fo
+			if(accion.getEmisor().estaMuerto() || accion.getEmisor()== null || accion.getObjetivo() == null)
+				continue; // salta una iteracion del for si el emisor esta muerto, o si se descoecto el emisor o el objetivo
 
 			int vida = accion.getObjetivo().getSaludActual();
 			int mana = accion.getObjetivo().getEnergia();
@@ -162,9 +172,9 @@ public class Batalla extends Thread  {
 			
 			 vida -=accion.getObjetivo().getSaludActual();
 			 mana -= accion.getObjetivo().getEnergia();
-			 if(vida<0){
+			 /*if(vida<0){
 				 vida=accion.getObjetivo().getVitalidad();
-			 }
+			 }*/
 			
 			pjAux = accion.getEmisor();
 			String aux = armarMensajeLanzar(accion.getEmisor().getNombre(),accion.getObjetivo().getNombre(),accion.getTipo(),accion.getAccion());
@@ -244,15 +254,17 @@ public class Batalla extends Thread  {
 				cliente.enviarMensaje(men);
 			} catch (IOException e) {
 				socketEquipo1.remove(cliente);
-				cliente.cerrar();
+				cliente.getPer().matar();
+				canal.quitarCliente(cliente);
 			}
 		}		
 		for(SocketCliente cliente : socketEquipo2){
 			try {
 				cliente.enviarMensaje(men);
 			} catch (IOException e) {
-				socketEquipo1.remove(cliente); 
-				cliente.cerrar();
+				socketEquipo2.remove(cliente);
+				cliente.getPer().matar();
+				canal.quitarCliente(cliente);
 			}
 		}
 	}
@@ -277,7 +289,9 @@ public class Batalla extends Thread  {
 				cliente.enviarMensaje(emisor);
 				cliente.enviarMensaje(objetivo);
 			} catch (IOException e) {
-				socketEquipo1.remove(cliente); cliente.cerrar();
+				socketEquipo1.remove(cliente);
+				cliente.getPer().matar();
+				canal.quitarCliente(cliente);
 			}
 		}		
 		for(SocketCliente cliente : socketEquipo2){
@@ -285,8 +299,9 @@ public class Batalla extends Thread  {
 				cliente.enviarMensaje(emisor);
 				cliente.enviarMensaje(objetivo);
 			} catch (IOException e) {
-				socketEquipo1.remove(cliente);
-				cliente.cerrar(); // Que se vaya  a la ******* de su tia :).-
+				socketEquipo2.remove(cliente);
+				cliente.getPer().matar();
+				canal.quitarCliente(cliente);
 			}
 		}		
 	}

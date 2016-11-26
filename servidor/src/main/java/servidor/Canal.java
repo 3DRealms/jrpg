@@ -67,6 +67,7 @@ public class Canal {
 	public void quitarCliente(SocketCliente cliente){
 		
 		canal.remove(cliente);
+		map.quitarPersonaje(cliente.getUsuario());
 		if(!sqcon.guardarPersonaje(cliente.getPer())){
 			textArea.append("No se pudo guardar el personaje " + cliente.getUsuario());
 		}
@@ -75,7 +76,7 @@ public class Canal {
 		} catch (IOException e1) {
 			textArea.append("No se pudo cerrar al cliente");
 		}
-		
+		new ThreadEnviarInteraccion(this, new MensajeInteraccion(cliente.getUsuario(), MensajeInteraccion.DESCONECTADO)).start();
 		// ACA MANDAR MENSAJE QUE ESTE CLIENTE ESTA DESCONECTADO A TODOS LOS USUARIOS CONECTADOS:
 
 		textArea.append("Cliente Desconectado.");

@@ -766,6 +766,12 @@ public abstract class Personaje implements Atacable {
 	public int getCantOro() {
 		return this.cantOro;
 	}
+
+	public void matar() {
+		saludActual = 0;
+		estaMUERTO=true;
+		
+	}
 	
 
 }

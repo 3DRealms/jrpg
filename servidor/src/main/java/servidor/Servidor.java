@@ -38,7 +38,7 @@ public class Servidor extends Thread{
 
 	public Servidor() throws IOException, ClassNotFoundException, SQLException{
 		SQLiteJDBC sqcon = SQLiteJDBC.getInstance();
-		jugadores = new Canal("General", 200,200,this.textArea,sqcon);
+		
 		loadProperty("server.properties");
 		
 		ventanaServidor = new JFrame();
@@ -83,6 +83,8 @@ public class Servidor extends Thread{
 		textArea.setEditable(false);
 		textArea.setBackground(Color.BLACK);
 		textArea.setForeground(Color.GREEN);
+		
+		jugadores = new Canal("General", 200,200,this.textArea,sqcon);
 	}
 
 

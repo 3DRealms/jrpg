@@ -13,6 +13,7 @@ public class MensajeInteraccion {
 	public static final String ACTBATALLA = "actualizar";
 	public static final String PEDIRACCION = "pediroAccion";
 	public static final String FINBATALLA = "finBatalla";
+	public static final String DESCONECTADO = "desconexion";
 	
 	protected String emisor;
 	
@@ -60,6 +61,10 @@ public class MensajeInteraccion {
 	
 	public boolean isFinBatalla(){
 		return tipo.equals(MensajeInteraccion.FINBATALLA);
+	}
+
+	public boolean isDesconexion() {
+		return tipo.equals(MensajeInteraccion.DESCONECTADO);
 	}
 
 

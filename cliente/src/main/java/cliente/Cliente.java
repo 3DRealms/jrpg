@@ -138,6 +138,11 @@ public class Cliente {
 		if(men.isAccion()){
 
 		}
+		
+		if(men.isDesconexion()){
+			men.getEmisor();
+			// ACA DANI usa este nombre.
+		}
 
 		if(men.isCombate()){
 			//aca ARRRRRRRANCO EL COMBATE

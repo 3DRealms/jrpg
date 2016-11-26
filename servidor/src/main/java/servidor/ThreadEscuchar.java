@@ -171,7 +171,7 @@ public class ThreadEscuchar extends Thread{
 		try {
 			MensajeInteraccion mens = cliente.pedirMensajeInteraccion();
 			sleep(4000);
-			new Batalla(canalCombate).batallar();
+			new Batalla(canalCombate,can).batallar();
 			sleep(2000);
 			canalCombate.enviarFin();
 			sleep(2000);
